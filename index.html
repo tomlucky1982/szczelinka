@@ -1,60 +1,98 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="favicon_minimal.ico">
-<title>Szczelinka</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Szczelinka</title>
+  <link rel="icon" href="favicon_minimal.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Cormorant Garamond', serif;
+      color: #1f1f1f;
+    }
 
-body{
-    margin:0;
-    background:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    font-family:'Playfair Display', serif;
-}
+    .container {
+      width: 260px;
+      text-align: center;
+    }
 
-.container{
-    width:260px; /* szerokość dopasowana do logo */
-    text-align:center;
-}
+    .logo {
+      width: 260px;
+      display: block;
+      margin: 0 auto;
+    }
 
-.logo{
-    width:260px;
-    display:block;
-}
+    .definition {
+      margin-top: 26px;
+      font-size: 28px;
+      line-height: 1.45;
+      font-style: italic;
+      color: #222;
+    }
 
-.definition{
-    margin-top:25px;
-    font-size:20px;
-    line-height:1.6;
-    font-style:italic;
-    color:#222;
-}
+    .enter-btn {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 12px 30px;
+      background: #3aa7d6;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 8px 20px rgba(58, 167, 214, 0.18);
+    }
 
-</style>
+    .enter-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(58, 167, 214, 0.24);
+      background: #2f9cca;
+    }
 
+    .enter-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 420px) {
+      .container {
+        width: 240px;
+      }
+
+      .logo {
+        width: 240px;
+      }
+
+      .definition {
+        font-size: 25px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <img src="logo.png" class="logo" alt="Szczelinka" />
 
-<div class="container">
+    <div class="definition">
+      Szczelinka to przestrzeń pomiędzy myślami.<br><br>
+      Znajduje się tam, gdzie poprzednia myśl już się zakończyła,
+      a kolejna jeszcze nie nadeszła.
+    </div>
 
-<img src="logo.png" class="logo" alt="Szczelinka">
-
-<div class="definition">
-Szczelinka to przestrzeń pomiędzy myślami.<br><br>
-Znajduje się tam, gdzie poprzednia myśl już się zakończyła,
-a kolejna jeszcze nie nadeszła.
-</div>
-
-</div>
-
+    <a href="Main_Page.html" class="enter-btn">Wejdź</a>
+  </div>
 </body>
 </html>
