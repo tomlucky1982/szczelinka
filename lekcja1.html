@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Szczelinka — Lekcja 1</title>
+  <link rel="icon" href="favicon_minimal.ico" />
+  <meta name="theme-color" content="#3aa7d6" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #1f1f1f;
+      line-height: 1.75;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 150px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      height: 125px;
+      width: auto;
+      margin-right: 50px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .menu > a,
+    .dropdown > a {
+      text-decoration: none;
+      font-size: 18px;
+      color: #3aa7d6;
+      font-weight: 500;
+      padding-bottom: 6px;
+      display: inline-block;
+    }
+
+    .menu a.active {
+      border-bottom: 2px solid #3aa7d6;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 190px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+      padding: 10px 0;
+      z-index: 1100;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      text-decoration: none;
+      color: #3aa7d6;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .dropdown-content a:hover {
+      background: rgba(58, 167, 214, 0.07);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 56px 40px 100px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 44px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #f6f6f6 0%, #f1f1f1 100%);
+      border-radius: 30px;
+      padding: 42px;
+    }
+
+    .eyebrow {
+      color: #3aa7d6;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 18px 0;
+      font-size: 48px;
+      line-height: 1.1;
+      color: #111111;
+    }
+
+    .lead {
+      font-size: 20px;
+      color: #333333;
+      margin: 0 0 22px 0;
+      max-width: 700px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 26px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .button-primary {
+      background: #3aa7d6;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(58, 167, 214, 0.20);
+    }
+
+    .button-primary:hover {
+      background: #2f9cca;
+      transform: translateY(-1px);
+    }
+
+    .button-secondary {
+      background: #ffffff;
+      color: #3aa7d6;
+      border: 1px solid rgba(58, 167, 214, 0.25);
+    }
+
+    .hero-image-wrap {
+      background: #f3f3f3;
+      border-radius: 30px;
+      padding: 24px;
+    }
+
+    .hero-image {
+      width: 100%;
+      display: block;
+      border-radius: 22px;
+      background: #ffffff;
+    }
+
+    .section {
+      margin-top: 34px;
+      margin-bottom: 34px;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 26px;
+      padding: 34px;
+    }
+
+    .section-gray {
+      background: #f3f3f3;
+      border-radius: 30px;
+      padding: 42px;
+    }
+
+    h2 {
+      margin: 0 0 18px 0;
+      font-size: 32px;
+      line-height: 1.2;
+      color: #3aa7d6;
+    }
+
+    h3 {
+      margin: 0 0 12px 0;
+      font-size: 22px;
+      color: #111111;
+    }
+
+    p {
+      margin: 0 0 16px 0;
+      font-size: 18px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+
+    .mini-card {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .quote-box {
+      border-left: 4px solid #3aa7d6;
+      background: rgba(58, 167, 214, 0.06);
+      padding: 20px 22px;
+      border-radius: 0 18px 18px 0;
+      font-size: 18px;
+      color: #222222;
+    }
+
+    .diagram-section {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .diagram-image-wrap {
+      background: #ffffff;
+      border-radius: 26px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .diagram-image {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+      background: #ffffff;
+    }
+
+    .pill-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .pill-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(58, 167, 214, 0.10);
+    }
+
+    .pill-title {
+      color: #3aa7d6;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: start;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .step-num {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #3aa7d6;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .practice-card {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .practice-card h3 {
+      color: #3aa7d6;
+      margin-bottom: 10px;
+    }
+
+    .homework {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .homework-card {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .back-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        height: auto;
+        min-height: 120px;
+        padding: 20px 22px;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .logo {
+        height: 95px;
+        margin-right: 24px;
+      }
+
+      .menu {
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .page {
+        padding: 34px 22px 70px;
+      }
+
+      .hero,
+      .diagram-section,
+      .two-col,
+      .practice-grid,
+      .homework {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .logo {
+        height: 78px;
+      }
+
+      .menu > a,
+      .dropdown > a {
+        font-size: 17px;
+      }
+
+      .dropdown-content a {
+        font-size: 15px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .hero-card,
+      .section-gray,
+      .section-card {
+        padding: 24px;
+      }
+
+      .pill-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="index.html" class="logo-link" aria-label="Powrót do strony głównej">
+      <img src="logo.png" class="logo" alt="Szczelinka">
+    </a>
+
+    <nav class="menu">
+      <a href="szczelinka.html">Szczelinka</a>
+
+      <div class="dropdown">
+        <a class="active" href="Main_Page.html#lekcja1">Lekcje</a>
+        <div class="dropdown-content">
+          <a href="lekcja1.html">Lekcja 1</a>
+          <a href="Main_Page.html#lekcja2">Lekcja 2</a>
+          <a href="Main_Page.html#lekcja3">Lekcje 3–8</a>
+        </div>
+      </div>
+
+      <a href="#">Zajęcia</a>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Lekcja 1</div>
+        <h1>Czym jest Szczelinka</h1>
+        <p class="lead">
+          Szczelinka to przestrzeń pomiędzy myślami — moment, w którym poprzednia myśl już się zakończyła, a kolejna jeszcze nie nadeszła. Właśnie tam otwiera się przejście do głębszego spokoju i trwałego szczęścia. :contentReference[oaicite:1]{index=1}
+        </p>
+
+        <div class="quote-box">
+          Prawdziwa praktyka tej lekcji nie polega na zdobywaniu kolejnej idei, ale na zauważeniu miejsca, które istnieje wcześniej niż każda idea.
+        </div>
+
+        <div class="hero-actions">
+          <a href="#cwiczenie" class="button button-primary">Przejdź do ćwiczenia</a>
+          <a href="#praca-domowa" class="button button-secondary">Zobacz pracę domową</a>
+        </div>
+      </div>
+
+      <div class="hero-image-wrap">
+        <img src="lekcja 1.png" class="hero-image" alt="Wykres plusów i minusów">
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Jaki jest sens życia?</h2>
+        <p>
+          Większość naszych działań — od drobnych wyborów po najważniejsze życiowe decyzje — ma wspólny cel: chcemy osiągnąć szczęście. Szukamy go w relacjach, osiągnięciach, bezpieczeństwie, przyjemności, uznaniu i przyszłych możliwościach. Tę intuicję bardzo wyraźnie opisuje Twój materiał źródłowy. :contentReference[oaicite:2]{index=2}
+        </p>
+        <p>
+          Problem polega na tym, że świat zewnętrzny jest zmienny. To, co dziś daje satysfakcję, jutro może stracić siłę. To, co wydaje się spełnieniem, po pewnym czasie staje się zwyczajne. Dlatego człowiek często wpada w niekończący się ruch: zdobyć coś, utrzymać to, obronić, poprawić, a potem szukać dalej.
+        </p>
+        <p>
+          Medytacja Szczelinka proponuje inny kierunek. Nie szukasz kolejnego „plusa” w świecie, ale odkrywasz źródło satysfakcji, które nie zależy od zmiennych warunków. Zamiast próbować wygrać grę, której nie da się wygrać raz na zawsze, zaczynasz zauważać to, co jest obecne jeszcze przed każdą wygraną i każdą stratą. :contentReference[oaicite:3]{index=3}
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-gray">
+        <div class="two-col">
+          <div class="mini-card">
+            <h3>Świat plusów i minusów</h3>
+            <p>
+              Umysł nieustannie klasyfikuje doświadczenia. Jedne oznacza jako dobre, pożądane i przyjemne. Inne zapisuje jako trudne, bolesne lub zagrażające. Na tej podstawie budujemy strategię życia: dążyć do plusów, unikać minusów.
+            </p>
+          </div>
+
+          <div class="mini-card">
+            <h3>Dlaczego to nie wystarcza</h3>
+            <p>
+              Nawet najlepiej ułożony plan nie daje trwałej gwarancji spokoju. Rzeczywistość nie zawsze podporządkowuje się naszym oczekiwaniom, a cierpienie często rodzi się właśnie z różnicy między tym, czego chcemy, a tym, co faktycznie się dzieje. :contentReference[oaicite:4]{index=4}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card diagram-section">
+        <div class="diagram-image-wrap">
+          <img src="lekcja 1.png" class="diagram-image" alt="Schemat przeszłości, przyszłości i Szczelinki">
+        </div>
+
+        <div>
+          <h2>Wyjaśnienie wykresu</h2>
+          <p>
+            Lewa strona wykresu reprezentuje przeszłość — zapisane doświadczenia, które pamiętamy jako przyjemne albo bolesne. Prawa strona to przyszłość — obszar planów, oczekiwań i prób ułożenia życia tak, by pojawiło się więcej „plusów”, a mniej „minusów”. Tak właśnie działa zwykły tryb umysłu. :contentReference[oaicite:5]{index=5}
+          </p>
+          <p>
+            Najważniejszy punkt znajduje się jednak pośrodku. To absolutne „teraz”: chwila, w której przeszłość już odeszła, a przyszłość jeszcze nie nadeszła. Właśnie to miejsce nazywamy Szczelinką. Nie jest ona kolejnym wydarzeniem w czasie. Jest raczej przejściem do głębi, która nie zależy od zysków i strat. :contentReference[oaicite:6]{index=6}
+          </p>
+          <p>
+            Ta przestrzeń jest bardzo subtelna. Dlatego nie da się jej uchwycić siłą ani pośpiechem. Otwiera się raczej wtedy, gdy uwaga staje się precyzyjna, spokojna i wolna od chwytania następnej myśli.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-gray">
+        <h2>Co oznacza „zostawić wszystko za sobą”</h2>
+        <p>
+          W materiale źródłowym pojawia się ważne zdanie: Szczelinka jest tak wąska, że możesz przez nią przejść tylko wtedy, gdy pozostawisz za sobą wszystko. :contentReference[oaicite:7]{index=7}
+        </p>
+        <p>
+          Nie chodzi o porzucenie życia, relacji czy obowiązków. Chodzi o chwilowe odłożenie całej wewnętrznej narracji: ocen, planów, wspomnień, komentarzy, porównań i oczekiwań. Na moment przestajesz „nieść” swoją historię. Wtedy może ujawnić się to, co nie jest historią, lecz czystą obecnością.
+        </p>
+
+        <div class="pill-grid">
+          <div class="pill-card">
+            <div class="pill-title">Nie zabieraj przeszłości</div>
+            <p>Nie analizuj teraz tego, co było. To ćwiczenie nie służy interpretacji wspomnień, lecz powrotowi do obecności.</p>
+          </div>
+
+          <div class="pill-card">
+            <div class="pill-title">Nie wyprzedzaj przyszłości</div>
+            <p>Nie planuj efektu medytacji. Każde oczekiwanie tworzy kolejną myśl, a nie przestrzeń pomiędzy myślami.</p>
+          </div>
+
+          <div class="pill-card">
+            <div class="pill-title">Nie walcz z umysłem</div>
+            <p>Nie próbuj siłą zatrzymać myśli. Wracaj do oddechu spokojnie i dokładnie.</p>
+          </div>
+
+          <div class="pill-card">
+            <div class="pill-title">Nie szukaj spektaklu</div>
+            <p>Szczelinka bywa subtelna. To nie musi być wielkie przeżycie. Często jest to po prostu czysta cisza.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cwiczenie">
+      <div class="section-card">
+        <h2>Ćwiczenie 1 — Liczenie oddechów</h2>
+        <p>
+          To podstawowa praktyka tej lekcji. Jej celem nie jest tylko uspokojenie, ale rozwinięcie takiej jakości koncentracji, która pozwala zauważyć delikatną przestrzeń pomiędzy myślami. W Twoim materiale to ćwiczenie stanowi fundament pierwszego etapu praktyki. :contentReference[oaicite:8]{index=8}
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <h3>Wybierz wdechy albo wydechy</h3>
+              <p>Zdecyduj, czy liczysz wdechy, czy wydechy. Zamknij oczy i trzymaj się jednego wariantu przez całą sesję.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <h3>Licz od 1 do 10</h3>
+              <p>Każdy oddech ma swój numer. Jeśli się pomylisz, zapomnisz liczbę albo odpłyniesz w myśli, po prostu wróć do 1. Bez irytacji, bez oceniania.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <h3>Nie zmieniaj oddechu</h3>
+              <p>Nie przyspieszaj go i nie pogłębiaj na siłę. Twoim zadaniem jest obserwować oddech takim, jaki jest, a nie produkować szczególny stan.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">4</div>
+            <div>
+              <h3>Wracaj spokojnie</h3>
+              <p>Kiedy pojawią się myśli i zerwą liczenie, wróć do procesu łagodnie. Sama chwila powrotu jest ważną częścią praktyki.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-gray">
+        <h2>Jak pogłębić koncentrację</h2>
+        <p>
+          Twój materiał proponuje cztery bardzo trafne jakości, które pomagają utrzymać uwagę przy oddechu: ciekawość, zadowolenie, dokładność i determinację. Rozwijam je tutaj, aby łatwiej było Ci wprowadzić je w praktykę. :contentReference[oaicite:9]{index=9}
+        </p>
+
+        <div class="practice-grid">
+          <div class="practice-card">
+            <h3>Ciekawość</h3>
+            <p>Patrz na oddech jak badacz. Jakbyś po raz pierwszy obserwował coś bardzo subtelnego i żywego. Zainteresowany umysł łatwiej pozostaje obecny.</p>
+          </div>
+
+          <div class="practice-card">
+            <h3>Zadowolenie</h3>
+            <p>Przypomnij sobie, że niczego teraz nie musisz osiągać poza samą obecnością. Proste zadanie staje się łatwiejsze, gdy nie niesiesz napięcia wyniku.</p>
+          </div>
+
+          <div class="practice-card">
+            <h3>Dokładność</h3>
+            <p>Traktuj uwagę jak niesienie pełnej szklanki wody przez zatłoczone miejsce. Wystarczy chwila nieuwagi i wylewasz zawartość. Tak samo działa koncentracja.</p>
+          </div>
+
+          <div class="practice-card">
+            <h3>Determinacja</h3>
+            <p>Przed sesją podejmij decyzję, że przez kilka minut będziesz wracać do oddechu tak starannie, jak tylko potrafisz. Determinacja daje praktyce stabilność.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Poziom zaawansowany</h2>
+        <p>
+          W materiale źródłowym pojawia się ważna obserwacja: gdy koncentracja jest pełna, pomiędzy liczbami nie wkradają się myśli. To bardzo precyzyjna wskazówka. :contentReference[oaicite:10]{index=10}
+        </p>
+        <p>
+          Na tym poziomie nie chodzi już tylko o „niegubienie liczb”. Chodzi o zauważenie, że myśli pojawiają się wtedy, gdy uwaga lekko się rozszczelnia. Gdy jesteś naprawdę obecny przy jednym oddechu i jednej liczbie, umysł traci przestrzeń do budowania dodatkowego komentarza.
+        </p>
+        <p>
+          Właśnie tutaj zaczyna się subtelne rozpoznanie Szczelinki. Nie poprzez siłowe wyciszenie, ale poprzez tak pełną obecność, że myśl po prostu nie ma gdzie wejść.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="praca-domowa">
+      <div class="section-gray">
+        <h2>Praca domowa</h2>
+        <div class="homework">
+          <div class="homework-card">
+            <h3>1. Pięć sesji po 5 minut</h3>
+            <p>
+              Wykonaj pięć sesji medytacji z liczeniem oddechów. Każda sesja niech trwa 5 minut. W materiale pojawia się sugestia użycia aplikacji „Interval Timer Tibetan Bowl” do odmierzania czasu. :contentReference[oaicite:11]{index=11}
+            </p>
+          </div>
+
+          <div class="homework-card">
+            <h3>2. Obserwacja decyzji</h3>
+            <p>
+              Przyglądaj się swoim codziennym wyborom. Zauważ moment podejmowania decyzji i zapytaj: dlaczego właśnie ta, a nie inna? To pozwoli Ci lepiej zobaczyć, jak umysł szuka plusów i unika minusów. :contentReference[oaicite:12]{index=12}
+            </p>
+          </div>
+        </div>
+
+        <div class="back-links">
+          <a href="Main_Page.html#lekcja1" class="button button-primary">Powrót do lekcji</a>
+          <a href="szczelinka.html" class="button button-secondary">O Szczelince</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
