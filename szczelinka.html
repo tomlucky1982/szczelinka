@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,7 +9,13 @@
 
 <link rel="icon" href="favicon_minimal.ico">
 
+<meta name="theme-color" content="#3aa7d6">
+
 <style>
+
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
@@ -17,41 +24,89 @@ background:white;
 color:#1f1f1f;
 }
 
+/* TOP BAR */
+
 .topbar{
 position:sticky;
 top:0;
-background:white;
+z-index:1000;
 height:150px;
+background:white;
 display:flex;
 align-items:center;
 padding:0 40px;
 border-bottom:1px solid rgba(0,0,0,0.08);
 }
 
+/* LOGO */
+
 .logo{
 height:125px;
 margin-right:50px;
 }
 
+/* MENU */
+
 .menu{
 display:flex;
+align-items:center;
 gap:34px;
 }
 
-.menu a{
+.menu > a,
+.dropdown > a{
 text-decoration:none;
 font-size:18px;
 color:#3aa7d6;
 font-weight:500;
+padding-bottom:6px;
+display:inline-block;
 }
 
-.menu a.active{
+.menu > a.active{
 border-bottom:2px solid #3aa7d6;
-padding-bottom:6px;
 }
+
+/* DROPDOWN */
+
+.dropdown{
+position:relative;
+}
+
+.dropdown-content{
+display:none;
+position:absolute;
+top:100%;
+left:0;
+min-width:180px;
+background:white;
+border-radius:10px;
+box-shadow:0 8px 24px rgba(0,0,0,0.10);
+padding:10px 0;
+z-index:1100;
+}
+
+.dropdown-content a{
+display:block;
+padding:10px 18px;
+text-decoration:none;
+color:#3aa7d6;
+font-size:16px;
+white-space:nowrap;
+}
+
+.dropdown-content a:hover{
+background:rgba(58,167,214,0.07);
+}
+
+.dropdown:hover .dropdown-content{
+display:block;
+}
+
+/* CONTENT */
 
 .content{
-max-width:1100px;
+max-width:1150px;
 margin:100px auto;
 padding:0 40px;
 display:flex;
@@ -59,13 +114,18 @@ align-items:center;
 gap:80px;
 }
 
+/* LOGO POZIOM */
+
 .logo-poziom{
 width:420px;
+max-width:100%;
 }
+
+/* TEXT */
 
 .text{
 font-size:19px;
-line-height:1.8;
+line-height:1.85;
 max-width:520px;
 }
 
@@ -75,7 +135,25 @@ margin-bottom:25px;
 font-size:36px;
 }
 
+/* MOBILE */
+
+@media (max-width:900px){
+
+.content{
+flex-direction:column;
+text-align:center;
+gap:40px;
+margin-top:60px;
+}
+
+.logo-poziom{
+width:320px;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
@@ -90,13 +168,26 @@ font-size:36px;
 
 <a class="active" href="szczelinka.html">Szczelinka</a>
 
-<a href="Main_Page.html">Lekcje</a>
+<div class="dropdown">
+
+<a href="Main_Page.html#lekcja1">Lekcje</a>
+
+<div class="dropdown-content">
+
+<a href="Main_Page.html#lekcja1">Lekcja 1</a>
+<a href="Main_Page.html#lekcja2">Lekcja 2</a>
+<a href="Main_Page.html#lekcja3">Lekcje 3–8</a>
+
+</div>
+
+</div>
 
 <a href="#">Zajęcia</a>
 
 </nav>
 
 </header>
+
 
 <div class="content">
 
@@ -107,28 +198,29 @@ font-size:36px;
 <h1>Szczelinka</h1>
 
 <p>
-Szczelinka to metoda medytacji, która pozwala usunąć z umysłu wszystko,
-co przemijające. To, co pozostaje i czego nie da się usunąć,
-odsłania prawdę o tym, kim naprawdę jesteśmy.
+Szczelinka to metoda medytacji, która pozwala usunąć z umysłu wszystko, co przemijające.
+To, co pozostaje i czego nie można usunąć, odsłania prawdę o tym, kim naprawdę jesteśmy.
 </p>
 
 <p>
 W tej wąskiej „Szczelince” pomiędzy myślami odkrywamy coś zaskakującego.
-Można wtedy powiedzieć, że cel życia został osiągnięty
-i nie ma już niczego więcej do odkrycia.
+Można wtedy powiedzieć, że cel życia został osiągnięty i nie ma już niczego więcej do odkrycia.
 </p>
 
 <p>
-Szczelinka jest także stanem intensywnej obecności,
+Szczelinka jest również stanem intensywnej obecności,
 w którym pojawia się całkowity brak myśli.
-Taka medytacja przynosi głębokie poczucie spełnienia,
+</p>
+
+<p>
+Tego typu medytacja przynosi głębokie poczucie spełnienia,
 czystości, błogości i spokoju.
 </p>
 
 <p>
 Otwiera się wtedy nowy wymiar istnienia —
 który w rzeczywistości zawsze był z nami,
-lecz zwykle pozostawał ukryty pod ciągłą aktywnością umysłu.
+lecz zazwyczaj pozostaje ukryty pod ciągłą aktywnością umysłu.
 </p>
 
 </div>
