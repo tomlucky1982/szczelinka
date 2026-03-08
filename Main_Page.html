@@ -132,6 +132,7 @@
       height: auto;
       display: block;
       flex-shrink: 0;
+      border-radius: 12px;
     }
 
     .lesson-text {
@@ -169,7 +170,27 @@
     .lesson.center p {
       font-size: 18px;
       line-height: 1.8;
-      margin: 0;
+      margin: 0 0 28px 0;
+    }
+
+    .lesson-button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 14px 28px;
+      background: #3aa7d6;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 8px 20px rgba(58, 167, 214, 0.18);
+    }
+
+    .lesson-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(58, 167, 214, 0.24);
+      background: #2f9cca;
     }
 
     @media (max-width: 980px) {
@@ -245,6 +266,11 @@
         font-size: 17px;
         line-height: 1.75;
       }
+
+      .lesson-button {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -271,7 +297,7 @@
     <section class="lekcje">
 
       <div id="lekcja1" class="lesson">
-        <img src="lekcja 1 wykres.png" class="lesson-img" alt="Wykres plusów i minusów - lekcja 1">
+        <img src="lekcja 1.png" class="lesson-img" alt="Wykres plusów i minusów - lekcja 1">
 
         <div class="lesson-text">
           <h2>Lekcja 1</h2>
@@ -283,11 +309,13 @@
           <p>
             Nauczysz się praktycznej techniki liczenia oddechów, która rozwija koncentrację niezbędną do uchwycenia tej ulotnej przestrzeni. Zrozumiesz również, jak poprzez determinację i ciekawość wyciszyć umysł, by odnaleźć źródło satysfakcji niezależne od okoliczności.
           </p>
+
+          <a href="#lekcja1" class="lesson-button">Przejdź do lekcji</a>
         </div>
       </div>
 
       <div id="lekcja2" class="lesson reverse">
-        <img src="lekcja 2 twarze.png" class="lesson-img" alt="Dwie twarze - lekcja 2">
+        <img src="lekcja 2.png" class="lesson-img" alt="Dwie twarze - lekcja 2">
 
         <div class="lesson-text">
           <h2>Lekcja 2</h2>
@@ -299,6 +327,8 @@
           <p>
             Dowiesz się, że Szczelinka to stan intensywnej obecności bez myśli, który pozwala dotrzeć do Twojej prawdziwej natury – czystej Świadomości. Poprzez praktykę obserwacji nozdrzy i oddechu do brzucha nauczysz się wyciszać wewnętrzny głos i przechodzić z poziomu analizy do głębokiego odczuwania.
           </p>
+
+          <a href="#lekcja2" class="lesson-button">Przejdź do lekcji</a>
         </div>
       </div>
 
@@ -307,6 +337,8 @@
         <p>
           Kolejne lekcje pogłębiają doświadczenie Szczelinki i prowadzą przez kolejne etapy rozpoznawania natury świadomości oraz stabilizacji wewnętrznego spokoju.
         </p>
+
+        <a href="#lekcja3" class="lesson-button">Przejdź do lekcji</a>
       </div>
 
     </section>
