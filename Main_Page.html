@@ -1,228 +1,316 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Szczelinka — Lekcje</title>
+  <link rel="icon" href="favicon_minimal.ico" />
+  <meta name="theme-color" content="#3aa7d6" />
 
-<title>Szczelinka</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<link rel="icon" href="favicon_minimal.ico">
+    html {
+      scroll-behavior: smooth;
+    }
 
-<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #1f1f1f;
+    }
 
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:white;
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 150px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
 
-  /* sekcja lekcji */
+    .logo {
+      height: 125px;
+      width: auto;
+      margin-right: 50px;
+      display: block;
+      flex-shrink: 0;
+    }
 
-.lekcje{
-max-width:1100px;
-margin:80px auto;
-padding:0 40px;
-}
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
 
-.lesson{
-display:flex;
-align-items:center;
-gap:60px;
-margin-bottom:120px;
-}
+    .menu > a,
+    .dropdown > a {
+      text-decoration: none;
+      font-size: 18px;
+      color: #3aa7d6;
+      font-weight: 500;
+      padding-bottom: 6px;
+      display: inline-block;
+    }
 
-.lesson.reverse{
-flex-direction:row-reverse;
-}
+    .menu > a:hover,
+    .dropdown > a:hover {
+      opacity: 0.9;
+    }
 
-.lesson-img{
-width:420px;
-}
+    .menu a.active {
+      border-bottom: 2px solid #3aa7d6;
+    }
 
-.lesson-text{
-max-width:520px;
-font-size:18px;
-line-height:1.7;
-}
+    .dropdown {
+      position: relative;
+    }
 
-.lesson-text h2{
-color:#3aa7d6;
-margin-bottom:20px;
-}
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+      padding: 10px 0;
+      z-index: 1100;
+    }
 
-.lesson.center{
-flex-direction:column;
-text-align:center;
-}
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      text-decoration: none;
+      color: #3aa7d6;
+      font-size: 16px;
+      white-space: nowrap;
+    }
 
-  /* dropdown */
+    .dropdown-content a:hover {
+      background: rgba(58, 167, 214, 0.07);
+    }
 
-.dropdown{
-position:relative;
-}
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
 
-.dropdown-content{
-display:none;
-position:absolute;
-background:white;
-top:30px;
-left:0;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-border-radius:6px;
-padding:10px 0;
-}
+    .content {
+      background: #ffffff;
+      padding: 70px 0 110px;
+    }
 
-.dropdown-content a{
-display:block;
-padding:8px 18px;
-color:#3aa7d6;
-text-decoration:none;
-font-size:16px;
-}
+    .lekcje {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
 
-.dropdown:hover .dropdown-content{
-display:block;
-}
+    .lesson {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 70px;
+      margin-bottom: 130px;
+      scroll-margin-top: 190px;
+    }
 
-/* GÓRNA BELKA */
+    .lesson.reverse {
+      flex-direction: row-reverse;
+    }
 
-.topbar{
-position:sticky;
-top:0;
-background:white;
-height:150px;
-display:flex;
-align-items:center;
-padding:0 40px;
-border-bottom:1px solid rgba(0,0,0,0.08);
-z-index:1000;
-}
+    .lesson-img {
+      width: 460px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      flex-shrink: 0;
+    }
 
-/* LOGO */
+    .lesson-text {
+      max-width: 560px;
+      font-size: 18px;
+      line-height: 1.8;
+    }
 
-.logo{
-height:125px;
-margin-right:40px;
-}
+    .lesson-text h2 {
+      margin-top: 0;
+      margin-bottom: 22px;
+      color: #3aa7d6;
+      font-size: 32px;
+      font-weight: 600;
+    }
 
-/* MENU */
+    .lesson-text p {
+      margin: 0 0 18px 0;
+    }
 
-.menu{
-display:flex;
-gap:30px;
-}
+    .lesson.center {
+      display: block;
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-.menu a{
-text-decoration:none;
-font-size:18px;
-color:#3aa7d6;
-font-weight:500;
-padding-bottom:4px;
-}
+    .lesson.center h2 {
+      color: #3aa7d6;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
 
-/* aktywna zakładka */
+    .lesson.center p {
+      font-size: 18px;
+      line-height: 1.8;
+      margin: 0;
+    }
 
-.menu a.active{
-border-bottom:2px solid #3aa7d6;
-}
+    @media (max-width: 980px) {
+      .topbar {
+        height: auto;
+        min-height: 120px;
+        padding: 20px 22px;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
 
-/* zawartość strony */
+      .logo {
+        height: 95px;
+        margin-right: 24px;
+      }
 
-.content{
-padding:60px 40px;
-min-height:200vh;
-}
+      .menu {
+        gap: 20px;
+        flex-wrap: wrap;
+      }
 
-</style>
+      .content {
+        padding-top: 50px;
+      }
+
+      .lekcje {
+        padding: 0 22px;
+      }
+
+      .lesson,
+      .lesson.reverse {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 90px;
+      }
+
+      .lesson-text {
+        max-width: 100%;
+      }
+
+      .lesson-img {
+        width: 100%;
+        max-width: 560px;
+      }
+
+      .lesson {
+        scroll-margin-top: 160px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .logo {
+        height: 78px;
+      }
+
+      .menu > a,
+      .dropdown > a {
+        font-size: 17px;
+      }
+
+      .dropdown-content a {
+        font-size: 15px;
+      }
+
+      .lesson-text h2,
+      .lesson.center h2 {
+        font-size: 28px;
+      }
+
+      .lesson-text,
+      .lesson.center p {
+        font-size: 17px;
+        line-height: 1.75;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header class="topbar">
+  <header class="topbar">
+    <img src="logo.png" class="logo" alt="Szczelinka">
 
-<img src="logo.png" class="logo">
+    <nav class="menu">
+      <div class="dropdown">
+        <a class="active" href="#lekcja1">Lekcje</a>
+        <div class="dropdown-content">
+          <a href="#lekcja1">Lekcja 1</a>
+          <a href="#lekcja2">Lekcja 2</a>
+          <a href="#lekcja3">Lekcje 3–8</a>
+        </div>
+      </div>
 
-<nav class="menu">
+      <a href="#">Zajęcia</a>
+    </nav>
+  </header>
 
-<div class="dropdown">
+  <main class="content">
+    <section class="lekcje">
 
-<a class="active" href="#">Lekcje</a>
+      <div id="lekcja1" class="lesson">
+        <img src="lekcja 1 wykres.png" class="lesson-img" alt="Wykres plusów i minusów - lekcja 1">
 
-<div class="dropdown-content">
-<a href="#lekcja1">Lekcja 1</a>
-<a href="#lekcja2">Lekcja 2</a>
-<a href="#lekcja3">Lekcje 3–8</a>
-</div>
+        <div class="lesson-text">
+          <h2>Lekcja 1</h2>
 
-</div>
+          <p>
+            W tej lekcji dowiesz się, że prawdziwym celem każdego działania jest poszukiwanie trwałego szczęścia, którego świat zewnętrzny nie może w pełni zaoferować. Poznasz pojęcie Szczelinki – punktu absolutnego „teraz” pomiędzy myślami, będącego bramą do wewnętrznego spokoju poza schematem zysków i strat.
+          </p>
 
-<a href="#">Zajęcia</a>
+          <p>
+            Nauczysz się praktycznej techniki liczenia oddechów, która rozwija koncentrację niezbędną do uchwycenia tej ulotnej przestrzeni. Zrozumiesz również, jak poprzez determinację i ciekawość wyciszyć umysł, by odnaleźć źródło satysfakcji niezależne od okoliczności.
+          </p>
+        </div>
+      </div>
 
-</nav>
+      <div id="lekcja2" class="lesson reverse">
+        <img src="lekcja 2 twarze.png" class="lesson-img" alt="Dwie twarze - lekcja 2">
 
-</header>
+        <div class="lesson-text">
+          <h2>Lekcja 2</h2>
 
-<div class="content">
+          <p>
+            W tej lekcji odkryjesz przełomową prawdę, że nie jesteś swoim ciałem ani umysłem, a przede wszystkim nie jesteś Tym, Który Mówi, lecz stałym i cichym Tym, Który Słucha.
+          </p>
 
-<section class="lekcje">
+          <p>
+            Dowiesz się, że Szczelinka to stan intensywnej obecności bez myśli, który pozwala dotrzeć do Twojej prawdziwej natury – czystej Świadomości. Poprzez praktykę obserwacji nozdrzy i oddechu do brzucha nauczysz się wyciszać wewnętrzny głos i przechodzić z poziomu analizy do głębokiego odczuwania.
+          </p>
+        </div>
+      </div>
 
-<div id="lekcja1" class="lesson">
+      <div id="lekcja3" class="lesson center">
+        <h2>Lekcje 3–8</h2>
+        <p>
+          Kolejne lekcje pogłębiają doświadczenie Szczelinki i prowadzą przez kolejne etapy rozpoznawania natury świadomości oraz stabilizacji wewnętrznego spokoju.
+        </p>
+      </div>
 
-<img src="lekcja1.png" class="lesson-img">
-
-<div class="lesson-text">
-
-<h2>Lekcja 1</h2>
-
-<p>
-W tej lekcji dowiesz się, że prawdziwym celem każdego działania jest poszukiwanie trwałego szczęścia, którego świat zewnętrzny nie może w pełni zaoferować. Poznasz pojęcie Szczelinki – punktu absolutnego „teraz” pomiędzy myślami, będącego bramą do wewnętrznego spokoju poza schematem zysków i strat.
-</p>
-
-<p>
-Nauczysz się praktycznej techniki liczenia oddechów, która rozwija koncentrację niezbędną do uchwycenia tej ulotnej przestrzeni. Zrozumiesz również, jak poprzez determinację i ciekawość wyciszyć umysł, by odnaleźć źródło satysfakcji niezależne od okoliczności.
-</p>
-
-</div>
-
-</div>
-
-
-
-<div id="lekcja2" class="lesson reverse">
-
-<div class="lesson-text">
-
-<h2>Lekcja 2</h2>
-
-<p>
-W tej lekcji odkryjesz przełomową prawdę, że nie jesteś swoim ciałem ani umysłem, a przede wszystkim nie jesteś Tym, Który Mówi, lecz stałym i cichym Tym, Który Słucha.
-</p>
-
-<p>
-Dowiesz się, że Szczelinka to stan intensywnej obecności bez myśli, który pozwala dotrzeć do Twojej prawdziwej natury – czystej Świadomości. Poprzez praktykę obserwacji nozdrzy i oddechu do brzucha nauczysz się wyciszać wewnętrzny głos i przechodzić z poziomu analizy do głębokiego odczuwania.
-</p>
-
-</div>
-
-<img src="lekcja2.png" class="lesson-img">
-
-</div>
-
-
-
-<div id="lekcja3" class="lesson center">
-
-<h2>Lekcje 3–8</h2>
-
-<p>
-Kolejne lekcje pogłębiają doświadczenie Szczelinki i prowadzą przez kolejne etapy rozpoznawania natury świadomości oraz stabilizacji wewnętrznego spokoju.
-</p>
-
-</div>
-
-</section>
-
-</div>
+    </section>
+  </main>
 
 </body>
 </html>
