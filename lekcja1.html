@@ -6,22 +6,14 @@
   <title>Szczelinka — Lekcja 1</title>
   <link rel="icon" href="favicon_minimal.ico" />
   <meta name="theme-color" content="#3aa7d6" />
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
       background: #ffffff;
-      color: #1f1f1f;
-      line-height: 1.75;
+      color: #151515;
+      min-height: 100vh;
     }
 
     .topbar {
@@ -105,262 +97,434 @@
       display: block;
     }
 
-    .page {
-      max-width: 1180px;
+    .progress-wrap {
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 56px 40px 100px;
+      padding: 28px 28px 0;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 44px;
-      align-items: center;
-      margin-bottom: 56px;
-    }
-
-    .hero-card {
-      background: linear-gradient(180deg, #f6f6f6 0%, #f1f1f1 100%);
-      border-radius: 30px;
-      padding: 42px;
-    }
-
-    .eyebrow {
-      color: #3aa7d6;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      margin: 0 0 18px 0;
-      font-size: 48px;
-      line-height: 1.1;
-      color: #111111;
-    }
-
-    .lead {
-      font-size: 20px;
-      color: #333333;
-      margin: 0 0 22px 0;
-      max-width: 700px;
-    }
-
-    .hero-actions {
+    .progress-top {
       display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 14px 26px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .button-primary {
-      background: #3aa7d6;
-      color: #ffffff;
-      box-shadow: 0 8px 20px rgba(58, 167, 214, 0.20);
-    }
-
-    .button-primary:hover {
-      background: #2f9cca;
-      transform: translateY(-1px);
-    }
-
-    .button-secondary {
-      background: #ffffff;
-      color: #3aa7d6;
-      border: 1px solid rgba(58, 167, 214, 0.25);
-    }
-
-    .hero-image-wrap {
-      background: #f3f3f3;
-      border-radius: 30px;
-      padding: 24px;
-    }
-
-    .hero-image {
-      width: 100%;
-      display: block;
-      border-radius: 22px;
-      background: #ffffff;
-    }
-
-    .section {
-      margin-top: 34px;
-      margin-bottom: 34px;
-    }
-
-    .section-card {
-      background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 26px;
-      padding: 34px;
-    }
-
-    .section-gray {
-      background: #f3f3f3;
-      border-radius: 30px;
-      padding: 42px;
-    }
-
-    h2 {
-      margin: 0 0 18px 0;
-      font-size: 32px;
-      line-height: 1.2;
-      color: #3aa7d6;
-    }
-
-    h3 {
-      margin: 0 0 12px 0;
-      font-size: 22px;
-      color: #111111;
-    }
-
-    p {
-      margin: 0 0 16px 0;
-      font-size: 18px;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 26px;
-    }
-
-    .mini-card {
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-    }
-
-    .quote-box {
-      border-left: 4px solid #3aa7d6;
-      background: rgba(58, 167, 214, 0.06);
-      padding: 20px 22px;
-      border-radius: 0 18px 18px 0;
-      font-size: 18px;
-      color: #222222;
-    }
-
-    .diagram-section {
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 34px;
+      justify-content: space-between;
       align-items: center;
-    }
-
-    .diagram-image-wrap {
-      background: #ffffff;
-      border-radius: 26px;
-      padding: 18px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-    }
-
-    .diagram-image {
-      width: 100%;
-      display: block;
-      border-radius: 18px;
-      background: #ffffff;
-    }
-
-    .pill-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .pill-card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 18px 18px 16px;
-      border: 1px solid rgba(58, 167, 214, 0.10);
-    }
-
-    .pill-title {
-      color: #3aa7d6;
-      font-weight: 700;
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-
-    .steps {
-      display: grid;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 52px 1fr;
-      gap: 16px;
-      align-items: start;
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 18px;
-    }
-
-    .step-num {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: #3aa7d6;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 18px;
-    }
-
-    .practice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 22px;
-    }
-
-    .practice-card {
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 22px;
-    }
-
-    .practice-card h3 {
-      color: #3aa7d6;
+      gap: 20px;
       margin-bottom: 10px;
     }
 
-    .homework {
+    .progress-label {
+      font-size: 14px;
+      color: #4c4c4c;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .progress-step {
+      font-size: 16px;
+      color: #3aa7d6;
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #ebebeb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #3aa7d6;
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .main {
+      min-height: calc(100vh - 190px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 34px 24px 70px;
+    }
+
+    .lesson-shell {
+      width: 100%;
+      max-width: 1080px;
+    }
+
+    .lesson-card {
+      background: #ffffff;
+      border-radius: 34px;
+      padding: 42px 48px;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .lesson-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+      gap: 20px;
+    }
+
+    .lesson-kicker {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #3aa7d6;
+    }
+
+    .lesson-title {
+      font-size: 48px;
+      line-height: 1.12;
+      margin: 0;
+      max-width: 860px;
+    }
+
+    .lesson-subtitle {
+      font-size: 24px;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 860px;
+      color: #2d2d2d;
+    }
+
+    .lesson-body {
+      font-size: 22px;
+      line-height: 1.65;
+      max-width: 860px;
+      color: #242424;
+      margin: 0 auto;
+    }
+
+    .lesson-body p {
+      margin: 0 0 18px 0;
+    }
+
+    .lesson-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .split-areas {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 20px;
+      gap: 22px;
+      width: 100%;
+      max-width: 860px;
+      margin-top: 8px;
     }
 
-    .homework-card {
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    .area-card {
+      background: #f4f4f4;
+      border-radius: 24px;
+      padding: 28px;
+      text-align: left;
+      min-height: 230px;
     }
 
-    .back-links {
+    .area-card h3 {
+      margin: 0 0 12px 0;
+      font-size: 28px;
+      color: #3aa7d6;
+    }
+
+    .area-card p {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.6;
+    }
+
+    .input-wrap {
+      width: 100%;
+      max-width: 480px;
+      margin-top: 10px;
+    }
+
+    .name-input {
+      width: 100%;
+      border: 2px solid #dcdcdc;
+      border-radius: 18px;
+      padding: 18px 20px;
+      font-size: 28px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .name-input:focus {
+      border-color: #3aa7d6;
+      box-shadow: 0 0 0 4px rgba(58, 167, 214, 0.14);
+    }
+
+    .hint {
+      font-size: 16px;
+      color: #717171;
+      max-width: 780px;
+      line-height: 1.6;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: #3aa7d6;
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(58, 167, 214, 0.18);
+    }
+
+    .btn-secondary {
+      background: #efefef;
+      color: #222222;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #6e6e6e;
+      border: 1px solid #dddddd;
+    }
+
+    .btn:disabled,
+    .btn.disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .countdown {
+      font-size: 20px;
+      font-weight: 700;
+      color: #3aa7d6;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .list-box {
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      gap: 14px;
+      margin-top: 8px;
+      text-align: left;
+    }
+
+    .list-item {
+      background: #f5f5f5;
+      border-radius: 18px;
+      padding: 18px 22px;
+      font-size: 22px;
+      line-height: 1.5;
+    }
+
+    .deep-box {
+      width: 100%;
+      max-width: 860px;
+      background: #f3f3f3;
+      border-radius: 24px;
+      padding: 26px 28px;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .deep-box p {
+      font-size: 21px;
+      line-height: 1.65;
+      margin: 0 0 14px 0;
+    }
+
+    .deep-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .story-buttons {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-top: 24px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .story-btn {
+      min-width: 230px;
+    }
+
+    .check-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f3f3f3;
+      color: #4a4a4a;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .badge.done {
+      background: rgba(58, 167, 214, 0.12);
+      color: #167ca8;
+    }
+
+    .formula {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: #f3f3f3;
+      border-radius: 24px;
+      padding: 24px 30px;
+      margin-top: 8px;
+      font-size: 34px;
+      font-weight: 700;
+    }
+
+    .formula .arrow {
+      color: #3aa7d6;
+    }
+
+    .daily-grid {
+      width: 100%;
+      max-width: 920px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .daily-card {
+      background: #f4f4f4;
+      border-radius: 20px;
+      padding: 20px 22px;
+    }
+
+    .daily-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      color: #3aa7d6;
+    }
+
+    .daily-card p {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      line-height: 1.58;
+    }
+
+    .daily-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 2000;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 640px;
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.20);
+      text-align: center;
+    }
+
+    .modal h2 {
+      margin: 0 0 12px 0;
+      font-size: 32px;
+    }
+
+    .modal p {
+      margin: 0 0 22px 0;
+      font-size: 20px;
+      line-height: 1.6;
+      color: #2a2a2a;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .story-modal .modal {
+      max-width: 860px;
+      text-align: left;
+      max-height: 82vh;
+      overflow: auto;
+    }
+
+    .story-modal h2 {
+      color: #3aa7d6;
+      margin-bottom: 18px;
+    }
+
+    .story-modal p,
+    .story-modal li {
+      font-size: 19px;
+      line-height: 1.7;
+    }
+
+    .story-modal ul {
+      margin-top: 0;
+      padding-left: 22px;
     }
 
     @media (max-width: 980px) {
@@ -382,24 +546,30 @@
         flex-wrap: wrap;
       }
 
-      .page {
-        padding: 34px 22px 70px;
+      .progress-wrap {
+        padding: 20px 22px 0;
       }
 
-      .hero,
-      .diagram-section,
-      .two-col,
-      .practice-grid,
-      .homework {
+      .lesson-card {
+        min-height: 520px;
+        padding: 30px 24px;
+      }
+
+      .lesson-title {
+        font-size: 38px;
+      }
+
+      .lesson-subtitle {
+        font-size: 22px;
+      }
+
+      .lesson-body {
+        font-size: 20px;
+      }
+
+      .split-areas,
+      .daily-grid {
         grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 40px;
-      }
-
-      .lead {
-        font-size: 18px;
       }
     }
 
@@ -417,33 +587,45 @@
         font-size: 15px;
       }
 
-      h1 {
-        font-size: 34px;
+      .lesson-title {
+        font-size: 32px;
       }
 
-      h2 {
-        font-size: 28px;
+      .lesson-subtitle {
+        font-size: 20px;
       }
 
-      .hero-card,
-      .section-gray,
-      .section-card {
-        padding: 24px;
+      .lesson-body {
+        font-size: 18px;
       }
 
-      .pill-grid {
-        grid-template-columns: 1fr;
+      .area-card p,
+      .deep-box p,
+      .list-item {
+        font-size: 18px;
       }
 
-      .button {
+      .formula {
+        font-size: 26px;
+      }
+
+      .btn {
         width: 100%;
-        text-align: center;
+      }
+
+      .nav-left,
+      .nav-right {
+        width: 100%;
+      }
+
+      .nav-left .btn,
+      .nav-right .btn {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-
   <header class="topbar">
     <a href="index.html" class="logo-link" aria-label="Powrót do strony głównej">
       <img src="logo.png" class="logo" alt="Szczelinka">
@@ -465,236 +647,592 @@
     </nav>
   </header>
 
-  <main class="page">
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <div class="progress-label">Postęp lekcji 1</div>
+      <div class="progress-step" id="progressStep">1.0 / 1.5</div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+  </div>
 
-    <section class="hero">
-      <div class="hero-card">
-        <div class="eyebrow">Lekcja 1</div>
-        <h1>Czym jest Szczelinka</h1>
-        <p class="lead">
-          Szczelinka to przestrzeń pomiędzy myślami — moment, w którym poprzednia myśl już się zakończyła, a kolejna jeszcze nie nadeszła. Właśnie tam otwiera się przejście do głębszego spokoju i trwałego szczęścia. :contentReference[oaicite:1]{index=1}
-        </p>
+  <main class="main">
+    <div class="lesson-shell">
+      <section class="lesson-card" id="lessonCard">
+        <div class="lesson-center" id="lessonContent"></div>
 
-        <div class="quote-box">
-          Prawdziwa praktyka tej lekcji nie polega na zdobywaniu kolejnej idei, ale na zauważeniu miejsca, które istnieje wcześniej niż każda idea.
-        </div>
-
-        <div class="hero-actions">
-          <a href="#cwiczenie" class="button button-primary">Przejdź do ćwiczenia</a>
-          <a href="#praca-domowa" class="button button-secondary">Zobacz pracę domową</a>
-        </div>
-      </div>
-
-      <div class="hero-image-wrap">
-        <img src="lekcja 1.png" class="hero-image" alt="Wykres plusów i minusów">
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-card">
-        <h2>Jaki jest sens życia?</h2>
-        <p>
-          Większość naszych działań — od drobnych wyborów po najważniejsze życiowe decyzje — ma wspólny cel: chcemy osiągnąć szczęście. Szukamy go w relacjach, osiągnięciach, bezpieczeństwie, przyjemności, uznaniu i przyszłych możliwościach. Tę intuicję bardzo wyraźnie opisuje Twój materiał źródłowy. :contentReference[oaicite:2]{index=2}
-        </p>
-        <p>
-          Problem polega na tym, że świat zewnętrzny jest zmienny. To, co dziś daje satysfakcję, jutro może stracić siłę. To, co wydaje się spełnieniem, po pewnym czasie staje się zwyczajne. Dlatego człowiek często wpada w niekończący się ruch: zdobyć coś, utrzymać to, obronić, poprawić, a potem szukać dalej.
-        </p>
-        <p>
-          Medytacja Szczelinka proponuje inny kierunek. Nie szukasz kolejnego „plusa” w świecie, ale odkrywasz źródło satysfakcji, które nie zależy od zmiennych warunków. Zamiast próbować wygrać grę, której nie da się wygrać raz na zawsze, zaczynasz zauważać to, co jest obecne jeszcze przed każdą wygraną i każdą stratą. :contentReference[oaicite:3]{index=3}
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-gray">
-        <div class="two-col">
-          <div class="mini-card">
-            <h3>Świat plusów i minusów</h3>
-            <p>
-              Umysł nieustannie klasyfikuje doświadczenia. Jedne oznacza jako dobre, pożądane i przyjemne. Inne zapisuje jako trudne, bolesne lub zagrażające. Na tej podstawie budujemy strategię życia: dążyć do plusów, unikać minusów.
-            </p>
+        <div class="nav">
+          <div class="nav-left">
+            <button class="btn btn-secondary" id="backBtn">Wstecz</button>
           </div>
 
-          <div class="mini-card">
-            <h3>Dlaczego to nie wystarcza</h3>
-            <p>
-              Nawet najlepiej ułożony plan nie daje trwałej gwarancji spokoju. Rzeczywistość nie zawsze podporządkowuje się naszym oczekiwaniom, a cierpienie często rodzi się właśnie z różnicy między tym, czego chcemy, a tym, co faktycznie się dzieje. :contentReference[oaicite:4]{index=4}
-            </p>
+          <div class="countdown" id="countdownBox"></div>
+
+          <div class="nav-right">
+            <button class="btn btn-primary" id="nextBtn">Dalej</button>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-card diagram-section">
-        <div class="diagram-image-wrap">
-          <img src="lekcja 1.png" class="diagram-image" alt="Schemat przeszłości, przyszłości i Szczelinki">
-        </div>
-
-        <div>
-          <h2>Wyjaśnienie wykresu</h2>
-          <p>
-            Lewa strona wykresu reprezentuje przeszłość — zapisane doświadczenia, które pamiętamy jako przyjemne albo bolesne. Prawa strona to przyszłość — obszar planów, oczekiwań i prób ułożenia życia tak, by pojawiło się więcej „plusów”, a mniej „minusów”. Tak właśnie działa zwykły tryb umysłu. :contentReference[oaicite:5]{index=5}
-          </p>
-          <p>
-            Najważniejszy punkt znajduje się jednak pośrodku. To absolutne „teraz”: chwila, w której przeszłość już odeszła, a przyszłość jeszcze nie nadeszła. Właśnie to miejsce nazywamy Szczelinką. Nie jest ona kolejnym wydarzeniem w czasie. Jest raczej przejściem do głębi, która nie zależy od zysków i strat. :contentReference[oaicite:6]{index=6}
-          </p>
-          <p>
-            Ta przestrzeń jest bardzo subtelna. Dlatego nie da się jej uchwycić siłą ani pośpiechem. Otwiera się raczej wtedy, gdy uwaga staje się precyzyjna, spokojna i wolna od chwytania następnej myśli.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-gray">
-        <h2>Co oznacza „zostawić wszystko za sobą”</h2>
-        <p>
-          W materiale źródłowym pojawia się ważne zdanie: Szczelinka jest tak wąska, że możesz przez nią przejść tylko wtedy, gdy pozostawisz za sobą wszystko. :contentReference[oaicite:7]{index=7}
-        </p>
-        <p>
-          Nie chodzi o porzucenie życia, relacji czy obowiązków. Chodzi o chwilowe odłożenie całej wewnętrznej narracji: ocen, planów, wspomnień, komentarzy, porównań i oczekiwań. Na moment przestajesz „nieść” swoją historię. Wtedy może ujawnić się to, co nie jest historią, lecz czystą obecnością.
-        </p>
-
-        <div class="pill-grid">
-          <div class="pill-card">
-            <div class="pill-title">Nie zabieraj przeszłości</div>
-            <p>Nie analizuj teraz tego, co było. To ćwiczenie nie służy interpretacji wspomnień, lecz powrotowi do obecności.</p>
-          </div>
-
-          <div class="pill-card">
-            <div class="pill-title">Nie wyprzedzaj przyszłości</div>
-            <p>Nie planuj efektu medytacji. Każde oczekiwanie tworzy kolejną myśl, a nie przestrzeń pomiędzy myślami.</p>
-          </div>
-
-          <div class="pill-card">
-            <div class="pill-title">Nie walcz z umysłem</div>
-            <p>Nie próbuj siłą zatrzymać myśli. Wracaj do oddechu spokojnie i dokładnie.</p>
-          </div>
-
-          <div class="pill-card">
-            <div class="pill-title">Nie szukaj spektaklu</div>
-            <p>Szczelinka bywa subtelna. To nie musi być wielkie przeżycie. Często jest to po prostu czysta cisza.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="cwiczenie">
-      <div class="section-card">
-        <h2>Ćwiczenie 1 — Liczenie oddechów</h2>
-        <p>
-          To podstawowa praktyka tej lekcji. Jej celem nie jest tylko uspokojenie, ale rozwinięcie takiej jakości koncentracji, która pozwala zauważyć delikatną przestrzeń pomiędzy myślami. W Twoim materiale to ćwiczenie stanowi fundament pierwszego etapu praktyki. :contentReference[oaicite:8]{index=8}
-        </p>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div>
-              <h3>Wybierz wdechy albo wydechy</h3>
-              <p>Zdecyduj, czy liczysz wdechy, czy wydechy. Zamknij oczy i trzymaj się jednego wariantu przez całą sesję.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">2</div>
-            <div>
-              <h3>Licz od 1 do 10</h3>
-              <p>Każdy oddech ma swój numer. Jeśli się pomylisz, zapomnisz liczbę albo odpłyniesz w myśli, po prostu wróć do 1. Bez irytacji, bez oceniania.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">3</div>
-            <div>
-              <h3>Nie zmieniaj oddechu</h3>
-              <p>Nie przyspieszaj go i nie pogłębiaj na siłę. Twoim zadaniem jest obserwować oddech takim, jaki jest, a nie produkować szczególny stan.</p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">4</div>
-            <div>
-              <h3>Wracaj spokojnie</h3>
-              <p>Kiedy pojawią się myśli i zerwą liczenie, wróć do procesu łagodnie. Sama chwila powrotu jest ważną częścią praktyki.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-gray">
-        <h2>Jak pogłębić koncentrację</h2>
-        <p>
-          Twój materiał proponuje cztery bardzo trafne jakości, które pomagają utrzymać uwagę przy oddechu: ciekawość, zadowolenie, dokładność i determinację. Rozwijam je tutaj, aby łatwiej było Ci wprowadzić je w praktykę. :contentReference[oaicite:9]{index=9}
-        </p>
-
-        <div class="practice-grid">
-          <div class="practice-card">
-            <h3>Ciekawość</h3>
-            <p>Patrz na oddech jak badacz. Jakbyś po raz pierwszy obserwował coś bardzo subtelnego i żywego. Zainteresowany umysł łatwiej pozostaje obecny.</p>
-          </div>
-
-          <div class="practice-card">
-            <h3>Zadowolenie</h3>
-            <p>Przypomnij sobie, że niczego teraz nie musisz osiągać poza samą obecnością. Proste zadanie staje się łatwiejsze, gdy nie niesiesz napięcia wyniku.</p>
-          </div>
-
-          <div class="practice-card">
-            <h3>Dokładność</h3>
-            <p>Traktuj uwagę jak niesienie pełnej szklanki wody przez zatłoczone miejsce. Wystarczy chwila nieuwagi i wylewasz zawartość. Tak samo działa koncentracja.</p>
-          </div>
-
-          <div class="practice-card">
-            <h3>Determinacja</h3>
-            <p>Przed sesją podejmij decyzję, że przez kilka minut będziesz wracać do oddechu tak starannie, jak tylko potrafisz. Determinacja daje praktyce stabilność.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-card">
-        <h2>Poziom zaawansowany</h2>
-        <p>
-          W materiale źródłowym pojawia się ważna obserwacja: gdy koncentracja jest pełna, pomiędzy liczbami nie wkradają się myśli. To bardzo precyzyjna wskazówka. :contentReference[oaicite:10]{index=10}
-        </p>
-        <p>
-          Na tym poziomie nie chodzi już tylko o „niegubienie liczb”. Chodzi o zauważenie, że myśli pojawiają się wtedy, gdy uwaga lekko się rozszczelnia. Gdy jesteś naprawdę obecny przy jednym oddechu i jednej liczbie, umysł traci przestrzeń do budowania dodatkowego komentarza.
-        </p>
-        <p>
-          Właśnie tutaj zaczyna się subtelne rozpoznanie Szczelinki. Nie poprzez siłowe wyciszenie, ale poprzez tak pełną obecność, że myśl po prostu nie ma gdzie wejść.
-        </p>
-      </div>
-    </section>
-
-    <section class="section" id="praca-domowa">
-      <div class="section-gray">
-        <h2>Praca domowa</h2>
-        <div class="homework">
-          <div class="homework-card">
-            <h3>1. Pięć sesji po 5 minut</h3>
-            <p>
-              Wykonaj pięć sesji medytacji z liczeniem oddechów. Każda sesja niech trwa 5 minut. W materiale pojawia się sugestia użycia aplikacji „Interval Timer Tibetan Bowl” do odmierzania czasu. :contentReference[oaicite:11]{index=11}
-            </p>
-          </div>
-
-          <div class="homework-card">
-            <h3>2. Obserwacja decyzji</h3>
-            <p>
-              Przyglądaj się swoim codziennym wyborom. Zauważ moment podejmowania decyzji i zapytaj: dlaczego właśnie ta, a nie inna? To pozwoli Ci lepiej zobaczyć, jak umysł szuka plusów i unika minusów. :contentReference[oaicite:12]{index=12}
-            </p>
-          </div>
-        </div>
-
-        <div class="back-links">
-          <a href="Main_Page.html#lekcja1" class="button button-primary">Powrót do lekcji</a>
-          <a href="szczelinka.html" class="button button-secondary">O Szczelince</a>
-        </div>
-      </div>
-    </section>
-
+      </section>
+    </div>
   </main>
+
+  <div class="modal-backdrop" id="resumeModal">
+    <div class="modal">
+      <h2>Witaj ponownie</h2>
+      <p id="resumeText">Czy chcesz wrócić do miejsca, w którym ostatnio skończyłeś?</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="resumeYesBtn">Tak, wznów</button>
+        <button class="btn btn-secondary" id="resumeNoBtn">Nie, zacznij od początku</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="confirmModal">
+    <div class="modal">
+      <h2>Czy masz już swoją odpowiedź?</h2>
+      <p>To pytanie ma działać głęboko tylko wtedy, gdy naprawdę dasz sobie chwilę ciszy i namysłu.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="confirmYesBtn">Tak</button>
+        <button class="btn btn-secondary" id="confirmNoBtn">Nie</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop story-modal" id="storyModal">
+    <div class="modal">
+      <h2 id="storyTitle">Historia</h2>
+      <div id="storyContent"></div>
+      <div class="modal-actions" style="margin-top:24px;">
+        <button class="btn btn-primary" id="storyCloseBtn">Zamknij</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const lessonSteps = ["1.0", "1.1", "1.2", "1.3", "1.4", "1.5"];
+    let currentStepIndex = 0;
+    let countdown = 60;
+    let countdownTimer = null;
+    let adminSkipEnabled = false;
+    let storyRead = {
+      weronika: false,
+      benedyk: false,
+      codzienne: false
+    };
+
+    const storageKeys = {
+      name: "szczelinka_user_name",
+      step: "szczelinka_lesson1_step",
+      storyRead: "szczelinka_lesson1_story_read"
+    };
+
+    const lessonContent = document.getElementById("lessonContent");
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const countdownBox = document.getElementById("countdownBox");
+    const progressFill = document.getElementById("progressFill");
+    const progressStep = document.getElementById("progressStep");
+
+    const resumeModal = document.getElementById("resumeModal");
+    const resumeText = document.getElementById("resumeText");
+    const resumeYesBtn = document.getElementById("resumeYesBtn");
+    const resumeNoBtn = document.getElementById("resumeNoBtn");
+
+    const confirmModal = document.getElementById("confirmModal");
+    const confirmYesBtn = document.getElementById("confirmYesBtn");
+    const confirmNoBtn = document.getElementById("confirmNoBtn");
+
+    const storyModal = document.getElementById("storyModal");
+    const storyTitle = document.getElementById("storyTitle");
+    const storyContent = document.getElementById("storyContent");
+    const storyCloseBtn = document.getElementById("storyCloseBtn");
+
+    function setCookie(name, value, days = 180) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+    }
+
+    function getCookie(name) {
+      return document.cookie.split("; ").reduce((acc, pair) => {
+        const [k, v] = pair.split("=");
+        return k === encodeURIComponent(name) ? decodeURIComponent(v || "") : acc;
+      }, "");
+    }
+
+    function saveName(name) {
+      localStorage.setItem(storageKeys.name, name);
+      setCookie(storageKeys.name, name);
+    }
+
+    function loadName() {
+      return localStorage.getItem(storageKeys.name) || getCookie(storageKeys.name) || "";
+    }
+
+    function saveStep(stepIndex) {
+      localStorage.setItem(storageKeys.step, String(stepIndex));
+      setCookie(storageKeys.step, String(stepIndex));
+    }
+
+    function loadStep() {
+      const raw = localStorage.getItem(storageKeys.step) || getCookie(storageKeys.step);
+      const parsed = Number(raw);
+      return Number.isInteger(parsed) && parsed >= 0 && parsed < lessonSteps.length ? parsed : 0;
+    }
+
+    function saveStories() {
+      localStorage.setItem(storageKeys.storyRead, JSON.stringify(storyRead));
+      setCookie(storageKeys.storyRead, JSON.stringify(storyRead));
+    }
+
+    function loadStories() {
+      const raw = localStorage.getItem(storageKeys.storyRead) || getCookie(storageKeys.storyRead);
+      if (!raw) return;
+      try {
+        const parsed = JSON.parse(raw);
+        storyRead = { ...storyRead, ...parsed };
+      } catch (_) {}
+    }
+
+    function resetProgress() {
+      currentStepIndex = 0;
+      storyRead = { weronika: false, benedyk: false, codzienne: false };
+      saveStep(0);
+      saveStories();
+      renderStep();
+    }
+
+    function updateProgress() {
+      const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
+      progressFill.style.width = `${percent}%`;
+      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 1.5`;
+    }
+
+    function stopCountdown() {
+      if (countdownTimer) {
+        clearInterval(countdownTimer);
+        countdownTimer = null;
+      }
+      countdownBox.textContent = "";
+    }
+
+    function startCountdown(seconds = 60) {
+      stopCountdown();
+      countdown = seconds;
+      updateCountdownLabel();
+      countdownTimer = setInterval(() => {
+        countdown -= 1;
+        updateCountdownLabel();
+        if (countdown <= 0) {
+          stopCountdown();
+          enableNext(true);
+        }
+      }, 1000);
+    }
+
+    function updateCountdownLabel() {
+      countdownBox.textContent = `Odliczanie: ${countdown}s`;
+    }
+
+    function enableNext(enabled) {
+      nextBtn.disabled = !enabled;
+    }
+
+    function goNext() {
+      if (currentStepIndex < lessonSteps.length - 1) {
+        currentStepIndex += 1;
+        saveStep(currentStepIndex);
+        renderStep();
+      }
+    }
+
+    function goBack() {
+      if (currentStepIndex > 0) {
+        currentStepIndex -= 1;
+        saveStep(currentStepIndex);
+        renderStep();
+      }
+    }
+
+    function showModal(modal) {
+      modal.classList.add("show");
+    }
+
+    function hideModal(modal) {
+      modal.classList.remove("show");
+    }
+
+    function renderStep() {
+      stopCountdown();
+      updateProgress();
+      backBtn.disabled = currentStepIndex === 0;
+
+      const step = lessonSteps[currentStepIndex];
+      const savedName = loadName();
+
+      if (step === "1.0") {
+        enableNext(!!savedName.trim());
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Wpisz swoje imię</h1>
+          <div class="input-wrap">
+            <input
+              id="nameInput"
+              class="name-input"
+              type="text"
+              maxlength="40"
+              placeholder="Twoje imię"
+              value="${escapeHtml(savedName)}"
+              autocomplete="given-name"
+            />
+          </div>
+          <div class="hint">
+            Jeśli wrócisz z tej samej przeglądarki, zapamiętamy Twoje imię i zaproponujemy wznowienie lekcji od miejsca, w którym skończyłeś.
+          </div>
+        `;
+        const nameInput = document.getElementById("nameInput");
+        nameInput.addEventListener("input", () => {
+          const value = nameInput.value.trim();
+          saveName(value);
+          enableNext(!!value);
+        });
+        nameInput.focus();
+        countdownBox.textContent = "";
+        nextBtn.textContent = "Dalej";
+        return;
+      }
+
+      if (step === "1.1") {
+        enableNext(true);
+        nextBtn.textContent = "Rozumiem";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">W trakcie poznawania Szczelinki będziemy pracować w dwóch obszarach</h1>
+
+          <div class="split-areas">
+            <div class="area-card">
+              <h3>Rozumienie</h3>
+              <p>W tym obszarze będziemy szukać prawdy, która jest nie-do-podważenia.</p>
+            </div>
+            <div class="area-card">
+              <h3>Medytacja</h3>
+              <p>W tym obszarze będziemy uczyć się i praktykować medytację Szczelinka.</p>
+            </div>
+          </div>
+
+          <div class="lesson-body">
+            <p>Oba te obszary przenikają się nawzajem.</p>
+            <p>Z Medytacji wypływać będą prawdy, które poszerzą nasz zbiór Rozumienia.</p>
+            <p>Elementy Rozumienia sprawią, że będziemy mogli głębiej zejść w Medytacji.</p>
+          </div>
+        `;
+        countdownBox.textContent = "";
+        return;
+      }
+
+      if (step === "1.2") {
+        enableNext(false);
+        nextBtn.textContent = "Dalej";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Obszar Rozumienie</h1>
+          <p class="lesson-subtitle">Zaczniemy od bardzo ważnego pytania:</p>
+          <h2 class="lesson-title" style="font-size:56px;">Jaki jest sens życia?</h2>
+          <p class="lesson-subtitle">Zastanów się i odpowiedz dla siebie.</p>
+          <div class="hint">Przez 60 sekund niczego nie klikaj. Daj sobie uczciwie czas na namysł. Skrót administracyjny: Ctrl + D.</div>
+        `;
+        startCountdown(60);
+        return;
+      }
+
+      if (step === "1.3") {
+        enableNext(true);
+        nextBtn.textContent = "Głębiej";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Większość osób odpowie, że sensem życia jest:</h1>
+
+          <div class="list-box">
+            <div class="list-item">kochać i budować relacje z innymi ludźmi</div>
+            <div class="list-item">doświadczać świata i czerpać z życia pełnymi garściami</div>
+            <div class="list-item">rozwijać siebie i stawać się lepszym człowiekiem</div>
+            <div class="list-item">pomagać innym i robić coś dobrego dla świata</div>
+            <div class="list-item">odkryć prawdę duchową lub Boga</div>
+            <div class="list-item">trafić do nieba</div>
+            <div class="list-item">zgromadzić fortunę i zostawić po sobie dziedzictwo</div>
+            <div class="list-item">nie wiem — wbrew pozorom to też może być ciekawa odpowiedź</div>
+          </div>
+
+          <div class="deep-box">
+            <p>Są to piękne cele i niewątpliwie są wartościowe.</p>
+            <p>Jednak możemy zejść głębiej.</p>
+          </div>
+        `;
+        countdownBox.textContent = "";
+        return;
+      }
+
+      if (step === "1.4") {
+        enableNext(true);
+        nextBtn.textContent = "Dalej";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Sens życia jest jeden</h1>
+
+          <div class="deep-box">
+            <p>Niektórzy twierdzą, że nie istnieje odpowiedź na pytanie o sens życia.</p>
+            <p>Ale prawda jest taka, że taki sens istnieje i jest taki sam dla wszystkich.</p>
+            <p>Co więcej, ten sens leży przed nami i można powiedzieć, że jest oczywisty, ale zwykle go nie dostrzegamy.</p>
+          </div>
+
+          <div class="formula">
+            <span>Sensem życia jest</span>
+            <span class="arrow">→</span>
+            <span style="color:#3aa7d6;">odnalezienie trwałego Szczęścia</span>
+          </div>
+
+          <div class="lesson-body">
+            <p>Każde nasze działanie — duże albo małe — jest ostatecznie podporządkowane właśnie temu celowi.</p>
+            <p>Zrozumienie tego bardzo ułatwia dalszy postęp w medytacji.</p>
+            <p>Tutaj „szczęście” rozumiemy jako końcowy efekt naszych działań: to coś, po co wszystko inne tak naprawdę robimy.</p>
+          </div>
+        `;
+        countdownBox.textContent = "";
+        return;
+      }
+
+      if (step === "1.5") {
+        const allRequiredRead = storyRead.weronika && storyRead.benedyk;
+        enableNext(allRequiredRead);
+        nextBtn.textContent = "Dalej";
+
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Każdy cel jest drogą do szczęścia</h1>
+
+          <div class="formula">
+            <span>(Cel)</span>
+            <span class="arrow">⇒</span>
+            <span style="color:#3aa7d6;">Szczęście</span>
+          </div>
+
+          <div class="lesson-body">
+            <p>Wartościowe relacje, nasze dziedzictwo, uznanie, pomaganie innym, trafienie do nieba — wszystko to można zapisać w tym samym wzorze.</p>
+            <p>Prawdziwym celem nie jest więc sam środek, ale efekt, który ma on przynieść. A ten efekt jest zawsze ten sam.</p>
+            <p>Nie ustanawiamy go dopiero teraz. Chcemy tylko zobaczyć, że już dawno go obraliśmy.</p>
+          </div>
+
+          <div class="story-buttons">
+            <button class="btn btn-secondary story-btn" id="weronikaBtn">Historia Weroniki</button>
+            <button class="btn btn-secondary story-btn" id="benedykBtn">Historia Benedykta</button>
+            <button class="btn btn-ghost story-btn" id="codzienneBtn">Decyzje dnia codziennego</button>
+          </div>
+
+          <div class="check-row">
+            <div class="badge ${storyRead.weronika ? "done" : ""}">Weronika ${storyRead.weronika ? "✓" : ""}</div>
+            <div class="badge ${storyRead.benedyk ? "done" : ""}">Benedykt ${storyRead.benedyk ? "✓" : ""}</div>
+            <div class="badge ${storyRead.codzienne ? "done" : ""}">Decyzje dnia codziennego ${storyRead.codzienne ? "✓" : ""}</div>
+          </div>
+
+          <div class="hint">
+            Aby przejść dalej, przeczytaj obie historie: Weroniki i Benedykta. Sekcja „Decyzje dnia codziennego” jest dodatkowym pogłębieniem. Skrót administracyjny: Ctrl + D.
+          </div>
+        `;
+        countdownBox.textContent = allRequiredRead ? "Gotowe do przejścia dalej" : "Przeczytaj obie historie";
+        document.getElementById("weronikaBtn").addEventListener("click", () => openStory("weronika"));
+        document.getElementById("benedykBtn").addEventListener("click", () => openStory("benedyk"));
+        document.getElementById("codzienneBtn").addEventListener("click", () => openStory("codzienne"));
+        return;
+      }
+    }
+
+    function openStory(type) {
+      if (type === "weronika") {
+        storyTitle.textContent = "Historia Weroniki";
+        storyContent.innerHTML = `
+          <p>— Weroniko, dlaczego tak bardzo chcesz zdać ten egzamin?</p>
+          <p>— Bo chcę dostać dyplom magistra.</p>
+          <p>— A po co Ci ten dyplom?</p>
+          <p>— Dzięki niemu będę mogła dostać dobrą pracę. Chcę coś w życiu znaczyć. Chcę też, żeby mama i tata byli ze mnie dumni. No i zawsze marzyłam o tym, żeby zostać lekarzem i pomagać ludziom.</p>
+          <p>— A po co Ci ta dobra praca?</p>
+          <p>— Żeby mieć stabilność, dobre życie… i żeby być kimś. Lekarz to szanowany zawód. Chciałabym być szanowana.</p>
+          <p>— Dlaczego tak ważne jest dla Ciebie, żeby rodzice byli z Ciebie dumni?</p>
+          <p>— Bo kiedy mama mówi, że jest ze mnie dumna… to jest niesamowite uczucie. Pamiętam kilka takich chwil w życiu i były naprawdę piękne.</p>
+          <p>— Powiedziałaś też, że chcesz pomagać ludziom. Dlaczego?</p>
+          <p>— Bo pomaganie daje ogromną satysfakcję. Nawet jeśli pacjenci bywają trudni, a praca bardzo męcząca, to na końcu wiem, że zrobiłam coś dobrego. Poza tym jestem osobą religijną. Moja religia uczy, że trzeba czynić dobro. Chcę być dobrym człowiekiem.</p>
+          <p>— A dlaczego chcesz być dobrym człowiekiem?</p>
+          <p>— Bo wtedy czuję, że moje życie ma sens.</p>
+          <p><strong>Spójrzmy głębiej:</strong> dyplom ma dać dobrą pracę. Dobra praca ma dać pieniądze, szacunek i poczucie wartości. Duma rodziców ma dać radość. Pomaganie ludziom ma dać satysfakcję i poczucie dobra.</p>
+          <p><strong>Wszystko to prowadzi do jednego — do szczęścia.</strong></p>
+          <p>Wyobraźmy sobie jednak inną sytuację. Zdajesz egzamin. Dostajesz dyplom. Zostajesz lekarzem. Ale wszystko układa się zupełnie inaczej, niż marzyłaś. Rodzice wcale nie są z Ciebie dumni. Wynagrodzenie jest niskie. Pacjenci nie zdrowieją, a czasem cierpią przez Twoje decyzje. Każdego dnia wracasz z pracy zmęczona i przygnębiona. Nie ma nadziei, że coś się kiedyś zmieni.</p>
+          <p><strong>Czy nadal wkładałabyś tyle lat wysiłku, żeby zostać lekarzem?</strong></p>
+          <p>Oczywista odpowiedź brzmi: nie. Wszystkie cele, które sobie stawiamy, są tylko środkami. Drogami. A każda z tych dróg prowadzi w to samo miejsce: do szczęścia.</p>
+        `;
+        storyRead.weronika = true;
+      }
+
+      if (type === "benedyk") {
+        storyTitle.textContent = "Historia Benedykta";
+        storyContent.innerHTML = `
+          <p>— Benedykcie, dlaczego zdecydowałeś się iść na wojnę?</p>
+          <p>— Bo mój kraj został zaatakowany. Ktoś musi go bronić.</p>
+          <p>— Czyli to obowiązek?</p>
+          <p>— Tak. Jestem żołnierzem i patriotą. Złożyłem przysięgę. Poza tym bronię też swojej rodziny i ludzi, którzy tu żyją.</p>
+          <p>— Czego właściwie oczekujesz po tej wojnie?</p>
+          <p>— Chcę, żebyśmy pokonali wroga. Żeby zapłacili za swoje czyny. Żeby sprawiedliwość zwyciężyła.</p>
+          <p>— I jeśli tak się stanie — jak będziesz się wtedy czuł?</p>
+          <p>— Wspaniale. To będzie trudna droga, ale jeśli zwyciężymy, będę wiedział, że było warto.</p>
+          <p>— A jeśli przyjdzie Ci zginąć?</p>
+          <p>— Jeśli zginę w służbie, uznam, że przysłużyłem się sprawie. Że zrobiłem to, co należało zrobić.</p>
+          <p><strong>Spójrzmy głębiej:</strong> chcesz pokonać wroga, bo wtedy zapanuje sprawiedliwość. Chcesz obronić swój kraj i rodzinę. Chcesz zachować honor. A jak będziesz się wtedy czuł? Dumny. Z poczuciem, że zrobiłeś coś właściwego.</p>
+          <p>Wyobraźmy sobie teraz sytuację odwrotną. Już dziś wiesz z całkowitą pewnością, że wszystko potoczy się dokładnie przeciwnie. Twoje decyzje okażą się błędne. Zamiast chwały spadnie na Ciebie hańba. Zawiedziesz. Ludzie będą mówić o Tobie z pogardą.</p>
+          <p><strong>Czy nadal z takim samym przekonaniem wyruszyłbyś do walki?</strong></p>
+          <p>Oczywista odpowiedź brzmi: nie. Człowiek działa dlatego, że widzi przed sobą nagrodę — zwycięstwo, sprawiedliwość, dumę, poczucie sensu. Gdy znika nadzieja na szczęście, znika też motywacja do działania.</p>
+        `;
+        storyRead.benedyk = true;
+      }
+
+      if (type === "codzienne") {
+        storyTitle.textContent = "Decyzje dnia codziennego";
+        storyContent.innerHTML = `
+          <div class="daily-grid">
+            <div class="daily-card">
+              <h3>1. Jedzenie i głód</h3>
+              <p>Idziesz zjeść, bo uczucie sytości jest lepsze niż uczucie głodu.</p>
+              <p>Pościsz, bo uczucie spełnionego obowiązku religijnego jest dla Ciebie ważniejsze niż głód.</p>
+              <p>Stosujesz dietę, bo lepsze zdrowie lub wygląd cenisz bardziej niż chwilową sytość.</p>
+            </div>
+            <div class="daily-card">
+              <h3>2. Kłótnia i racja</h3>
+              <p>Chcesz postawić na swoim, bo uczucie posiadania racji jest dla Ciebie lepsze niż przyznanie się do błędu.</p>
+              <p>Przyznajesz się do błędu, bo uczciwość i fair play cenisz bardziej niż utrzymanie racji.</p>
+            </div>
+            <div class="daily-card">
+              <h3>3. Praca i wysiłek</h3>
+              <p>Pracujesz ciężko przez lata, bo przyszły sukces i bezpieczeństwo cenisz bardziej niż dzisiejszy odpoczynek.</p>
+              <p>Rezygnujesz z awansu, bo spokój życia i czas dla bliskich cenisz bardziej niż większe pieniądze.</p>
+            </div>
+            <div class="daily-card">
+              <h3>4. Pomaganie innym</h3>
+              <p>Pomagasz, bo uczucie czynienia dobra jest lepsze niż obojętność.</p>
+              <p>Czasem odmawiasz, bo troskę o własne siły lub rodzinę uznajesz za ważniejszą niż kolejne poświęcenie.</p>
+            </div>
+            <div class="daily-card">
+              <h3>5. Wybaczenie i uraza</h3>
+              <p>Trwasz w urazie, bo poczucie sprawiedliwości wydaje Ci się ważniejsze niż pojednanie.</p>
+              <p>Wybaczasz, bo spokój serca cenisz bardziej niż trwanie w gniewie.</p>
+            </div>
+            <div class="daily-card">
+              <h3>Wspólny rdzeń</h3>
+              <p>Wszystkie te decyzje mają prowadzić do szczęścia. Umysł jest narzędziem, które próbuje przewidzieć, która decyzja doprowadzi do tego celu.</p>
+            </div>
+          </div>
+        `;
+        storyRead.codzienne = true;
+      }
+
+      saveStories();
+      hideModalIfNeededAndRefresh();
+      showModal(storyModal);
+    }
+
+    function hideModalIfNeededAndRefresh() {
+      if (lessonSteps[currentStepIndex] === "1.5") {
+        const allRequiredRead = storyRead.weronika && storyRead.benedyk;
+        enableNext(allRequiredRead);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    backBtn.addEventListener("click", () => {
+      goBack();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      const step = lessonSteps[currentStepIndex];
+
+      if (step === "1.2") {
+        if (nextBtn.disabled) return;
+        showModal(confirmModal);
+        return;
+      }
+
+      if (step === "1.5") {
+        if (nextBtn.disabled) return;
+        alert("To koniec obecnie przygotowanej części Lekcji 1.");
+        return;
+      }
+
+      goNext();
+    });
+
+    confirmYesBtn.addEventListener("click", () => {
+      hideModal(confirmModal);
+      goNext();
+    });
+
+    confirmNoBtn.addEventListener("click", () => {
+      hideModal(confirmModal);
+      currentStepIndex = 2;
+      saveStep(currentStepIndex);
+      renderStep();
+    });
+
+    storyCloseBtn.addEventListener("click", () => {
+      hideModal(storyModal);
+      renderStep();
+    });
+
+    resumeYesBtn.addEventListener("click", () => {
+      hideModal(resumeModal);
+      currentStepIndex = loadStep();
+      renderStep();
+    });
+
+    resumeNoBtn.addEventListener("click", () => {
+      hideModal(resumeModal);
+      resetProgress();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
+        event.preventDefault();
+        adminSkipEnabled = true;
+        if (lessonSteps[currentStepIndex] === "1.2") {
+          stopCountdown();
+          enableNext(true);
+          countdownBox.textContent = "Tryb admina: możesz przejść dalej";
+        }
+        if (lessonSteps[currentStepIndex] === "1.5") {
+          enableNext(true);
+          countdownBox.textContent = "Tryb admina: możesz przejść dalej";
+        }
+      }
+    });
+
+    function init() {
+      loadStories();
+      const savedName = loadName();
+      const savedStep = loadStep();
+
+      if (savedName && savedStep > 0) {
+        resumeText.textContent = `${savedName}, czy chcesz wrócić do miejsca, w którym ostatnio skończyłeś?`;
+        showModal(resumeModal);
+      } else {
+        currentStepIndex = savedStep;
+        renderStep();
+      }
+    }
+
+    init();
+  </script>
 </body>
 </html>
