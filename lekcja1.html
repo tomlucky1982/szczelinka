@@ -176,10 +176,11 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #8a8a8a;
-      background: #f5f5f5;
+      color: #ffffff;
+      background: #3bb273;
       padding: 10px 14px;
       border-radius: 999px;
+      box-shadow: 0 8px 18px rgba(59, 178, 115, 0.22);
     }
 
     .lesson-center {
@@ -302,33 +303,19 @@
       margin-top: 10px;
     }
 
-    .name-input,
-    .exercise-input,
-    .exercise-textarea {
+    .name-input {
       width: 100%;
       border: 2px solid #dcdcdc;
       border-radius: 18px;
       padding: 18px 20px;
-      font-size: 22px;
+      font-size: 28px;
+      text-align: center;
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
       font-family: Arial, sans-serif;
     }
 
-    .name-input {
-      font-size: 28px;
-      text-align: center;
-    }
-
-    .exercise-textarea {
-      min-height: 110px;
-      resize: vertical;
-      line-height: 1.5;
-    }
-
-    .name-input:focus,
-    .exercise-input:focus,
-    .exercise-textarea:focus {
+    .name-input:focus {
       border-color: #3aa7d6;
       box-shadow: 0 0 0 4px rgba(58, 167, 214, 0.14);
     }
@@ -541,7 +528,6 @@
       margin-top: 10px;
     }
 
-    .exercise-grid,
     .compare-grid {
       width: 100%;
       max-width: 920px;
@@ -554,7 +540,6 @@
 
     .daily-card,
     .feeling-card,
-    .exercise-card,
     .compare-card,
     .single-card,
     .image-card {
@@ -573,7 +558,6 @@
     }
 
     .daily-card h3,
-    .exercise-card h3,
     .compare-card h3,
     .single-card h3,
     .image-card h3 {
@@ -584,7 +568,6 @@
 
     .daily-card p,
     .feeling-card p,
-    .exercise-card p,
     .compare-card p,
     .single-card p,
     .image-card p {
@@ -595,26 +578,10 @@
 
     .daily-card p:last-child,
     .feeling-card p:last-child,
-    .exercise-card p:last-child,
     .compare-card p:last-child,
     .single-card p:last-child,
     .image-card p:last-child {
       margin-bottom: 0;
-    }
-
-    .field-label {
-      font-size: 15px;
-      font-weight: 700;
-      color: #6b6b6b;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 8px;
-    }
-
-    .exercise-group {
-      display: grid;
-      gap: 12px;
-      margin-top: 10px;
     }
 
     .feeling-card {
@@ -647,17 +614,133 @@
     }
 
     .scene-image.small {
-      max-width: 380px;
+      max-width: 260px;
     }
 
-    .two-image-row {
+    .two-col-text-image {
       width: 100%;
-      max-width: 920px;
+      max-width: 940px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 26px;
       align-items: start;
+      text-align: left;
       margin-top: 10px;
+    }
+
+    .right-image-stack {
+      display: grid;
+      gap: 16px;
+      justify-items: center;
+    }
+
+    .reflection-box {
+      width: 100%;
+      max-width: 860px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 6px 0;
+      text-align: center;
+    }
+
+    /* 1.7 puzzle */
+    .puzzle-wrap {
+      width: 100%;
+      max-width: 960px;
+      display: grid;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .drop-zones {
+      display: grid;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .drop-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .drop-label {
+      font-size: 20px;
+      font-weight: 700;
+      text-align: left;
+      color: #2d2d2d;
+    }
+
+    .drop-slot {
+      min-height: 72px;
+      border: 2px dashed #bfcad1;
+      border-radius: 18px;
+      background: #fafcfd;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .drop-slot.active {
+      border-color: #3aa7d6;
+      background: #f3fbfe;
+    }
+
+    .drop-slot.correct {
+      border-color: #3bb273;
+      background: #f2fbf6;
+    }
+
+    .drop-slot.wrong {
+      border-color: #d45b5b;
+      background: #fff5f5;
+    }
+
+    .puzzle-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      background: #f5f5f5;
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .puzzle-item {
+      background: #ffffff;
+      border: 1px solid #d9e2e8;
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 16px;
+      line-height: 1.45;
+      text-align: left;
+      cursor: grab;
+      max-width: 420px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .puzzle-item.dragging {
+      opacity: 0.55;
+    }
+
+    .puzzle-controls {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .comment-bottom {
+      font-size: 17px;
+      color: #6d6d6d;
+      text-align: center;
+      max-width: 860px;
     }
 
     .modal-backdrop {
@@ -774,13 +857,17 @@
 
       .split-areas,
       .daily-grid,
-      .exercise-grid,
       .compare-grid,
       .feelings-grid,
       .story-buttons,
-      .two-image-row,
-      .truth-row {
+      .truth-row,
+      .two-col-text-image,
+      .drop-row {
         grid-template-columns: 1fr;
+      }
+
+      .drop-label {
+        text-align: center;
       }
     }
 
@@ -831,6 +918,11 @@
 
       .nav-left .btn,
       .nav-right .btn {
+        width: 100%;
+      }
+
+      .puzzle-item {
+        max-width: 100%;
         width: 100%;
       }
     }
@@ -911,6 +1003,16 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="reflectionModal">
+    <div class="modal">
+      <h2>Czy widzisz związek między swoją decyzją a nadzieją na szczęście, którą miała ona przynieść?</h2>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="reflectionYesBtn">Tak</button>
+        <button class="btn btn-secondary" id="reflectionNoBtn">Jeszcze nie</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-backdrop story-modal" id="storyModal">
     <div class="modal">
       <h2 id="storyTitle">Historia</h2>
@@ -933,19 +1035,32 @@
       codzienne: false
     };
 
-    let exerciseData = {
-      decision: "",
-      reasonA: "",
-      reasonB: "",
-      feelingA: "",
-      feelingB: ""
+    const puzzleOriginalItems = [
+      { id: "i1", text: "Zdecydowałem się pójść do szefa i poprosić o podwyżkę.", type: "1" },
+      { id: "i2", text: "Gdybym otrzymał tę podwyżkę, stać by mnie było na nowszy samochód.", type: "2" },
+      { id: "i3", text: "Kolega, który wykonuje podobną funkcję w innej firmie, zarabia więcej niż ja.", type: "2" },
+      { id: "i4", text: "Będę mógł się pochwalić żonie. Na pewno mnie doceni.", type: "3" },
+      { id: "i5", text: "Jadąc nowym samochodem będę czuł dumę.", type: "3" },
+      { id: "i6", text: "Podwyżka ma mi powiększyć mój stan posiadanego Szczęścia.", type: "4" }
+    ];
+
+    let puzzleState = {
+      slots: {
+        slot1: null,
+        slot2a: null,
+        slot2b: null,
+        slot3a: null,
+        slot3b: null,
+        slot4: null
+      },
+      bankOrder: []
     };
 
     const storageKeys = {
       name: "szczelinka_user_name",
       step: "szczelinka_lesson1_step",
       storyRead: "szczelinka_lesson1_story_read",
-      exercise: "szczelinka_lesson1_exercise"
+      puzzle: "szczelinka_lesson1_puzzle"
     };
 
     const lessonContent = document.getElementById("lessonContent");
@@ -964,6 +1079,10 @@
     const confirmModal = document.getElementById("confirmModal");
     const confirmYesBtn = document.getElementById("confirmYesBtn");
     const confirmNoBtn = document.getElementById("confirmNoBtn");
+
+    const reflectionModal = document.getElementById("reflectionModal");
+    const reflectionYesBtn = document.getElementById("reflectionYesBtn");
+    const reflectionNoBtn = document.getElementById("reflectionNoBtn");
 
     const storyModal = document.getElementById("storyModal");
     const storyTitle = document.getElementById("storyTitle");
@@ -1020,27 +1139,58 @@
       } catch (_) {}
     }
 
-    function saveExercise() {
-      localStorage.setItem(storageKeys.exercise, JSON.stringify(exerciseData));
-      setCookie(storageKeys.exercise, JSON.stringify(exerciseData));
+    function savePuzzle() {
+      localStorage.setItem(storageKeys.puzzle, JSON.stringify(puzzleState));
+      setCookie(storageKeys.puzzle, JSON.stringify(puzzleState));
     }
 
-    function loadExercise() {
-      const raw = localStorage.getItem(storageKeys.exercise) || getCookie(storageKeys.exercise);
-      if (!raw) return;
+    function loadPuzzle() {
+      const raw = localStorage.getItem(storageKeys.puzzle) || getCookie(storageKeys.puzzle);
+      if (!raw) {
+        resetPuzzle(false);
+        return;
+      }
       try {
         const parsed = JSON.parse(raw);
-        exerciseData = { ...exerciseData, ...parsed };
+        if (parsed && parsed.slots && parsed.bankOrder) {
+          puzzleState = parsed;
+          return;
+        }
       } catch (_) {}
+      resetPuzzle(false);
+    }
+
+    function shuffledIds() {
+      const arr = puzzleOriginalItems.map(i => i.id);
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function resetPuzzle(save = true) {
+      puzzleState = {
+        slots: {
+          slot1: null,
+          slot2a: null,
+          slot2b: null,
+          slot3a: null,
+          slot3b: null,
+          slot4: null
+        },
+        bankOrder: shuffledIds()
+      };
+      if (save) savePuzzle();
     }
 
     function resetProgress() {
       currentStepIndex = 0;
       storyRead = { weronika: false, benedyk: false, codzienne: false };
-      exerciseData = { decision: "", reasonA: "", reasonB: "", feelingA: "", feelingB: "" };
+      resetPuzzle(false);
       saveStep(0);
       saveStories();
-      saveExercise();
+      savePuzzle();
       renderStep();
     }
 
@@ -1114,11 +1264,160 @@
         .replaceAll("'", "&#39;");
     }
 
-    function hasExerciseMinimum() {
-      const decisionOk = exerciseData.decision.trim().length > 0;
-      const reasonsOk = exerciseData.reasonA.trim().length > 0 || exerciseData.reasonB.trim().length > 0;
-      const feelingsOk = exerciseData.feelingA.trim().length > 0 || exerciseData.feelingB.trim().length > 0;
-      return decisionOk && reasonsOk && feelingsOk;
+    function isPuzzleCorrect() {
+      const slots = puzzleState.slots;
+      const getType = (id) => puzzleOriginalItems.find(x => x.id === id)?.type || null;
+      return (
+        getType(slots.slot1) === "1" &&
+        getType(slots.slot2a) === "2" &&
+        getType(slots.slot2b) === "2" &&
+        getType(slots.slot3a) === "3" &&
+        getType(slots.slot3b) === "3" &&
+        getType(slots.slot4) === "4"
+      );
+    }
+
+    function renderPuzzle() {
+      const bankItems = puzzleState.bankOrder
+        .filter(id => !Object.values(puzzleState.slots).includes(id))
+        .map(id => puzzleOriginalItems.find(item => item.id === id));
+
+      const slotData = [
+        { key: "slot1", label: "Poziom decyzji", marker: "1[]" },
+        { key: "slot2a", label: "Poziom powodów", marker: "2[]" },
+        { key: "slot2b", label: "Poziom powodów", marker: "2[]" },
+        { key: "slot3a", label: "Poziom uczuć", marker: "3[]" },
+        { key: "slot3b", label: "Poziom uczuć", marker: "3[]" },
+        { key: "slot4", label: "A tak naprawdę?", marker: "4[]" }
+      ];
+
+      lessonContent.innerHTML = `
+        <div class="lesson-kicker">Lekcja 1.7</div>
+        <h1 class="lesson-title">Ułóż elementy</h1>
+
+        <div class="puzzle-wrap">
+          <div class="drop-zones">
+            ${slotData.map(slot => {
+              const itemId = puzzleState.slots[slot.key];
+              const item = itemId ? puzzleOriginalItems.find(x => x.id === itemId) : null;
+              const correctClass = item
+                ? (item.type === slot.marker[0] ? "correct" : "wrong")
+                : "";
+              return `
+                <div class="drop-row">
+                  <div class="drop-label">${slot.label}<br><strong>${slot.marker}</strong></div>
+                  <div class="drop-slot ${correctClass}" data-slot="${slot.key}">
+                    ${item ? `<div class="puzzle-item" draggable="true" data-id="${item.id}">${escapeHtml(item.text)}</div>` : ""}
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+
+          <div class="puzzle-bank" id="puzzleBank">
+            ${bankItems.map(item => `
+              <div class="puzzle-item" draggable="true" data-id="${item.id}">
+                ${escapeHtml(item.text)}
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="puzzle-controls">
+            <button class="btn btn-secondary" id="resetPuzzleBtn">Zacznij jeszcze raz</button>
+          </div>
+
+          <div class="comment-bottom">Ułóż elementy</div>
+        </div>
+      `;
+
+      bindPuzzleEvents();
+      enableNext(isPuzzleCorrect());
+      nextBtn.textContent = "Dalej";
+    }
+
+    function placeItemInSlot(itemId, slotKey) {
+      Object.keys(puzzleState.slots).forEach(key => {
+        if (puzzleState.slots[key] === itemId) puzzleState.slots[key] = null;
+      });
+      const displaced = puzzleState.slots[slotKey];
+      puzzleState.slots[slotKey] = itemId;
+      if (displaced && !puzzleState.bankOrder.includes(displaced)) {
+        puzzleState.bankOrder.push(displaced);
+      }
+      puzzleState.bankOrder = puzzleState.bankOrder.filter(id => id !== itemId);
+      savePuzzle();
+      renderPuzzle();
+    }
+
+    function returnItemToBank(itemId) {
+      Object.keys(puzzleState.slots).forEach(key => {
+        if (puzzleState.slots[key] === itemId) puzzleState.slots[key] = null;
+      });
+      if (!puzzleState.bankOrder.includes(itemId)) {
+        puzzleState.bankOrder.push(itemId);
+      }
+      savePuzzle();
+      renderPuzzle();
+    }
+
+    function bindPuzzleEvents() {
+      let draggedId = null;
+
+      document.querySelectorAll(".puzzle-item").forEach(el => {
+        el.addEventListener("dragstart", () => {
+          draggedId = el.dataset.id;
+          el.classList.add("dragging");
+        });
+        el.addEventListener("dragend", () => {
+          el.classList.remove("dragging");
+        });
+
+        el.addEventListener("click", () => {
+          const itemId = el.dataset.id;
+          const currentContainer = el.parentElement;
+          if (currentContainer.id === "puzzleBank") {
+            const firstEmpty = Object.keys(puzzleState.slots).find(key => !puzzleState.slots[key]);
+            if (firstEmpty) placeItemInSlot(itemId, firstEmpty);
+          } else {
+            returnItemToBank(itemId);
+          }
+        });
+      });
+
+      document.querySelectorAll(".drop-slot").forEach(slot => {
+        slot.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          slot.classList.add("active");
+        });
+        slot.addEventListener("dragleave", () => {
+          slot.classList.remove("active");
+        });
+        slot.addEventListener("drop", (e) => {
+          e.preventDefault();
+          slot.classList.remove("active");
+          if (!draggedId) return;
+          placeItemInSlot(draggedId, slot.dataset.slot);
+          draggedId = null;
+        });
+        slot.addEventListener("click", () => {
+          const existing = slot.querySelector(".puzzle-item");
+          if (existing) returnItemToBank(existing.dataset.id);
+        });
+      });
+
+      const bank = document.getElementById("puzzleBank");
+      bank.addEventListener("dragover", (e) => e.preventDefault());
+      bank.addEventListener("drop", (e) => {
+        e.preventDefault();
+        if (!draggedId) return;
+        returnItemToBank(draggedId);
+        draggedId = null;
+      });
+
+      document.getElementById("resetPuzzleBtn").addEventListener("click", () => {
+        resetPuzzle(true);
+        renderPuzzle();
+      });
     }
 
     function openStory(type) {
@@ -1130,8 +1429,38 @@
           <p>— A po co Ci ten dyplom?</p>
           <p>— Dzięki niemu będę mogła dostać dobrą pracę. Chcę coś w życiu znaczyć. Chcę też, żeby mama i tata byli ze mnie dumni. No i zawsze marzyłam o tym, żeby zostać lekarzem i pomagać ludziom.</p>
           <p>— A po co Ci ta dobra praca?</p>
-          <p>— Żeby mieć stabilność, dobre życie… i żeby być kimś.</p>
-          <p><strong>Wszystko to prowadzi do jednego — do szczęścia.</strong></p>
+          <p>— Żeby mieć stabilność, dobre życie… i żeby być kimś. Lekarz to szanowany zawód. Chciałabym być szanowana.</p>
+          <p>— Dlaczego tak ważne jest dla Ciebie, żeby rodzice byli z Ciebie dumni?</p>
+          <p>— Bo kiedy mama mówi, że jest ze mnie dumna… to jest niesamowite uczucie. Pamiętam kilka takich chwil w życiu i były naprawdę piękne.</p>
+          <p>— Powiedziałaś też, że chcesz pomagać ludziom. Dlaczego?</p>
+          <p>— Bo pomaganie daje ogromną satysfakcję. Nawet jeśli pacjenci bywają trudni, a praca bardzo męcząca, to na końcu wiem, że zrobiłam coś dobrego. Poza tym jestem osobą religijną. Moja religia uczy, że trzeba czynić dobro. Chcę być dobrym człowiekiem.</p>
+          <p>— A dlaczego chcesz być dobrym człowiekiem?</p>
+          <p>— Bo wtedy czuję, że moje życie ma sens.</p>
+          <p>— A gdybyśmy spojrzeli na to jeszcze głębiej, Weroniko…</p>
+          <p>Dyplom ma dać Ci dobrą pracę.</p>
+          <p>Dobra praca ma dać Ci pieniądze, szacunek i poczucie wartości.</p>
+          <p>Duma rodziców ma dać Ci radość.</p>
+          <p>Pomaganie ludziom ma dać Ci satysfakcję i poczucie dobra.</p>
+          <p>— Czy widzisz, do czego prowadzą wszystkie te rzeczy?</p>
+          <p>Do jednego.</p>
+          <p>Do Twojego szczęścia.</p>
+          <p>— Wyobraźmy sobie jednak inną sytuację, Weroniko.</p>
+          <p>Zdajesz egzamin. Dostajesz dyplom. Zostajesz lekarzem.</p>
+          <p>Ale wszystko układa się zupełnie inaczej, niż marzyłaś.</p>
+          <p>Rodzice wcale nie są z Ciebie dumni.</p>
+          <p>Twoje wynagrodzenie jest niskie.</p>
+          <p>Pacjenci nie zdrowieją, a czasem nawet cierpią przez Twoje decyzje.</p>
+          <p>Twoja religia mówi Ci, że przez to, co robisz, jesteś złym człowiekiem.</p>
+          <p>Każdego dnia wracasz z pracy zmęczona i przygnębiona.</p>
+          <p>Nie znajdujesz w niej żadnej radości.</p>
+          <p>Nie ma nawet nadziei, że coś się kiedyś zmieni.</p>
+          <p>Wiesz z całkowitą pewnością, że tak będzie już zawsze.</p>
+          <p>— Powiedz mi szczerze, Weroniko… Czy wiedząc, że tak właśnie skończy się Twoja droga, nadal wkładałabyś tyle lat wysiłku, żeby zostać lekarzem?</p>
+          <p><strong>{oczywista odpowiedź to NIE}</strong></p>
+          <p>Wszystkie cele, które sobie stawiamy — dyplom, praca, uznanie, pomaganie innym, bycie dobrym człowiekiem — są tylko środkami.</p>
+          <p>Drogami.</p>
+          <p>A każda z tych dróg prowadzi w to samo miejsce.</p>
+          <p>Do szczęścia.</p>
         `;
         storyRead.weronika = true;
       }
@@ -1141,9 +1470,39 @@
         storyContent.innerHTML = `
           <p>— Benedykcie, dlaczego zdecydowałeś się iść na wojnę?</p>
           <p>— Bo mój kraj został zaatakowany. Ktoś musi go bronić.</p>
-          <p>— Czego właściwie oczekujesz po tej wojnie?</p>
-          <p>— Chcę, żebyśmy pokonali wroga. Żeby sprawiedliwość zwyciężyła.</p>
-          <p><strong>Za tym również stoi to samo: oczekiwanie na szczęście, dumę, sens, spełnienie.</strong></p>
+          <p>— Czyli to obowiązek?</p>
+          <p>— Tak. Jestem żołnierzem i patriotą. Złożyłem przysięgę. Poza tym bronię też swojej rodziny i ludzi, którzy tu żyją.</p>
+          <p>— A czego właściwie oczekujesz po tej wojnie? Co ma się wydarzyć?</p>
+          <p>— Chcę, żebyśmy pokonali wroga. Żeby zapłacili za swoje czyny. Żeby sprawiedliwość zwyciężyła.</p>
+          <p>— I jeśli tak się stanie — jak będziesz się wtedy czuł?</p>
+          <p>— Wspaniale. To będzie trudna droga, ale jeśli zwyciężymy, będę wiedział, że było warto.</p>
+          <p>— A jeśli przyjdzie Ci zginąć na tej wojnie?</p>
+          <p>— Jeśli zginę w służbie, uznam, że przysłużyłem się sprawie. Że zrobiłem to, co należało zrobić.</p>
+          <p>— Czyli nawet wtedy zobaczysz w tym sens?</p>
+          <p>— Tak. Bo walczyłem o coś ważnego.</p>
+          <p>— Spójrzmy jednak jeszcze głębiej, Benedykcie.</p>
+          <p>Chcesz pokonać wroga, bo wtedy zapanuje sprawiedliwość.</p>
+          <p>Chcesz obronić swój kraj i swoją rodzinę.</p>
+          <p>Chcesz być wierny przysiędze i zachować honor.</p>
+          <p>— A jak będziesz się wtedy czuł?</p>
+          <p>— Będę dumny. Będę miał poczucie, że zrobiłem coś właściwego.</p>
+          <p>— Wyobraźmy sobie teraz zupełnie inną sytuację.</p>
+          <p>Załóżmy, że już dziś wiesz z całkowitą pewnością, że wszystko potoczy się dokładnie odwrotnie niż oczekujesz.</p>
+          <p>Twoje decyzje okażą się błędne.</p>
+          <p>Przez Twoje rozkazy zginie wielu ludzi.</p>
+          <p>Nie przyniesiesz zwycięstwa swojej armii.</p>
+          <p>Zamiast chwały spadnie na Ciebie hańba.</p>
+          <p>Splamisz swój honor.</p>
+          <p>Ludzie, którzy dziś są Twoimi towarzyszami broni, będą mówić o Tobie z pogardą.</p>
+          <p>A Ty sam, patrząc na swoje życie, będziesz wiedział, że zawiodłeś.</p>
+          <p>— Powiedz mi szczerze, Benedykcie…</p>
+          <p>Gdybyś już dziś wiedział, że Twoje zaangażowanie w tę wojnę doprowadzi właśnie do takiego końca —</p>
+          <p>czy nadal z takim samym przekonaniem wyruszyłbyś do walki?</p>
+          <p><strong>{oczywista odpowiedź to NIE}</strong></p>
+          <p>I właśnie w tym tkwi istota tej historii.</p>
+          <p>Człowiek działa dlatego, że widzi przed sobą nagrodę — zwycięstwo, sprawiedliwość, dumę, poczucie sensu.</p>
+          <p>Gdy pojawia się pewność, że zamiast tego czeka go hańba, porażka i cierpienie, znika także motywacja do działania.</p>
+          <p><strong>Brak nadziei na szczęście = brak działania. Za każdym działaniem kryje się nadzieja na szczęście.</strong></p>
         `;
         storyRead.benedyk = true;
       }
@@ -1321,6 +1680,9 @@
 
           <div class="margin-note">
             Tutaj „szczęście” rozumiemy jako końcowy efekt naszych działań: to coś, po co wszystko inne tak naprawdę robimy.
+          </div>
+
+          <div class="margin-note">
             Nie ustanawiamy go dopiero teraz. Chcemy tylko zobaczyć, że już dawno go obraliśmy.
           </div>
         `;
@@ -1366,6 +1728,8 @@
               <p>Jak zwykłe codzienne wybory również podporządkowane są temu samemu celowi.</p>
             </div>
           </div>
+
+          <div class="comment-bottom">Przeczytaj 3 historie aby przejść dalej.</div>
         `;
 
         document.getElementById("weronikaTile").addEventListener("click", () => openStory("weronika"));
@@ -1404,127 +1768,24 @@
       }
 
       if (step === "1.7") {
-        enableNext(hasExerciseMinimum());
-        nextBtn.textContent = "Dalej";
-        lessonContent.innerHTML = `
-          <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Ćwiczenie z Twoją decyzją</h1>
-
-          <div class="exercise-grid">
-            <div class="exercise-card">
-              <h3>Poziom Decyzji</h3>
-              <div class="field-label">Twoja ostatnia ważna decyzja</div>
-              <textarea id="decisionInput" class="exercise-textarea" placeholder="Np. Zdecydowałem się pójść do szefa i poprosić o podwyżkę.">${escapeHtml(exerciseData.decision)}</textarea>
-            </div>
-
-            <div class="exercise-card">
-              <h3>Przykład</h3>
-              <p>Zdecydowałem się pójść do szefa i poprosić o podwyżkę.</p>
-            </div>
-          </div>
-
-          <div class="exercise-grid">
-            <div class="exercise-card">
-              <h3>Poziom Powodów</h3>
-              <p>Dla prostoty ćwiczenia ograniczymy się do 2 powodów, ale wystarczy wpisać przynajmniej 1.</p>
-              <div class="exercise-group">
-                <input id="reasonAInput" class="exercise-input" type="text" placeholder="A. Powód pierwszy" value="${escapeHtml(exerciseData.reasonA)}">
-                <input id="reasonBInput" class="exercise-input" type="text" placeholder="B. Powód drugi" value="${escapeHtml(exerciseData.reasonB)}">
-              </div>
-            </div>
-
-            <div class="exercise-card">
-              <h3>Przykład</h3>
-              <p>A. Gdybym otrzymał tę podwyżkę, stać by mnie było na nowszy samochód.</p>
-              <p>B. Kolega, który wykonuje podobną funkcję w innej firmie, zarabia więcej niż ja.</p>
-            </div>
-          </div>
-
-          <div class="exercise-grid">
-            <div class="exercise-card">
-              <h3>Poziom Uczucia</h3>
-              <p>Jakie uczucia towarzyszyłyby pozytywnemu efektowi? Wystarczy wpisać przynajmniej 1.</p>
-              <div class="exercise-group">
-                <input id="feelingAInput" class="exercise-input" type="text" placeholder="A. Uczucie pierwsze" value="${escapeHtml(exerciseData.feelingA)}">
-                <input id="feelingBInput" class="exercise-input" type="text" placeholder="B. Uczucie drugie" value="${escapeHtml(exerciseData.feelingB)}">
-              </div>
-            </div>
-
-            <div class="exercise-card">
-              <h3>Przykład</h3>
-              <p>A. Będę mógł się pochwalić żonie. Na pewno mnie doceni.</p>
-              <p>B. Jadąc nowym samochodem będę czuł dumę.</p>
-            </div>
-          </div>
-
-          <div class="hint">Aby przejść dalej, wpisz: decyzję, przynajmniej 1 powód i przynajmniej 1 uczucie.</div>
-        `;
-
-        const fields = [
-          ["decisionInput", "decision"],
-          ["reasonAInput", "reasonA"],
-          ["reasonBInput", "reasonB"],
-          ["feelingAInput", "feelingA"],
-          ["feelingBInput", "feelingB"]
-        ];
-
-        fields.forEach(([id, key]) => {
-          document.getElementById(id).addEventListener("input", (e) => {
-            exerciseData[key] = e.target.value;
-            saveExercise();
-            enableNext(hasExerciseMinimum());
-          });
-        });
+        renderPuzzle();
         return;
       }
 
       if (step === "1.8") {
-        enableNext(true);
-        nextBtn.textContent = "Dlaczego";
+        enableNext(false);
+        nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">To wszystko są różne nazwy na Szczęście</h1>
+          <h1 class="lesson-title">Spójrz teraz na swoją decyzję jeszcze raz</h1>
 
-          <div class="compare-grid">
-            <div class="compare-card">
-              <h3>Twoje odpowiedzi</h3>
-              <p><strong>Decyzja:</strong> ${escapeHtml(exerciseData.decision || "—")}</p>
-              <p><strong>Powód A:</strong> ${escapeHtml(exerciseData.reasonA || "—")}</p>
-              <p><strong>Powód B:</strong> ${escapeHtml(exerciseData.reasonB || "—")}</p>
-              <p><strong>Uczucie A:</strong> ${escapeHtml(exerciseData.feelingA || "—")}</p>
-              <p><strong>Uczucie B:</strong> ${escapeHtml(exerciseData.feelingB || "—")}</p>
+          <div class="reflection-box">
+            <div class="lesson-body center">
+              <p>Pomyśl o niedawnej swojej własnej decyzji, prześledź powody, uczucia jakie miały temu towarzyszyć i zobacz, że za tą decyzją stoi tak naprawdę chęć uzyskania szczęścia.</p>
             </div>
-
-            <div class="compare-card">
-              <h3>Przykładowe odpowiedzi</h3>
-              <p><strong>Decyzja:</strong> pójść do szefa i poprosić o podwyżkę</p>
-              <p><strong>Powód A:</strong> nowszy samochód</p>
-              <p><strong>Powód B:</strong> wyższe zarobki niż kolega</p>
-              <p><strong>Uczucie A:</strong> docenienie</p>
-              <p><strong>Uczucie B:</strong> duma</p>
-            </div>
-          </div>
-
-          <div class="feelings-grid">
-            <div class="feeling-card"><div class="feeling-icon">👑</div><div><p><strong>Duma</strong></p><p>Poczucie, że wzrastasz w swoich własnych oczach.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">🤝</div><div><p><strong>Docenienie</strong></p><p>Bycie zauważonym i uznanym przez innych.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">🏆</div><div><p><strong>Wygrana</strong></p><p>Smak zwycięstwa i przewagi.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">✨</div><div><p><strong>Szacunek</strong></p><p>Poczucie, że Twoja wartość jest uznana.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">🌟</div><div><p><strong>Uznanie</strong></p><p>Bycie potwierdzonym jako ważny, dobry lub skuteczny.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">🚀</div><div><p><strong>Sukces</strong></p><p>Przekonanie, że coś się udało tak, jak chciałeś.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">😊</div><div><p><strong>Satysfakcja</strong></p><p>Wewnętrzne „tak”, które pojawia się po osiągnięciu celu.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">🌿</div><div><p><strong>Spełnienie</strong></p><p>Wrażenie pełni i sensu.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">💛</div><div><p><strong>Poczucie bycia chcianym</strong></p><p>Doświadczenie, że ktoś naprawdę Cię pragnie w swoim życiu.</p></div></div>
-            <div class="feeling-card"><div class="feeling-icon">❤️</div><div><p><strong>Poczucie bycia kochanym</strong></p><p>Głębokie doświadczenie przyjęcia i bliskości.</p></div></div>
-          </div>
-
-          <div class="lesson-body center">
-            <p>To wszystko są różne nazwy na Szczęście.</p>
-            <p>Kiedy jesteśmy naprawdę szczęśliwi, nikt nie musi nam tłumaczyć, co przeżywamy. Nie musimy nawet mieć na to nazwy — i tak wiemy, jak to smakuje.</p>
-            <p>A potem dążymy do tego, aby to się powtórzyło.</p>
-            <p>Jest jednak problem: bywa, że to nie chce się powtórzyć. Bywa, że pomimo naszych wysiłków nie dostajemy tej nagrody, której oczekujemy.</p>
           </div>
         `;
+        startCountdown(60);
         return;
       }
 
@@ -1535,34 +1796,24 @@
           <div class="lesson-kicker">Lekcja ${step}</div>
           <h1 class="lesson-title">Świat jest nietrwały. Świat jest zmienny.</h1>
 
-          <div class="single-column-wrap">
-            <div class="image-card">
-              <h3>🏜️ Nawet piramidy zwietrzeją</h3>
+          <div class="two-col-text-image">
+            <div class="lesson-body">
+              <p>Zauważ, że wszystko na świecie ma określony czas, przez który istnieje, a potem się rozpada.</p>
+              <p>Nawet piramidy, które wydają się tak wielkie i wieczne, zwietrzeją.</p>
+              <p>Nawet posąg, który Tobie postawią, żeby uczcić Twoją wspaniałość, zostanie kiedyś zapomniany.</p>
+              <p>Twoja sława przeminie.</p>
+              <p>Wszystko, co zgromadzisz na tym świecie, będzie trzeba oddać, żegnając się z nim.</p>
+              <p>Działania, które kiedyś przynosiły radość, powtarzane nadmiernie zaczynają męczyć.</p>
+              <p>Zdrowie, które teraz masz, kiedyś odejdzie.</p>
+              <p>Przyjaźnie potrafią się skończyć.</p>
+              <p><strong>Jak więc z czegoś, co jest nietrwałe, chcesz uzyskać Trwałe Szczęście?</strong></p>
+              <p>Zastanów się.</p>
+            </div>
+
+            <div class="right-image-stack">
               <img src="piramida.png" class="scene-image small" alt="Piramida">
-              <p>Nawet rzeczy, które wydają się wielkie i wieczne, z czasem ulegają rozpadowi.</p>
-            </div>
-
-            <div class="image-card">
-              <h3>🗿 Zapomniany cesarz</h3>
               <img src="cesarz.png" class="scene-image small" alt="Zapomniany cesarz">
-              <p>Nawet posąg wystawiony na Twoją cześć może kiedyś zostać zapomniany.</p>
             </div>
-
-            <div class="single-card">
-              <h3>⏳ Co jeszcze przemija</h3>
-              <p>• Twoja sława przeminie.</p>
-              <p>• Wszystko, co zgromadzisz na tym świecie, będzie trzeba oddać, żegnając się z nim.</p>
-              <p>• Działania, które kiedyś przynosiły radość, powtarzane nadmiernie zaczynają męczyć.</p>
-              <p>• Zdrowie, które teraz masz, kiedyś odejdzie.</p>
-              <p>• Przyjaźnie potrafią się skończyć.</p>
-            </div>
-          </div>
-
-          <div class="lesson-body center">
-            <p>Gdyby zawsze nasze działania nagradzane były dokładnie tym, czego oczekujemy, to umówmy się — nie byłoby Cię na tej stronie.</p>
-            <p>Ludzie nie szukaliby rozwiązań i nie zadawaliby pytania o sens życia.</p>
-            <p><strong>Jak więc z czegoś, co jest nietrwałe, chcesz uzyskać Trwałe Szczęście?</strong></p>
-            <p>Zastanów się.</p>
           </div>
         `;
         startCountdown(60);
@@ -1628,10 +1879,10 @@
 
           <div class="truth-row">
             <div class="deep-box">
-              <p><strong>${escapeHtml(name)}</strong>, prawdopodobnie szukasz Szczęścia w Świecie. Jednak Świat nie może dać Tobie trwałego szczęścia, gdyż sam jest nietrwały.</p>
+              <p><strong>${escapeHtml(name)}, szukasz trwałego Szczęścia w Świecie. Jednak Świat nie może dać Tobie trwałego szczęścia, gdyż sam jest nietrwały.</strong></p>
               <p>Możesz szukać Szczęścia w Świecie milion lat, ale go tam nie znajdziesz.</p>
               <p>Prawdziwe Szczęście istnieje, ale leży gdzie indziej.</p>
-              <p><strong>Żeby je znaleźć, musimy szukać poza Światem.</strong></p>
+              <p><strong>Żeby je znaleźć, musimy szukać gdzieś indziej.</strong></p>
             </div>
             <img src="nie.png" class="stamp-img" alt="Nie-do-podważenia">
           </div>
@@ -1654,6 +1905,12 @@
         return;
       }
 
+      if (step === "1.8") {
+        if (nextBtn.disabled) return;
+        showModal(reflectionModal);
+        return;
+      }
+
       if (step === "1.12") {
         if (nextBtn.disabled) return;
         alert("To koniec obecnie przygotowanej części Lekcji 1.");
@@ -1661,6 +1918,8 @@
       }
 
       if (step === "1.5" && nextBtn.disabled) return;
+      if (step === "1.7" && nextBtn.disabled) return;
+
       goNext();
     });
 
@@ -1674,6 +1933,15 @@
       currentStepIndex = 2;
       saveStep(currentStepIndex);
       renderStep();
+    });
+
+    reflectionYesBtn.addEventListener("click", () => {
+      hideModal(reflectionModal);
+      goNext();
+    });
+
+    reflectionNoBtn.addEventListener("click", () => {
+      hideModal(reflectionModal);
     });
 
     storyCloseBtn.addEventListener("click", () => {
@@ -1696,7 +1964,7 @@
       if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
         event.preventDefault();
         const step = lessonSteps[currentStepIndex];
-        if (step === "1.2" || step === "1.6" || step === "1.9" || step === "1.12") {
+        if (step === "1.2" || step === "1.6" || step === "1.8" || step === "1.9" || step === "1.12") {
           stopCountdown();
           enableNext(true);
           countdownBox.textContent = "Możesz przejść dalej";
@@ -1707,12 +1975,25 @@
           enableNext(true);
           renderStep();
         }
+        if (step === "1.7") {
+          puzzleState.slots = {
+            slot1: "i1",
+            slot2a: "i2",
+            slot2b: "i3",
+            slot3a: "i4",
+            slot3b: "i5",
+            slot4: "i6"
+          };
+          puzzleState.bankOrder = [];
+          savePuzzle();
+          renderPuzzle();
+        }
       }
     });
 
     function init() {
       loadStories();
-      loadExercise();
+      loadPuzzle();
       const savedName = loadName();
       const savedStep = loadStep();
 
