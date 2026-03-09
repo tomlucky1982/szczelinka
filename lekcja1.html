@@ -6,6 +6,7 @@
   <title>Szczelinka — Lekcja 1</title>
   <link rel="icon" href="favicon_minimal.ico" />
   <meta name="theme-color" content="#3aa7d6" />
+
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
@@ -155,6 +156,7 @@
     }
 
     .lesson-card {
+      position: relative;
       background: #ffffff;
       border-radius: 34px;
       padding: 42px 48px;
@@ -164,6 +166,20 @@
       justify-content: space-between;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
       border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .section-tag {
+      position: absolute;
+      top: 28px;
+      right: 34px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8a8a8a;
+      background: #f5f5f5;
+      padding: 10px 14px;
+      border-radius: 999px;
     }
 
     .lesson-center {
@@ -205,6 +221,11 @@
       max-width: 860px;
       color: #242424;
       margin: 0 auto;
+      text-align: left;
+    }
+
+    .lesson-body.center {
+      text-align: center;
     }
 
     .lesson-body p {
@@ -228,6 +249,22 @@
       background: #fafafa;
       border-radius: 0 16px 16px 0;
       text-align: left;
+    }
+
+    .truth-row {
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      grid-template-columns: 1fr 150px;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .stamp-img {
+      width: 140px;
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
     }
 
     .split-areas {
@@ -383,6 +420,15 @@
       line-height: 1.5;
     }
 
+    .plain-note {
+      max-width: 860px;
+      margin-top: 8px;
+      font-size: 22px;
+      line-height: 1.65;
+      color: #242424;
+      text-align: center;
+    }
+
     .deep-box {
       width: 100%;
       max-width: 860px;
@@ -404,40 +450,66 @@
     }
 
     .story-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 920px;
+      margin-top: 16px;
     }
 
-    .story-btn {
-      min-width: 230px;
+    .story-tile {
+      position: relative;
+      background: #f5f5f5;
+      border-radius: 22px;
+      padding: 26px 22px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+      border: 2px solid transparent;
     }
 
-    .check-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 10px;
+    .story-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.07);
     }
 
-    .badge {
-      display: inline-flex;
+    .story-tile.done {
+      border-color: #3bb273;
+      background: #f2fbf6;
+    }
+
+    .story-tile h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      color: #3aa7d6;
+    }
+
+    .story-tile p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.55;
+      color: #2f2f2f;
+    }
+
+    .tile-check {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #3bb273;
+      color: #fff;
+      display: none;
       align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: #f3f3f3;
-      color: #4a4a4a;
-      font-size: 15px;
+      justify-content: center;
+      font-size: 18px;
       font-weight: 700;
     }
 
-    .badge.done {
-      background: rgba(58, 167, 214, 0.12);
-      color: #167ca8;
+    .story-tile.done .tile-check {
+      display: flex;
     }
 
     .formula {
@@ -459,7 +531,6 @@
     }
 
     .daily-grid,
-    .impermanence-grid,
     .feelings-grid {
       width: 100%;
       max-width: 920px;
@@ -468,43 +539,6 @@
       gap: 16px;
       text-align: left;
       margin-top: 10px;
-    }
-
-    .daily-card,
-    .impermanence-card,
-    .feeling-card,
-    .exercise-card,
-    .compare-card {
-      background: #f4f4f4;
-      border-radius: 20px;
-      padding: 20px 22px;
-    }
-
-    .daily-card h3,
-    .impermanence-card h3,
-    .exercise-card h3,
-    .compare-card h3 {
-      margin: 0 0 10px 0;
-      font-size: 22px;
-      color: #3aa7d6;
-    }
-
-    .daily-card p,
-    .impermanence-card p,
-    .feeling-card p,
-    .exercise-card p,
-    .compare-card p {
-      margin: 0 0 10px 0;
-      font-size: 18px;
-      line-height: 1.58;
-    }
-
-    .daily-card p:last-child,
-    .impermanence-card p:last-child,
-    .feeling-card p:last-child,
-    .exercise-card p:last-child,
-    .compare-card p:last-child {
-      margin-bottom: 0;
     }
 
     .exercise-grid,
@@ -516,6 +550,56 @@
       gap: 18px;
       text-align: left;
       margin-top: 8px;
+    }
+
+    .daily-card,
+    .feeling-card,
+    .exercise-card,
+    .compare-card,
+    .single-card,
+    .image-card {
+      background: #f4f4f4;
+      border-radius: 20px;
+      padding: 20px 22px;
+    }
+
+    .single-column-wrap {
+      width: 100%;
+      max-width: 920px;
+      display: grid;
+      gap: 16px;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .daily-card h3,
+    .exercise-card h3,
+    .compare-card h3,
+    .single-card h3,
+    .image-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 22px;
+      color: #3aa7d6;
+    }
+
+    .daily-card p,
+    .feeling-card p,
+    .exercise-card p,
+    .compare-card p,
+    .single-card p,
+    .image-card p {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+      line-height: 1.58;
+    }
+
+    .daily-card p:last-child,
+    .feeling-card p:last-child,
+    .exercise-card p:last-child,
+    .compare-card p:last-child,
+    .single-card p:last-child,
+    .image-card p:last-child {
+      margin-bottom: 0;
     }
 
     .field-label {
@@ -552,7 +636,8 @@
       flex-shrink: 0;
     }
 
-    .diagram-image {
+    .diagram-image,
+    .scene-image {
       width: 100%;
       max-width: 520px;
       border-radius: 22px;
@@ -561,19 +646,18 @@
       box-shadow: 0 10px 28px rgba(0,0,0,0.08);
     }
 
-    .story-illustration {
-      width: 100%;
-      max-width: 520px;
-      background: #f5f5f5;
-      border-radius: 24px;
-      padding: 20px;
-      margin: 10px auto 0;
+    .scene-image.small {
+      max-width: 380px;
     }
 
-    .story-illustration svg {
+    .two-image-row {
       width: 100%;
-      height: auto;
-      display: block;
+      max-width: 920px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+      margin-top: 10px;
     }
 
     .modal-backdrop {
@@ -621,7 +705,7 @@
     }
 
     .story-modal .modal {
-      max-width: 860px;
+      max-width: 900px;
       text-align: left;
       max-height: 82vh;
       overflow: auto;
@@ -668,7 +752,12 @@
 
       .lesson-card {
         min-height: 520px;
-        padding: 30px 24px;
+        padding: 56px 24px 30px;
+      }
+
+      .section-tag {
+        top: 18px;
+        right: 20px;
       }
 
       .lesson-title {
@@ -687,8 +776,10 @@
       .daily-grid,
       .exercise-grid,
       .compare-grid,
-      .impermanence-grid,
-      .feelings-grid {
+      .feelings-grid,
+      .story-buttons,
+      .two-image-row,
+      .truth-row {
         grid-template-columns: 1fr;
       }
     }
@@ -779,7 +870,8 @@
 
   <main class="main">
     <div class="lesson-shell">
-      <section class="lesson-card" id="lessonCard">
+      <section class="lesson-card">
+        <div class="section-tag" id="sectionTag">Obszar Rozumienie</div>
         <div class="lesson-center" id="lessonContent"></div>
 
         <div class="nav">
@@ -834,8 +926,12 @@
     let currentStepIndex = 0;
     let countdown = 60;
     let countdownTimer = null;
-    let adminSkipEnabled = false;
-    let storyRead = { weronika: false, benedyk: false, codzienne: false };
+
+    let storyRead = {
+      weronika: false,
+      benedyk: false,
+      codzienne: false
+    };
 
     let exerciseData = {
       decision: "",
@@ -858,6 +954,7 @@
     const countdownBox = document.getElementById("countdownBox");
     const progressFill = document.getElementById("progressFill");
     const progressStep = document.getElementById("progressStep");
+    const sectionTag = document.getElementById("sectionTag");
 
     const resumeModal = document.getElementById("resumeModal");
     const resumeText = document.getElementById("resumeText");
@@ -872,6 +969,10 @@
     const storyTitle = document.getElementById("storyTitle");
     const storyContent = document.getElementById("storyContent");
     const storyCloseBtn = document.getElementById("storyCloseBtn");
+
+    function scrollLessonTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
     function setCookie(name, value, days = 180) {
       const expires = new Date(Date.now() + days * 864e5).toUTCString();
@@ -1014,19 +1115,93 @@
     }
 
     function hasExerciseMinimum() {
-      return (
-        exerciseData.decision.trim() &&
-        exerciseData.reasonA.trim() &&
-        exerciseData.reasonB.trim() &&
-        exerciseData.feelingA.trim() &&
-        exerciseData.feelingB.trim()
-      );
+      const decisionOk = exerciseData.decision.trim().length > 0;
+      const reasonsOk = exerciseData.reasonA.trim().length > 0 || exerciseData.reasonB.trim().length > 0;
+      const feelingsOk = exerciseData.feelingA.trim().length > 0 || exerciseData.feelingB.trim().length > 0;
+      return decisionOk && reasonsOk && feelingsOk;
+    }
+
+    function openStory(type) {
+      if (type === "weronika") {
+        storyTitle.textContent = "Historia Weroniki";
+        storyContent.innerHTML = `
+          <p>— Weroniko, dlaczego tak bardzo chcesz zdać ten egzamin?</p>
+          <p>— Bo chcę dostać dyplom magistra.</p>
+          <p>— A po co Ci ten dyplom?</p>
+          <p>— Dzięki niemu będę mogła dostać dobrą pracę. Chcę coś w życiu znaczyć. Chcę też, żeby mama i tata byli ze mnie dumni. No i zawsze marzyłam o tym, żeby zostać lekarzem i pomagać ludziom.</p>
+          <p>— A po co Ci ta dobra praca?</p>
+          <p>— Żeby mieć stabilność, dobre życie… i żeby być kimś.</p>
+          <p><strong>Wszystko to prowadzi do jednego — do szczęścia.</strong></p>
+        `;
+        storyRead.weronika = true;
+      }
+
+      if (type === "benedyk") {
+        storyTitle.textContent = "Historia Benedykta";
+        storyContent.innerHTML = `
+          <p>— Benedykcie, dlaczego zdecydowałeś się iść na wojnę?</p>
+          <p>— Bo mój kraj został zaatakowany. Ktoś musi go bronić.</p>
+          <p>— Czego właściwie oczekujesz po tej wojnie?</p>
+          <p>— Chcę, żebyśmy pokonali wroga. Żeby sprawiedliwość zwyciężyła.</p>
+          <p><strong>Za tym również stoi to samo: oczekiwanie na szczęście, dumę, sens, spełnienie.</strong></p>
+        `;
+        storyRead.benedyk = true;
+      }
+
+      if (type === "codzienne") {
+        storyTitle.textContent = "Decyzje dnia codziennego";
+        storyContent.innerHTML = `
+          <div class="single-column-wrap">
+            <div class="single-card">
+              <h3>1. Jedzenie i głód</h3>
+              <p>• Idziesz zjeść, gdyż uczucie sytości jest lepsze niż uczucie głodu.</p>
+              <p>• Pościsz, gdyż uczucie spełnionego obowiązku religijnego jest dla Ciebie ważniejsze niż głód.</p>
+              <p>• Stosujesz dietę, gdyż lepsze zdrowie lub wygląd cenisz bardziej niż chwilową sytość.</p>
+            </div>
+
+            <div class="single-card">
+              <h3>2. Kłótnia i racja</h3>
+              <p>• Chcesz postawić na swoim w kłótni, gdyż uczucie posiadania racji jest dla Ciebie lepsze niż przyznanie się do błędu.</p>
+              <p>• Przyznajesz się do błędu, gdyż poczucie bycia uczciwym i fair jest dla Ciebie ważniejsze niż utrzymanie racji.</p>
+            </div>
+
+            <div class="single-card">
+              <h3>3. Praca i wysiłek</h3>
+              <p>• Pracujesz ciężko przez wiele lat, gdyż przyszły sukces i bezpieczeństwo cenisz bardziej niż dzisiejszy odpoczynek.</p>
+              <p>• Rezygnujesz z części zarobków lub awansu, gdyż spokój życia i czas dla bliskich cenisz bardziej niż większe pieniądze.</p>
+            </div>
+
+            <div class="single-card">
+              <h3>4. Pomaganie innym</h3>
+              <p>• Pomagasz komuś w potrzebie, gdyż uczucie czynienia dobra jest lepsze niż obojętność.</p>
+              <p>• Czasem odmawiasz pomocy, gdyż troskę o własne siły lub rodzinę uznajesz za ważniejszą niż kolejne poświęcenie.</p>
+            </div>
+
+            <div class="single-card">
+              <h3>5. Wybaczenie i uraza</h3>
+              <p>• Trwasz w urazie, gdyż uczucie sprawiedliwości lub zranienia wydaje Ci się ważniejsze niż pojednanie.</p>
+              <p>• Wybaczasz, gdyż spokój serca i uwolnienie się od gniewu cenisz bardziej niż trwanie w urazie.</p>
+            </div>
+
+            <div class="margin-note">
+              Wszystkie te decyzje mają prowadzić do Szczęścia. W danej chwili można mieć inne priorytety, inne wartości i przez to decyzja będzie inna. Umysł jest narzędziem, które ma nam pomóc przewidzieć, która decyzja będzie nas prowadziła do szczęścia, biorąc pod uwagę wcześniejsze doświadczenia.
+            </div>
+          </div>
+        `;
+        storyRead.codzienne = true;
+      }
+
+      saveStories();
+      renderStep();
+      showModal(storyModal);
     }
 
     function renderStep() {
       stopCountdown();
       updateProgress();
+      scrollLessonTop();
       backBtn.disabled = currentStepIndex === 0;
+      sectionTag.textContent = "Obszar Rozumienie";
 
       const step = lessonSteps[currentStepIndex];
       const savedName = loadName();
@@ -1052,7 +1227,6 @@
           enableNext(!!value);
         });
         nameInput.focus();
-        countdownBox.textContent = "";
         return;
       }
 
@@ -1074,7 +1248,7 @@
             </div>
           </div>
 
-          <div class="lesson-body">
+          <div class="lesson-body center">
             <p>Oba te obszary przenikają się nawzajem.</p>
             <p>Z Medytacji wypływać będą prawdy, które poszerzą nasz zbiór Rozumienia.</p>
             <p>Elementy Rozumienia sprawią, że będziemy mogli głębiej zejść w Medytacji.</p>
@@ -1088,11 +1262,8 @@
         nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Obszar Rozumienie</h1>
-          <p class="lesson-subtitle">Zaczniemy od bardzo ważnego pytania:</p>
-          <h2 class="lesson-title" style="font-size:56px;">Jaki jest sens życia?</h2>
+          <h1 class="lesson-title">Jaki jest sens życia?</h1>
           <p class="lesson-subtitle">Zastanów się i odpowiedz dla siebie.</p>
-          <div class="hint">Przez 60 sekund niczego nie klikaj. Daj sobie uczciwie czas na namysł. Skrót administracyjny: Ctrl + D.</div>
         `;
         startCountdown(60);
         return;
@@ -1116,9 +1287,9 @@
             <div class="list-item">nie wiem — wbrew pozorom to też może być ciekawa odpowiedź</div>
           </div>
 
-          <div class="deep-box">
-            <p>Są to piękne cele i niewątpliwie są wartościowe.</p>
-            <p>Jednak możemy zejść głębiej.</p>
+          <div class="plain-note">
+            Są to piękne cele i niewątpliwie są wartościowe.<br>
+            Jednak możemy zejść głębiej.
           </div>
         `;
         return;
@@ -1143,17 +1314,24 @@
             <span style="color:#3aa7d6;">odnalezienie trwałego Szczęścia</span>
           </div>
 
-          <div class="lesson-body">
+          <div class="lesson-body center">
             <p>Każde nasze działanie — duże albo małe — jest ostatecznie podporządkowane właśnie temu celowi.</p>
             <p>Zrozumienie tego bardzo ułatwia dalszy postęp w medytacji.</p>
-            <p>Tutaj „szczęście” rozumiemy jako końcowy efekt naszych działań: to coś, po co wszystko inne tak naprawdę robimy.</p>
+          </div>
+
+          <div class="margin-note">
+            Tutaj „szczęście” rozumiemy jako końcowy efekt naszych działań: to coś, po co wszystko inne tak naprawdę robimy.
+          </div>
+
+          <div class="margin-note">
+            Nie ustanawiamy go dopiero teraz. Chcemy tylko zobaczyć, że już dawno go obraliśmy.
           </div>
         `;
         return;
       }
 
       if (step === "1.5") {
-        const allRequiredRead = storyRead.weronika && storyRead.benedyk;
+        const allRequiredRead = storyRead.weronika && storyRead.benedyk && storyRead.codzienne;
         enableNext(allRequiredRead);
         nextBtn.textContent = "Dalej";
 
@@ -1167,32 +1345,36 @@
             <span style="color:#3aa7d6;">Szczęście</span>
           </div>
 
-          <div class="lesson-body">
+          <div class="lesson-body center">
             <p>Wartościowe relacje, nasze dziedzictwo, uznanie, pomaganie innym, trafienie do nieba — wszystko to można zapisać w tym samym wzorze.</p>
             <p>Prawdziwym celem nie jest więc sam środek, ale efekt, który ma on przynieść. A ten efekt jest zawsze ten sam.</p>
-            <p>Nie ustanawiamy go dopiero teraz. Chcemy tylko zobaczyć, że już dawno go obraliśmy.</p>
           </div>
 
           <div class="story-buttons">
-            <button class="btn btn-secondary story-btn" id="weronikaBtn">Historia Weroniki</button>
-            <button class="btn btn-secondary story-btn" id="benedykBtn">Historia Benedykta</button>
-            <button class="btn btn-ghost story-btn" id="codzienneBtn">Decyzje dnia codziennego</button>
-          </div>
+            <div class="story-tile ${storyRead.weronika ? "done" : ""}" id="weronikaTile">
+              <div class="tile-check">✓</div>
+              <h3>Historia Weroniki</h3>
+              <p>Jak kolejne cele i ambicje prowadzą do jednego końcowego pragnienia.</p>
+            </div>
 
-          <div class="check-row">
-            <div class="badge ${storyRead.weronika ? "done" : ""}">Weronika ${storyRead.weronika ? "✓" : ""}</div>
-            <div class="badge ${storyRead.benedyk ? "done" : ""}">Benedykt ${storyRead.benedyk ? "✓" : ""}</div>
-            <div class="badge ${storyRead.codzienne ? "done" : ""}">Decyzje dnia codziennego ${storyRead.codzienne ? "✓" : ""}</div>
-          </div>
+            <div class="story-tile ${storyRead.benedyk ? "done" : ""}" id="benedykTile">
+              <div class="tile-check">✓</div>
+              <h3>Historia Benedykta</h3>
+              <p>Jak nawet honor, walka i poświęcenie są ostatecznie drogą do szczęścia.</p>
+            </div>
 
-          <div class="hint">
-            Aby przejść dalej, przeczytaj obie historie: Weroniki i Benedykta. Sekcja „Decyzje dnia codziennego” jest dodatkowym pogłębieniem. Skrót administracyjny: Ctrl + D.
+            <div class="story-tile ${storyRead.codzienne ? "done" : ""}" id="codzienneTile">
+              <div class="tile-check">✓</div>
+              <h3>Decyzje dnia codziennego</h3>
+              <p>Jak zwykłe codzienne wybory również podporządkowane są temu samemu celowi.</p>
+            </div>
           </div>
         `;
-        countdownBox.textContent = allRequiredRead ? "Gotowe do przejścia dalej" : "Przeczytaj obie historie";
-        document.getElementById("weronikaBtn").addEventListener("click", () => openStory("weronika"));
-        document.getElementById("benedykBtn").addEventListener("click", () => openStory("benedyk"));
-        document.getElementById("codzienneBtn").addEventListener("click", () => openStory("codzienne"));
+
+        document.getElementById("weronikaTile").addEventListener("click", () => openStory("weronika"));
+        document.getElementById("benedykTile").addEventListener("click", () => openStory("benedyk"));
+        document.getElementById("codzienneTile").addEventListener("click", () => openStory("codzienne"));
+        countdownBox.textContent = allRequiredRead ? "Wszystkie trzy historie zaliczone" : "";
         return;
       }
 
@@ -1202,18 +1384,23 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
           <h1 class="lesson-title">Podsumowanie</h1>
-          <div class="deep-box">
-            <p><strong>Prawda 1 – nie-do-podważenia</strong></p>
-            <p>${escapeHtml(name)} — jesteś, jak każdy, na misji osiągnięcia szczęścia. Wszystkie Twoje działania są temu podporządkowane. Wszystkie decyzje, które podejmujesz, mają Cię do tego doprowadzić.</p>
+
+          <div class="truth-row">
+            <div class="deep-box">
+              <p><strong>Prawda 1</strong></p>
+              <p>${escapeHtml(name)} — jesteś, jak każdy, na misji osiągnięcia szczęścia. Wszystkie Twoje działania są temu podporządkowane. Wszystkie decyzje, które podejmujesz, mają Cię do tego doprowadzić.</p>
+            </div>
+            <img src="nie.png" class="stamp-img" alt="Nie-do-podważenia">
           </div>
+
           <div class="margin-note">
             Nawet jeśli zaprzeczysz i powiesz: „Udowodnię Ci, że się mylisz” i podasz całkiem racjonalny przykład, to i tak podasz go po to, aby udowodnić mi, że się mylę — a to będzie trochę więcej Szczęścia dla Ciebie.
           </div>
-          <div class="lesson-body">
+
+          <div class="lesson-body center">
             <p>Porozmyślaj chwilę nad tą prawdą.</p>
             <p>Pozwól jej wsiąknąć w Ciebie.</p>
           </div>
-          <div class="hint">Daj sobie 60 sekund ciszy. Skrót administracyjny: Ctrl + D.</div>
         `;
         startCountdown(60);
         return;
@@ -1242,7 +1429,7 @@
           <div class="exercise-grid">
             <div class="exercise-card">
               <h3>Poziom Powodów</h3>
-              <p>Dla prostoty ćwiczenia ograniczymy się tylko do 2 powodów.</p>
+              <p>Dla prostoty ćwiczenia ograniczymy się do 2 powodów, ale wystarczy wpisać przynajmniej 1.</p>
               <div class="exercise-group">
                 <input id="reasonAInput" class="exercise-input" type="text" placeholder="A. Powód pierwszy" value="${escapeHtml(exerciseData.reasonA)}">
                 <input id="reasonBInput" class="exercise-input" type="text" placeholder="B. Powód drugi" value="${escapeHtml(exerciseData.reasonB)}">
@@ -1259,7 +1446,7 @@
           <div class="exercise-grid">
             <div class="exercise-card">
               <h3>Poziom Uczucia</h3>
-              <p>Jakie uczucia towarzyszyłyby pozytywnemu efektowi?</p>
+              <p>Jakie uczucia towarzyszyłyby pozytywnemu efektowi? Wystarczy wpisać przynajmniej 1.</p>
               <div class="exercise-group">
                 <input id="feelingAInput" class="exercise-input" type="text" placeholder="A. Uczucie pierwsze" value="${escapeHtml(exerciseData.feelingA)}">
                 <input id="feelingBInput" class="exercise-input" type="text" placeholder="B. Uczucie drugie" value="${escapeHtml(exerciseData.feelingB)}">
@@ -1269,11 +1456,11 @@
             <div class="exercise-card">
               <h3>Przykład</h3>
               <p>A. Będę mógł się pochwalić żonie. Na pewno mnie doceni.</p>
-              <p>B. Dzięki tej podwyżce stać mnie będzie na nowy samochód. Jadąc nim będę czuł dumę.</p>
+              <p>B. Jadąc nowym samochodem będę czuł dumę.</p>
             </div>
           </div>
 
-          <div class="hint">Aby przejść dalej, wypełnij przynajmniej po jednym wpisie w każdej sekcji.</div>
+          <div class="hint">Aby przejść dalej, wpisz: decyzję, przynajmniej 1 powód i przynajmniej 1 uczucie.</div>
         `;
 
         const fields = [
@@ -1334,7 +1521,7 @@
             <div class="feeling-card"><div class="feeling-icon">❤️</div><div><p><strong>Poczucie bycia kochanym</strong></p><p>Głębokie doświadczenie przyjęcia i bliskości.</p></div></div>
           </div>
 
-          <div class="deep-box">
+          <div class="lesson-body center">
             <p>To wszystko są różne nazwy na Szczęście.</p>
             <p>Kiedy jesteśmy naprawdę szczęśliwi, nikt nie musi nam tłumaczyć, co przeżywamy. Nie musimy nawet mieć na to nazwy — i tak wiemy, jak to smakuje.</p>
             <p>A potem dążymy do tego, aby to się powtórzyło.</p>
@@ -1351,41 +1538,35 @@
           <div class="lesson-kicker">Lekcja ${step}</div>
           <h1 class="lesson-title">Świat jest nietrwały. Świat jest zmienny.</h1>
 
-          <div class="impermanence-grid">
-            <div class="impermanence-card">
-              <h3>🏜️ Piramidy też zwietrzeją</h3>
+          <div class="single-column-wrap">
+            <div class="image-card">
+              <h3>🏜️ Nawet piramidy zwietrzeją</h3>
+              <img src="piramida.png" class="scene-image small" alt="Piramida">
               <p>Nawet rzeczy, które wydają się wielkie i wieczne, z czasem ulegają rozpadowi.</p>
             </div>
-            <div class="impermanence-card">
+
+            <div class="image-card">
               <h3>🗿 Zapomniany cesarz</h3>
+              <img src="cesarz.png" class="scene-image small" alt="Zapomniany cesarz">
               <p>Nawet posąg wystawiony na Twoją cześć może kiedyś zostać zapomniany.</p>
             </div>
-            <div class="impermanence-card">
-              <h3>⏳ Sława przemija</h3>
-              <p>To, co dziś budzi podziw, jutro może zniknąć z pamięci świata.</p>
-            </div>
-            <div class="impermanence-card">
-              <h3>🎒 Nic nie zabierzesz</h3>
-              <p>Wszystko, co zgromadzisz, będziesz musiał oddać, żegnając się z tym światem.</p>
-            </div>
-            <div class="impermanence-card">
-              <h3>🌍 Świeżość przechodzi w znużenie</h3>
-              <p>Coś, co kiedyś dawało radość, powtarzane nadmiernie zaczyna męczyć.</p>
-            </div>
-            <div class="impermanence-card">
-              <h3>💔 Nawet zdrowie i relacje się zmieniają</h3>
-              <p>Zdrowie odchodzi. Przyjaźnie potrafią się skończyć. Nic nie pozostaje dokładnie takie samo.</p>
+
+            <div class="single-card">
+              <h3>⏳ Co jeszcze przemija</h3>
+              <p>• Twoja sława przeminie.</p>
+              <p>• Wszystko, co zgromadzisz na tym świecie, będzie trzeba oddać, żegnając się z nim.</p>
+              <p>• Działania, które kiedyś przynosiły radość, powtarzane nadmiernie zaczynają męczyć.</p>
+              <p>• Zdrowie, które teraz masz, kiedyś odejdzie.</p>
+              <p>• Przyjaźnie potrafią się skończyć.</p>
             </div>
           </div>
 
-          <div class="deep-box">
-            <p>Gdyby zawsze nasze działania dawały dokładnie to, czego oczekujemy, prawdopodobnie nie byłoby Cię na tej stronie.</p>
-            <p>Ludzie nie szukaliby rozwiązań i nie zadawaliby pytań o sens życia.</p>
+          <div class="lesson-body center">
+            <p>Gdyby zawsze nasze działania nagradzane były dokładnie tym, czego oczekujemy, to umówmy się — nie byłoby Cię na tej stronie.</p>
+            <p>Ludzie nie szukaliby rozwiązań i nie zadawaliby pytania o sens życia.</p>
             <p><strong>Jak więc z czegoś, co jest nietrwałe, chcesz uzyskać Trwałe Szczęście?</strong></p>
             <p>Zastanów się.</p>
           </div>
-
-          <div class="hint">Daj sobie 60 sekund namysłu. Skrót administracyjny: Ctrl + D.</div>
         `;
         startCountdown(60);
         return;
@@ -1398,19 +1579,19 @@
           <div class="lesson-kicker">Lekcja ${step}</div>
           <h1 class="lesson-title">Dlatego całe życie uganiamy się za powtórzeniem „plusów”</h1>
 
-          <div class="lesson-body">
+          <div class="lesson-body center">
             <p>Możesz powiedzieć: „Wiem, że świat jest nietrwały i zmienny, ale to jedyny sposób, aby uzyskać choć trochę satysfakcji i szczęścia.”</p>
-            <p>Szczęście to chwile, kiedy coś nam się udaje, kiedy przeżywamy coś pięknego. To jest ulotne, ale przynajmniej jest.</p>
           </div>
 
           <img src="lekcja 1.png" class="diagram-image" alt="Wykres plusów i minusów">
 
           <div class="deep-box">
             <p><strong>Wytłumaczenie wykresu:</strong></p>
-            <p>Lewa część przedstawia przeszłość, prawa przyszłość.</p>
+            <p>Lewa część przedstawia przeszłość, prawa — przyszłość.</p>
             <p>Doświadczenia zapamiętane jako pozytywne — plusy — dające szczęście, oraz negatywne — minusy — powodujące cierpienie.</p>
             <p>Nauczeni przeszłymi doświadczeniami, staramy się kształtować przyszłość tak, aby było w niej jak najwięcej „plusów”, a jak najmniej „minusów”.</p>
-            <p>To jest wykres naszego życia. Problem w tym, że jest w nim dużo cierpienia. To cierpienie prędzej czy później zmusza nas do zadawania poważnych pytań egzystencjalnych.</p>
+            <p>To jest wykres naszego życia. Całe nasze życie tak wygląda. Chcemy więcej plusów, a mniej minusów. To jest wymiar horyzontalny, powierzchowny.</p>
+            <p>Jest jeszcze jeden wymiar w naszym życiu – to wymiar głębi. Jest on reprezentowany na tym wykresie jako punkt absolutnego teraz. Ten punkt bardzo łatwo przeoczyć, gdyż zwykle jesteśmy zajęci zdobywaniem plusów i unikaniem minusów.</p>
           </div>
         `;
         return;
@@ -1424,37 +1605,18 @@
           <h1 class="lesson-title">Krótka przypowieść</h1>
 
           <div class="deep-box">
-            <p>Pewien kupiec zgubił monetę. Szukał więc jej z wielkim zaangażowaniem.</p>
+            <p>Pewien kupiec zgubił monetę. Szukał więc jej z zaangażowaniem.</p>
             <p>Przechodzień pyta go: „Przyjacielu, co robisz?”</p>
             <p>— Szukam monety.</p>
             <p>— A gdzie ją zgubiłeś?</p>
             <p>— Zgubiłem ją tam w rowie, ale szukam tutaj pod latarnią, ponieważ tu jest jaśniej.</p>
           </div>
 
-          <div class="story-illustration">
-            <svg viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg" aria-label="Ilustracja przypowieści o kupcu">
-              <rect x="0" y="0" width="600" height="320" rx="24" fill="#f5f5f5"/>
-              <rect x="0" y="240" width="600" height="80" fill="#e9e9e9"/>
-              <rect x="340" y="70" width="10" height="170" fill="#8c8c8c"/>
-              <circle cx="345" cy="55" r="22" fill="#ffd86b"/>
-              <circle cx="345" cy="55" r="46" fill="rgba(255,216,107,0.18)"/>
-              <path d="M120 245 C150 180, 180 175, 225 245" fill="none" stroke="#7a7a7a" stroke-width="6"/>
-              <circle cx="175" cy="145" r="18" fill="#7a7a7a"/>
-              <line x1="175" y1="163" x2="175" y2="212" stroke="#7a7a7a" stroke-width="6"/>
-              <line x1="175" y1="182" x2="145" y2="205" stroke="#7a7a7a" stroke-width="6"/>
-              <line x1="175" y1="182" x2="205" y2="205" stroke="#7a7a7a" stroke-width="6"/>
-              <line x1="175" y1="212" x2="152" y2="245" stroke="#7a7a7a" stroke-width="6"/>
-              <line x1="175" y1="212" x2="195" y2="245" stroke="#7a7a7a" stroke-width="6"/>
-              <ellipse cx="70" cy="260" rx="55" ry="18" fill="#d8d8d8"/>
-              <circle cx="72" cy="255" r="8" fill="#f1c84c"/>
-              <text x="36" y="292" font-size="18" fill="#666">rów</text>
-              <text x="308" y="138" font-size="18" fill="#666">latarnia</text>
-            </svg>
-          </div>
+          <img src="kupiec.png" class="scene-image" alt="Kupiec szukający monety">
 
-          <div class="lesson-body">
-            <p>Czy on kiedykolwiek znajdzie swoją monetę? <strong>Nie.</strong></p>
-            <p>Może szukać milion lat, ale szuka w niewłaściwym miejscu.</p>
+          <div class="lesson-body center">
+            <p>Czy on kiedykolwiek znajdzie swoją monetę? <strong>NIE.</strong></p>
+            <p>Może milion lat szukać, ale szuka w niewłaściwym miejscu.</p>
           </div>
         `;
         return;
@@ -1465,78 +1627,21 @@
         nextBtn.textContent = "Szukam";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Prawda nie-do-podważenia nr 2</h1>
+          <h1 class="lesson-title">Prawda 2</h1>
 
-          <div class="deep-box">
-            <p><strong>${escapeHtml(name)}</strong>, prawdopodobnie szukasz Szczęścia w Świecie. Jednak Świat nie może dać Tobie trwałego szczęścia, gdyż sam jest nietrwały.</p>
-            <p>Możesz szukać Szczęścia w Świecie milion lat, ale go tam nie znajdziesz.</p>
-            <p>Prawdziwe Szczęście istnieje, ale leży gdzie indziej.</p>
-            <p><strong>Żeby je znaleźć, musimy szukać poza Światem.</strong></p>
+          <div class="truth-row">
+            <div class="deep-box">
+              <p><strong>${escapeHtml(name)}</strong>, prawdopodobnie szukasz Szczęścia w Świecie. Jednak Świat nie może dać Tobie trwałego szczęścia, gdyż sam jest nietrwały.</p>
+              <p>Możesz szukać Szczęścia w Świecie milion lat, ale go tam nie znajdziesz.</p>
+              <p>Prawdziwe Szczęście istnieje, ale leży gdzie indziej.</p>
+              <p><strong>Żeby je znaleźć, musimy szukać poza Światem.</strong></p>
+            </div>
+            <img src="nie.png" class="stamp-img" alt="Nie-do-podważenia">
           </div>
-
-          <div class="hint">Posiedź z tym przez 60 sekund. Skrót administracyjny: Ctrl + D.</div>
         `;
         startCountdown(60, "Możesz szukać dalej");
         return;
       }
-    }
-
-    function openStory(type) {
-      if (type === "weronika") {
-        storyTitle.textContent = "Historia Weroniki";
-        storyContent.innerHTML = `
-          <p>— Weroniko, dlaczego tak bardzo chcesz zdać ten egzamin?</p>
-          <p>— Bo chcę dostać dyplom magistra.</p>
-          <p>— A po co Ci ten dyplom?</p>
-          <p>— Dzięki niemu będę mogła dostać dobrą pracę. Chcę coś w życiu znaczyć. Chcę też, żeby mama i tata byli ze mnie dumni. No i zawsze marzyłam o tym, żeby zostać lekarzem i pomagać ludziom.</p>
-          <p>— A po co Ci ta dobra praca?</p>
-          <p>— Żeby mieć stabilność, dobre życie… i żeby być kimś.</p>
-          <p><strong>Wszystko to prowadzi do jednego — do szczęścia.</strong></p>
-        `;
-        storyRead.weronika = true;
-      }
-
-      if (type === "benedyk") {
-        storyTitle.textContent = "Historia Benedykta";
-        storyContent.innerHTML = `
-          <p>— Benedykcie, dlaczego zdecydowałeś się iść na wojnę?</p>
-          <p>— Bo mój kraj został zaatakowany. Ktoś musi go bronić.</p>
-          <p>— Czego właściwie oczekujesz po tej wojnie?</p>
-          <p>— Chcę, żebyśmy pokonali wroga. Żeby sprawiedliwość zwyciężyła.</p>
-          <p><strong>Za tym również stoi to samo: oczekiwanie na szczęście, dumę, sens, spełnienie.</strong></p>
-        `;
-        storyRead.benedyk = true;
-      }
-
-      if (type === "codzienne") {
-        storyTitle.textContent = "Decyzje dnia codziennego";
-        storyContent.innerHTML = `
-          <div class="daily-grid">
-            <div class="daily-card">
-              <h3>1. Jedzenie i głód</h3>
-              <p>Idziesz zjeść, bo uczucie sytości jest lepsze niż uczucie głodu.</p>
-              <p>Pościsz, bo uczucie spełnionego obowiązku religijnego jest ważniejsze niż głód.</p>
-            </div>
-            <div class="daily-card">
-              <h3>2. Kłótnia i racja</h3>
-              <p>Chcesz postawić na swoim, bo uczucie posiadania racji wydaje Ci się lepsze niż ustąpienie.</p>
-              <p>Ustępujesz, bo spokój cenisz bardziej niż wygraną w sporze.</p>
-            </div>
-            <div class="daily-card">
-              <h3>3. Praca i wysiłek</h3>
-              <p>Pracujesz ciężko, bo przyszły sukces cenisz bardziej niż dzisiejszy odpoczynek.</p>
-            </div>
-            <div class="daily-card">
-              <h3>4. Wspólny rdzeń</h3>
-              <p>Wszystkie te decyzje mają prowadzić do szczęścia. Umysł tylko zgaduje, która droga okaże się skuteczna.</p>
-            </div>
-          </div>
-        `;
-        storyRead.codzienne = true;
-      }
-
-      saveStories();
-      showModal(storyModal);
     }
 
     backBtn.addEventListener("click", () => {
@@ -1593,16 +1698,17 @@
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
         event.preventDefault();
-        adminSkipEnabled = true;
         const step = lessonSteps[currentStepIndex];
         if (step === "1.2" || step === "1.6" || step === "1.9" || step === "1.12") {
           stopCountdown();
           enableNext(true);
-          countdownBox.textContent = "Tryb admina: możesz przejść dalej";
+          countdownBox.textContent = "Możesz przejść dalej";
         }
         if (step === "1.5") {
+          storyRead = { weronika: true, benedyk: true, codzienne: true };
+          saveStories();
           enableNext(true);
-          countdownBox.textContent = "Tryb admina: możesz przejść dalej";
+          renderStep();
         }
       }
     });
