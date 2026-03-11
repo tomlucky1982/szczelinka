@@ -543,8 +543,7 @@
     .compare-card,
     .single-card,
     .image-card,
-    .exercise-timer-box,
-    .card-stack-wrap {
+    .exercise-timer-box {
       background: #f4f4f4;
       border-radius: 20px;
       padding: 20px 22px;
@@ -563,8 +562,7 @@
     .compare-card h3,
     .single-card h3,
     .image-card h3,
-    .exercise-timer-box h3,
-    .card-stack-wrap h3 {
+    .exercise-timer-box h3 {
       margin: 0 0 10px 0;
       font-size: 22px;
       color: #3aa7d6;
@@ -575,8 +573,7 @@
     .compare-card p,
     .single-card p,
     .image-card p,
-    .exercise-timer-box p,
-    .card-stack-wrap p {
+    .exercise-timer-box p {
       margin: 0 0 10px 0;
       font-size: 18px;
       line-height: 1.58;
@@ -587,8 +584,7 @@
     .compare-card p:last-child,
     .single-card p:last-child,
     .image-card p:last-child,
-    .exercise-timer-box p:last-child,
-    .card-stack-wrap p:last-child {
+    .exercise-timer-box p:last-child {
       margin-bottom: 0;
     }
 
@@ -713,10 +709,9 @@
       text-align: center;
     }
 
-    /* 1.7 stack */
     .stack-scene {
       width: 100%;
-      max-width: 820px;
+      max-width: 860px;
       display: grid;
       gap: 24px;
       justify-items: center;
@@ -726,23 +721,40 @@
     .card-stack {
       position: relative;
       width: min(92vw, 560px);
-      height: 300px;
+      height: 340px;
     }
 
     .story-card {
       position: absolute;
-      inset: 0;
-      background: #ffffff;
+      left: 50%;
+      top: 0;
+      width: min(92vw, 520px);
+      min-height: 250px;
+      transform-origin: center top;
+      background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
       border-radius: 26px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.10);
-      padding: 28px 28px;
+      box-shadow:
+        0 22px 40px rgba(0,0,0,0.10),
+        0 8px 18px rgba(0,0,0,0.06);
+      padding: 30px 30px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       cursor: pointer;
       border: 1px solid #ececec;
-      transition: transform 0.2s ease, opacity 0.25s ease;
+      transition: transform 0.22s ease, opacity 0.25s ease, box-shadow 0.2s ease;
+      background-image:
+        linear-gradient(135deg, rgba(58,167,214,0.035) 0%, rgba(58,167,214,0.0) 45%);
+    }
+
+    .story-card::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(58,167,214,0.08);
+      pointer-events: none;
     }
 
     .story-card p {
@@ -750,10 +762,14 @@
       font-size: 26px;
       line-height: 1.5;
       font-weight: 500;
+      position: relative;
+      z-index: 1;
     }
 
     .story-card.top:hover {
-      transform: translateY(-3px);
+      box-shadow:
+        0 28px 46px rgba(0,0,0,0.13),
+        0 10px 20px rgba(0,0,0,0.08);
     }
 
     .card-counter {
@@ -989,7 +1005,7 @@
   <div class="progress-wrap">
     <div class="progress-top">
       <div class="progress-label">Postęp lekcji 1</div>
-      <div class="progress-step" id="progressStep">1.0 / 1.16</div>
+      <div class="progress-step" id="progressStep">1.0 / 1.20</div>
     </div>
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressFill"></div>
@@ -1060,7 +1076,7 @@
   </div>
 
   <script>
-    const lessonSteps = ["1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "1.10", "1.11", "1.12", "1.13", "1.14", "1.15", "1.16"];
+    const lessonSteps = ["1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "1.10", "1.11", "1.12", "1.13", "1.14", "1.15", "1.16", "1.17", "1.18", "1.19", "1.20"];
     let currentStepIndex = 0;
     let countdown = 60;
     let countdownTimer = null;
@@ -1238,7 +1254,7 @@
     function updateProgress() {
       const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
       progressFill.style.width = `${percent}%`;
-      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 1.16`;
+      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 1.20`;
     }
 
     function stopCountdown() {
@@ -1441,9 +1457,8 @@
       scrollStoryModalTop();
     }
 
-    function renderMeditationTimer(stepKey, titleText, introText, helperText) {
+    function renderMeditationTimer(stepKey, titleText, introHtml, helperText) {
       const cfg = timerConfig[stepKey];
-      const minutes = cfg.minutes;
       const total = cfg.secondsLeft;
       const mm = String(Math.floor(total / 60)).padStart(2, "0");
       const ss = String(total % 60).padStart(2, "0");
@@ -1456,21 +1471,21 @@
           <img src="logo.png" class="exercise-logo" alt="Logo Szczelinka">
         </div>
 
-        ${introText ? `<div class="lesson-body center">${introText}</div>` : ""}
+        ${introHtml ? `<div class="lesson-body">${introHtml}</div>` : ""}
 
         <div class="exercise-timer-box timer-panel">
           <h3>Timer medytacji</h3>
 
           <div class="timer-settings">
             <button class="timer-arrow" id="minusMinuteBtn">−</button>
-            <div class="timer-minutes" id="timerMinutesLabel">${minutes} min</div>
+            <div class="timer-minutes" id="timerMinutesLabel">${cfg.minutes} min</div>
             <button class="timer-arrow" id="plusMinuteBtn">+</button>
           </div>
 
           <div class="timer-run" id="timerRunDisplay">${mm}:${ss}</div>
 
           <div class="timer-settings">
-            <button class="btn btn-primary" id="startTimerBtn">${cfg.running ? "Trwa..." : "Start"}</button>
+            <button class="btn btn-primary" id="startTimerBtn">${cfg.running ? "Trwa..." : (cfg.done ? "Zakończone" : "Start")}</button>
           </div>
 
           <div class="timer-helper">${helperText}</div>
@@ -1562,15 +1577,24 @@
         <div class="stack-scene">
           <div class="card-stack" id="cardStack">
             ${remaining.map((text, index) => {
-              const depth = remaining.length - index;
-              const top = index * 6;
-              const scale = 1 - (index * 0.015);
-              const opacity = index < 4 ? 1 : 0.98;
+              const offsetY = index * 8;
+              const rotate = index % 2 === 0 ? -2 + (index * 0.4) : 2 - (index * 0.35);
+              const scale = 1 - (index * 0.018);
+              const opacity = index < 5 ? 1 : 0.98;
+
               return `
                 <div
                   class="story-card ${index === 0 ? "top" : ""}"
                   data-index="${index}"
-                  style="transform: translateY(${top}px) scale(${scale}); z-index:${100 - index}; opacity:${opacity};"
+                  style="
+                    transform:
+                      translateX(-50%)
+                      translateY(${offsetY}px)
+                      rotate(${rotate}deg)
+                      scale(${scale});
+                    z-index:${100 - index};
+                    opacity:${opacity};
+                  "
                 >
                   <p>${escapeHtml(text)}</p>
                 </div>
@@ -1610,7 +1634,7 @@
       const savedName = loadName();
       const name = savedName || "Przyjacielu";
 
-      sectionTag.textContent = ["1.13", "1.14", "1.15", "1.16"].includes(step)
+      sectionTag.textContent = ["1.13", "1.14", "1.15", "1.16", "1.17", "1.18", "1.19", "1.20"].includes(step)
         ? "Obszar Medytacja"
         : "Obszar Rozumienie";
 
@@ -2025,6 +2049,99 @@
         );
         return;
       }
+
+      if (step === "1.17") {
+        enableNext(true);
+        nextBtn.textContent = "Dalej";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Aplikacja do medytacji</h1>
+
+          <div class="lesson-body center">
+            <p>Pobierz sobie na telefon darmową aplikację <strong>„Interval Timer Tibetan Bowl”</strong>.</p>
+            <p>
+              <a href="https://play.google.com/store/apps/details?id=co.m16mb.secco.ittb" target="_blank" rel="noopener noreferrer">
+                Otwórz stronę aplikacji
+              </a>
+            </p>
+          </div>
+
+          <div class="two-col-text-image">
+            <div class="lesson-body">
+              <p>W ustawieniach zaawansowanych tej aplikacji możesz ustawiać różne czasy medytacji i łączyć je w sekwencje.</p>
+              <p>Na przykład:</p>
+              <p>ćwiczenie 1 – 2 min, ćwiczenie 2 – 2 min; i tak dalej.</p>
+            </div>
+
+            <div class="right-image-stack">
+              <img src="qr1.png" class="scene-image small" alt="Kod QR do aplikacji">
+              <img src="screen1.png" class="scene-image small" alt="Ustawienia zaawansowane aplikacji">
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "1.18") {
+        enableNext(true);
+        nextBtn.textContent = "Podejmuję";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Praca domowa</h1>
+
+          <div class="lesson-body center">
+            <p>Zanim przejdziesz do lekcji nr 2 — wykonaj we własnym zakresie 5 razy sesję medytacyjną z liczeniem oddechów.</p>
+            <p>Każda sesja niech trwa <strong>5 minut</strong>.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "1.19") {
+        enableNext(true);
+        nextBtn.textContent = "Dalej";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Podsumowanie</h1>
+
+          <div class="single-column-wrap">
+            <div class="single-card" style="text-align:center;">
+              <h3>Pobierz Notatki z Lekcji 1</h3>
+              <p>
+                <a href="Szczelinka 1.pdf" target="_blank" rel="noopener noreferrer" style="font-size:20px; text-decoration:none;">
+                  📄 Do pobrania: Szczelinka 1.pdf
+                </a>
+              </p>
+            </div>
+
+            <div class="single-card">
+              <h3>W tej lekcji omówiliśmy:</h3>
+              <p>• Jak każde nasze działanie i decyzja mają nas prowadzić do szczęścia. Ta siła — dążenie do szczęścia — kieruje naszym życiem.</p>
+              <p>• Świat jest nietrwały i nie da nam trwałej satysfakcji.</p>
+              <p>• Szukając prawdziwego Szczęścia zwracamy się do wewnątrz.</p>
+              <p>• Pomóc nam w tym może medytacja.</p>
+              <p>• Medytacja Szczelinka to przerwa pomiędzy myślami, w niej możemy odkryć to, czego szukaliśmy.</p>
+              <p>• Poznaliśmy też pierwsze ćwiczenie medytacyjne – „Liczenie”.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "1.20") {
+        enableNext(true);
+        nextBtn.textContent = "Zakończ";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja ${step}</div>
+          <h1 class="lesson-title">Gratulacje ukończenia lekcji #1</h1>
+
+          <div class="lesson-body center">
+            <p>To był pierwszy krok.</p>
+            <p>Możesz teraz wrócić do spisu lekcji i przejść dalej.</p>
+          </div>
+        `;
+        return;
+      }
     }
 
     backBtn.addEventListener("click", () => {
@@ -2046,9 +2163,9 @@
         return;
       }
 
-      if (step === "1.16") {
+      if (step === "1.20") {
         if (nextBtn.disabled) return;
-        alert("To koniec obecnie przygotowanej części Lekcji 1.");
+        window.location.href = "Main_Page.html#lekcja1";
         return;
       }
 
