@@ -1565,63 +1565,72 @@
       countdownBox.textContent = timerConfig[stepKey].done ? "Ćwiczenie zakończone" : "";
     }
 
-    function renderCardStackStep() {
-      const allSeen = stackState.hiddenCount >= stackCardsOriginal.length;
-      const remaining = stackCardsOriginal.slice(stackState.hiddenCount);
+function renderCardStackStep() {
 
-      lessonContent.innerHTML = `
-        <div class="lesson-kicker">Lekcja 1.7</div>
-        <h1 class="lesson-title">Za każdą decyzją stoi chęć uzyskania szczęścia</h1>
+  const allSeen = stackState.hiddenCount >= stackCardsOriginal.length;
+  const remaining = stackCardsOriginal.slice(stackState.hiddenCount);
 
-        <div class="stack-scene">
-          <div class="card-stack" id="cardStack">
-            ${remaining.map((text, index) => {
-              const offsetY = index * 8;
-              const rotate = index % 2 === 0 ? -2 + (index * 0.4) : 2 - (index * 0.35);
-              const scale = 1 - (index * 0.018);
-              const opacity = index < 5 ? 1 : 0.98;
+  lessonContent.innerHTML = `
+    <div class="lesson-kicker">Lekcja 1.7</div>
+    <h1 class="lesson-title">Za każdą decyzją stoi chęć uzyskania szczęścia</h1>
 
-              return `
-                <div
-                  class="story-card ${index === 0 ? "top" : ""}"
-                  data-index="${index}"
-                  style="
-                    transform:
-                      translateX(-50%)
-                      translateY(${offsetY}px)
-                      rotate(${rotate}deg)
-                      scale(${scale});
-                    z-index:${100 - index};
-                    opacity:${opacity};
-                  "
-                >
-                  <p>${escapeHtml(text)}</p>
-                </div>
-              `;
-            }).join("")}
-          </div>
+    <div class="stack-scene">
 
-          <div class="card-counter">
-            Odkryte karty: ${Math.min(stackState.hiddenCount, stackCardsOriginal.length)} / ${stackCardsOriginal.length}
-          </div>
+      <div class="card-stack">
 
-          <div class="comment-bottom">Kliknij górną kartę, aby odkryć kolejną.</div>
-        </div>
-      `;
+        ${remaining.map((text, index) => {
 
-      const topCard = lessonContent.querySelector(".story-card.top");
-      if (topCard) {
-        topCard.addEventListener("click", () => {
-          stackState.hiddenCount += 1;
-          saveStack();
-          renderCardStackStep();
-        });
-      }
+          const offsetY = index * 6;
+          const rotate = index % 2 === 0 ? -1.2 + (index * 0.2) : 1.2 - (index * 0.2);
+          const scale = 1 - (index * 0.012);
 
-      enableNext(allSeen);
-      nextBtn.textContent = "Dalej";
-      countdownBox.textContent = allSeen ? "Wszystkie karty odkryte" : "";
-    }
+          return `
+            <div
+              class="story-card ${index === 0 ? "top" : ""}"
+              style="
+                transform:
+                  translateX(-50%)
+                  translateY(${offsetY}px)
+                  rotate(${rotate}deg)
+                  scale(${scale});
+                z-index:${100 - index};
+              "
+            >
+              ${index === 0 ? `<p>${escapeHtml(text)}</p>` : ""}
+            </div>
+          `;
+
+        }).join("")}
+
+      </div>
+
+      <div class="card-counter">
+        Odkryte karty: ${Math.min(stackState.hiddenCount, stackCardsOriginal.length)} / ${stackCardsOriginal.length}
+      </div>
+
+      <div class="comment-bottom">
+        Kliknij górną kartę, aby odkryć kolejną.
+      </div>
+
+    </div>
+  `;
+
+  const topCard = lessonContent.querySelector(".story-card.top");
+
+  if (topCard) {
+    topCard.addEventListener("click", () => {
+
+      stackState.hiddenCount += 1;
+      saveStack();
+      renderCardStackStep();
+
+    });
+  }
+
+  enableNext(allSeen);
+  nextBtn.textContent = "Dalej";
+  countdownBox.textContent = allSeen ? "Wszystkie karty odkryte" : "";
+}
 
     function renderStep() {
       stopCountdown();
