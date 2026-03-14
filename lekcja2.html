@@ -1,833 +1,396 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Szczelinka — Lekcja 2</title>
-  <link rel="icon" href="favicon_minimal.ico" />
-  <meta name="theme-color" content="#3aa7d6" />
-
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #151515;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      height: 150px;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      padding: 0 40px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    .logo-link {
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
-    .logo {
-      height: 125px;
-      width: auto;
-      margin-right: 50px;
-      display: block;
-      flex-shrink: 0;
-    }
-
-    .menu {
-      display: flex;
-      align-items: center;
-      gap: 34px;
-    }
-
-    .menu > a,
-    .dropdown > a {
-      text-decoration: none;
-      font-size: 18px;
-      color: #3aa7d6;
-      font-weight: 500;
-      padding-bottom: 6px;
-      display: inline-block;
-    }
-
-    .menu a.active {
-      border-bottom: 2px solid #3aa7d6;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      min-width: 190px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
-      padding: 10px 0;
-      z-index: 1100;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 10px 18px;
-      text-decoration: none;
-      color: #3aa7d6;
-      font-size: 16px;
-      white-space: nowrap;
-    }
-
-    .dropdown-content a:hover {
-      background: rgba(58, 167, 214, 0.07);
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    .progress-wrap {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 28px 28px 0;
-    }
-
-    .progress-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 10px;
-    }
-
-    .progress-label {
-      font-size: 14px;
-      color: #4c4c4c;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .progress-step {
-      font-size: 16px;
-      color: #3aa7d6;
-      font-weight: 700;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 10px;
-      background: #ebebeb;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #3aa7d6;
-      border-radius: 999px;
-      transition: width 0.35s ease;
-    }
-
-    .main {
-      min-height: calc(100vh - 190px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 34px 24px 70px;
-    }
-
-    .lesson-shell {
-      width: 100%;
-      max-width: 1080px;
-    }
-
-    .lesson-card {
-      position: relative;
-      background: #ffffff;
-      border-radius: 34px;
-      padding: 42px 48px;
-      min-height: 560px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-    }
-
-    .section-tag {
-      position: absolute;
-      top: 28px;
-      right: 34px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #ffffff;
-      background: #3bb273;
-      padding: 10px 14px;
-      border-radius: 999px;
-      box-shadow: 0 8px 18px rgba(59, 178, 115, 0.22);
-    }
-
-    .lesson-center {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      flex: 1;
-      gap: 20px;
-    }
-
-    .lesson-kicker {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #3aa7d6;
-    }
-
-    .lesson-title {
-      font-size: 48px;
-      line-height: 1.12;
-      margin: 0;
-      max-width: 860px;
-    }
-
-    .lesson-subtitle {
-      font-size: 24px;
-      line-height: 1.5;
-      margin: 0;
-      max-width: 860px;
-      color: #2d2d2d;
-    }
-
-    .lesson-body {
-      font-size: 22px;
-      line-height: 1.65;
-      max-width: 860px;
-      color: #242424;
-      margin: 0 auto;
-      text-align: left;
-    }
-
-    .lesson-body.center {
-      text-align: center;
-    }
-
-    .lesson-body p {
-      margin: 0 0 18px 0;
-    }
-
-    .lesson-body p:last-child {
-      margin-bottom: 0;
-    }
-
-    .summary-box,
-    .question-box,
-    .homework-box {
-      width: 100%;
-      max-width: 860px;
-      background: #f5f5f5;
-      border-radius: 24px;
-      padding: 26px 28px;
-      text-align: left;
-    }
-
-    .summary-box h3,
-    .question-box h3,
-    .homework-box h3 {
-      margin: 0 0 12px 0;
-      font-size: 28px;
-      color: #3aa7d6;
-    }
-
-    .summary-box ol,
-    .summary-box li,
-    .question-box p,
-    .homework-box p {
-      font-size: 22px;
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    .summary-box ol {
-      padding-left: 28px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .question-box {
-      background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%);
-      text-align: center;
-    }
-
-    .question-main {
-      font-size: 42px;
-      line-height: 1.2;
-      font-weight: 700;
-      color: #151515;
-      margin: 4px 0 10px 0;
-    }
-
-    .question-sub {
-      font-size: 24px;
-      line-height: 1.6;
-      color: #474747;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-top: 28px;
-      flex-wrap: wrap;
-    }
-
-    .nav-left,
-    .nav-right {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 16px;
-      padding: 14px 22px;
-      font-size: 17px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.2s ease, background 0.2s ease;
-    }
-
-    .btn:hover:not(:disabled) {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: #3aa7d6;
-      color: #ffffff;
-      box-shadow: 0 10px 24px rgba(58, 167, 214, 0.18);
-    }
-
-    .btn-secondary {
-      background: #efefef;
-      color: #222222;
-    }
-
-    .btn:disabled,
-    .btn.disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .countdown {
-      font-size: 20px;
-      font-weight: 700;
-      color: #3aa7d6;
-      min-width: 220px;
-      text-align: center;
-    }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      z-index: 2000;
-    }
-
-    .modal-backdrop.show {
-      display: flex;
-    }
-
-    .modal {
-      width: 100%;
-      max-width: 700px;
-      background: #ffffff;
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.20);
-      text-align: center;
-    }
-
-    .modal h2 {
-      margin: 0 0 12px 0;
-      font-size: 32px;
-    }
-
-    .modal p {
-      margin: 0 0 22px 0;
-      font-size: 20px;
-      line-height: 1.6;
-      color: #2a2a2a;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .modal .homework-box {
-      margin: 0 auto 24px auto;
-      background: #f7fbf8;
-      border: 1px solid rgba(59, 178, 115, 0.18);
-    }
-
-    .helper-note {
-      max-width: 860px;
-      font-size: 17px;
-      color: #777;
-      text-align: center;
-    }
-
-    @media (max-width: 980px) {
-      .topbar {
-        height: auto;
-        min-height: 120px;
-        padding: 20px 22px;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      .logo {
-        height: 95px;
-        margin-right: 24px;
-      }
-
-      .menu {
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-
-      .progress-wrap {
-        padding: 20px 22px 0;
-      }
-
-      .lesson-card {
-        min-height: 520px;
-        padding: 56px 24px 30px;
-      }
-
-      .section-tag {
-        top: 18px;
-        right: 20px;
-      }
-
-      .lesson-title {
-        font-size: 38px;
-      }
-
-      .lesson-subtitle,
-      .question-sub {
-        font-size: 22px;
-      }
-
-      .question-main {
-        font-size: 34px;
-      }
-
-      .lesson-body,
-      .summary-box li,
-      .question-box p,
-      .homework-box p {
-        font-size: 20px;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .logo {
-        height: 78px;
-      }
-
-      .menu > a,
-      .dropdown > a {
-        font-size: 17px;
-      }
-
-      .dropdown-content a {
-        font-size: 15px;
-      }
-
-      .lesson-title {
-        font-size: 32px;
-      }
-
-      .lesson-subtitle,
-      .question-sub {
-        font-size: 20px;
-      }
-
-      .lesson-body,
-      .summary-box li,
-      .question-box p,
-      .homework-box p {
-        font-size: 18px;
-      }
-
-      .question-main {
-        font-size: 28px;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .nav-left,
-      .nav-right {
-        width: 100%;
-      }
-
-      .nav-left .btn,
-      .nav-right .btn {
-        width: 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Szczelinka – Lekcja 2</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#ffffff;
+color:#222;
+}
+
+.container{
+max-width:850px;
+margin:auto;
+padding:40px;
+}
+
+h1{
+color:#3aa7d6;
+}
+
+.buttons{
+margin-top:40px;
+display:flex;
+gap:20px;
+}
+
+button{
+padding:14px 28px;
+border:none;
+border-radius:10px;
+background:#3aa7d6;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:disabled{
+background:#bbb;
+cursor:default;
+}
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.popup-box{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:500px;
+}
+
+.timer{
+font-size:18px;
+margin-top:20px;
+color:#3aa7d6;
+}
+
+img{
+max-width:400px;
+margin:20px auto;
+display:block;
+}
+
+</style>
 </head>
+
 <body>
-  <header class="topbar">
-    <a href="index.html" class="logo-link" aria-label="Powrót do strony głównej">
-      <img src="logo.png" class="logo" alt="Szczelinka">
-    </a>
 
-    <nav class="menu">
-      <a href="szczelinka.html">Szczelinka</a>
+<div class="container">
 
-      <div class="dropdown">
-        <a class="active" href="Main_Page.html#lekcja2">Lekcje</a>
-        <div class="dropdown-content">
-          <a href="lekcja1.html">Lekcja 1</a>
-          <a href="lekcja2.html">Lekcja 2</a>
-          <a href="Main_Page.html#lekcja3">Lekcje 3–8</a>
-        </div>
-      </div>
+<h1>Lekcja 2</h1>
 
-      <a href="#">Zajęcia</a>
-    </nav>
-  </header>
+<div id="content"></div>
 
-  <div class="progress-wrap">
-    <div class="progress-top">
-      <div class="progress-label">Postęp lekcji 2</div>
-      <div class="progress-step" id="progressStep">2.0 / 2.1</div>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-bar-fill" id="progressFill"></div>
-    </div>
-  </div>
+<div class="timer" id="timer"></div>
 
-  <main class="main">
-    <div class="lesson-shell">
-      <section class="lesson-card">
-        <div class="section-tag" id="sectionTag">Obszar Rozumienie</div>
-        <div class="lesson-center" id="lessonContent"></div>
+<div class="buttons">
+<button onclick="back()">Wstecz</button>
+<button id="nextBtn" onclick="next()">Dalej</button>
+</div>
 
-        <div class="nav">
-          <div class="nav-left">
-            <button class="btn btn-secondary" id="backBtn">Wstecz</button>
-          </div>
+</div>
 
-          <div class="countdown" id="countdownBox"></div>
 
-          <div class="nav-right">
-            <button class="btn btn-primary" id="nextBtn">Dalej</button>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
+<div class="popup" id="popup">
+<div class="popup-box" id="popupContent"></div>
+</div>
 
-  <div class="modal-backdrop" id="homeworkModal">
-    <div class="modal">
-      <h2>Czy została wykonana praca domowa zalecona w lekcji 1.18?</h2>
-      <div class="homework-box">
-        <h3>Praca domowa</h3>
-        <p>Wykonaj we własnym zakresie 5 razy sesję medytacyjną z liczeniem oddechów. Każda sesja niech trwa 5 min.</p>
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-primary" id="homeworkYesBtn">TAK – dalej</button>
-        <button class="btn btn-secondary" id="homeworkNoBtn">NIE</button>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal-backdrop" id="answerModal">
-    <div class="modal">
-      <h2>Czy masz już swoją odpowiedź?</h2>
-      <p>Daj sobie prawdziwą chwilę ciszy i namysłu. Nie spiesz się.</p>
-      <div class="modal-actions">
-        <button class="btn btn-primary" id="answerYesBtn">TAK</button>
-        <button class="btn btn-secondary" id="answerNoBtn">NIE</button>
-      </div>
-    </div>
-  </div>
 
-  <script>
-    const lessonSteps = ["2.0", "2.1"];
-    let currentStepIndex = 0;
-    let countdown = 60;
-    let countdownTimer = null;
-    let adminBypass = false;
+<script>
 
-    const storageKeys = {
-      step: "szczelinka_lesson2_step",
-      homeworkSeen: "szczelinka_lesson2_homework_seen"
-    };
+let step=0
+let timerRunning=false
+let timer=60
+let cheat=false
 
-    const lessonContent = document.getElementById("lessonContent");
-    const backBtn = document.getElementById("backBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const countdownBox = document.getElementById("countdownBox");
-    const progressFill = document.getElementById("progressFill");
-    const progressStep = document.getElementById("progressStep");
+let name=localStorage.getItem("userName") || ""
 
-    const homeworkModal = document.getElementById("homeworkModal");
-    const homeworkYesBtn = document.getElementById("homeworkYesBtn");
-    const homeworkNoBtn = document.getElementById("homeworkNoBtn");
+function saveProgress(){
+document.cookie="lesson2="+step
+}
 
-    const answerModal = document.getElementById("answerModal");
-    const answerYesBtn = document.getElementById("answerYesBtn");
-    const answerNoBtn = document.getElementById("answerNoBtn");
+function getProgress(){
+let cookies=document.cookie.split(";")
+for(let c of cookies){
+if(c.includes("lesson2")){
+return parseInt(c.split("=")[1])
+}
+}
+return null
+}
 
-    function setCookie(name, value, days = 180) {
-      const expires = new Date(Date.now() + days * 864e5).toUTCString();
-      document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
-    }
+function askResume(){
+let saved=getProgress()
 
-    function getCookie(name) {
-      return document.cookie.split("; ").reduce((acc, pair) => {
-        const [k, v] = pair.split("=");
-        return k === encodeURIComponent(name) ? decodeURIComponent(v || "") : acc;
-      }, "");
-    }
+if(saved!==null){
 
-    function saveStep(stepIndex) {
-      localStorage.setItem(storageKeys.step, String(stepIndex));
-      setCookie(storageKeys.step, String(stepIndex));
-    }
+popup(`
+<h3>Witaj ${name}</h3>
+<p>Chcesz kontynuować od miejsca gdzie skończyłeś?</p>
 
-    function loadStep() {
-      const raw = localStorage.getItem(storageKeys.step) || getCookie(storageKeys.step);
-      const parsed = Number(raw);
-      return Number.isInteger(parsed) && parsed >= 0 && parsed < lessonSteps.length ? parsed : 0;
-    }
+<button onclick="resume(${saved})">Kontynuuj</button>
+<button onclick="resume(0)">Od początku</button>
+`)
+}
+else{
+render()
+}
+}
 
-    function saveHomeworkSeen(value) {
-      localStorage.setItem(storageKeys.homeworkSeen, value ? "1" : "0");
-      setCookie(storageKeys.homeworkSeen, value ? "1" : "0");
-    }
+function resume(s){
+step=s
+closePopup()
+render()
+}
 
-    function loadHomeworkSeen() {
-      return (localStorage.getItem(storageKeys.homeworkSeen) || getCookie(storageKeys.homeworkSeen)) === "1";
-    }
+function popup(html){
+document.getElementById("popup").style.display="flex"
+document.getElementById("popupContent").innerHTML=html
+}
 
-    function scrollLessonTop() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+function closePopup(){
+document.getElementById("popup").style.display="none"
+}
 
-    function showModal(modal) {
-      modal.classList.add("show");
-    }
+function render(){
 
-    function hideModal(modal) {
-      modal.classList.remove("show");
-    }
+saveProgress()
 
-    function stopCountdown() {
-      if (countdownTimer) {
-        clearInterval(countdownTimer);
-        countdownTimer = null;
-      }
-      countdownBox.textContent = "";
-    }
+let text=""
+let nextBtn=document.getElementById("nextBtn")
+nextBtn.disabled=false
 
-    function updateCountdownLabel() {
-      countdownBox.textContent = `Odliczanie: ${countdown}s`;
-    }
+document.getElementById("timer").innerHTML=""
 
-    function enableNext(enabled) {
-      nextBtn.disabled = !enabled;
-    }
+if(step==0){
 
-    function startCountdown(seconds = 60, endText = "Możesz przejść dalej") {
-      stopCountdown();
-      countdown = seconds;
-      updateCountdownLabel();
-      countdownTimer = setInterval(() => {
-        countdown -= 1;
-        updateCountdownLabel();
-        if (countdown <= 0) {
-          stopCountdown();
-          enableNext(true);
-          countdownBox.textContent = endText;
-        }
-      }, 1000);
-    }
+text=`
 
-    function updateProgress() {
-      const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
-      progressFill.style.width = `${percent}%`;
-      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.1`;
-    }
+<h2>Lekcja 2.0</h2>
 
-    function renderStep() {
-      stopCountdown();
-      updateProgress();
-      scrollLessonTop();
-      backBtn.disabled = currentStepIndex === 0;
-      nextBtn.textContent = "Dalej";
+<p><b>W ramach Lekcji 1 poznaliśmy 2 Prawdy Nie-do-podważenia:</b></p>
 
-      const step = lessonSteps[currentStepIndex];
+<ol>
+<li>Jesteśmy na misji osiągnięcia szczęścia.</li>
+<li>Szukamy szczęścia w świecie, jednak świat nie może dać trwałego szczęścia.</li>
+</ol>
 
-      if (step === "2.0") {
-        enableNext(true);
-        lessonContent.innerHTML = `
-          <div class="lesson-kicker">Lekcja 2.0</div>
-          <h1 class="lesson-title">Podsumowanie lekcji 1</h1>
+`
 
-          <div class="summary-box">
-            <h3>W ramach obszaru Rozumienia poznaliśmy 2 Prawdy Nie-do-podważenia:</h3>
-            <ol>
-              <li>Jesteśmy na misji osiągnięcia szczęścia. Wszystkie nasze działania są temu podporządkowane. Wszystkie decyzje, które podejmujemy, mają nas do tego doprowadzić.</li>
-              <li>Szukamy Szczęścia w Świecie, jednak Świat nie może dać trwałego szczęścia, gdyż sam jest nietrwały.</li>
-            </ol>
-          </div>
+}
 
-          <div class="helper-note">Po kliknięciu „Dalej” pojawi się pytanie o pracę domową z lekcji 1.18.</div>
-        `;
-        return;
-      }
+if(step==1){
 
-      if (step === "2.1") {
-        enableNext(false);
-        lessonContent.innerHTML = `
-          <div class="lesson-kicker">Lekcja 2.1</div>
-          <h1 class="lesson-title">Czym jest Szczelinka?</h1>
+text=`
 
-          <div class="lesson-body">
-            <p>Szczelinka to stan intensywnej obecności przy jednoczesnym całkowitym braku myśli. Tego typu medytacja daje głębokie poczucie spełnienia, czystości, błogości i spokoju. Otwiera się wtedy nowy wymiar istnienia, który był cały czas z nami, ale zazwyczaj był przykryty poprzez aktywność naszego umysłu.</p>
-            <p>Wiemy już, że prawdziwego Szczęścia nie znajdziemy w Świecie. W takim razie gdzie? Od razu nasuwa się odpowiedź: jak nie w Świecie, to może w Sobie? Ale co to właściwie oznacza, jak zabrać się za to szukanie w sobie? Kim my właściwie jesteśmy?</p>
-          </div>
+<h2>Lekcja 2.1</h2>
 
-          <div class="question-box">
-            <h3>Zadaj sobie pytanie</h3>
-            <div class="question-main">Kim jesteś?</div>
-            <div class="question-sub">Zastanów się i odpowiedz dla siebie.</div>
-          </div>
+<p>
+Szczelinka to stan intensywnej obecności przy jednoczesnym całkowitym braku myśli.
+</p>
 
-          <div class="helper-note">Daj sobie pełną minutę ciszy, zanim przejdziesz dalej.</div>
-        `;
+<p>
+Zadaj sobie pytanie:
+</p>
 
-        if (adminBypass) {
-          enableNext(true);
-          countdownBox.textContent = "Tryb administratora: możesz przejść dalej";
-        } else {
-          startCountdown(60);
-        }
-        return;
-      }
-    }
+<h3>KIM JESTEŚ?</h3>
 
-    function goNext() {
-      const step = lessonSteps[currentStepIndex];
+<p>Zastanów się przez chwilę.</p>
 
-      if (step === "2.0") {
-        showModal(homeworkModal);
-        return;
-      }
+`
 
-      if (step === "2.1") {
-        showModal(answerModal);
-        return;
-      }
-    }
+nextBtn.disabled=true
+startTimer()
 
-    function realAdvance() {
-      if (currentStepIndex < lessonSteps.length - 1) {
-        currentStepIndex += 1;
-        saveStep(currentStepIndex);
-        renderStep();
-      } else {
-        window.location.href = "Main_Page.html#lekcja3";
-      }
-    }
+}
 
-    function goBack() {
-      if (currentStepIndex > 0) {
-        currentStepIndex -= 1;
-        saveStep(currentStepIndex);
-        renderStep();
-      }
-    }
+if(step==2){
 
-    backBtn.addEventListener("click", goBack);
-    nextBtn.addEventListener("click", goNext);
+text=`
 
-    homeworkYesBtn.addEventListener("click", () => {
-      hideModal(homeworkModal);
-      saveHomeworkSeen(true);
-      realAdvance();
-    });
+<h2>Lekcja 2.2</h2>
 
-    homeworkNoBtn.addEventListener("click", () => {
-      // Treść pracy domowej pozostaje widoczna w tym samym popupie.
-    });
+<p>Większość osób odpowie:</p>
 
-    answerYesBtn.addEventListener("click", () => {
-      hideModal(answerModal);
-      window.location.href = "Main_Page.html#lekcja3";
-    });
+<ul>
+<li>Jestem swoim zawodem</li>
+<li>Jestem rolą w rodzinie</li>
+<li>Jestem swoim imieniem i historią</li>
+<li>Jestem charakterem</li>
+<li>Jestem przekonaniami</li>
+<li>Jestem swoim ciałem</li>
+</ul>
 
-    answerNoBtn.addEventListener("click", () => {
-      hideModal(answerModal);
-      adminBypass = false;
-      enableNext(false);
-      startCountdown(60);
-    });
+<p>
 
-    document.addEventListener("keydown", (event) => {
-      if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
-        const step = lessonSteps[currentStepIndex];
-        if (step === "2.1") {
-          event.preventDefault();
-          adminBypass = true;
-          stopCountdown();
-          enableNext(true);
-          countdownBox.textContent = "Tryb administratora: możesz przejść dalej";
-        }
-      }
-    });
+Jednak wszystkie te odpowiedzi można podważyć.
 
-    currentStepIndex = loadStep();
-    renderStep();
+Zawód się zmienia.
+Charakter się zmienia.
+Przekonania się zmieniają.
 
-    if (currentStepIndex === 0 && loadHomeworkSeen()) {
-      saveHomeworkSeen(false);
-    }
-  </script>
+</p>
+
+<p>
+
+Nie jesteś również swoim ciałem.
+
+Jeśli stracisz rękę nadal jesteś sobą.
+Jeśli stracisz nogę nadal jesteś sobą.
+
+</p>
+
+<p>
+
+Jeśli żadna część ciała nie jest tobą,
+to suma części również tobą nie jest.
+
+</p>
+
+`
+
+}
+
+if(step==3){
+
+text=`
+
+<h2>Lekcja 2.3</h2>
+
+<p>Kolejne odpowiedzi które padają:</p>
+
+<ul>
+<li>Jestem swoim umysłem</li>
+<li>Jestem duszą</li>
+</ul>
+
+<p>Spójrz na sytuację w umyśle:</p>
+
+<img src="glowy.png">
+
+<p>
+
+W Twojej głowie istnieje głos – <b>Ten Który Mówi (TKM)</b>.
+
+</p>
+
+<p>
+
+Jednak istnieje też ktoś inny…
+
+<b>Ten Który Słucha (TKS)</b>.
+
+</p>
+
+<p>
+
+Jeśli głos jest słyszany,
+musi istnieć ktoś kto go słucha.
+
+</p>
+
+<p>
+
+TKM pojawia się i znika.
+
+TKS jest obecny zawsze.
+
+</p>
+
+`
+
+}
+
+document.getElementById("content").innerHTML=text
+
+}
+
+function startTimer(){
+
+timerRunning=true
+timer=60
+
+document.getElementById("timer").innerHTML="Czas refleksji: "+timer
+
+let interval=setInterval(()=>{
+
+if(cheat){
+clearInterval(interval)
+document.getElementById("nextBtn").disabled=false
+document.getElementById("timer").innerHTML=""
+return
+}
+
+timer--
+
+document.getElementById("timer").innerHTML="Czas refleksji: "+timer
+
+if(timer<=0){
+clearInterval(interval)
+document.getElementById("nextBtn").disabled=false
+document.getElementById("timer").innerHTML=""
+}
+
+},1000)
+
+}
+
+function next(){
+
+if(step==0){
+
+popup(`
+
+<h3>Czy wykonałeś pracę domową z lekcji 1.18?</h3>
+
+<p>
+Praca domowa:
+Wykonaj 5 sesji medytacji liczenia oddechów.
+Każda po 5 minut.
+</p>
+
+<button onclick="closePopup();step++;render()">TAK</button>
+
+<button onclick="closePopup()">NIE</button>
+
+`)
+
+return
+}
+
+step++
+
+if(step>3){
+window.location="Main_Page.html"
+return
+}
+
+render()
+
+}
+
+function back(){
+if(step>0){
+step--
+render()
+}
+}
+
+document.addEventListener("keydown",e=>{
+if(e.ctrlKey && e.key==="d"){
+cheat=true
+}
+})
+
+askResume()
+
+</script>
+
 </body>
 </html>
