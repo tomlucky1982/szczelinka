@@ -237,9 +237,21 @@
       margin-bottom: 0;
     }
 
+    .lesson-body ul {
+      margin: 0 0 22px 0;
+      padding-left: 28px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .lesson-body li {
+      margin: 0;
+    }
+
     .summary-box,
     .question-box,
-    .homework-box {
+    .homework-box,
+    .image-box {
       width: 100%;
       max-width: 860px;
       background: #f5f5f5;
@@ -250,7 +262,8 @@
 
     .summary-box h3,
     .question-box h3,
-    .homework-box h3 {
+    .homework-box h3,
+    .image-box h3 {
       margin: 0 0 12px 0;
       font-size: 28px;
       color: #3aa7d6;
@@ -259,7 +272,8 @@
     .summary-box ol,
     .summary-box li,
     .question-box p,
-    .homework-box p {
+    .homework-box p,
+    .image-box p {
       font-size: 22px;
       line-height: 1.65;
       margin: 0;
@@ -288,6 +302,15 @@
       font-size: 24px;
       line-height: 1.6;
       color: #474747;
+    }
+
+    .glowy-img {
+      width: 100%;
+      max-width: 460px;
+      display: block;
+      margin: 18px auto 20px;
+      border-radius: 20px;
+      background: #ffffff;
     }
 
     .nav {
@@ -364,7 +387,7 @@
 
     .modal {
       width: 100%;
-      max-width: 700px;
+      max-width: 760px;
       background: #ffffff;
       border-radius: 28px;
       padding: 30px;
@@ -453,7 +476,8 @@
       .lesson-body,
       .summary-box li,
       .question-box p,
-      .homework-box p {
+      .homework-box p,
+      .image-box p {
         font-size: 20px;
       }
     }
@@ -484,7 +508,8 @@
       .lesson-body,
       .summary-box li,
       .question-box p,
-      .homework-box p {
+      .homework-box p,
+      .image-box p {
         font-size: 18px;
       }
 
@@ -533,7 +558,7 @@
   <div class="progress-wrap">
     <div class="progress-top">
       <div class="progress-label">Postęp lekcji 2</div>
-      <div class="progress-step" id="progressStep">2.0 / 2.1</div>
+      <div class="progress-step" id="progressStep">2.0 / 2.3</div>
     </div>
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressFill"></div>
@@ -561,6 +586,17 @@
     </div>
   </main>
 
+  <div class="modal-backdrop" id="resumeModal">
+    <div class="modal">
+      <h2 id="resumeTitle">Witaj ponownie</h2>
+      <p id="resumeText">Czy chcesz wrócić do miejsca, w którym skończyłeś?</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="resumeContinueBtn">Kontynuuj</button>
+        <button class="btn btn-secondary" id="resumeRestartBtn">Od początku</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-backdrop" id="homeworkModal">
     <div class="modal">
       <h2>Czy została wykonana praca domowa zalecona w lekcji 1.18?</h2>
@@ -587,7 +623,7 @@
   </div>
 
   <script>
-    const lessonSteps = ["2.0", "2.1"];
+    const lessonSteps = ["2.0", "2.1", "2.2", "2.3"];
     let currentStepIndex = 0;
     let countdown = 60;
     let countdownTimer = null;
@@ -604,6 +640,12 @@
     const countdownBox = document.getElementById("countdownBox");
     const progressFill = document.getElementById("progressFill");
     const progressStep = document.getElementById("progressStep");
+
+    const resumeModal = document.getElementById("resumeModal");
+    const resumeTitle = document.getElementById("resumeTitle");
+    const resumeText = document.getElementById("resumeText");
+    const resumeContinueBtn = document.getElementById("resumeContinueBtn");
+    const resumeRestartBtn = document.getElementById("resumeRestartBtn");
 
     const homeworkModal = document.getElementById("homeworkModal");
     const homeworkYesBtn = document.getElementById("homeworkYesBtn");
@@ -625,24 +667,60 @@
       }, "");
     }
 
+    function deleteCookie(name) {
+      document.cookie = `${encodeURIComponent(name)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax`;
+    }
+
     function saveStep(stepIndex) {
-      localStorage.setItem(storageKeys.step, String(stepIndex));
       setCookie(storageKeys.step, String(stepIndex));
     }
 
     function loadStep() {
-      const raw = localStorage.getItem(storageKeys.step) || getCookie(storageKeys.step);
+      const raw = getCookie(storageKeys.step);
       const parsed = Number(raw);
       return Number.isInteger(parsed) && parsed >= 0 && parsed < lessonSteps.length ? parsed : 0;
     }
 
     function saveHomeworkSeen(value) {
-      localStorage.setItem(storageKeys.homeworkSeen, value ? "1" : "0");
       setCookie(storageKeys.homeworkSeen, value ? "1" : "0");
     }
 
     function loadHomeworkSeen() {
-      return (localStorage.getItem(storageKeys.homeworkSeen) || getCookie(storageKeys.homeworkSeen)) === "1";
+      return getCookie(storageKeys.homeworkSeen) === "1";
+    }
+
+    function readFirstNonEmpty(values) {
+      for (const value of values) {
+        if (value && String(value).trim()) return String(value).trim();
+      }
+      return "";
+    }
+
+    function getStoredName() {
+      const cookieCandidates = [
+        getCookie("szczelinka_user_name"),
+        getCookie("szczelinkaName"),
+        getCookie("userName"),
+        getCookie("username"),
+        getCookie("imie"),
+        getCookie("firstName"),
+        getCookie("lesson1_name")
+      ];
+
+      const localStorageCandidates = [];
+      try {
+        localStorageCandidates.push(
+          localStorage.getItem("szczelinka_user_name"),
+          localStorage.getItem("szczelinkaName"),
+          localStorage.getItem("userName"),
+          localStorage.getItem("username"),
+          localStorage.getItem("imie"),
+          localStorage.getItem("firstName"),
+          localStorage.getItem("lesson1_name")
+        );
+      } catch (e) {}
+
+      return readFirstNonEmpty([...cookieCandidates, ...localStorageCandidates]);
     }
 
     function scrollLessonTop() {
@@ -691,7 +769,7 @@
     function updateProgress() {
       const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
       progressFill.style.width = `${percent}%`;
-      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.1`;
+      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.3`;
     }
 
     function renderStep() {
@@ -702,6 +780,7 @@
       nextBtn.textContent = "Dalej";
 
       const step = lessonSteps[currentStepIndex];
+      saveStep(currentStepIndex);
 
       if (step === "2.0") {
         enableNext(true);
@@ -710,14 +789,12 @@
           <h1 class="lesson-title">Podsumowanie lekcji 1</h1>
 
           <div class="summary-box">
-            <h3>W ramach obszaru Rozumienia poznaliśmy 2 Prawdy Nie-do-podważenia:</h3>
+            <h3>W ramach Lekcji 1 poznaliśmy 2 Prawdy Nie-do-podważenia:</h3>
             <ol>
               <li>Jesteśmy na misji osiągnięcia szczęścia. Wszystkie nasze działania są temu podporządkowane. Wszystkie decyzje, które podejmujemy, mają nas do tego doprowadzić.</li>
               <li>Szukamy Szczęścia w Świecie, jednak Świat nie może dać trwałego szczęścia, gdyż sam jest nietrwały.</li>
             </ol>
           </div>
-
-          <div class="helper-note">Po kliknięciu „Dalej” pojawi się pytanie o pracę domową z lekcji 1.18.</div>
         `;
         return;
       }
@@ -750,6 +827,82 @@
         }
         return;
       }
+
+      if (step === "2.2") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.2</div>
+          <h1 class="lesson-title">Kim jesteś naprawdę?</h1>
+
+          <div class="lesson-body">
+            <p>Większość osób na pytanie „Kim Jestem?” odpowie:</p>
+            <ul>
+              <li>Jestem swoim zawodem (np. lekarzem, nauczycielem, przedsiębiorcą).</li>
+              <li>Jestem swoją rolą w rodzinie (np. ojcem, matką, córką, mężem).</li>
+              <li>Jestem swoim imieniem i nazwiskiem. (odziedziczyłem historię moich przodków i zostawię po sobie spuściznę, dziedzictwo dla moich potomków)</li>
+              <li>Jestem swoim charakterem lub cechami (np. jestem spokojny, ambitny, wrażliwy).</li>
+              <li>Jestem swoją historią życia i doświadczeniami. (np. porażkami, zwycięstwami)</li>
+              <li>Jestem swoimi przekonaniami lub wartościami (np. jestem katolikiem, patriotą, humanistą).</li>
+              <li>Jestem swoim ciałem (twierdzenie, że poza materialnością nie ma nic więcej).</li>
+            </ul>
+
+            <p><strong>Ważne:</strong> Szukamy odpowiedzi na pytanie Kim jesteś? Ale chcemy znaleźć odpowiedź na pytanie Kim Jesteś, naprawdę? Nie usatysfakcjonuje nas cząstkowa odpowiedź, którą da się podważyć. Szukamy odpowiedzi, która byłaby fundamentalnie prawdziwa. Co to znaczy Prawdziwa? Musimy przyjąć, że się nie zmienia, że zawsze jest taka właśnie – czyli prawdziwa.</p>
+
+            <p>Dlatego pierwszą grupę odpowiedzi bardzo szybko wykluczymy. Zawód nas nie określa ponieważ przed wyuczeniem się tego zawodu też byliśmy sobą. Rola w rodzinie tak naprawdę nas nie określa gdyż, przed staniem się Ojcem też byliśmy sobą. Wyznanie nas nie określa gdyż mogę je zmienić i nadal będę sobą. Cechy mojego charakteru mnie nie określają gdyż po pierwsze mogą się zmienić a po drugie kiedyś ich nie było.</p>
+
+            <p>Nie jesteś również swoim Ciałem. Dlaczego? Którym kawałkiem ciała dokładnie jesteś? Ręką? Jeśli odejmiemy Tobie rękę to nadal jesteś Sobą? Odpowiesz, że oczywiście. A nogę? Również zostaniesz sobą. Czyli nie jesteś nimi. Gdybyś ręką lub nogą Cię określały (= jestem nimi), to po ich odjęciu już by Ciebie nie było.</p>
+
+            <p>Odpowiesz, że może nie jestem ręką i nogą ale czuję że jestem sercem. Jednak nie, ponieważ serce można przeszczepić. Odpowiesz: jestem mózgiem. Mózg zbudowany jest z neuronów i innych komórek. Gdybym wymieniał po kolei wszystkie neurony to mógłbym je wymienić, a Ty byś pozostał sobą. Zresztą to się dzieje — komórki obumierają i zostają zastępowane nowymi.</p>
+
+            <p>Odpowiesz, że może nie jestem poszczególną częścią mojego ciała, ale wszystkie te części mnie stanowią. Również nie. Jeśli żadna z cząstek osobno cię nie stanowi, to suma tych części również cię nie stanowi. Nie jesteś swoim Ciałem.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.3") {
+        enableNext(false);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.3</div>
+          <h1 class="lesson-title">Ten, Który Mówi i Ten, Który Słucha</h1>
+
+          <div class="lesson-body">
+            <p>Kolejne odpowiedzi które często padają:</p>
+            <ul>
+              <li>Jestem swoim umysłem (np. mogę nie mieć ciała ale jeśli mogę myśleć to nadal będę ja).</li>
+              <li>Jestem duszą (…, która po śmierci będzie żyła dalej).</li>
+            </ul>
+
+            <p>Zajmiemy się teraz umysłem. Jeśli zrobimy zbliżenie na umysł to spotkamy ciekawą sytuację:</p>
+          </div>
+
+          <div class="image-box">
+            <h3>Rysunek</h3>
+            <img src="glowy.png" alt="Wyjaśnienie relacji TKM i TKS" class="glowy-img">
+            <p><strong>Wyjaśnienie rysunku</strong></p>
+          </div>
+
+          <div class="lesson-body">
+            <p>W Twojej głowie żyje głos – Ten, Który Mówi (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większość osób uważa, że ten głos to właśnie ja. Mogę nie być ciałem, zawodem, wyznaniem ale jestem tym głosem!</p>
+
+            <p>Jednak oprócz tego głosu istnieje jeszcze ktoś inny… Jest tak cichy, że do tej pory mógł umykać Twojej uwadze. To Ten, Który Słucha (TKS). Jeśli głos jest słyszany, musi istnieć ktoś, kto go słucha.</p>
+
+            <p>O Tym, Który Mówi, wiesz wiele: znasz jego imię, wiek, płeć, upodobania, zawód, wyznanie. A co wiesz o Tym, Który Słucha?</p>
+
+            <p>Ten, Który Mówi, pojawia się i znika. Ten, Który Słucha (Doświadcza) jest obecny zawsze. W medytacji staje się jasne, że nie jesteś Tym, Który Mówi (TKM).</p>
+          </div>
+
+          <div class="helper-note">Daj sobie jeszcze 60 sekund, zanim przejdziesz dalej.</div>
+        `;
+
+        if (adminBypass) {
+          enableNext(true);
+          countdownBox.textContent = "Tryb administratora: możesz przejść dalej";
+        } else {
+          startCountdown(60);
+        }
+        return;
+      }
     }
 
     function goNext() {
@@ -764,6 +917,15 @@
         showModal(answerModal);
         return;
       }
+
+      if (step === "2.2") {
+        realAdvance();
+        return;
+      }
+
+      if (step === "2.3") {
+        completeLesson();
+      }
     }
 
     function realAdvance() {
@@ -772,8 +934,14 @@
         saveStep(currentStepIndex);
         renderStep();
       } else {
-        window.location.href = "Main_Page.html#lekcja3";
+        completeLesson();
       }
+    }
+
+    function completeLesson() {
+      deleteCookie(storageKeys.step);
+      deleteCookie(storageKeys.homeworkSeen);
+      window.location.href = "Main_Page.html#lekcja3";
     }
 
     function goBack() {
@@ -784,8 +952,34 @@
       }
     }
 
+    function maybeAskToResume() {
+      const savedStep = loadStep();
+      if (savedStep > 0) {
+        const savedName = getStoredName();
+        resumeTitle.textContent = savedName ? `Witaj ponownie, ${savedName}` : "Witaj ponownie";
+        resumeText.textContent = "Czy chcesz wrócić do miejsca, w którym skończyłeś, czy zacząć od początku?";
+        showModal(resumeModal);
+      } else {
+        currentStepIndex = 0;
+        renderStep();
+      }
+    }
+
     backBtn.addEventListener("click", goBack);
     nextBtn.addEventListener("click", goNext);
+
+    resumeContinueBtn.addEventListener("click", () => {
+      hideModal(resumeModal);
+      currentStepIndex = loadStep();
+      renderStep();
+    });
+
+    resumeRestartBtn.addEventListener("click", () => {
+      hideModal(resumeModal);
+      currentStepIndex = 0;
+      saveStep(0);
+      renderStep();
+    });
 
     homeworkYesBtn.addEventListener("click", () => {
       hideModal(homeworkModal);
@@ -794,12 +988,12 @@
     });
 
     homeworkNoBtn.addEventListener("click", () => {
-      // Treść pracy domowej pozostaje widoczna w tym samym popupie.
+      // Popup zostaje otwarty, aby użytkownik widział treść pracy domowej.
     });
 
     answerYesBtn.addEventListener("click", () => {
       hideModal(answerModal);
-      window.location.href = "Main_Page.html#lekcja3";
+      realAdvance();
     });
 
     answerNoBtn.addEventListener("click", () => {
@@ -812,7 +1006,7 @@
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
         const step = lessonSteps[currentStepIndex];
-        if (step === "2.1") {
+        if (step === "2.1" || step === "2.3") {
           event.preventDefault();
           adminBypass = true;
           stopCountdown();
@@ -822,8 +1016,7 @@
       }
     });
 
-    currentStepIndex = loadStep();
-    renderStep();
+    maybeAskToResume();
 
     if (currentStepIndex === 0 && loadHomeworkSeen()) {
       saveHomeworkSeen(false);
