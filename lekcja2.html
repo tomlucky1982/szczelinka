@@ -427,6 +427,108 @@
       text-align: center;
     }
 
+
+    .truth-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .truth-icon {
+      height: 28px;
+      width: auto;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .not-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin: 24px 0 8px;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .not-box {
+      border: 2px solid #39C2F3;
+      border-radius: 16px;
+      min-height: 110px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 700;
+      color: #1f1f1f;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(14px) scale(0.97);
+      animation: notBoxIn 0.55s ease forwards;
+    }
+
+    .not-box::after {
+      content: "";
+      position: absolute;
+      width: 140%;
+      height: 4px;
+      background: #39C2F3;
+      transform: rotate(-24deg);
+      left: -20%;
+      top: 50%;
+      transform-origin: center;
+      box-shadow: 0 0 0 1px rgba(57, 194, 243, 0.05);
+    }
+
+    .not-box:nth-child(1) { animation-delay: 0.05s; }
+    .not-box:nth-child(2) { animation-delay: 0.15s; }
+    .not-box:nth-child(3) { animation-delay: 0.25s; }
+    .not-box:nth-child(4) { animation-delay: 0.35s; }
+    .not-box:nth-child(5) { animation-delay: 0.45s; }
+    .not-box:nth-child(6) { animation-delay: 0.55s; }
+    .not-box:nth-child(7) { animation-delay: 0.65s; }
+
+    @keyframes notBoxIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .full-image-box {
+      width: 100%;
+      max-width: 860px;
+      background: #f5f5f5;
+      border-radius: 24px;
+      padding: 18px;
+      text-align: left;
+    }
+
+    .full-image-box img {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+    }
+
+    .image-explainer {
+      width: 100%;
+      max-width: 860px;
+      font-size: 22px;
+      line-height: 1.65;
+      color: #242424;
+      margin: 0 auto;
+      text-align: left;
+    }
+
     @media (max-width: 980px) {
       .topbar {
         height: auto;
@@ -789,7 +891,7 @@
           <h1 class="lesson-title">Podsumowanie lekcji 1</h1>
 
           <div class="summary-box">
-            <h3>W ramach Lekcji 1 poznaliśmy 2 Prawdy Nie-do-podważenia:</h3>
+            <h3 class="truth-title">W ramach Lekcji 1 poznaliśmy 2 Prawdy <img src="nie.png" alt="Nie" class="truth-icon"> Nie-do-podważenia:</h3>
             <ol>
               <li>Jesteśmy na misji osiągnięcia szczęścia. Wszystkie nasze działania są temu podporządkowane. Wszystkie decyzje, które podejmujemy, mają nas do tego doprowadzić.</li>
               <li>Szukamy Szczęścia w Świecie, jednak Świat nie może dać trwałego szczęścia, gdyż sam jest nietrwały.</li>
@@ -835,26 +937,45 @@
           <h1 class="lesson-title">Kim jesteś naprawdę?</h1>
 
           <div class="lesson-body">
-            <p>Większość osób na pytanie „Kim Jestem?” odpowie:</p>
+            <p>Większość osób na pytanie „Kim jestem?” odpowie:</p>
             <ul>
               <li>Jestem swoim zawodem (np. lekarzem, nauczycielem, przedsiębiorcą).</li>
               <li>Jestem swoją rolą w rodzinie (np. ojcem, matką, córką, mężem).</li>
-              <li>Jestem swoim imieniem i nazwiskiem. (odziedziczyłem historię moich przodków i zostawię po sobie spuściznę, dziedzictwo dla moich potomków)</li>
-              <li>Jestem swoim charakterem lub cechami (np. jestem spokojny, ambitny, wrażliwy).</li>
-              <li>Jestem swoją historią życia i doświadczeniami. (np. porażkami, zwycięstwami)</li>
-              <li>Jestem swoimi przekonaniami lub wartościami (np. jestem katolikiem, patriotą, humanistą).</li>
-              <li>Jestem swoim ciałem (twierdzenie, że poza materialnością nie ma nic więcej).</li>
+              <li>Jestem swoim imieniem i nazwiskiem.</li>
+              <li>Jestem swoim charakterem lub cechami (np. spokojny, ambitny, wrażliwy).</li>
+              <li>Jestem swoją historią życia i doświadczeniami.</li>
+              <li>Jestem swoimi przekonaniami lub wartościami.</li>
+              <li>Jestem swoim ciałem.</li>
             </ul>
 
-            <p><strong>Ważne:</strong> Szukamy odpowiedzi na pytanie Kim jesteś? Ale chcemy znaleźć odpowiedź na pytanie Kim Jesteś, naprawdę? Nie usatysfakcjonuje nas cząstkowa odpowiedź, którą da się podważyć. Szukamy odpowiedzi, która byłaby fundamentalnie prawdziwa. Co to znaczy Prawdziwa? Musimy przyjąć, że się nie zmienia, że zawsze jest taka właśnie – czyli prawdziwa.</p>
+            <p><strong>Ważne:</strong></p>
+            <p>Szukamy odpowiedzi na pytanie „Kim jesteś?”.</p>
+            <p>Ale chcemy znaleźć odpowiedź na pytanie „Kim jesteś naprawdę?”.</p>
+            <p>Nie usatysfakcjonuje nas odpowiedź cząstkowa — taka, którą można podważyć lub która zmienia się wraz z okolicznościami.</p>
+            <p>Szukamy odpowiedzi <strong>fundamentalnie prawdziwej</strong>.</p>
+            <p>Co to znaczy „prawdziwej”?</p>
+            <p>Musimy przyjąć, że <strong>nie zmienia się w czasie</strong> — że jest zawsze taka sama, niezależnie od sytuacji.</p>
+            <p>Tylko wtedy możemy nazwać ją <strong>naprawdę prawdziwą</strong>.</p>
 
-            <p>Dlatego pierwszą grupę odpowiedzi bardzo szybko wykluczymy. Zawód nas nie określa ponieważ przed wyuczeniem się tego zawodu też byliśmy sobą. Rola w rodzinie tak naprawdę nas nie określa gdyż, przed staniem się Ojcem też byliśmy sobą. Wyznanie nas nie określa gdyż mogę je zmienić i nadal będę sobą. Cechy mojego charakteru mnie nie określają gdyż po pierwsze mogą się zmienić a po drugie kiedyś ich nie było.</p>
+            <p>Dlatego bardzo szybko odrzucimy odpowiedzi, które są zmienne, nabyte albo zależne od okoliczności.</p>
+          </div>
 
-            <p>Nie jesteś również swoim Ciałem. Dlaczego? Którym kawałkiem ciała dokładnie jesteś? Ręką? Jeśli odejmiemy Tobie rękę to nadal jesteś Sobą? Odpowiesz, że oczywiście. A nogę? Również zostaniesz sobą. Czyli nie jesteś nimi. Gdybyś ręką lub nogą Cię określały (= jestem nimi), to po ich odjęciu już by Ciebie nie było.</p>
+          <div class="not-grid" aria-label="Czym nie jesteśmy">
+            <div class="not-box">Zawód</div>
+            <div class="not-box">Rola w rodzinie</div>
+            <div class="not-box">Imię i nazwisko</div>
+            <div class="not-box">Charakter</div>
+            <div class="not-box">Historia życia</div>
+            <div class="not-box">Przekonania</div>
+            <div class="not-box">Ciało</div>
+          </div>
 
-            <p>Odpowiesz, że może nie jestem ręką i nogą ale czuję że jestem sercem. Jednak nie, ponieważ serce można przeszczepić. Odpowiesz: jestem mózgiem. Mózg zbudowany jest z neuronów i innych komórek. Gdybym wymieniał po kolei wszystkie neurony to mógłbym je wymienić, a Ty byś pozostał sobą. Zresztą to się dzieje — komórki obumierają i zostają zastępowane nowymi.</p>
+          <div class="lesson-body">
+            <p>Zawód nas nie określa, ponieważ zanim go zdobyliśmy, już byliśmy sobą. Rola w rodzinie również nas nie definiuje, bo zanim ktoś stał się ojcem, matką, mężem czy żoną, także już istniał jako „ja”. Przekonania też mogą się zmienić, a mimo to pozostajemy sobą.</p>
 
-            <p>Odpowiesz, że może nie jestem poszczególną częścią mojego ciała, ale wszystkie te części mnie stanowią. Również nie. Jeśli żadna z cząstek osobno cię nie stanowi, to suma tych części również cię nie stanowi. Nie jesteś swoim Ciałem.</p>
+            <p>Nie jesteś również swoim ciałem. Gdybyś był ręką, po jej utracie przestałbyś sobą być. To samo dotyczy nogi, serca czy każdej innej części. Nawet komórki ciała stale się zmieniają, a jednak poczucie „ja” trwa.</p>
+
+            <p>Nie jesteś więc ani pojedynczą częścią ciała, ani zbiorem wszystkich tych części. To, kim jesteś naprawdę, musi być czymś głębszym niż to, co można dodać, odjąć, zmienić albo utracić.</p>
           </div>
         `;
         return;
@@ -876,9 +997,11 @@
             <p>Zajmiemy się teraz umysłem. Jeśli zrobimy zbliżenie na umysł to spotkamy ciekawą sytuację:</p>
           </div>
 
-          <div class="image-box">
-            <h3>Rysunek</h3>
-            <img src="glowy.png" alt="Wyjaśnienie relacji TKM i TKS" class="glowy-img">
+          <div class="full-image-box">
+            <img src="glowy.png" alt="Wyjaśnienie relacji TKM i TKS">
+          </div>
+
+          <div class="image-explainer">
             <p><strong>Wyjaśnienie rysunku</strong></p>
           </div>
 
