@@ -208,14 +208,6 @@
       max-width: 860px;
     }
 
-    .lesson-subtitle {
-      font-size: 24px;
-      line-height: 1.5;
-      margin: 0;
-      max-width: 860px;
-      color: #2d2d2d;
-    }
-
     .lesson-body {
       font-size: 22px;
       line-height: 1.65;
@@ -223,10 +215,7 @@
       color: #242424;
       margin: 0 auto;
       text-align: left;
-    }
-
-    .lesson-body.center {
-      text-align: center;
+      width: 100%;
     }
 
     .lesson-body p {
@@ -248,12 +237,20 @@
       margin: 0;
     }
 
+    .summary-row {
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      grid-template-columns: 1.2fr 280px;
+      gap: 24px;
+      align-items: center;
+    }
+
     .summary-box,
     .question-box,
     .homework-box,
     .image-box {
       width: 100%;
-      max-width: 860px;
       background: #f5f5f5;
       border-radius: 24px;
       padding: 26px 28px;
@@ -285,9 +282,27 @@
       gap: 14px;
     }
 
+    .truth-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f5f5;
+      border-radius: 24px;
+      padding: 20px;
+      min-height: 100%;
+    }
+
+    .truth-visual img {
+      width: 100%;
+      max-width: 220px;
+      display: block;
+    }
+
     .question-box {
       background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%);
       text-align: center;
+      max-width: 860px;
+      width: 100%;
     }
 
     .question-main {
@@ -304,13 +319,97 @@
       color: #474747;
     }
 
-    .glowy-img {
+    .full-image-box {
       width: 100%;
-      max-width: 460px;
+      max-width: 860px;
+      background: #f5f5f5;
+      border-radius: 24px;
+      padding: 18px;
+      text-align: left;
+    }
+
+    .full-image-box img {
+      width: 100%;
       display: block;
-      margin: 18px auto 20px;
-      border-radius: 20px;
+      border-radius: 18px;
+    }
+
+    .image-explainer {
+      width: 100%;
+      max-width: 860px;
+      font-size: 22px;
+      line-height: 1.65;
+      color: #242424;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .helper-note {
+      max-width: 860px;
+      font-size: 17px;
+      color: #777;
+      text-align: center;
+    }
+
+    .cards-grid {
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 6px;
+    }
+
+    .topic-card {
+      position: relative;
+      border: 2px solid #39C2F3;
       background: #ffffff;
+      border-radius: 20px;
+      padding: 24px 18px;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.28;
+      font-weight: 700;
+      color: #1f1f1f;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      box-shadow: 0 10px 24px rgba(58, 167, 214, 0.08);
+    }
+
+    .topic-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(58, 167, 214, 0.14);
+      background: #fbfeff;
+    }
+
+    .topic-card.done {
+      border-color: #3bb273;
+      background: #f7fcf9;
+    }
+
+    .topic-check {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #3bb273;
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(59, 178, 115, 0.24);
+    }
+
+    .topic-card.done .topic-check {
+      display: flex;
     }
 
     .nav {
@@ -387,7 +486,9 @@
 
     .modal {
       width: 100%;
-      max-width: 760px;
+      max-width: 900px;
+      max-height: 88vh;
+      overflow-y: auto;
       background: #ffffff;
       border-radius: 28px;
       padding: 30px;
@@ -418,115 +519,53 @@
       margin: 0 auto 24px auto;
       background: #f7fbf8;
       border: 1px solid rgba(59, 178, 115, 0.18);
+      max-width: 100%;
     }
 
-    .helper-note {
-      max-width: 860px;
-      font-size: 17px;
-      color: #777;
-      text-align: center;
-    }
-
-
-    .truth-title {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .truth-icon {
-      height: 28px;
-      width: auto;
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    .not-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 16px;
-      margin: 24px 0 8px;
-      width: 100%;
-      max-width: 860px;
-    }
-
-    .not-box {
-      border: 2px solid #39C2F3;
-      border-radius: 16px;
-      min-height: 110px;
-      padding: 18px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+    .popup-body {
+      text-align: left;
       font-size: 22px;
-      line-height: 1.25;
-      font-weight: 700;
-      color: #1f1f1f;
-      background: #ffffff;
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(14px) scale(0.97);
-      animation: notBoxIn 0.55s ease forwards;
+      line-height: 1.7;
+      color: #222;
     }
 
-    .not-box::after {
-      content: "";
-      position: absolute;
-      width: 140%;
-      height: 4px;
-      background: #39C2F3;
-      transform: rotate(-24deg);
-      left: -20%;
-      top: 50%;
-      transform-origin: center;
-      box-shadow: 0 0 0 1px rgba(57, 194, 243, 0.05);
+    .popup-body p {
+      margin: 0 0 16px 0;
     }
 
-    .not-box:nth-child(1) { animation-delay: 0.05s; }
-    .not-box:nth-child(2) { animation-delay: 0.15s; }
-    .not-box:nth-child(3) { animation-delay: 0.25s; }
-    .not-box:nth-child(4) { animation-delay: 0.35s; }
-    .not-box:nth-child(5) { animation-delay: 0.45s; }
-    .not-box:nth-child(6) { animation-delay: 0.55s; }
-    .not-box:nth-child(7) { animation-delay: 0.65s; }
-
-    @keyframes notBoxIn {
-      from {
-        opacity: 0;
-        transform: translateY(14px) scale(0.97);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .full-image-box {
-      width: 100%;
-      max-width: 860px;
-      background: #f5f5f5;
-      border-radius: 24px;
-      padding: 18px;
+    .popup-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 280px;
+      gap: 24px;
+      align-items: start;
+      margin: 12px 0 24px;
       text-align: left;
     }
 
-    .full-image-box img {
+    .popup-layout.reverse {
+      grid-template-columns: 280px 1.2fr;
+    }
+
+    .popup-image-box {
+      background: #f5f5f5;
+      border-radius: 22px;
+      padding: 14px;
+    }
+
+    .popup-image-box img {
       width: 100%;
       display: block;
-      border-radius: 18px;
+      border-radius: 16px;
     }
 
-    .image-explainer {
-      width: 100%;
-      max-width: 860px;
-      font-size: 22px;
-      line-height: 1.65;
-      color: #242424;
-      margin: 0 auto;
-      text-align: left;
+    .popup-text-box {
+      background: #fafafa;
+      border-radius: 22px;
+      padding: 22px 24px;
+    }
+
+    .popup-text-box p:last-child {
+      margin-bottom: 0;
     }
 
     @media (max-width: 980px) {
@@ -566,11 +605,6 @@
         font-size: 38px;
       }
 
-      .lesson-subtitle,
-      .question-sub {
-        font-size: 22px;
-      }
-
       .question-main {
         font-size: 34px;
       }
@@ -579,8 +613,19 @@
       .summary-box li,
       .question-box p,
       .homework-box p,
-      .image-box p {
+      .image-box p,
+      .popup-body {
         font-size: 20px;
+      }
+
+      .summary-row,
+      .popup-layout,
+      .popup-layout.reverse {
+        grid-template-columns: 1fr;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -602,21 +647,21 @@
         font-size: 32px;
       }
 
-      .lesson-subtitle,
-      .question-sub {
-        font-size: 20px;
-      }
-
       .lesson-body,
       .summary-box li,
       .question-box p,
       .homework-box p,
-      .image-box p {
+      .image-box p,
+      .popup-body {
         font-size: 18px;
       }
 
       .question-main {
         font-size: 28px;
+      }
+
+      .question-sub {
+        font-size: 20px;
       }
 
       .btn {
@@ -631,6 +676,11 @@
       .nav-left .btn,
       .nav-right .btn {
         width: 100%;
+      }
+
+      .topic-card {
+        font-size: 21px;
+        min-height: 120px;
       }
     }
   </style>
@@ -670,7 +720,7 @@
   <main class="main">
     <div class="lesson-shell">
       <section class="lesson-card">
-        <div class="section-tag" id="sectionTag">Obszar Rozumienie</div>
+        <div class="section-tag">Obszar Rozumienie</div>
         <div class="lesson-center" id="lessonContent"></div>
 
         <div class="nav">
@@ -724,6 +774,10 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="topicModal">
+    <div class="modal" id="topicModalContent"></div>
+  </div>
+
   <script>
     const lessonSteps = ["2.0", "2.1", "2.2", "2.3"];
     let currentStepIndex = 0;
@@ -733,7 +787,10 @@
 
     const storageKeys = {
       step: "szczelinka_lesson2_step",
-      homeworkSeen: "szczelinka_lesson2_homework_seen"
+      homeworkSeen: "szczelinka_lesson2_homework_seen",
+      topic1: "szczelinka_lesson2_topic1_done",
+      topic2: "szczelinka_lesson2_topic2_done",
+      topic3: "szczelinka_lesson2_topic3_done"
     };
 
     const lessonContent = document.getElementById("lessonContent");
@@ -756,6 +813,9 @@
     const answerModal = document.getElementById("answerModal");
     const answerYesBtn = document.getElementById("answerYesBtn");
     const answerNoBtn = document.getElementById("answerNoBtn");
+
+    const topicModal = document.getElementById("topicModal");
+    const topicModalContent = document.getElementById("topicModalContent");
 
     function setCookie(name, value, days = 180) {
       const expires = new Date(Date.now() + days * 864e5).toUTCString();
@@ -789,6 +849,14 @@
 
     function loadHomeworkSeen() {
       return getCookie(storageKeys.homeworkSeen) === "1";
+    }
+
+    function saveTopicDone(key, value) {
+      setCookie(key, value ? "1" : "0");
+    }
+
+    function loadTopicDone(key) {
+      return getCookie(key) === "1";
     }
 
     function readFirstNonEmpty(values) {
@@ -874,6 +942,211 @@
       progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.3`;
     }
 
+    function topicsCompletedCount() {
+      return [
+        loadTopicDone(storageKeys.topic1),
+        loadTopicDone(storageKeys.topic2),
+        loadTopicDone(storageKeys.topic3)
+      ].filter(Boolean).length;
+    }
+
+    function allTopicsCompleted() {
+      return topicsCompletedCount() === 3;
+    }
+
+    function updateTopicCardsState() {
+      const cards = document.querySelectorAll(".topic-card");
+      cards.forEach(card => {
+        const key = card.getAttribute("data-topic-key");
+        if (loadTopicDone(key)) {
+          card.classList.add("done");
+        } else {
+          card.classList.remove("done");
+        }
+      });
+
+      if (currentStepIndex === 2) {
+        enableNext(allTopicsCompleted());
+      }
+    }
+
+    function openTopicModal(topicId) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      const topics = {
+        1: {
+          cookieKey: storageKeys.topic1,
+          title: "Nie jesteś Swoim Ciałem",
+          layoutClass: "popup-layout",
+          image: "reka.png",
+          html: `
+            <div class="popup-layout">
+              <div class="popup-text-box popup-body">
+                <p><strong>Nie jesteś również swoim Ciałem.</strong></p>
+                <p>Dlaczego?</p>
+                <p>Którym dokładnie kawałkiem ciała jesteś?</p>
+                <p>Ręką?</p>
+                <p>Jeśli odejmiemy Ci rękę, czy nadal będziesz sobą?</p>
+                <p>Odpowiesz, że oczywiście tak.</p>
+                <p>A nogę?</p>
+                <p>Również pozostaniesz sobą.</p>
+                <p>Czyli nie jesteś ani ręką, ani nogą.</p>
+                <p>Gdyby to one Cię określały („jestem nimi”), to po ich odjęciu Ciebie już by nie było.</p>
+                <p>Możesz więc powiedzieć:</p>
+                <p>„Może nie jestem ręką ani nogą, ale czuję, że jestem sercem”.</p>
+                <p>Jednak nie.</p>
+                <p>Serce można przeszczepić.</p>
+                <p>Możesz odpowiedzieć:</p>
+                <p>„W takim razie jestem mózgiem”.</p>
+                <p>Ale mózg zbudowany jest z neuronów i innych komórek.</p>
+                <p>Gdybym po kolei wymieniał wszystkie neurony, mógłbym je wymienić, a Ty nadal pozostałbyś sobą. Zresztą coś takiego w pewnym sensie już się dzieje — komórki obumierają i są zastępowane nowymi.</p>
+                <p>Możesz więc powiedzieć jeszcze inaczej:</p>
+                <p>„Może nie jestem jedną częścią ciała, ale wszystkie te części razem mnie stanowią”.</p>
+                <p>Również nie.</p>
+                <p>Jeśli żadna z części osobno nie jest Tobą, to suma tych części również nie może być Tobą.</p>
+              </div>
+              <div class="popup-image-box">
+                <img src="reka.png" alt="Nie jesteś swoim ciałem">
+              </div>
+            </div>
+
+            <div class="popup-text-box popup-body">
+              <p>Spójrz na to jeszcze z innej strony.</p>
+              <p>Gdybyś spojrzał na rękę, która została od Ciebie odjęta, i zapytał:</p>
+              <p>„Czy ta ręka jest mną?” — odpowiedź przyszłaby niemal natychmiast:</p>
+              <p><strong>Nie.</strong></p>
+              <p>Dlaczego?</p>
+              <p>Ponieważ jej nie czujesz.</p>
+              <p>Nie możesz nią poruszać.</p>
+              <p>Nie słucha się Ciebie.</p>
+              <p>Wydaje się więc, że kryterium jest czucie i kontrola.</p>
+              <p>Kiedy ktoś uszczypnie Cię w rękę — czujesz to.</p>
+              <p>Kiedy chcesz zacisnąć pięść — ręka wykonuje polecenie.</p>
+              <p>Ale to wciąż nie jest wystarczające kryterium.</p>
+              <p>Wyobraź sobie, że ktoś nie ma ręki.</p>
+              <p>Obok leży ręka przygotowana do przeszczepu — pochodząca z innego ciała albo wyhodowana w laboratorium.</p>
+              <p>Przed przeszczepem bez wahania powiedzielibyśmy:</p>
+              <p>„Ta ręka nie jest mną.”</p>
+              <p>Nie czujemy jej.</p>
+              <p>Nie możemy nią poruszać.</p>
+              <p>Jednak po przyszyciu i podłączeniu nerwów zaczynamy ją odczuwać.</p>
+              <p>Możemy nią poruszać.</p>
+              <p>Zaczyna wyglądać jak nasza.</p>
+              <p>Jak część nas.</p>
+              <p>Ale coś, co wcześniej nie było nami, nie może nagle stać się nami.</p>
+              <p>Nie czujemy przecież, że zmieniliśmy się jako osoba przez to, że rękę nam odjęto albo przeszczepiono.</p>
+              <p><strong>Nie jesteś swoim Ciałem.</strong></p>
+            </div>
+          `
+        },
+        2: {
+          cookieKey: storageKeys.topic2,
+          title: "Nie jesteś swoją Historią",
+          layoutClass: "popup-layout reverse",
+          image: "history.png",
+          html: `
+            <div class="popup-layout reverse">
+              <div class="popup-image-box">
+                <img src="history.png" alt="Nie jesteś swoją historią">
+              </div>
+              <div class="popup-text-box popup-body">
+                <p><strong>Nie jesteś niczym, co wydarzyło się w przeszłości.</strong></p>
+                <p>Dlaczego?</p>
+                <p>Bo wszystko, co wydarzyło się w przeszłości, pojawiło się w jakimś konkretnym momencie.</p>
+                <p>A skoro pojawiło się w pewnym momencie, to był również moment wcześniejszy, w którym tego jeszcze nie było.</p>
+                <p>A jednak „ja” już istniało.</p>
+                <p>Dlatego nie możesz być czymś, co pojawiło się dopiero później.</p>
+                <p>Zawód Cię nie określa.</p>
+                <p>Zanim został zdobyty, „ja” już istniało.</p>
+                <p>Poza tym zawód może się zmienić.</p>
+                <p>Rola w rodzinie również Cię nie definiuje.</p>
+                <p>Zanim pojawiła się rola ojca, matki, męża czy żony, „ja” już było obecne.</p>
+                <p>Przekonania także Cię nie określają.</p>
+                <p>Można je zmienić — a mimo to „ja” pozostaje.</p>
+                <p>Wyznanie również nie jest Tobą.</p>
+                <p>Można je przyjąć, można je zmienić, można je porzucić — a jednak „ja” wciąż pozostaje.</p>
+                <p>Cechy charakteru także nie są Tobą.</p>
+                <p>Po pierwsze, mogą się zmieniać.</p>
+                <p>Po drugie, kiedyś ich nie było.</p>
+                <p>Kiedyś nie było ambicji.</p>
+                <p>Kiedyś nie było odwagi ani nieśmiałości. Itd.</p>
+                <p>A jednak „ja” już było obecne.</p>
+                <p>Jeśli coś pojawiło się w pewnym momencie życia, to nie może być Tobą.</p>
+                <p>Bo zanim to się pojawiło — „ja” już było.</p>
+              </div>
+            </div>
+          `
+        },
+        3: {
+          cookieKey: storageKeys.topic3,
+          title: "Nie jesteś Swoim Umysłem",
+          layoutClass: "popup-layout",
+          image: "mind.png",
+          html: `
+            <div class="popup-layout">
+              <div class="popup-text-box popup-body">
+                <p><strong>Nie jesteś również swoim umysłem.</strong></p>
+                <p>Dlaczego?</p>
+                <p>Bo wszystko, co znajduje się w umyśle, pojawia się i znika.</p>
+                <p>Myśli pojawiają się.</p>
+                <p>Myśli znikają.</p>
+                <p>Emocje pojawiają się.</p>
+                <p>Emocje znikają.</p>
+                <p>Obrazy, wspomnienia, pomysły, przekonania — wszystko to zmienia się bez przerwy.</p>
+                <p>Jeśli coś się zmienia, to nie może być Tobą.</p>
+                <p>Bo to, czym jesteś, nie może pojawiać się i znikać.</p>
+                <p>To, czego szukamy, ma być prawdziwe.</p>
+                <p>A prawdziwe oznacza stałe i niezmienne.</p>
+                <p>Zawartość umysłu jest bardzo zmienna.</p>
+                <p>Chyba najbardziej zmienna ze wszystkiego, czego doświadczamy.</p>
+                <p>Podobnie jest z emocjami.</p>
+                <p>Jednego dnia pojawia się radość.</p>
+                <p>Innego dnia smutek.</p>
+                <p>Czasem pojawia się złość.</p>
+                <p>Czasem spokój.</p>
+                <p>Gdybyś był swoimi emocjami, to wraz z każdą ich zmianą stawałbyś się kimś innym.</p>
+                <p>A przecież tak się nie dzieje.</p>
+                <p>Jeśli coś pojawia się w Twoim umyśle, to nie może być Tobą.</p>
+                <p>Bo zanim ta myśl się pojawiła — „ja” już było obecne.</p>
+                <p>A kiedy ta myśl znika — „ja” nadal pozostaje.</p>
+                <p><strong>Nie jesteś swoim umysłem.</strong></p>
+              </div>
+              <div class="popup-image-box">
+                <img src="mind.png" alt="Nie jesteś swoim umysłem">
+              </div>
+            </div>
+          `
+        }
+      };
+
+      const topic = topics[topicId];
+      if (!topic) return;
+
+      topicModalContent.innerHTML = `
+        <h2>${topic.title}</h2>
+        ${topic.html}
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="topicReadBtn">Przeczytałem</button>
+          <button class="btn btn-secondary" id="topicCloseBtn">Zamknij</button>
+        </div>
+      `;
+
+      showModal(topicModal);
+      topicModalContent.scrollTop = 0;
+      topicModal.scrollTop = 0;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      document.getElementById("topicReadBtn").addEventListener("click", () => {
+        saveTopicDone(topic.cookieKey, true);
+        hideModal(topicModal);
+        renderStep();
+      });
+
+      document.getElementById("topicCloseBtn").addEventListener("click", () => {
+        hideModal(topicModal);
+      });
+    }
+
     function renderStep() {
       stopCountdown();
       updateProgress();
@@ -890,12 +1163,17 @@
           <div class="lesson-kicker">Lekcja 2.0</div>
           <h1 class="lesson-title">Podsumowanie lekcji 1</h1>
 
-          <div class="summary-box">
-            <h3 class="truth-title">W ramach Lekcji 1 poznaliśmy 2 Prawdy <img src="nie.png" alt="Nie" class="truth-icon"> Nie-do-podważenia:</h3>
-            <ol>
-              <li>Jesteśmy na misji osiągnięcia szczęścia. Wszystkie nasze działania są temu podporządkowane. Wszystkie decyzje, które podejmujemy, mają nas do tego doprowadzić.</li>
-              <li>Szukamy Szczęścia w Świecie, jednak Świat nie może dać trwałego szczęścia, gdyż sam jest nietrwały.</li>
-            </ol>
+          <div class="summary-row">
+            <div class="summary-box">
+              <h3>W ramach Lekcji 1 poznaliśmy 2 Prawdy Nie-do-podważenia:</h3>
+              <ol>
+                <li>Jesteśmy na misji osiągnięcia szczęścia. Wszystkie nasze działania są temu podporządkowane. Wszystkie decyzje, które podejmujemy, mają nas do tego doprowadzić.</li>
+                <li>Szukamy Szczęścia w Świecie, jednak Świat nie może dać trwałego szczęścia, gdyż sam jest nietrwały.</li>
+              </ol>
+            </div>
+            <div class="truth-visual">
+              <img src="nie.png" alt="Nie-do-podważenia">
+            </div>
           </div>
         `;
         return;
@@ -923,7 +1201,7 @@
 
         if (adminBypass) {
           enableNext(true);
-          countdownBox.textContent = "Tryb administratora: możesz przejść dalej";
+          countdownBox.textContent = "";
         } else {
           startCountdown(60);
         }
@@ -931,53 +1209,46 @@
       }
 
       if (step === "2.2") {
-        enableNext(true);
+        enableNext(allTopicsCompleted());
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.2</div>
           <h1 class="lesson-title">Kim jesteś naprawdę?</h1>
 
           <div class="lesson-body">
-            <p>Większość osób na pytanie „Kim jestem?” odpowie:</p>
+            <p>Większość osób na pytanie „Kim Jestem?” odpowie:</p>
             <ul>
               <li>Jestem swoim zawodem (np. lekarzem, nauczycielem, przedsiębiorcą).</li>
               <li>Jestem swoją rolą w rodzinie (np. ojcem, matką, córką, mężem).</li>
-              <li>Jestem swoim imieniem i nazwiskiem.</li>
-              <li>Jestem swoim charakterem lub cechami (np. spokojny, ambitny, wrażliwy).</li>
-              <li>Jestem swoją historią życia i doświadczeniami.</li>
-              <li>Jestem swoimi przekonaniami lub wartościami.</li>
-              <li>Jestem swoim ciałem.</li>
+              <li>Jestem swoim imieniem i nazwiskiem. (odziedziczyłem historię moich przodków i zostawię po sobie spuściznę, dziedzictwo dla moich potomków)</li>
+              <li>Jestem swoim charakterem lub cechami (np. jestem spokojny, ambitny, wrażliwy).</li>
+              <li>Jestem swoją historią życia i doświadczeniami. (np. porażkami, zwycięstwami)</li>
+              <li>Jestem swoimi przekonaniami lub wartościami (np. jestem katolikiem, patriotą, humanistą).</li>
+              <li>Jestem swoim ciałem (twierdzenie, że poza materialnością nie ma nic więcej)</li>
             </ul>
 
-            <p><strong>Ważne:</strong></p>
-            <p>Szukamy odpowiedzi na pytanie „Kim jesteś?”.</p>
-            <p>Ale chcemy znaleźć odpowiedź na pytanie „Kim jesteś naprawdę?”.</p>
-            <p>Nie usatysfakcjonuje nas odpowiedź cząstkowa — taka, którą można podważyć lub która zmienia się wraz z okolicznościami.</p>
-            <p>Szukamy odpowiedzi <strong>fundamentalnie prawdziwej</strong>.</p>
-            <p>Co to znaczy „prawdziwej”?</p>
-            <p>Musimy przyjąć, że <strong>nie zmienia się w czasie</strong> — że jest zawsze taka sama, niezależnie od sytuacji.</p>
-            <p>Tylko wtedy możemy nazwać ją <strong>naprawdę prawdziwą</strong>.</p>
-
-            <p>Dlatego bardzo szybko odrzucimy odpowiedzi, które są zmienne, nabyte albo zależne od okoliczności.</p>
+            <p><strong>Ważne:</strong> Szukamy odpowiedzi na pytanie Kim jesteś? Ale chcemy znaleźć odpowiedź na pytanie Kim Jesteś, naprawdę? Nie usatysfakcjonuje nas cząstkowa odpowiedź, którą da się podważyć. Szukamy odpowiedzi, która byłaby fundamentalnie prawdziwa. Co to znaczy Prawdziwa? Musimy przyjąć, że się nie zmienia, że zawsze jest taka właśnie – czyli prawdziwa. Tylko wtedy możemy nazwać ją naprawdę prawdziwą.</p>
           </div>
 
-          <div class="not-grid" aria-label="Czym nie jesteśmy">
-            <div class="not-box">Zawód</div>
-            <div class="not-box">Rola w rodzinie</div>
-            <div class="not-box">Imię i nazwisko</div>
-            <div class="not-box">Charakter</div>
-            <div class="not-box">Historia życia</div>
-            <div class="not-box">Przekonania</div>
-            <div class="not-box">Ciało</div>
+          <div class="cards-grid">
+            <button class="topic-card ${loadTopicDone(storageKeys.topic1) ? 'done' : ''}" data-topic-key="${storageKeys.topic1}" onclick="openTopicModal(1)">
+              <span class="topic-check">✓</span>
+              <span>Nie jesteś<br>Swoim Ciałem</span>
+            </button>
+
+            <button class="topic-card ${loadTopicDone(storageKeys.topic2) ? 'done' : ''}" data-topic-key="${storageKeys.topic2}" onclick="openTopicModal(2)">
+              <span class="topic-check">✓</span>
+              <span>Nie jesteś swoją<br>Historią</span>
+            </button>
+
+            <button class="topic-card ${loadTopicDone(storageKeys.topic3) ? 'done' : ''}" data-topic-key="${storageKeys.topic3}" onclick="openTopicModal(3)">
+              <span class="topic-check">✓</span>
+              <span>Nie jesteś<br>Swoim Umysłem</span>
+            </button>
           </div>
 
-          <div class="lesson-body">
-            <p>Zawód nas nie określa, ponieważ zanim go zdobyliśmy, już byliśmy sobą. Rola w rodzinie również nas nie definiuje, bo zanim ktoś stał się ojcem, matką, mężem czy żoną, także już istniał jako „ja”. Przekonania też mogą się zmienić, a mimo to pozostajemy sobą.</p>
-
-            <p>Nie jesteś również swoim ciałem. Gdybyś był ręką, po jej utracie przestałbyś sobą być. To samo dotyczy nogi, serca czy każdej innej części. Nawet komórki ciała stale się zmieniają, a jednak poczucie „ja” trwa.</p>
-
-            <p>Nie jesteś więc ani pojedynczą częścią ciała, ani zbiorem wszystkich tych części. To, kim jesteś naprawdę, musi być czymś głębszym niż to, co można dodać, odjąć, zmienić albo utracić.</p>
-          </div>
+          <div class="helper-note">Przeczytaj wszystkie trzy obszary, aby odblokować przejście dalej.</div>
         `;
+        updateTopicCardsState();
         return;
       }
 
@@ -990,11 +1261,11 @@
           <div class="lesson-body">
             <p>Kolejne odpowiedzi które często padają:</p>
             <ul>
-              <li>Jestem swoim umysłem (np. mogę nie mieć ciała ale jeśli mogę myśleć to nadal będę ja).</li>
-              <li>Jestem duszą (…, która po śmierci będzie żyła dalej).</li>
+              <li>Jestem swoim umysłem (np. mogę nie mieć ciała ale jeśli mogę myśleć to nadal będę ja)</li>
+              <li>Jestem duszą (…, która po śmierci będzie żyła dalej)</li>
             </ul>
 
-            <p>Zajmiemy się teraz umysłem. Jeśli zrobimy zbliżenie na umysł to spotkamy ciekawą sytuację:</p>
+            <p>Zajmiemy się teraz umysłem. Jeśli zrobimy zbliżenie na umysł to spotkamy ciekawą styuację:</p>
           </div>
 
           <div class="full-image-box">
@@ -1006,7 +1277,7 @@
           </div>
 
           <div class="lesson-body">
-            <p>W Twojej głowie żyje głos – Ten, Który Mówi (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większość osób uważa, że ten głos to właśnie ja. Mogę nie być ciałem, zawodem, wyznaniem ale jestem tym głosem!</p>
+            <p>W Twojej głowie żyje głos – Ten, Który Mówi (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większośc osób uważa, że ten głos to właśnie ja. Mogę nie być ciałem, zawodem, wyznaniem ale jestem tym głosem!</p>
 
             <p>Jednak oprócz tego głosu istnieje jeszcze ktoś inny… Jest tak cichy, że do tej pory mógł umykać Twojej uwadze. To Ten, Który Słucha (TKS). Jeśli głos jest słyszany, musi istnieć ktoś, kto go słucha.</p>
 
@@ -1020,7 +1291,7 @@
 
         if (adminBypass) {
           enableNext(true);
-          countdownBox.textContent = "Tryb administratora: możesz przejść dalej";
+          countdownBox.textContent = "";
         } else {
           startCountdown(60);
         }
@@ -1042,7 +1313,9 @@
       }
 
       if (step === "2.2") {
-        realAdvance();
+        if (allTopicsCompleted()) {
+          realAdvance();
+        }
         return;
       }
 
@@ -1064,6 +1337,9 @@
     function completeLesson() {
       deleteCookie(storageKeys.step);
       deleteCookie(storageKeys.homeworkSeen);
+      deleteCookie(storageKeys.topic1);
+      deleteCookie(storageKeys.topic2);
+      deleteCookie(storageKeys.topic3);
       window.location.href = "Main_Page.html#lekcja3";
     }
 
@@ -1101,6 +1377,9 @@
       hideModal(resumeModal);
       currentStepIndex = 0;
       saveStep(0);
+      saveTopicDone(storageKeys.topic1, false);
+      saveTopicDone(storageKeys.topic2, false);
+      saveTopicDone(storageKeys.topic3, false);
       renderStep();
     });
 
@@ -1110,9 +1389,7 @@
       realAdvance();
     });
 
-    homeworkNoBtn.addEventListener("click", () => {
-      // Popup zostaje otwarty, aby użytkownik widział treść pracy domowej.
-    });
+    homeworkNoBtn.addEventListener("click", () => {});
 
     answerYesBtn.addEventListener("click", () => {
       hideModal(answerModal);
@@ -1126,6 +1403,12 @@
       startCountdown(60);
     });
 
+    topicModal.addEventListener("click", (e) => {
+      if (e.target === topicModal) {
+        hideModal(topicModal);
+      }
+    });
+
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
         const step = lessonSteps[currentStepIndex];
@@ -1134,7 +1417,7 @@
           adminBypass = true;
           stopCountdown();
           enableNext(true);
-          countdownBox.textContent = "Tryb administratora: możesz przejść dalej";
+          countdownBox.textContent = "";
         }
       }
     });
