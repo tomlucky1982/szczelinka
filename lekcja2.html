@@ -239,9 +239,9 @@
 
     .summary-row {
       width: 100%;
-      max-width: 860px;
+      max-width: 900px;
       display: grid;
-      grid-template-columns: 1.2fr 280px;
+      grid-template-columns: 1.35fr 320px;
       gap: 24px;
       align-items: center;
     }
@@ -294,7 +294,7 @@
 
     .truth-visual img {
       width: 100%;
-      max-width: 220px;
+      max-width: 280px;
       display: block;
     }
 
@@ -349,6 +349,19 @@
       font-size: 17px;
       color: #777;
       text-align: center;
+    }
+
+    .margin-note {
+      width: 100%;
+      max-width: 860px;
+      margin: 8px auto 0;
+      padding-left: 18px;
+      border-left: 4px solid #3aa7d6;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #5a5a5a;
+      text-align: left;
+      font-style: italic;
     }
 
     .cards-grid {
@@ -923,16 +936,21 @@
 
     function startCountdown(seconds = 60, endText = "Możesz przejść dalej") {
       stopCountdown();
+      enableNext(false);
       countdown = seconds;
       updateCountdownLabel();
+
       countdownTimer = setInterval(() => {
         countdown -= 1;
-        updateCountdownLabel();
+
         if (countdown <= 0) {
           stopCountdown();
           enableNext(true);
           countdownBox.textContent = endText;
+          return;
         }
+
+        updateCountdownLabel();
       }, 1000);
     }
 
@@ -977,8 +995,6 @@
         1: {
           cookieKey: storageKeys.topic1,
           title: "Nie jesteś Swoim Ciałem",
-          layoutClass: "popup-layout",
-          image: "reka.png",
           html: `
             <div class="popup-layout">
               <div class="popup-text-box popup-body">
@@ -1042,8 +1058,6 @@
         2: {
           cookieKey: storageKeys.topic2,
           title: "Nie jesteś swoją Historią",
-          layoutClass: "popup-layout reverse",
-          image: "history.png",
           html: `
             <div class="popup-layout reverse">
               <div class="popup-image-box">
@@ -1073,6 +1087,7 @@
                 <p>A jednak „ja” już było obecne.</p>
                 <p>Jeśli coś pojawiło się w pewnym momencie życia, to nie może być Tobą.</p>
                 <p>Bo zanim to się pojawiło — „ja” już było.</p>
+                <p><strong>Nie jesteś Swoją Historią.</strong></p>
               </div>
             </div>
           `
@@ -1080,8 +1095,6 @@
         3: {
           cookieKey: storageKeys.topic3,
           title: "Nie jesteś Swoim Umysłem",
-          layoutClass: "popup-layout",
-          image: "mind.png",
           html: `
             <div class="popup-layout">
               <div class="popup-text-box popup-body">
@@ -1180,6 +1193,7 @@
       }
 
       if (step === "2.1") {
+        adminBypass = false;
         enableNext(false);
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.1</div>
@@ -1199,12 +1213,7 @@
           <div class="helper-note">Daj sobie pełną minutę ciszy, zanim przejdziesz dalej.</div>
         `;
 
-        if (adminBypass) {
-          enableNext(true);
-          countdownBox.textContent = "";
-        } else {
-          startCountdown(60);
-        }
+        startCountdown(60);
         return;
       }
 
@@ -1253,19 +1262,14 @@
       }
 
       if (step === "2.3") {
+        adminBypass = false;
         enableNext(false);
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.3</div>
           <h1 class="lesson-title">Ten, Który Mówi i Ten, Który Słucha</h1>
 
           <div class="lesson-body">
-            <p>Kolejne odpowiedzi które często padają:</p>
-            <ul>
-              <li>Jestem swoim umysłem (np. mogę nie mieć ciała ale jeśli mogę myśleć to nadal będę ja)</li>
-              <li>Jestem duszą (…, która po śmierci będzie żyła dalej)</li>
-            </ul>
-
-            <p>Zajmiemy się teraz umysłem. Jeśli zrobimy zbliżenie na umysł to spotkamy ciekawą styuację:</p>
+            <p>Spójrzmy jeszcze raz do naszego umysłu. O ile łatwo jest powiedzieć, że nie jestem swoimi emocjami i uczuciami ponieważ one przemijają to wiele osób jest zidentyfikowanych (uważa, że to ja) z wewnętrznym głosem w swojej głowie.</p>
           </div>
 
           <div class="full-image-box">
@@ -1286,15 +1290,14 @@
             <p>Ten, Który Mówi, pojawia się i znika. Ten, Który Słucha (Doświadcza) jest obecny zawsze. W medytacji staje się jasne, że nie jesteś Tym, Który Mówi (TKM).</p>
           </div>
 
+          <div class="margin-note">
+            Bardziej metafizycznymi odpowiedziami jak np. jestem duszą, zajmiemy się później.
+          </div>
+
           <div class="helper-note">Daj sobie jeszcze 60 sekund, zanim przejdziesz dalej.</div>
         `;
 
-        if (adminBypass) {
-          enableNext(true);
-          countdownBox.textContent = "";
-        } else {
-          startCountdown(60);
-        }
+        startCountdown(60);
         return;
       }
     }
