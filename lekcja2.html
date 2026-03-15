@@ -21,12 +21,29 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      height: 150px;
+      min-height: 150px;
       background: #ffffff;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       padding: 0 40px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      gap: 24px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-shrink: 0;
     }
 
     .logo-link {
@@ -39,7 +56,7 @@
     .logo {
       height: 125px;
       width: auto;
-      margin-right: 50px;
+      margin-right: 26px;
       display: block;
       flex-shrink: 0;
     }
@@ -48,10 +65,12 @@
       display: flex;
       align-items: center;
       gap: 34px;
+      flex-wrap: wrap;
     }
 
     .menu > a,
-    .dropdown > a {
+    .dropdown > a,
+    .contact-link {
       text-decoration: none;
       font-size: 18px;
       color: #3aa7d6;
@@ -60,7 +79,8 @@
       display: inline-block;
     }
 
-    .menu a.active {
+    .menu a.active,
+    .contact-link.active {
       border-bottom: 2px solid #3aa7d6;
     }
 
@@ -234,7 +254,9 @@
     }
 
     .summary-row,
-    .side-image-row {
+    .side-image-row,
+    .video-row,
+    .download-row {
       width: 100%;
       max-width: 920px;
       display: grid;
@@ -248,7 +270,9 @@
     .homework-box,
     .image-box,
     .text-card,
-    .timer-card {
+    .timer-card,
+    .video-card,
+    .download-card {
       width: 100%;
       background: #f5f5f5;
       border-radius: 24px;
@@ -261,7 +285,9 @@
     .homework-box h3,
     .image-box h3,
     .text-card h3,
-    .timer-card h3 {
+    .timer-card h3,
+    .video-card h3,
+    .download-card h3 {
       margin: 0 0 12px 0;
       font-size: 28px;
       color: #3aa7d6;
@@ -275,7 +301,9 @@
     .text-card p,
     .text-card li,
     .timer-card p,
-    .timer-card li {
+    .timer-card li,
+    .video-card p,
+    .download-card p {
       font-size: 22px;
       line-height: 1.65;
       margin: 0;
@@ -288,7 +316,9 @@
     }
 
     .truth-visual,
-    .side-visual {
+    .side-visual,
+    .video-visual,
+    .download-visual {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -299,10 +329,13 @@
     }
 
     .truth-visual img,
-    .side-visual img {
+    .side-visual img,
+    .video-visual img,
+    .download-visual img {
       width: 100%;
       max-width: 280px;
       display: block;
+      border-radius: 16px;
     }
 
     .question-box {
@@ -471,6 +504,25 @@
     .btn-secondary {
       background: #efefef;
       color: #222222;
+    }
+
+    .btn-success {
+      background: #3bb273;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(59, 178, 115, 0.18);
+    }
+
+    .download-btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 17px;
+      font-weight: 700;
+      background: #3aa7d6;
+      color: #ffffff;
+      box-shadow: 0 10px 24px rgba(58, 167, 214, 0.18);
+      margin-top: 10px;
     }
 
     .btn:disabled,
@@ -786,13 +838,38 @@
       margin-top: 16px;
     }
 
+    .youtube-wrap {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+      background: #000;
+    }
+
+    .youtube-wrap iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 0;
+      display: block;
+    }
+
     @media (max-width: 980px) {
       .topbar {
-        height: auto;
         min-height: 120px;
         padding: 20px 22px;
         flex-wrap: wrap;
         gap: 16px;
+      }
+
+      .topbar-left,
+      .topbar-right {
+        width: 100%;
+      }
+
+      .topbar-right {
+        justify-content: flex-start;
       }
 
       .logo {
@@ -836,12 +913,16 @@
       .text-card p,
       .text-card li,
       .timer-card p,
-      .timer-card li {
+      .timer-card li,
+      .video-card p,
+      .download-card p {
         font-size: 20px;
       }
 
       .summary-row,
       .side-image-row,
+      .video-row,
+      .download-row,
       .popup-layout,
       .popup-layout.reverse {
         grid-template-columns: 1fr;
@@ -876,7 +957,8 @@
       }
 
       .menu > a,
-      .dropdown > a {
+      .dropdown > a,
+      .contact-link {
         font-size: 17px;
       }
 
@@ -897,7 +979,9 @@
       .text-card p,
       .text-card li,
       .timer-card p,
-      .timer-card li {
+      .timer-card li,
+      .video-card p,
+      .download-card p {
         font-size: 18px;
       }
 
@@ -909,8 +993,10 @@
         font-size: 20px;
       }
 
-      .btn {
+      .btn,
+      .download-btn {
         width: 100%;
+        text-align: center;
       }
 
       .nav-left,
@@ -954,30 +1040,37 @@
 </head>
 <body>
   <header class="topbar">
-    <a href="index.html" class="logo-link" aria-label="Powrót do strony głównej">
-      <img src="logo.png" class="logo" alt="Szczelinka">
-    </a>
+    <div class="topbar-left">
+      <a href="index.html" class="logo-link" aria-label="Powrót do strony głównej">
+        <img src="logo.png" class="logo" alt="Szczelinka">
+      </a>
 
-    <nav class="menu">
-      <a href="szczelinka.html">Szczelinka</a>
+      <nav class="menu">
+        <a href="szczelinka.html">Szczelinka</a>
 
-      <div class="dropdown">
-        <a class="active" href="Main_Page.html#lekcja2">Lekcje</a>
-        <div class="dropdown-content">
-          <a href="lekcja1.html">Lekcja 1</a>
-          <a href="lekcja2.html">Lekcja 2</a>
-          <a href="Main_Page.html#lekcja3">Lekcje 3–8</a>
+        <div class="dropdown">
+          <a class="active" href="Main_Page.html#lekcja2">Lekcje</a>
+          <div class="dropdown-content">
+            <a href="lekcja1.html">Lekcja 1</a>
+            <a href="lekcja2.html">Lekcja 2</a>
+            <a href="Main_Page.html#lekcja3">Lekcje 3–8</a>
+          </div>
         </div>
-      </div>
 
-      <a href="#">Zajęcia</a>
-    </nav>
+        <a href="#">Zajęcia</a>
+        <a href="#">Prowadzący</a>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <a href="#" class="contact-link">Kontakt</a>
+    </div>
   </header>
 
   <div class="progress-wrap">
     <div class="progress-top">
       <div class="progress-label">Postęp lekcji 2</div>
-      <div class="progress-step" id="progressStep">2.0 / 2.15</div>
+      <div class="progress-step" id="progressStep">2.0 / 2.19</div>
     </div>
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressFill"></div>
@@ -1057,7 +1150,7 @@
 
   <script>
     const lessonSteps = [
-      "2.0","2.1","2.2","2.3","2.4","2.5","2.6","2.7","2.8","2.9","2.10","2.11","2.12","2.13","2.14","2.15"
+      "2.0","2.1","2.2","2.3","2.4","2.5","2.6","2.7","2.8","2.9","2.10","2.11","2.12","2.13","2.14","2.15","2.16","2.17","2.18","2.19"
     ];
 
     let currentStepIndex = 0;
@@ -1229,12 +1322,12 @@
     function updateProgress() {
       const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
       progressFill.style.width = `${percent}%`;
-      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.15`;
+      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.19`;
     }
 
     function updateSectionTag() {
       const step = lessonSteps[currentStepIndex];
-      const meditationSteps = ["2.12", "2.13", "2.14", "2.15"];
+      const meditationSteps = ["2.12", "2.13", "2.14", "2.15", "2.16", "2.17", "2.18", "2.19"];
       sectionTag.textContent = meditationSteps.includes(step) ? "Obszar Medytacja" : "Obszar Rozumienie";
       sectionTag.style.background = meditationSteps.includes(step) ? "#3aa7d6" : "#3bb273";
       sectionTag.style.boxShadow = meditationSteps.includes(step)
@@ -1317,7 +1410,6 @@
 
       if (note) {
         if (state.done) note.textContent = "Timer zakończony. Możesz przejść dalej.";
-        else if (state.running) note.textContent = "Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.";
         else note.textContent = "Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.";
       }
     }
@@ -1327,18 +1419,6 @@
       const state = which === 2 ? timer2State : timer3State;
       if (state.running) return;
       state.duration = Math.max(60, Math.min(1800, state.duration + delta));
-      state.remaining = state.duration;
-      state.done = false;
-      if (which === 2) saveFlag(storageKeys.exercise2Done, false);
-      if (which === 3) saveFlag(storageKeys.exercise3Done, false);
-      enableNext(false);
-      updateExerciseTimerUI(which);
-    }
-
-    function resetExerciseTimer(which, event) {
-      if (event) event.preventDefault();
-      const state = which === 2 ? timer2State : timer3State;
-      stopSingleTimer(state);
       state.remaining = state.duration;
       state.done = false;
       if (which === 2) saveFlag(storageKeys.exercise2Done, false);
@@ -1472,17 +1552,13 @@
       return `
         <div class="meditation-timer-box">
           <div class="meditation-timer-title">Timer medytacji</div>
-
           <div class="meditation-duration-row">
             <button class="circle-adjust-btn" id="exercise2Minus" type="button">−</button>
             <div class="meditation-duration-label" id="exercise2Label">${formatMinutesLabel(timer2State.duration)}</div>
             <button class="circle-adjust-btn" id="exercise2Plus" type="button">+</button>
           </div>
-
           <div class="meditation-clock" id="exercise2Display">${formatTime(timer2State.remaining)}</div>
-
           <button class="meditation-start-btn" id="exercise2Start" type="button">Start</button>
-
           <div class="meditation-note" id="exercise2Status">Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.</div>
         </div>
       `;
@@ -1492,17 +1568,13 @@
       return `
         <div class="meditation-timer-box">
           <div class="meditation-timer-title">Timer medytacji</div>
-
           <div class="meditation-duration-row">
             <button class="circle-adjust-btn" id="exercise3Minus" type="button">−</button>
             <div class="meditation-duration-label" id="exercise3Label">${formatMinutesLabel(timer3State.duration)}</div>
             <button class="circle-adjust-btn" id="exercise3Plus" type="button">+</button>
           </div>
-
           <div class="meditation-clock" id="exercise3Display">${formatTime(timer3State.remaining)}</div>
-
           <button class="meditation-start-btn" id="exercise3Start" type="button">Start</button>
-
           <div class="meditation-note" id="exercise3Status">Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.</div>
         </div>
       `;
@@ -1619,7 +1691,6 @@
                 <img src="reka.png" alt="Nie jesteś swoim ciałem">
               </div>
             </div>
-
             <div class="popup-text-box popup-body">
               <p>Spójrz na to jeszcze z innej strony.</p>
               <p>Gdybyś spojrzał na rękę, która została od Ciebie odjęta, i zapytał:</p>
@@ -1768,7 +1839,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.0</div>
           <h1 class="lesson-title">Podsumowanie lekcji 1</h1>
-
           <div class="summary-row">
             <div class="summary-box">
               <h3>W ramach Lekcji 1 poznaliśmy 2 Prawdy Nie-do-podważenia:</h3>
@@ -1790,18 +1860,15 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.1</div>
           <h1 class="lesson-title">Czym jest Szczelinka?</h1>
-
           <div class="lesson-body">
             <p>Szczelinka to stan intensywnej obecności przy jednoczesnym całkowitym braku myśli. Tego typu medytacja daje głębokie poczucie spełnienia, czystości, błogości i spokoju. Otwiera się wtedy nowy wymiar istnienia, który był cały czas z nami, ale zazwyczaj był przykryty poprzez aktywność naszego umysłu.</p>
             <p>Wiemy już, że prawdziwego szczęścia nie znajdziemy w świecie. W takim razie gdzie? Od razu nasuwa się odpowiedź: jeśli nie w świecie, to może w sobie? Ale co to właściwie oznacza? Jak zabrać się za takie poszukiwanie? Kim my właściwie jesteśmy?</p>
           </div>
-
           <div class="question-box">
             <h3>Zadaj sobie pytanie</h3>
             <div class="question-main">Kim jesteś?</div>
             <div class="question-sub">Zastanów się i odpowiedz dla siebie.</div>
           </div>
-
           <div class="helper-note">Daj sobie pełną minutę ciszy, zanim przejdziesz dalej.</div>
         `;
         startCountdown(60);
@@ -1813,7 +1880,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.2</div>
           <h1 class="lesson-title">Kim jesteś naprawdę?</h1>
-
           <div class="lesson-body">
             <p>Większość osób na pytanie „Kim jestem?” odpowie:</p>
             <ul>
@@ -1825,27 +1891,22 @@
               <li>Jestem swoimi przekonaniami lub wartościami (np. jestem katolikiem, patriotą, humanistą).</li>
               <li>Jestem swoim ciałem (twierdzenie, że poza materialnością nie ma nic więcej)</li>
             </ul>
-
             <p><strong>Ważne:</strong> Szukamy odpowiedzi na pytanie: Kim jesteś? Ale chcemy znaleźć odpowiedź na pytanie: Kim jesteś naprawdę? Nie usatysfakcjonuje nas odpowiedź cząstkowa, którą da się podważyć. Szukamy odpowiedzi fundamentalnie prawdziwej. Co to znaczy „prawdziwej”? Musimy przyjąć, że to, co prawdziwe, się nie zmienia — że zawsze jest właśnie takie. Tylko wtedy możemy nazwać to naprawdę prawdziwym.</p>
           </div>
-
           <div class="cards-grid">
             <button class="topic-card ${loadFlag(storageKeys.topic1) ? 'done' : ''}" data-topic-key="${storageKeys.topic1}" onclick="openTopicModal(1)">
               <span class="topic-check">✓</span>
               <span>Nie jesteś<br>Swoim Ciałem</span>
             </button>
-
             <button class="topic-card ${loadFlag(storageKeys.topic2) ? 'done' : ''}" data-topic-key="${storageKeys.topic2}" onclick="openTopicModal(2)">
               <span class="topic-check">✓</span>
               <span>Nie jesteś swoją<br>Historią</span>
             </button>
-
             <button class="topic-card ${loadFlag(storageKeys.topic3) ? 'done' : ''}" data-topic-key="${storageKeys.topic3}" onclick="openTopicModal(3)">
               <span class="topic-check">✓</span>
               <span>Nie jesteś<br>Swoim Umysłem</span>
             </button>
           </div>
-
           <div class="helper-note">Przeczytaj wszystkie trzy obszary, aby odblokować przejście dalej.</div>
         `;
         updateTopicCardsState();
@@ -1857,33 +1918,24 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.3</div>
           <h1 class="lesson-title"><strong>Ten, Który Mówi</strong> i <strong>Ten, Który Słucha</strong></h1>
-
           <div class="lesson-body">
             <p>Spójrzmy jeszcze raz do naszego umysłu. O ile łatwo jest powiedzieć, że nie jestem swoimi emocjami i uczuciami, ponieważ one przemijają, to wiele osób jest zidentyfikowanych z wewnętrznym głosem w swojej głowie i uważa, że to właśnie jest „ja”.</p>
           </div>
-
           <div class="full-image-box">
             <img src="glowy.png" alt="Wyjaśnienie relacji TKM i TKS">
           </div>
-
           <div class="image-explainer">
             <p><strong>Wyjaśnienie rysunku</strong></p>
           </div>
-
           <div class="lesson-body">
             <p>W Twojej głowie żyje głos — <strong>Ten, Który Mówi</strong> (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większość osób uważa, że ten głos to właśnie „ja”. Mogę nie być ciałem, zawodem ani wyznaniem, ale jestem tym głosem!</p>
-
             <p>Jednak oprócz tego głosu istnieje jeszcze ktoś inny… Jest tak cichy, że do tej pory mógł umykać Twojej uwadze. To <strong>Ten, Który Słucha</strong> (TKS). Jeśli głos jest słyszany, musi istnieć ktoś, kto go słucha.</p>
-
             <p>O <strong>Tym, Który Mówi</strong> wiesz wiele: znasz jego imię, wiek, płeć, upodobania, zawód, wyznanie. A co wiesz o <strong>Tym, Który Słucha</strong>?</p>
-
             <p><strong>Ten, Który Mówi</strong> pojawia się i znika. <strong>Ten, Który Słucha</strong> (doświadcza) jest obecny zawsze. W medytacji staje się jasne, że nie jesteś <strong>Tym, Który Mówi</strong> (TKM).</p>
           </div>
-
           <div class="margin-note">
             Bardziej metafizycznymi odpowiedziami, jak np. „jestem duszą”, zajmiemy się później.
           </div>
-
           <div class="helper-note">Daj sobie jeszcze 60 sekund, zanim przejdziesz dalej.</div>
         `;
         startCountdown(60);
@@ -1895,7 +1947,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.4</div>
           <h1 class="lesson-title">Świadek</h1>
-
           <div class="lesson-body">
             <p><strong>Ten, który słucha</strong> również widzi obraz, słyszy dźwięk, wyczuwa zapach, rozpoznaje smak, czuje dotyk, a nawet obserwuje myśli. Nazwijmy to coś <strong>Świadkiem</strong>.</p>
             <p>Musimy teraz sprawdzić, czym lub kim jest <strong>Świadek</strong> oraz czy jest obecny zawsze — czyli czy jest prawdziwy.</p>
@@ -1909,7 +1960,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.5</div>
           <h1 class="lesson-title">Prawda 3</h1>
-
           <div class="summary-row">
             <div class="summary-box">
               <h3>Wiemy już, że</h3>
@@ -1919,7 +1969,6 @@
               <img src="nie.png" alt="Nie-do-podważenia">
             </div>
           </div>
-
           <div class="helper-note">Daj sobie 60 sekund na utrwalenie tej prawdy.</div>
         `;
         startCountdown(60);
@@ -1931,7 +1980,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.6</div>
           <h1 class="lesson-title">Kim jest Świadek?</h1>
-
           <div class="lesson-body">
             <p>Teraz zajmijmy się tym, czym lub kim jesteśmy — <strong>Świadkiem</strong>. Świadkiem głosu (tego, który mówi w naszej głowie), ale też świadkiem wszystkiego innego, co się dzieje.</p>
             <p>Musimy udowodnić dwa twierdzenia:</p>
@@ -1950,7 +1998,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.7</div>
           <h1 class="lesson-title">Trzy stany życia</h1>
-
           <div class="lesson-body">
             <p>W naszym życiu są trzy stany:</p>
             <ol>
@@ -1960,7 +2007,6 @@
             </ol>
             <p>Zobaczmy, że Świadek jest obecny zawsze — w każdym z tych stanów.</p>
           </div>
-
           <div class="side-image-row">
             <div class="text-card">
               <h3>Jawa</h3>
@@ -1970,7 +2016,6 @@
               <img src="jawa.png" alt="Jawa">
             </div>
           </div>
-
           <div class="side-image-row">
             <div class="text-card">
               <h3>Sen ze snami</h3>
@@ -1980,11 +2025,9 @@
               <img src="sen.png" alt="Sen">
             </div>
           </div>
-
           <div class="lesson-body">
             <p>A co z głębokim snem, w którym nie ma snów?</p>
           </div>
-
           <div class="helper-note">Po kliknięciu „Dalej” zatrzymaj się na chwilę i odpowiedz sobie na to pytanie.</div>
         `;
         return;
@@ -1995,7 +2038,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.8</div>
           <h1 class="lesson-title">Głęboki sen bez snów</h1>
-
           <div class="side-image-row">
             <div class="text-card">
               <p>W czasie głębokiego snu umysł również przestaje wyświetlać swój „film”. Zapada pustka. Pojawia się więc pytanie: czy w tej pustce Świadek nadal jest obecny, czy może znika?</p>
@@ -2005,7 +2047,6 @@
               <img src="lustro.png" alt="Lustro">
             </div>
           </div>
-
           <div class="side-image-row">
             <div class="text-card">
               <p>W czasie jawy na ekranie naszej świadomości zmysły wyświetlają to, co się dzieje. W czasie snu ze snami umysł sam projektuje opowieść snu. W czasie głębokiego snu bez snów to, co doświadcza, nadal tam jest — ale nie ma już treści do doświadczenia.</p>
@@ -2015,7 +2056,6 @@
               <img src="kot.png" alt="Kot">
             </div>
           </div>
-
           <div class="helper-note">Daj sobie 2 minuty na głębszą refleksję, zanim przejdziesz dalej.</div>
         `;
         startCountdown(120, "Możesz przejść dalej");
@@ -2027,7 +2067,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.9</div>
           <h1 class="lesson-title">Świadek się nie zmienia</h1>
-
           <div class="side-image-row">
             <div class="text-card">
               <p>Teraz zobaczmy, że Świadek się nie zmienia.</p>
@@ -2050,22 +2089,16 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.10</div>
           <h1 class="lesson-title">Co można powiedzieć o Świadku?</h1>
-
           <div class="lesson-body">
             <ul>
               <li>Istnieje — ewidentnie i niezaprzeczalnie istnieje. To właśnie jesteśmy my.</li>
               <li>Może doświadczać — jawy, snu ze snami i głębokiego snu.</li>
               <li>Nie ma cech.</li>
             </ul>
-
             <p>Jeśli coś nie ma żadnych cech, to nie ma też granicy — nie da się wskazać miejsca, w którym się kończy. Gdyby Świadek miał granicę, ktoś musiałby być świadomy tej granicy. A ten, kto jest świadomy granicy, jest zarazem świadomy tego, co znajduje się po jednej i po drugiej jej stronie. Tym samym jego istnienie przekraczałoby tę granicę.</p>
-
             <p>Świadek nie ma granicy, a więc można powiedzieć, że jest nieskończony. A jeszcze trafniej byłoby powiedzieć, że jest poza przestrzenią.</p>
-
             <p>O Świadku nie można nawet powiedzieć, że jest „tu”, a nie „tam”. Nie jest zlokalizowany w przestrzeni. Nie jest też „Twój”. A skoro nie jest Twój, to lepiej mówić o nim <strong>Świadomość</strong>, a nie <strong>Świadek</strong>.</p>
-
             <p>To ważne, ponieważ nie chodzi o małego kogoś mieszkającego w mojej głowie i wykonującego proces świadkowania, ale o <strong>Świadomość</strong>, która nie ma już cech osoby. Mówiliśmy przecież, że Świadek — a więc Świadomość — nie ma żadnych cech, w tym również cechy mówiącej, że jest czyjaś, np. Twoja.</p>
-
             <p>Świadomość nie ma cech, a więc nie ma także cechy wieku. Nie ma cechy mówiącej o tym, kiedy się urodziła albo kiedy umrze. Nie ma też cechy, poprzez którą dałoby się ją umiejscowić w czasie. Można więc powiedzieć, że jest wieczna — w tym sensie, że nie ma takiego momentu, w którym by jej nie było.</p>
           </div>
         `;
@@ -2077,7 +2110,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.11</div>
           <h1 class="lesson-title">Prawda 4</h1>
-
           <div class="summary-row">
             <div class="summary-box">
               <p style="font-size:24px; line-height:1.7; margin-top:4px;">
@@ -2089,7 +2121,6 @@
               <img src="nie.png" alt="Nie-do-podważenia">
             </div>
           </div>
-
           <div class="helper-note">Daj sobie 60 sekund na spokojne przyjęcie tej prawdy.</div>
         `;
         startCountdown(60);
@@ -2101,11 +2132,9 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.12</div>
           <h1 class="lesson-title">Ćwiczenie 2 – „Dziurki” <img src="logo.png" alt="Szczelinka" class="mini-logo-inline"></h1>
-
           <div class="lesson-body">
             <p>Poznaliśmy już ćwiczenie „Liczenie” oddechów. Teraz poznamy kolejne ćwiczenie medytacyjne:</p>
           </div>
-
           <div class="side-image-row">
             <div class="text-card">
               <h3>Instrukcja</h3>
@@ -2123,7 +2152,6 @@
               <img src="dziurki.png" alt="Dziurki">
             </div>
           </div>
-
           ${renderExercise2Timer()}
           <div class="helper-note">Wykonaj ćwiczenie, uruchom timer.</div>
         `;
@@ -2136,11 +2164,9 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.13</div>
           <h1 class="lesson-title">Ćwiczenie 3 – „Oddychanie do brzucha” <img src="logo.png" alt="Szczelinka" class="mini-logo-inline"></h1>
-
           <div class="lesson-body">
             <p>Poznasz teraz ostatnie, trzecie ćwiczenie z grupy ćwiczeń przygotowujących.</p>
           </div>
-
           <div class="side-image-row">
             <div class="text-card">
               <h3>Instrukcja</h3>
@@ -2158,7 +2184,6 @@
               <img src="brzuch.png" alt="Oddychanie do brzucha">
             </div>
           </div>
-
           ${renderExercise3Timer()}
           <div class="helper-note">Wykonaj ćwiczenie, uruchom timer.</div>
         `;
@@ -2171,7 +2196,6 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.14</div>
           <h1 class="lesson-title">Podsumowanie ćwiczeń wstępnych (1–3)</h1>
-
           <div class="lesson-body">
             <p>W ćwiczeniach wstępnych oddech pełni rolę obiektu medytacyjnego. W „liczeniu” pojawia się komponent mentalny, który angażuje umysł. Przy obserwacji „dziurek” komponent mentalny zanika, a na pierwszy plan wysuwa się odczuwanie ciała w niewielkim, precyzyjnym fragmencie. W „oddychaniu do brzucha” znika statyczny aspekt obserwacji oddechu, a pojawia się element ruchu — śledzenia jego drogi w dół i w górę ciała.</p>
             <p>Ćwiczenia wstępne wyostrzają koncentrację i poprawiają uważność. Uspokajają umysł, ponieważ z tysiąca możliwości wybieramy tylko jedną i na niej skupiamy całą uwagę. Stanowią solidną podstawę dla kolejnego, kluczowego kroku w metodzie „Szczelinki”.</p>
@@ -2186,15 +2210,104 @@
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.15</div>
           <h1 class="lesson-title">Pełna sekwencja ćwiczeń przygotowawczych</h1>
-
           <div class="lesson-body">
             <p>A teraz wykonaj pełną sekwencję ćwiczeń przygotowawczych.</p>
             <p>Ćwicząc Szczelinkę wykonujemy je jedno po drugim. Ich rolą jest wyciszyć umysł i stworzyć właściwy fundament pod najważniejszą część Szczelinki.</p>
           </div>
-
           ${renderSequenceTimer()}
         `;
         attachSequenceEvents();
+        return;
+      }
+
+      if (step === "2.16") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.16</div>
+          <h1 class="lesson-title">Medytacja prowadzona 1</h1>
+          <div class="lesson-body">
+            <p>Możesz teraz wysłuchać medytacji prowadzonej.</p>
+            <p><strong>Medytacja „Jeziora”.</strong></p>
+          </div>
+          <div class="video-row">
+            <div class="video-card">
+              <h3>Nagranie</h3>
+              <div class="youtube-wrap">
+                <iframe
+                  src="https://www.youtube.com/embed/0SmOvfdnNnU"
+                  title="Medytacja Jeziora"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen>
+                </iframe>
+              </div>
+            </div>
+            <div class="video-visual">
+              <img src="jezioro.png" alt="Jezioro">
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.17") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.17</div>
+          <h1 class="lesson-title">Podsumowanie</h1>
+          <div class="download-row">
+            <div class="download-card">
+              <h3>Notatki z lekcji 2</h3>
+              <p>Pobierz Notatki z Lekcji 2.</p>
+              <a href="Szczelinka 2.pdf" class="download-btn" download>Pobierz Szczelinka 2.pdf</a>
+            </div>
+            <div class="download-visual">
+              <img src="nie.png" alt="Podsumowanie lekcji 2">
+            </div>
+          </div>
+          <div class="lesson-body">
+            <p>W tej lekcji zadaliśmy sobie pytanie „Kim Jestem?”. W odpowiedzi poznaliśmy dwie prawdy.</p>
+            <ul>
+              <li>Nie jestem czymkolwiek, co się zmienia i czymkolwiek, co można zaobserwować.</li>
+              <li>Jestem Świadomością, która się nie zmienia, jest zawsze obecna i dzięki której wszystko możemy obserwować.</li>
+            </ul>
+            <p>Poznaliśmy także 2 nowe ćwiczenia medytacyjne: Dziurki oraz Oddychanie do brzucha.</p>
+            <p>Pełna sekwencja medytacji Szczelinka to:</p>
+            <ol>
+              <li>Liczenie</li>
+              <li>Dziurki</li>
+              <li>Oddychanie do brzucha</li>
+              <li>(ostatni element, który poznamy w lekcji 3)</li>
+            </ol>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.18") {
+        enableNext(true);
+        nextBtn.textContent = "Podejmuję";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.18</div>
+          <h1 class="lesson-title">Praca domowa</h1>
+          <div class="homework-box" style="max-width:900px;">
+            <ul>
+              <li>Wykonaj 5 razy sesję medytacyjną z liczeniem oddechów, obserwacją dziurek i oddychaniem do brzucha. Każda część niech trwa 3 minuty (razem 9 min).</li>
+            </ul>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.19") {
+        enableNext(true);
+        nextBtn.textContent = "Zakończ";
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.19</div>
+          <h1 class="lesson-title">Gratulacje ukończenia lekcji #2</h1>
+          <div class="summary-box" style="max-width:900px; text-align:center;">
+            <p>Do każdej lekcji możesz wracać. Prawdy zawarte w lekcjach są głębokie i wymagają czasu, uważności oraz wielokrotnego wracania do nich w praktyce.</p>
+          </div>
+        `;
         return;
       }
     }
@@ -2233,7 +2346,12 @@
       }
 
       if (step === "2.15") {
-        if (loadFlag(storageKeys.sequenceDone)) completeLesson();
+        if (loadFlag(storageKeys.sequenceDone)) realAdvance();
+        return;
+      }
+
+      if (step === "2.19") {
+        completeLesson();
         return;
       }
 
@@ -2258,7 +2376,7 @@
       deleteCookie(storageKeys.exercise2Done);
       deleteCookie(storageKeys.exercise3Done);
       deleteCookie(storageKeys.sequenceDone);
-      window.location.href = "Main_Page.html#lekcja3";
+      window.location.href = "Main_Page.html#lekcja2";
     }
 
     function goBack() {
@@ -2390,6 +2508,10 @@
           sequenceState.done = true;
           saveFlag(storageKeys.sequenceDone, true);
           updateSequenceUI();
+          enableNext(true);
+        }
+
+        if (step === "2.16" || step === "2.17" || step === "2.18" || step === "2.19") {
           enableNext(true);
         }
       }
