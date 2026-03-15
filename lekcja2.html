@@ -205,13 +205,13 @@
       font-size: 48px;
       line-height: 1.12;
       margin: 0;
-      max-width: 860px;
+      max-width: 900px;
     }
 
     .lesson-body {
       font-size: 22px;
       line-height: 1.65;
-      max-width: 860px;
+      max-width: 900px;
       color: #242424;
       margin: 0 auto;
       text-align: left;
@@ -226,20 +226,17 @@
       margin-bottom: 0;
     }
 
-    .lesson-body ul {
+    .lesson-body ul, .lesson-body ol {
       margin: 0 0 22px 0;
       padding-left: 28px;
       display: grid;
       gap: 10px;
     }
 
-    .lesson-body li {
-      margin: 0;
-    }
-
-    .summary-row {
+    .summary-row,
+    .side-image-row {
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       display: grid;
       grid-template-columns: 1.35fr 320px;
       gap: 24px;
@@ -249,7 +246,8 @@
     .summary-box,
     .question-box,
     .homework-box,
-    .image-box {
+    .image-box,
+    .text-card {
       width: 100%;
       background: #f5f5f5;
       border-radius: 24px;
@@ -260,7 +258,8 @@
     .summary-box h3,
     .question-box h3,
     .homework-box h3,
-    .image-box h3 {
+    .image-box h3,
+    .text-card h3 {
       margin: 0 0 12px 0;
       font-size: 28px;
       color: #3aa7d6;
@@ -270,7 +269,9 @@
     .summary-box li,
     .question-box p,
     .homework-box p,
-    .image-box p {
+    .image-box p,
+    .text-card p,
+    .text-card li {
       font-size: 22px;
       line-height: 1.65;
       margin: 0;
@@ -282,7 +283,8 @@
       gap: 14px;
     }
 
-    .truth-visual {
+    .truth-visual,
+    .side-visual {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -292,7 +294,8 @@
       min-height: 100%;
     }
 
-    .truth-visual img {
+    .truth-visual img,
+    .side-visual img {
       width: 100%;
       max-width: 280px;
       display: block;
@@ -301,7 +304,7 @@
     .question-box {
       background: linear-gradient(180deg, #fafafa 0%, #f3f3f3 100%);
       text-align: center;
-      max-width: 860px;
+      max-width: 900px;
       width: 100%;
     }
 
@@ -321,7 +324,7 @@
 
     .full-image-box {
       width: 100%;
-      max-width: 860px;
+      max-width: 900px;
       background: #f5f5f5;
       border-radius: 24px;
       padding: 18px;
@@ -336,7 +339,7 @@
 
     .image-explainer {
       width: 100%;
-      max-width: 860px;
+      max-width: 900px;
       font-size: 22px;
       line-height: 1.65;
       color: #242424;
@@ -345,7 +348,7 @@
     }
 
     .helper-note {
-      max-width: 860px;
+      max-width: 900px;
       font-size: 17px;
       color: #777;
       text-align: center;
@@ -353,7 +356,7 @@
 
     .margin-note {
       width: 100%;
-      max-width: 860px;
+      max-width: 900px;
       margin: 8px auto 0;
       padding-left: 18px;
       border-left: 4px solid #3aa7d6;
@@ -366,7 +369,7 @@
 
     .cards-grid {
       width: 100%;
-      max-width: 860px;
+      max-width: 900px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 18px;
@@ -499,7 +502,7 @@
 
     .modal {
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       max-height: 88vh;
       overflow-y: auto;
       background: #ffffff;
@@ -627,11 +630,14 @@
       .question-box p,
       .homework-box p,
       .image-box p,
-      .popup-body {
+      .popup-body,
+      .text-card p,
+      .text-card li {
         font-size: 20px;
       }
 
       .summary-row,
+      .side-image-row,
       .popup-layout,
       .popup-layout.reverse {
         grid-template-columns: 1fr;
@@ -665,7 +671,9 @@
       .question-box p,
       .homework-box p,
       .image-box p,
-      .popup-body {
+      .popup-body,
+      .text-card p,
+      .text-card li {
         font-size: 18px;
       }
 
@@ -723,7 +731,7 @@
   <div class="progress-wrap">
     <div class="progress-top">
       <div class="progress-label">Postęp lekcji 2</div>
-      <div class="progress-step" id="progressStep">2.0 / 2.3</div>
+      <div class="progress-step" id="progressStep">2.0 / 2.8</div>
     </div>
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressFill"></div>
@@ -791,8 +799,18 @@
     <div class="modal" id="topicModalContent"></div>
   </div>
 
+  <div class="modal-backdrop" id="deepSleepModal">
+    <div class="modal">
+      <h2>Zanim przejdziemy dalej</h2>
+      <p>Zastanów się jak udowodnić, że Świadek jest obecny w czasie głębokiego snu bez snów.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="deepSleepReadyBtn">Gotowy</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const lessonSteps = ["2.0", "2.1", "2.2", "2.3"];
+    const lessonSteps = ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8"];
     let currentStepIndex = 0;
     let countdown = 60;
     let countdownTimer = null;
@@ -800,7 +818,6 @@
 
     const storageKeys = {
       step: "szczelinka_lesson2_step",
-      homeworkSeen: "szczelinka_lesson2_homework_seen",
       topic1: "szczelinka_lesson2_topic1_done",
       topic2: "szczelinka_lesson2_topic2_done",
       topic3: "szczelinka_lesson2_topic3_done"
@@ -830,6 +847,9 @@
     const topicModal = document.getElementById("topicModal");
     const topicModalContent = document.getElementById("topicModalContent");
 
+    const deepSleepModal = document.getElementById("deepSleepModal");
+    const deepSleepReadyBtn = document.getElementById("deepSleepReadyBtn");
+
     function setCookie(name, value, days = 180) {
       const expires = new Date(Date.now() + days * 864e5).toUTCString();
       document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
@@ -854,14 +874,6 @@
       const raw = getCookie(storageKeys.step);
       const parsed = Number(raw);
       return Number.isInteger(parsed) && parsed >= 0 && parsed < lessonSteps.length ? parsed : 0;
-    }
-
-    function saveHomeworkSeen(value) {
-      setCookie(storageKeys.homeworkSeen, value ? "1" : "0");
-    }
-
-    function loadHomeworkSeen() {
-      return getCookie(storageKeys.homeworkSeen) === "1";
     }
 
     function saveTopicDone(key, value) {
@@ -957,7 +969,7 @@
     function updateProgress() {
       const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
       progressFill.style.width = `${percent}%`;
-      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.3`;
+      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.8`;
     }
 
     function topicsCompletedCount() {
@@ -1139,8 +1151,7 @@
         <h2>${topic.title}</h2>
         ${topic.html}
         <div class="modal-actions">
-          <button class="btn btn-primary" id="topicReadBtn">Przeczytałem</button>
-          <button class="btn btn-secondary" id="topicCloseBtn">Zamknij</button>
+          <button class="btn btn-primary" id="topicCloseBtn">Zamknij</button>
         </div>
       `;
 
@@ -1149,14 +1160,12 @@
       topicModal.scrollTop = 0;
       window.scrollTo({ top: 0, behavior: "smooth" });
 
-      document.getElementById("topicReadBtn").addEventListener("click", () => {
-        saveTopicDone(topic.cookieKey, true);
-        hideModal(topicModal);
-        renderStep();
-      });
+      saveTopicDone(topic.cookieKey, true);
+      updateTopicCardsState();
 
       document.getElementById("topicCloseBtn").addEventListener("click", () => {
         hideModal(topicModal);
+        renderStep();
       });
     }
 
@@ -1266,7 +1275,7 @@
         enableNext(false);
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.3</div>
-          <h1 class="lesson-title">Ten, Który Mówi i Ten, Który Słucha</h1>
+          <h1 class="lesson-title"><strong>Ten, Który Mówi</strong> i <strong>Ten, Który Słucha</strong></h1>
 
           <div class="lesson-body">
             <p>Spójrzmy jeszcze raz do naszego umysłu. O ile łatwo jest powiedzieć, że nie jestem swoimi emocjami i uczuciami ponieważ one przemijają to wiele osób jest zidentyfikowanych (uważa, że to ja) z wewnętrznym głosem w swojej głowie.</p>
@@ -1281,13 +1290,13 @@
           </div>
 
           <div class="lesson-body">
-            <p>W Twojej głowie żyje głos – Ten, Który Mówi (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większośc osób uważa, że ten głos to właśnie ja. Mogę nie być ciałem, zawodem, wyznaniem ale jestem tym głosem!</p>
+            <p>W Twojej głowie żyje głos – <strong>Ten, Który Mówi</strong> (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większość osób uważa, że ten głos to właśnie ja. Mogę nie być ciałem, zawodem, wyznaniem ale jestem tym głosem!</p>
 
-            <p>Jednak oprócz tego głosu istnieje jeszcze ktoś inny… Jest tak cichy, że do tej pory mógł umykać Twojej uwadze. To Ten, Który Słucha (TKS). Jeśli głos jest słyszany, musi istnieć ktoś, kto go słucha.</p>
+            <p>Jednak oprócz tego głosu istnieje jeszcze ktoś inny… Jest tak cichy, że do tej pory mógł umykać Twojej uwadze. To <strong>Ten, Który Słucha</strong> (TKS). Jeśli głos jest słyszany, musi istnieć ktoś, kto go słucha.</p>
 
-            <p>O Tym, Który Mówi, wiesz wiele: znasz jego imię, wiek, płeć, upodobania, zawód, wyznanie. A co wiesz o Tym, Który Słucha?</p>
+            <p>O <strong>Tym, Który Mówi</strong>, wiesz wiele: znasz jego imię, wiek, płeć, upodobania, zawód, wyznanie. A co wiesz o <strong>Tym, Który Słucha</strong>?</p>
 
-            <p>Ten, Który Mówi, pojawia się i znika. Ten, Który Słucha (Doświadcza) jest obecny zawsze. W medytacji staje się jasne, że nie jesteś Tym, Który Mówi (TKM).</p>
+            <p><strong>Ten, Który Mówi</strong>, pojawia się i znika. <strong>Ten, Który Słucha</strong> (Doświadcza) jest obecny zawsze. W medytacji staje się jasne, że nie jesteś <strong>Tym, Który Mówi</strong> (TKM).</p>
           </div>
 
           <div class="margin-note">
@@ -1298,6 +1307,138 @@
         `;
 
         startCountdown(60);
+        return;
+      }
+
+      if (step === "2.4") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.4</div>
+          <h1 class="lesson-title">Świadek</h1>
+
+          <div class="lesson-body">
+            <p><strong>Ten, który słucha</strong> również widzi obraz, słyszy dźwięk, węszy zapach, kosztuje smak, czuje dotyk, myśli myśli.. Nazwijmy jego/ją/to coś <strong>Świadkiem</strong>.</p>
+            <p>Musimy teraz sprawdzić czym/kim jest <strong>Świadek</strong> i czy jest obecny zawsze – czy jest prawdziwy.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.5") {
+        enableNext(false);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.5</div>
+          <h1 class="lesson-title">Prawda 3</h1>
+
+          <div class="summary-row">
+            <div class="summary-box">
+              <h3>Wiemy już że,</h3>
+              <p style="font-size:24px; line-height:1.65; margin-top:10px;"><strong>Prawda 3</strong><br>Nie jesteśmy niczym co się zmienia i może być postrzeżone.</p>
+            </div>
+            <div class="truth-visual">
+              <img src="nie.png" alt="Nie-do-podważenia">
+            </div>
+          </div>
+
+          <div class="helper-note">Daj sobie 60 sekund na utrwalenie tej prawdy.</div>
+        `;
+        startCountdown(60);
+        return;
+      }
+
+      if (step === "2.6") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.6</div>
+          <h1 class="lesson-title">Kim jest Świadek?</h1>
+
+          <div class="lesson-body">
+            <p>Teraz zajmijmy się tym czym/kim jesteśmy – <strong>Świadkiem</strong>. Świadkiem głosu (Tego, który mówi w naszej głowie) ale też Świadkiem wszystkiego innego co się dzieje.</p>
+            <p>Musimy udowodnić 2 twierdzenia:</p>
+            <ol>
+              <li>świadek jest zawsze obecny, zawsze prawdziwy</li>
+              <li>świadek się nie zmienia</li>
+            </ol>
+            <p>I przyjrzymy się też czym/kim jest ten <strong>Świadek</strong>.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.7") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.7</div>
+          <h1 class="lesson-title">Trzy stany życia</h1>
+
+          <div class="lesson-body">
+            <p>W naszym życiu są 3 stany:</p>
+            <ol>
+              <li>jawa (nasza codzienność)</li>
+              <li>sen ze snami</li>
+              <li>głęboki sen bez snów</li>
+            </ol>
+            <p>Zobaczmy że świadek jest obecny zawsze w każdym z tych stanów.</p>
+          </div>
+
+          <div class="side-image-row">
+            <div class="text-card">
+              <h3>Jawa</h3>
+              <p>Na Jawie, łatwo to udowodnić. Cały czas doświadczamy czegoś. Zmysły dostarczają bodźców a one rodzą doświadczenia. Każde doświadczenie składa się z zwartości doświadczenia ale też wymaga kogoś kto je dostrzega (Świadka). Gdyby nie Świadek doświadczenia – doświadczenia by nie było. Na jawie cały czas doświadczamy a to oznacza, że Świadek na Jawie cały czas jest obecny.</p>
+            </div>
+            <div class="side-visual">
+              <img src="jawa.png" alt="Jawa">
+            </div>
+          </div>
+
+          <div class="side-image-row">
+            <div class="text-card">
+              <h3>Sen ze snami</h3>
+              <p>W czasie snu ze snami zmysły przestają dostarczać bodźców jedynie umysł pozostaje aktywny. Umysł wyświetla sen. W tym śnie dzieją się różne zdarzenia, ale najważniejsze dla nas w tym momencie jest to że ktoś ten sen postrzega. Kto? Świadek. I to jest ten sam świadek, który doświadcza na jawie teraz doświadcza snu. Zobacz, że To Ty Jesteś Tym Świadkiem. W rzeczywistości nigdy nie zasypiasz!</p>
+            </div>
+            <div class="side-visual">
+              <img src="sen.png" alt="Sen">
+            </div>
+          </div>
+
+          <div class="lesson-body">
+            <p>A co z głębokim snem gdzie nie ma snów?</p>
+          </div>
+
+          <div class="helper-note">Po kliknięciu „Dalej” zatrzymaj się na chwilę i odpowiedz sobie na to pytanie.</div>
+        `;
+        return;
+      }
+
+      if (step === "2.8") {
+        enableNext(false);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.8</div>
+          <h1 class="lesson-title">Głęboki sen bez snów</h1>
+
+          <div class="side-image-row">
+            <div class="text-card">
+              <p>W czasie głębokie snu. Umysł również przestaje wyświetlać „film”. Zapada pustka, jest pytanie czy w tej pustce jest Świadek czy zniknął?</p>
+              <p>Wyobraźmy sobie pokój w którym jest lustro. W czasie dnia to lustro idealnie odbija wsyzstko co jest w tym pokoju. Jednak gdy zapada zmrok, załóżmy że ten zmrok jest całkowity lustru nic nie odbija, nic nie wyświetla. Czy natura lustra się zmieniła? Nie, ono nadal jest takie samo. Światło przestało na nie padać więc nic nie odbija jednak kiedy pierwszy promień światła ppadnie na lustro natychmiast zostanie odbity. Natura lustra cały czas była taka sama, on wciąż istniało choć w całkowitych ciemnościach nie dałoby się rozróżnić lustra od zwykłej szyby.</p>
+            </div>
+            <div class="side-visual">
+              <img src="lustro.png" alt="Lustro">
+            </div>
+          </div>
+
+          <div class="side-image-row">
+            <div class="text-card">
+              <p>W czasie jawy na ekranie naszej świadomości zmysły wyświetlają to co się dzieje, w czasie snu ze snami umysł sam projektuje opowieść snu. W czasie sny bez snów to co doświadcza nadal tam jest ale nie ma czego doświadczać.</p>
+              <p>Załóżmy, że głębokiego snu przychodzi do ciebie Twój ukochany kotek i ociera ci się o Twarz ponieważ chce być nakarmiony. Jeśli by nie było Świadka, to kto zarejestrował by ten bodziec?</p>
+            </div>
+            <div class="side-visual">
+              <img src="kot.png" alt="Kot">
+            </div>
+          </div>
+
+          <div class="helper-note">Daj sobie 2 minuty na głębszą refleksję, zanim przejdziesz dalej.</div>
+        `;
+        startCountdown(120, "Możesz przejść dalej");
         return;
       }
     }
@@ -1316,15 +1457,21 @@
       }
 
       if (step === "2.2") {
-        if (allTopicsCompleted()) {
-          realAdvance();
-        }
+        if (allTopicsCompleted()) realAdvance();
         return;
       }
 
-      if (step === "2.3") {
-        completeLesson();
+      if (step === "2.7") {
+        showModal(deepSleepModal);
+        return;
       }
+
+      if (step === "2.8") {
+        completeLesson();
+        return;
+      }
+
+      realAdvance();
     }
 
     function realAdvance() {
@@ -1339,7 +1486,6 @@
 
     function completeLesson() {
       deleteCookie(storageKeys.step);
-      deleteCookie(storageKeys.homeworkSeen);
       deleteCookie(storageKeys.topic1);
       deleteCookie(storageKeys.topic2);
       deleteCookie(storageKeys.topic3);
@@ -1388,11 +1534,12 @@
 
     homeworkYesBtn.addEventListener("click", () => {
       hideModal(homeworkModal);
-      saveHomeworkSeen(true);
       realAdvance();
     });
 
-    homeworkNoBtn.addEventListener("click", () => {});
+    homeworkNoBtn.addEventListener("click", () => {
+      hideModal(homeworkModal);
+    });
 
     answerYesBtn.addEventListener("click", () => {
       hideModal(answerModal);
@@ -1401,9 +1548,13 @@
 
     answerNoBtn.addEventListener("click", () => {
       hideModal(answerModal);
-      adminBypass = false;
       enableNext(false);
       startCountdown(60);
+    });
+
+    deepSleepReadyBtn.addEventListener("click", () => {
+      hideModal(deepSleepModal);
+      realAdvance();
     });
 
     topicModal.addEventListener("click", (e) => {
@@ -1415,9 +1566,35 @@
     document.addEventListener("keydown", (event) => {
       if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
         const step = lessonSteps[currentStepIndex];
-        if (step === "2.1" || step === "2.3") {
-          event.preventDefault();
-          adminBypass = true;
+        event.preventDefault();
+
+        if (step === "2.1") {
+          stopCountdown();
+          enableNext(true);
+          countdownBox.textContent = "";
+        }
+
+        if (step === "2.2") {
+          saveTopicDone(storageKeys.topic1, true);
+          saveTopicDone(storageKeys.topic2, true);
+          saveTopicDone(storageKeys.topic3, true);
+          updateTopicCardsState();
+          renderStep();
+        }
+
+        if (step === "2.3") {
+          stopCountdown();
+          enableNext(true);
+          countdownBox.textContent = "";
+        }
+
+        if (step === "2.5") {
+          stopCountdown();
+          enableNext(true);
+          countdownBox.textContent = "";
+        }
+
+        if (step === "2.8") {
           stopCountdown();
           enableNext(true);
           countdownBox.textContent = "";
@@ -1426,10 +1603,6 @@
     });
 
     maybeAskToResume();
-
-    if (currentStepIndex === 0 && loadHomeworkSeen()) {
-      saveHomeworkSeen(false);
-    }
   </script>
 </body>
 </html>
