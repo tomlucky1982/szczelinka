@@ -1,305 +1,252 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szczelinka</title>
+  <link rel="icon" href="favicon_minimal.ico">
+  <meta name="theme-color" content="#3aa7d6">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
 
-<title>Szczelinka</title>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: #1f1f1f;
+    }
 
-<link rel="icon" href="favicon_minimal.ico">
-<meta name="theme-color" content="#3aa7d6">
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 150px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
 
-<style>
+    .topbar-left {
+      display: flex;
+      align-items: center;
+    }
 
-*{box-sizing:border-box}
+    .topbar-right {
+      display: flex;
+      align-items: center;
+    }
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:white;
-color:#1f1f1f;
-}
+    .logo {
+      height: 125px;
+      margin-right: 50px;
+    }
 
-/* TOPBAR */
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
 
-.topbar{
-position:sticky;
-top:0;
-z-index:1000;
-height:150px;
-background:white;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 40px;
-border-bottom:1px solid rgba(0,0,0,0.08);
-}
+    .menu > a,
+    .dropdown > a,
+    .contact-link {
+      text-decoration: none;
+      font-size: 18px;
+      color: #3aa7d6;
+      font-weight: 500;
+      padding-bottom: 6px;
+      display: inline-block;
+    }
 
-/* LEFT */
+    .menu > a.active {
+      border-bottom: 2px solid #3aa7d6;
+    }
 
-.topbar-left{
-display:flex;
-align-items:center;
-}
+    .dropdown {
+      position: relative;
+    }
 
-/* RIGHT */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 190px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      padding: 10px 0;
+      z-index: 1100;
+    }
 
-.topbar-right{
-display:flex;
-align-items:center;
-}
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      text-decoration: none;
+      color: #3aa7d6;
+      font-size: 16px;
+      white-space: nowrap;
+    }
 
-/* LOGO */
+    .dropdown-content a:hover {
+      background: rgba(58,167,214,0.07);
+    }
 
-.logo{
-height:125px;
-margin-right:50px;
-}
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
 
-/* MENU */
+    .content {
+      max-width: 1150px;
+      margin: 100px auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
 
-.menu{
-display:flex;
-align-items:center;
-gap:34px;
-}
+    .logo-poziom {
+      width: 420px;
+      max-width: 100%;
+    }
 
-.menu > a,
-.dropdown > a,
-.contact-link{
-text-decoration:none;
-font-size:18px;
-color:#3aa7d6;
-font-weight:500;
-padding-bottom:6px;
-display:inline-block;
-}
+    .text {
+      font-size: 19px;
+      line-height: 1.85;
+      max-width: 520px;
+    }
 
-.menu > a.active{
-border-bottom:2px solid #3aa7d6;
-}
+    .text h1 {
+      color: #3aa7d6;
+      margin-bottom: 25px;
+      font-size: 36px;
+    }
 
-/* DROPDOWN */
+    .main-button {
+      display: block;
+      margin: 90px auto 120px auto;
+      padding: 20px 48px;
+      background: #3aa7d6;
+      color: white;
+      text-decoration: none;
+      border-radius: 18px;
+      font-size: 22px;
+      font-weight: 600;
+      width: fit-content;
+      box-shadow: 0 8px 28px rgba(58,167,214,0.25);
+      animation: breath 4s ease-in-out infinite;
+      transition: 0.25s;
+    }
 
-.dropdown{
-position:relative;
-}
+    .main-button:hover {
+      background: #2e95c2;
+      transform: scale(1.03);
+    }
 
-.dropdown-content{
-display:none;
-position:absolute;
-top:100%;
-left:0;
-min-width:180px;
-background:white;
-border-radius:10px;
-box-shadow:0 8px 24px rgba(0,0,0,0.10);
-padding:10px 0;
-z-index:1100;
-}
+    @keyframes breath {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 6px 18px rgba(58,167,214,0.25);
+      }
+      50% {
+        transform: scale(1.08);
+        box-shadow: 0 12px 40px rgba(58,167,214,0.35);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 6px 18px rgba(58,167,214,0.25);
+      }
+    }
 
-.dropdown-content a{
-display:block;
-padding:10px 18px;
-text-decoration:none;
-color:#3aa7d6;
-font-size:16px;
-}
+    @media (max-width: 900px) {
+      .content {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+        margin-top: 60px;
+      }
 
-.dropdown-content a:hover{
-background:rgba(58,167,214,0.07);
-}
-
-.dropdown:hover .dropdown-content{
-display:block;
-}
-
-/* CONTENT */
-
-.content{
-max-width:1150px;
-margin:100px auto;
-padding:0 40px;
-display:flex;
-align-items:center;
-gap:80px;
-}
-
-.logo-poziom{
-width:420px;
-max-width:100%;
-}
-
-.text{
-font-size:19px;
-line-height:1.85;
-max-width:520px;
-}
-
-.text h1{
-color:#3aa7d6;
-margin-bottom:25px;
-font-size:36px;
-}
-
-/* ANIMATED BUTTON */
-
-.main-button{
-display:block;
-margin:90px auto 120px auto;
-padding:20px 48px;
-background:#3aa7d6;
-color:white;
-text-decoration:none;
-border-radius:18px;
-font-size:22px;
-font-weight:600;
-width:fit-content;
-box-shadow:0 8px 28px rgba(58,167,214,0.25);
-animation:breath 4s ease-in-out infinite;
-transition:0.25s;
-}
-
-.main-button:hover{
-background:#2e95c2;
-transform:scale(1.03);
-}
-
-/* BREATH ANIMATION */
-
-@keyframes breath{
-
-0%{
-transform:scale(1);
-box-shadow:0 6px 18px rgba(58,167,214,0.25);
-}
-
-50%{
-transform:scale(1.08);
-box-shadow:0 12px 40px rgba(58,167,214,0.35);
-}
-
-100%{
-transform:scale(1);
-box-shadow:0 6px 18px rgba(58,167,214,0.25);
-}
-
-}
-
-/* MOBILE */
-
-@media (max-width:900px){
-
-.content{
-flex-direction:column;
-text-align:center;
-gap:40px;
-margin-top:60px;
-}
-
-.logo-poziom{
-width:320px;
-}
-
-}
-
-</style>
-
+      .logo-poziom {
+        width: 320px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header class="topbar">
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html">
+        <img src="logo.png" class="logo" alt="Szczelinka">
+      </a>
 
-<div class="topbar-left">
+      <nav class="menu">
+        <a class="active" href="szczelinka.html">Szczelinka</a>
 
-<a href="index.html">
-<img src="logo.png" class="logo">
-</a>
+        <div class="dropdown">
+          <a href="Main_Page.html">Lekcje</a>
 
-<nav class="menu">
+          <div class="dropdown-content">
+            <a href="Main_Page.html#lekcja1">Lekcja 1</a>
+            <a href="Main_Page.html#lekcja2">Lekcja 2</a>
+            <a href="Main_Page.html#lekcja3">Lekcja 3</a>
+            <a href="Main_Page.html#lekcja4">Lekcja 4</a>
+            <a href="Main_Page.html#lekcja5">Lekcja 5</a>
+            <a href="Main_Page.html#lekcja6">Lekcja 6</a>
+            <a href="Main_Page.html#lekcja7">Lekcja 7</a>
+            <a href="Main_Page.html#lekcja8">Lekcja 8</a>
+          </div>
+        </div>
 
-<a class="active" href="szczelinka.html">Szczelinka</a>
+        <a href="#">Zajęcia</a>
+        <a href="#">Prowadzący</a>
+      </nav>
+    </div>
 
-<div class="dropdown">
+    <div class="topbar-right">
+      <a href="#" class="contact-link">Kontakt</a>
+    </div>
+  </header>
 
-<a href="main_page.html">Lekcje</a>
+  <div class="content">
+    <img src="logo_poziom.png" class="logo-poziom" alt="Szczelinka">
 
-<div class="dropdown-content">
+    <div class="text">
+      <h1>Szczelinka</h1>
 
-<a href="main_page.html#lekcja1">Lekcja 1</a>
-<a href="main_page.html#lekcja2">Lekcja 2</a>
-<a href="main_page.html#lekcja3">Lekcja 3</a>
-<a href="main_page.html#lekcja4">Lekcja 4</a>
-<a href="main_page.html#lekcja5">Lekcja 5</a>
-<a href="main_page.html#lekcja6">Lekcja 6</a>
-<a href="main_page.html#lekcja7">Lekcja 7</a>
-<a href="main_page.html#lekcja8">Lekcja 8</a>
+      <p>
+        Szczelinka to metoda medytacji, która pozwala usunąć z umysłu wszystko, co przemijające.
+        To, co pozostaje i czego nie można usunąć, odsłania prawdę o tym, kim naprawdę jesteśmy.
+      </p>
 
-</div>
+      <p>
+        W tej wąskiej „Szczelince” pomiędzy myślami odkrywamy coś zaskakującego.
+        Można wtedy powiedzieć, że cel życia został osiągnięty i nie ma już niczego więcej do odkrycia.
+      </p>
 
-</div>
+      <p>
+        Szczelinka jest również stanem intensywnej obecności,
+        w którym pojawia się całkowity brak myśli.
+      </p>
 
-<a href="prowadzacy.html">Prowadzący</a>
-<a href="zajecia.html">Zajęcia</a>
+      <p>
+        Tego typu medytacja przynosi głębokie poczucie spełnienia,
+        czystości, błogości i spokoju.
+      </p>
 
-</nav>
+      <p>
+        Otwiera się wtedy nowy wymiar istnienia —
+        który w rzeczywistości zawsze był z nami,
+        lecz zazwyczaj pozostaje ukryty pod ciągłą aktywnością umysłu.
+      </p>
+    </div>
+  </div>
 
-</div>
-
-<div class="topbar-right">
-
-<a href="kontakt.html" class="contact-link">Kontakt</a>
-
-</div>
-
-</header>
-
-
-<div class="content">
-
-<img src="logo_poziom.png" class="logo-poziom">
-
-<div class="text">
-
-<h1>Szczelinka</h1>
-
-<p>
-Szczelinka to metoda medytacji, która pozwala usunąć z umysłu wszystko, co przemijające.
-To, co pozostaje i czego nie można usunąć, odsłania prawdę o tym, kim naprawdę jesteśmy.
-</p>
-
-<p>
-W tej wąskiej „Szczelince” pomiędzy myślami odkrywamy coś zaskakującego.
-Można wtedy powiedzieć, że cel życia został osiągnięty i nie ma już niczego więcej do odkrycia.
-</p>
-
-<p>
-Szczelinka jest również stanem intensywnej obecności,
-w którym pojawia się całkowity brak myśli.
-</p>
-
-<p>
-Tego typu medytacja przynosi głębokie poczucie spełnienia,
-czystości, błogości i spokoju.
-</p>
-
-<p>
-Otwiera się wtedy nowy wymiar istnienia —
-który w rzeczywistości zawsze był z nami,
-lecz zazwyczaj pozostaje ukryty pod ciągłą aktywnością umysłu.
-</p>
-
-</div>
-
-</div>
-
-
-<a href="main_page.html" class="main-button">
-Poznaj Szczelinkę
-</a>
-
+  <a href="Main_Page.html" class="main-button">Poznaj Szczelinkę</a>
 
 </body>
 </html>
