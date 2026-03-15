@@ -247,7 +247,8 @@
     .question-box,
     .homework-box,
     .image-box,
-    .text-card {
+    .text-card,
+    .timer-card {
       width: 100%;
       background: #f5f5f5;
       border-radius: 24px;
@@ -259,7 +260,8 @@
     .question-box h3,
     .homework-box h3,
     .image-box h3,
-    .text-card h3 {
+    .text-card h3,
+    .timer-card h3 {
       margin: 0 0 12px 0;
       font-size: 28px;
       color: #3aa7d6;
@@ -271,7 +273,9 @@
     .homework-box p,
     .image-box p,
     .text-card p,
-    .text-card li {
+    .text-card li,
+    .timer-card p,
+    .timer-card li {
       font-size: 22px;
       line-height: 1.65;
       margin: 0;
@@ -584,6 +588,91 @@
       margin-bottom: 0;
     }
 
+    .mini-logo-inline {
+      height: 34px;
+      width: auto;
+      vertical-align: middle;
+      margin-left: 10px;
+      transform: translateY(-2px);
+    }
+
+    .timer-widget,
+    .multi-timer-widget {
+      width: 100%;
+      max-width: 900px;
+      background: #f5f5f5;
+      border-radius: 24px;
+      padding: 24px 26px;
+      text-align: center;
+    }
+
+    .timer-display {
+      font-size: 52px;
+      font-weight: 700;
+      color: #3aa7d6;
+      line-height: 1;
+      margin: 10px 0 18px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-controls,
+    .multi-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .timer-note {
+      font-size: 16px;
+      color: #666;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      text-align: left;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .timer-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .timer-row.active {
+      border-color: #3aa7d6;
+      box-shadow: 0 10px 24px rgba(58,167,214,0.10);
+    }
+
+    .timer-row.done {
+      border-color: #3bb273;
+      background: #f7fcf9;
+    }
+
+    .timer-row-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .timer-row-time {
+      font-size: 28px;
+      font-weight: 700;
+      color: #3aa7d6;
+      font-variant-numeric: tabular-nums;
+      min-width: 90px;
+      text-align: right;
+    }
+
     @media (max-width: 980px) {
       .topbar {
         height: auto;
@@ -632,7 +721,9 @@
       .image-box p,
       .popup-body,
       .text-card p,
-      .text-card li {
+      .text-card li,
+      .timer-card p,
+      .timer-card li {
         font-size: 20px;
       }
 
@@ -645,6 +736,10 @@
 
       .cards-grid {
         grid-template-columns: 1fr;
+      }
+
+      .timer-display {
+        font-size: 44px;
       }
     }
 
@@ -673,7 +768,9 @@
       .image-box p,
       .popup-body,
       .text-card p,
-      .text-card li {
+      .text-card li,
+      .timer-card p,
+      .timer-card li {
         font-size: 18px;
       }
 
@@ -703,6 +800,19 @@
         font-size: 21px;
         min-height: 120px;
       }
+
+      .timer-display {
+        font-size: 38px;
+      }
+
+      .timer-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .timer-row-time {
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -731,7 +841,7 @@
   <div class="progress-wrap">
     <div class="progress-top">
       <div class="progress-label">Postęp lekcji 2</div>
-      <div class="progress-step" id="progressStep">2.0 / 2.11</div>
+      <div class="progress-step" id="progressStep">2.0 / 2.15</div>
     </div>
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressFill"></div>
@@ -741,7 +851,7 @@
   <main class="main">
     <div class="lesson-shell">
       <section class="lesson-card">
-        <div class="section-tag">Obszar Rozumienie</div>
+        <div class="section-tag" id="sectionTag">Obszar Rozumienie</div>
         <div class="lesson-center" id="lessonContent"></div>
 
         <div class="nav">
@@ -810,7 +920,10 @@
   </div>
 
   <script>
-    const lessonSteps = ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "2.10", "2.11"];
+    const lessonSteps = [
+      "2.0","2.1","2.2","2.3","2.4","2.5","2.6","2.7","2.8","2.9","2.10","2.11","2.12","2.13","2.14","2.15"
+    ];
+
     let currentStepIndex = 0;
     let countdown = 60;
     let countdownTimer = null;
@@ -819,7 +932,10 @@
       step: "szczelinka_lesson2_step",
       topic1: "szczelinka_lesson2_topic1_done",
       topic2: "szczelinka_lesson2_topic2_done",
-      topic3: "szczelinka_lesson2_topic3_done"
+      topic3: "szczelinka_lesson2_topic3_done",
+      exercise2Done: "szczelinka_lesson2_ex2_done",
+      exercise3Done: "szczelinka_lesson2_ex3_done",
+      sequenceDone: "szczelinka_lesson2_sequence_done"
     };
 
     const lessonContent = document.getElementById("lessonContent");
@@ -828,6 +944,7 @@
     const countdownBox = document.getElementById("countdownBox");
     const progressFill = document.getElementById("progressFill");
     const progressStep = document.getElementById("progressStep");
+    const sectionTag = document.getElementById("sectionTag");
 
     const resumeModal = document.getElementById("resumeModal");
     const resumeTitle = document.getElementById("resumeTitle");
@@ -848,6 +965,17 @@
 
     const deepSleepModal = document.getElementById("deepSleepModal");
     const deepSleepReadyBtn = document.getElementById("deepSleepReadyBtn");
+
+    let timer2State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
+    let timer3State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
+    let sequenceState = {
+      durations: [180, 180, 180],
+      remaining: [180, 180, 180],
+      currentIndex: 0,
+      running: false,
+      done: false,
+      interval: null
+    };
 
     function setCookie(name, value, days = 180) {
       const expires = new Date(Date.now() + days * 864e5).toUTCString();
@@ -875,11 +1003,11 @@
       return Number.isInteger(parsed) && parsed >= 0 && parsed < lessonSteps.length ? parsed : 0;
     }
 
-    function saveTopicDone(key, value) {
+    function saveFlag(key, value) {
       setCookie(key, value ? "1" : "0");
     }
 
-    function loadTopicDone(key) {
+    function loadFlag(key) {
       return getCookie(key) === "1";
     }
 
@@ -953,14 +1081,12 @@
 
       countdownTimer = setInterval(() => {
         countdown -= 1;
-
         if (countdown <= 0) {
           stopCountdown();
           enableNext(true);
           countdownBox.textContent = endText;
           return;
         }
-
         updateCountdownLabel();
       }, 1000);
     }
@@ -968,14 +1094,24 @@
     function updateProgress() {
       const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
       progressFill.style.width = `${percent}%`;
-      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.11`;
+      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.15`;
+    }
+
+    function updateSectionTag() {
+      const step = lessonSteps[currentStepIndex];
+      const meditationSteps = ["2.12", "2.13", "2.14", "2.15"];
+      sectionTag.textContent = meditationSteps.includes(step) ? "Obszar Medytacja" : "Obszar Rozumienie";
+      sectionTag.style.background = meditationSteps.includes(step) ? "#3aa7d6" : "#3bb273";
+      sectionTag.style.boxShadow = meditationSteps.includes(step)
+        ? "0 8px 18px rgba(58, 167, 214, 0.22)"
+        : "0 8px 18px rgba(59, 178, 115, 0.22)";
     }
 
     function topicsCompletedCount() {
       return [
-        loadTopicDone(storageKeys.topic1),
-        loadTopicDone(storageKeys.topic2),
-        loadTopicDone(storageKeys.topic3)
+        loadFlag(storageKeys.topic1),
+        loadFlag(storageKeys.topic2),
+        loadFlag(storageKeys.topic3)
       ].filter(Boolean).length;
     }
 
@@ -987,16 +1123,196 @@
       const cards = document.querySelectorAll(".topic-card");
       cards.forEach(card => {
         const key = card.getAttribute("data-topic-key");
-        if (loadTopicDone(key)) {
-          card.classList.add("done");
-        } else {
-          card.classList.remove("done");
-        }
+        if (loadFlag(key)) card.classList.add("done");
+        else card.classList.remove("done");
       });
 
-      if (currentStepIndex === 2) {
-        enableNext(allTopicsCompleted());
+      if (currentStepIndex === 2) enableNext(allTopicsCompleted());
+    }
+
+    function formatTime(seconds) {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
+    function playBell() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.6);
+        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.18, audioCtx.currentTime + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.9);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.95);
+      } catch (e) {}
+    }
+
+    function stopSingleTimer(state) {
+      if (state.interval) {
+        clearInterval(state.interval);
+        state.interval = null;
       }
+      state.running = false;
+    }
+
+    function resetExerciseTimer(which) {
+      const state = which === 2 ? timer2State : timer3State;
+      stopSingleTimer(state);
+      state.remaining = state.duration;
+      state.done = false;
+      if (which === 2) saveFlag(storageKeys.exercise2Done, false);
+      if (which === 3) saveFlag(storageKeys.exercise3Done, false);
+      renderStep();
+    }
+
+    function changeExerciseTimer(which, delta) {
+      const state = which === 2 ? timer2State : timer3State;
+      if (state.running) return;
+      state.duration = Math.max(60, Math.min(900, state.duration + delta));
+      state.remaining = state.duration;
+      state.done = false;
+      if (which === 2) saveFlag(storageKeys.exercise2Done, false);
+      if (which === 3) saveFlag(storageKeys.exercise3Done, false);
+      renderStep();
+    }
+
+    function startExerciseTimer(which) {
+      const state = which === 2 ? timer2State : timer3State;
+      stopSingleTimer(state);
+      state.running = true;
+      enableNext(false);
+
+      state.interval = setInterval(() => {
+        state.remaining -= 1;
+        updateExerciseTimerUI(which);
+
+        if (state.remaining <= 0) {
+          stopSingleTimer(state);
+          state.remaining = 0;
+          state.done = true;
+          playBell();
+          if (which === 2) saveFlag(storageKeys.exercise2Done, true);
+          if (which === 3) saveFlag(storageKeys.exercise3Done, true);
+          enableNext(true);
+          updateExerciseTimerUI(which);
+        }
+      }, 1000);
+
+      updateExerciseTimerUI(which);
+    }
+
+    function updateExerciseTimerUI(which) {
+      const state = which === 2 ? timer2State : timer3State;
+      const display = document.getElementById(`exercise${which}Display`);
+      if (display) display.textContent = formatTime(state.remaining);
+      const startBtn = document.getElementById(`exercise${which}Start`);
+      const resetBtn = document.getElementById(`exercise${which}Reset`);
+      const plusBtn = document.getElementById(`exercise${which}Plus`);
+      const minusBtn = document.getElementById(`exercise${which}Minus`);
+      const status = document.getElementById(`exercise${which}Status`);
+
+      if (startBtn) startBtn.disabled = state.running;
+      if (resetBtn) resetBtn.disabled = false;
+      if (plusBtn) plusBtn.disabled = state.running;
+      if (minusBtn) minusBtn.disabled = state.running;
+
+      if (status) {
+        if (state.done) status.textContent = "Ćwiczenie zakończone.";
+        else if (state.running) status.textContent = "Timer działa…";
+        else status.textContent = "Ustaw czas i uruchom timer.";
+      }
+    }
+
+    function stopSequenceTimer() {
+      if (sequenceState.interval) {
+        clearInterval(sequenceState.interval);
+        sequenceState.interval = null;
+      }
+      sequenceState.running = false;
+    }
+
+    function resetSequenceTimer() {
+      stopSequenceTimer();
+      sequenceState.remaining = [...sequenceState.durations];
+      sequenceState.currentIndex = 0;
+      sequenceState.done = false;
+      saveFlag(storageKeys.sequenceDone, false);
+      renderStep();
+    }
+
+    function startSequenceTimer() {
+      stopSequenceTimer();
+      sequenceState.running = true;
+      sequenceState.done = false;
+      enableNext(false);
+
+      sequenceState.interval = setInterval(() => {
+        const i = sequenceState.currentIndex;
+        sequenceState.remaining[i] -= 1;
+        updateSequenceUI();
+
+        if (sequenceState.remaining[i] <= 0) {
+          sequenceState.remaining[i] = 0;
+          playBell();
+
+          if (i < sequenceState.remaining.length - 1) {
+            sequenceState.currentIndex += 1;
+          } else {
+            stopSequenceTimer();
+            sequenceState.done = true;
+            saveFlag(storageKeys.sequenceDone, true);
+            enableNext(true);
+          }
+          updateSequenceUI();
+        }
+      }, 1000);
+
+      updateSequenceUI();
+    }
+
+    function updateSequenceUI() {
+      const titles = ["Liczenie", "Dziurki", "Oddychanie do brzucha"];
+      for (let i = 0; i < 3; i++) {
+        const row = document.getElementById(`seqRow${i}`);
+        const time = document.getElementById(`seqTime${i}`);
+        if (!row || !time) continue;
+
+        time.textContent = formatTime(sequenceState.remaining[i]);
+        row.classList.remove("active", "done");
+
+        if (sequenceState.done || i < sequenceState.currentIndex || (i === 2 && sequenceState.done)) {
+          if (sequenceState.remaining[i] === 0) row.classList.add("done");
+        }
+
+        if (sequenceState.running && i === sequenceState.currentIndex) row.classList.add("active");
+        if (!sequenceState.running && sequenceState.remaining[i] === 0) row.classList.add("done");
+      }
+
+      const startBtn = document.getElementById("sequenceStart");
+      const resetBtn = document.getElementById("sequenceReset");
+      const status = document.getElementById("sequenceStatus");
+
+      if (startBtn) startBtn.disabled = sequenceState.running;
+      if (resetBtn) resetBtn.disabled = false;
+
+      if (status) {
+        if (sequenceState.done) status.textContent = "Pełna sekwencja zakończona.";
+        else if (sequenceState.running) status.textContent = `Trwa: ${titles[sequenceState.currentIndex]}.`;
+        else status.textContent = "Uruchom pełną sekwencję ćwiczeń.";
+      }
+    }
+
+    function cleanupSpecialTimers() {
+      stopSingleTimer(timer2State);
+      stopSingleTimer(timer3State);
+      stopSequenceTimer();
     }
 
     function openTopicModal(topicId) {
@@ -1061,7 +1377,7 @@
               <p>Zaczyna wyglądać jak nasza.</p>
               <p>Jak część nas.</p>
               <p>Ale coś, co wcześniej nie było nami, nie może nagle stać się nami.</p>
-              <p>Nie czujemy przecież, że zmieniliśmy się jako osoba przez to, że rękę nam odjęto albo przeszczepiono.</p>
+              <p>Nie czujemy przecież, że zmieniliśmy się jako osoba przez to, że rękę nam odjęto albo przeszczepiono. Tak samo jest z każdą inną częścią ciała.</p>
               <p><strong>Nie jesteś swoim Ciałem.</strong></p>
             </div>
           `
@@ -1159,7 +1475,7 @@
       topicModal.scrollTop = 0;
       window.scrollTo({ top: 0, behavior: "smooth" });
 
-      saveTopicDone(topic.cookieKey, true);
+      saveFlag(topic.cookieKey, true);
       updateTopicCardsState();
 
       document.getElementById("topicCloseBtn").addEventListener("click", () => {
@@ -1168,9 +1484,95 @@
       });
     }
 
+    function renderExercise2Timer() {
+      return `
+        <div class="timer-widget">
+          <h3>Timer ćwiczenia</h3>
+          <div class="timer-display" id="exercise2Display">${formatTime(timer2State.remaining)}</div>
+          <div class="timer-controls">
+            <button class="btn btn-secondary" id="exercise2Minus">-30 sek</button>
+            <button class="btn btn-secondary" id="exercise2Plus">+30 sek</button>
+            <button class="btn btn-primary" id="exercise2Start">Start</button>
+            <button class="btn btn-secondary" id="exercise2Reset">Reset</button>
+          </div>
+          <div class="timer-note" id="exercise2Status">${timer2State.done ? "Ćwiczenie zakończone." : "Ustaw czas i uruchom timer."}</div>
+        </div>
+      `;
+    }
+
+    function renderExercise3Timer() {
+      return `
+        <div class="timer-widget">
+          <h3>Timer ćwiczenia</h3>
+          <div class="timer-display" id="exercise3Display">${formatTime(timer3State.remaining)}</div>
+          <div class="timer-controls">
+            <button class="btn btn-secondary" id="exercise3Minus">-30 sek</button>
+            <button class="btn btn-secondary" id="exercise3Plus">+30 sek</button>
+            <button class="btn btn-primary" id="exercise3Start">Start</button>
+            <button class="btn btn-secondary" id="exercise3Reset">Reset</button>
+          </div>
+          <div class="timer-note" id="exercise3Status">${timer3State.done ? "Ćwiczenie zakończone." : "Ustaw czas i uruchom timer."}</div>
+        </div>
+      `;
+    }
+
+    function renderSequenceTimer() {
+      const titles = ["Liczenie", "Dziurki", "Oddychanie do brzucha"];
+      return `
+        <div class="multi-timer-widget">
+          <h3>Pełna sekwencja ćwiczeń</h3>
+
+          <div class="timer-row ${sequenceState.currentIndex === 0 && sequenceState.running ? "active" : ""} ${sequenceState.remaining[0] === 0 ? "done" : ""}" id="seqRow0">
+            <div class="timer-row-title">Liczenie</div>
+            <div class="timer-row-time" id="seqTime0">${formatTime(sequenceState.remaining[0])}</div>
+          </div>
+
+          <div class="timer-row ${sequenceState.currentIndex === 1 && sequenceState.running ? "active" : ""} ${sequenceState.remaining[1] === 0 ? "done" : ""}" id="seqRow1">
+            <div class="timer-row-title">Dziurki</div>
+            <div class="timer-row-time" id="seqTime1">${formatTime(sequenceState.remaining[1])}</div>
+          </div>
+
+          <div class="timer-row ${sequenceState.currentIndex === 2 && sequenceState.running ? "active" : ""} ${sequenceState.remaining[2] === 0 ? "done" : ""}" id="seqRow2">
+            <div class="timer-row-title">Oddychanie do brzucha</div>
+            <div class="timer-row-time" id="seqTime2">${formatTime(sequenceState.remaining[2])}</div>
+          </div>
+
+          <div class="multi-controls">
+            <button class="btn btn-primary" id="sequenceStart">Start sekwencji</button>
+            <button class="btn btn-secondary" id="sequenceReset">Reset</button>
+          </div>
+          <div class="timer-note" id="sequenceStatus">${sequenceState.done ? "Pełna sekwencja zakończona." : "Uruchom pełną sekwencję ćwiczeń."}</div>
+        </div>
+      `;
+    }
+
+    function attachExercise2TimerEvents() {
+      document.getElementById("exercise2Minus")?.addEventListener("click", () => changeExerciseTimer(2, -30));
+      document.getElementById("exercise2Plus")?.addEventListener("click", () => changeExerciseTimer(2, 30));
+      document.getElementById("exercise2Start")?.addEventListener("click", () => startExerciseTimer(2));
+      document.getElementById("exercise2Reset")?.addEventListener("click", () => resetExerciseTimer(2));
+      updateExerciseTimerUI(2);
+    }
+
+    function attachExercise3TimerEvents() {
+      document.getElementById("exercise3Minus")?.addEventListener("click", () => changeExerciseTimer(3, -30));
+      document.getElementById("exercise3Plus")?.addEventListener("click", () => changeExerciseTimer(3, 30));
+      document.getElementById("exercise3Start")?.addEventListener("click", () => startExerciseTimer(3));
+      document.getElementById("exercise3Reset")?.addEventListener("click", () => resetExerciseTimer(3));
+      updateExerciseTimerUI(3);
+    }
+
+    function attachSequenceEvents() {
+      document.getElementById("sequenceStart")?.addEventListener("click", () => startSequenceTimer());
+      document.getElementById("sequenceReset")?.addEventListener("click", () => resetSequenceTimer());
+      updateSequenceUI();
+    }
+
     function renderStep() {
       stopCountdown();
+      cleanupSpecialTimers();
       updateProgress();
+      updateSectionTag();
       scrollLessonTop();
       backBtn.disabled = currentStepIndex === 0;
       nextBtn.textContent = "Dalej";
@@ -1245,17 +1647,17 @@
           </div>
 
           <div class="cards-grid">
-            <button class="topic-card ${loadTopicDone(storageKeys.topic1) ? 'done' : ''}" data-topic-key="${storageKeys.topic1}" onclick="openTopicModal(1)">
+            <button class="topic-card ${loadFlag(storageKeys.topic1) ? 'done' : ''}" data-topic-key="${storageKeys.topic1}" onclick="openTopicModal(1)">
               <span class="topic-check">✓</span>
               <span>Nie jesteś<br>Swoim Ciałem</span>
             </button>
 
-            <button class="topic-card ${loadTopicDone(storageKeys.topic2) ? 'done' : ''}" data-topic-key="${storageKeys.topic2}" onclick="openTopicModal(2)">
+            <button class="topic-card ${loadFlag(storageKeys.topic2) ? 'done' : ''}" data-topic-key="${storageKeys.topic2}" onclick="openTopicModal(2)">
               <span class="topic-check">✓</span>
               <span>Nie jesteś swoją<br>Historią</span>
             </button>
 
-            <button class="topic-card ${loadTopicDone(storageKeys.topic3) ? 'done' : ''}" data-topic-key="${storageKeys.topic3}" onclick="openTopicModal(3)">
+            <button class="topic-card ${loadFlag(storageKeys.topic3) ? 'done' : ''}" data-topic-key="${storageKeys.topic3}" onclick="openTopicModal(3)">
               <span class="topic-check">✓</span>
               <span>Nie jesteś<br>Swoim Umysłem</span>
             </button>
@@ -1389,7 +1791,7 @@
           <div class="side-image-row">
             <div class="text-card">
               <h3>Sen ze snami</h3>
-              <p>W czasie snu ze snami zmysły przestają dostarczać bodźców, ale umysł pozostaje aktywny. To on wyświetla sen. W śnie dzieją się różne rzeczy, ale najważniejsze dla nas jest teraz to, że ktoś ten sen postrzega. Kto? Świadek. I jest to ten sam Świadek, który doświadcza jawy — teraz doświadcza snu. Zobacz, że to Ty jesteś tym Świadkiem. W rzeczywistości nigdy naprawdę nie zasypiasz.</p>
+              <p>W czasie snu ze snami zmysły przestają dostarczać bodźców, ale umysł pozostaje aktywny. To on wyświetla sen. We śnie dzieją się różne rzeczy, ale najważniejsze dla nas jest teraz to, że ktoś ten sen postrzega. Kto? Świadek. I jest to ten sam Świadek, który doświadcza jawy — teraz doświadcza snu. Zobacz, że to Ty jesteś tym Świadkiem. W rzeczywistości nigdy naprawdę nie zasypiasz.</p>
             </div>
             <div class="side-visual">
               <img src="sen.png" alt="Sen">
@@ -1414,7 +1816,7 @@
           <div class="side-image-row">
             <div class="text-card">
               <p>W czasie głębokiego snu umysł również przestaje wyświetlać swój „film”. Zapada pustka. Pojawia się więc pytanie: czy w tej pustce Świadek nadal jest obecny, czy może znika?</p>
-              <p>Wyobraźmy sobie pokój, w którym stoi lustro. W ciągu dnia lustro idealnie odbija wszystko, co znajduje się w pokoju. Jednak gdy zapada zmrok — załóżmy, że jest on całkowity — lustro niczego już nie odbija, nic nie wyświetla. Czy jego natura się zmieniła? Nie. Ono nadal jest dokładnie tym samym lustrem. Światło przestało na nie padać, więc niczego nie odbija. Ale gdy tylko pojawi się pierwszy promień światła, natychmiast zostanie odbity. Natura lustra przez cały czas była taka sama. Lustro wciąż istniało, choć w całkowitej ciemności trudno byłoby odróżnić je od zwykłej szyby.</p>
+              <p>Wyobraźmy sobie pokój, w którym stoi lustro. W ciągu dnia lustro idealnie odbija wszystko, co znajduje się w pokoju. Jednak gdy zapada zmrok — załóżmy, że jest on całkowity — lustro niczego już nie odbija i niczego nie wyświetla. Czy jego natura się zmieniła? Nie. Nadal jest dokładnie tym samym lustrem. Światło przestało na nie padać, więc niczego nie odbija. Ale gdy tylko pojawi się pierwszy promień światła, natychmiast zostanie odbity. Natura lustra przez cały czas pozostaje taka sama. Lustro wciąż istnieje, choć w całkowitej ciemności trudno byłoby odróżnić je od zwykłej szyby.</p>
             </div>
             <div class="side-visual">
               <img src="lustro.png" alt="Lustro">
@@ -1423,7 +1825,7 @@
 
           <div class="side-image-row">
             <div class="text-card">
-              <p>W czasie jawy na ekranie naszej świadomości zmysły wyświetlają to, co się dzieje. W czasie snu ze snami umysł sam projektuje opowieść snu. W czasie głębokiego snu bez snów to, co doświadcza, nadal tam jest — ale nie ma już czego doświadczać.</p>
+              <p>W czasie jawy na ekranie naszej świadomości zmysły wyświetlają to, co się dzieje. W czasie snu ze snami umysł sam projektuje opowieść snu. W czasie głębokiego snu bez snów to, co doświadcza, nadal tam jest — ale nie ma już treści do doświadczenia.</p>
               <p>Załóżmy, że podczas głębokiego snu przychodzi do Ciebie Twój ukochany kotek i ociera się o Twoją twarz, ponieważ chce być nakarmiony. Gdyby nie było Świadka, to kto zarejestrowałby ten bodziec?</p>
             </div>
             <div class="side-visual">
@@ -1481,7 +1883,7 @@
 
             <p>To ważne, ponieważ nie chodzi o małego kogoś mieszkającego w mojej głowie i wykonującego proces świadkowania, ale o <strong>Świadomość</strong>, która nie ma już cech osoby. Mówiliśmy przecież, że Świadek — a więc Świadomość — nie ma żadnych cech, w tym również cechy mówiącej, że jest czyjaś, np. Twoja.</p>
 
-            <p>Świadomość nie ma cech, a więc nie ma także cechy wieku. Nie ma cechy mówiącej o tym, kiedy się urodziła albo kiedy umrze. Nie ma też cechy, poprzez którą dałoby się ją umiejscowić w czasie. Dlatego można powiedzieć, że Świadomość jest poza czasem. Można też powiedzieć, że jest wieczna — w tym sensie, że nie ma takiego momentu, w którym by jej nie było. Jeszcze trafniej byłoby jednak powiedzieć: jest poza czasem.</p>
+            <p>Świadomość nie ma cech, a więc nie ma także cechy wieku. Nie ma cechy mówiącej o tym, kiedy się urodziła albo kiedy umrze. Nie ma też cechy, poprzez którą dałoby się ją umiejscowić w czasie. Można więc powiedzieć, że jest wieczna — w tym sensie, że nie ma takiego momentu, w którym by jej nie było.</p>
           </div>
         `;
         return;
@@ -1510,6 +1912,109 @@
         startCountdown(60);
         return;
       }
+
+      if (step === "2.12") {
+        enableNext(loadFlag(storageKeys.exercise2Done));
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.12</div>
+          <h1 class="lesson-title">Ćwiczenie 2 – „Dziurki” <img src="logo.png" alt="Szczelinka" class="mini-logo-inline"></h1>
+
+          <div class="lesson-body">
+            <p>Poznaliśmy już ćwiczenie „Liczenie” oddechów. Teraz poznamy kolejne ćwiczenie medytacyjne:</p>
+          </div>
+
+          <div class="side-image-row">
+            <div class="text-card">
+              <h3>Instrukcja</h3>
+              <ol>
+                <li>Podczas oddychania obserwuj uważnie obszar wokół dziurek od nosa — miejsce, w którym powietrze najpierw dotyka ciała. Skup się na krawędziach dziurek oraz lekko poniżej nosa.</li>
+                <li>Zauważ, jak podczas wdechu powietrze owiewa to miejsce, a przy wydechu również dotyka go delikatnie.</li>
+                <li>Zwróć szczególną uwagę na momenty przejścia — od wdechu do wydechu oraz od wydechu do wdechu.</li>
+                <li>Dopóki czujesz dziurki, myśli nie będą się wkradać.</li>
+                <li>Jeśli Twoja koncentracja osłabnie, może pojawić się przestrzeń dla myśli.</li>
+                <li>Gdy zauważysz, że myśli się pojawiły, spokojnie wróć do obserwacji przepływu powietrza wokół dziurek.</li>
+              </ol>
+              <p><strong>Teraz wykonaj to ćwiczenie.</strong></p>
+            </div>
+            <div class="side-visual">
+              <img src="dziurki.png" alt="Dziurki">
+            </div>
+          </div>
+
+          ${renderExercise2Timer()}
+          <div class="helper-note">Możesz przejść dalej dopiero po zakończeniu timera.</div>
+        `;
+        attachExercise2TimerEvents();
+        return;
+      }
+
+      if (step === "2.13") {
+        enableNext(loadFlag(storageKeys.exercise3Done));
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.13</div>
+          <h1 class="lesson-title">Ćwiczenie 3 – „Oddychanie do brzucha” <img src="logo.png" alt="Szczelinka" class="mini-logo-inline"></h1>
+
+          <div class="lesson-body">
+            <p>Poznasz teraz ostatnie, trzecie ćwiczenie z grupy ćwiczeń przygotowujących.</p>
+          </div>
+
+          <div class="side-image-row">
+            <div class="text-card">
+              <h3>Instrukcja</h3>
+              <ol>
+                <li>Śledź drogę powietrza, które wdychasz. Zaczyna swoją podróż w nosie, przechodzi przez gardło, klatkę piersiową, aż dociera do brzucha.</li>
+                <li>Chociaż teoretycznie powietrze zatrzymuje się w płucach, wyobraź sobie, że podróżuje dalej, aż do podbrzusza.</li>
+                <li>Podczas wydechu obserwuj, jak powietrze rozpoczyna swoją drogę na zewnątrz — od podbrzusza, przez klatkę piersiową, gardło i nos.</li>
+                <li>Powtarzaj ten proces, pozostając uważnym/uważną i odczuwając, w której części ciała aktualnie znajduje się wdech lub wydech.</li>
+                <li>Podążaj wzdłuż linii biegnącej przez centrum Twojego ciała.</li>
+                <li>Jeśli Twoją uwagę odwrócą myśli, zauważ to i łagodnie wróć do ćwiczenia.</li>
+              </ol>
+              <p><strong>Teraz wykonaj to ćwiczenie.</strong></p>
+            </div>
+            <div class="side-visual">
+              <img src="brzuch.png" alt="Oddychanie do brzucha">
+            </div>
+          </div>
+
+          ${renderExercise3Timer()}
+          <div class="helper-note">Możesz przejść dalej dopiero po zakończeniu timera.</div>
+        `;
+        attachExercise3TimerEvents();
+        return;
+      }
+
+      if (step === "2.14") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.14</div>
+          <h1 class="lesson-title">Podsumowanie ćwiczeń wstępnych (1–3)</h1>
+
+          <div class="lesson-body">
+            <p>W ćwiczeniach wstępnych oddech pełni rolę obiektu medytacyjnego. W „liczeniu” pojawia się komponent mentalny, który angażuje umysł. Przy obserwacji „dziurek” komponent mentalny zanika, a na pierwszy plan wysuwa się odczuwanie ciała w niewielkim, precyzyjnym fragmencie. W „oddychaniu do brzucha” znika statyczny aspekt obserwacji oddechu, a pojawia się element ruchu — śledzenia jego drogi w dół i w górę ciała.</p>
+            <p>Ćwiczenia wstępne wyostrzają koncentrację i poprawiają uważność. Uspokajają umysł, ponieważ z tysiąca możliwości wybieramy tylko jedną i na niej skupiamy całą uwagę. Stanowią solidną podstawę dla kolejnego, kluczowego kroku w metodzie „Szczelinki”.</p>
+            <p><strong>Kolejny krok to lekcja 3.</strong></p>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.15") {
+        enableNext(loadFlag(storageKeys.sequenceDone));
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.15</div>
+          <h1 class="lesson-title">Pełna sekwencja ćwiczeń przygotowawczych</h1>
+
+          <div class="lesson-body">
+            <p>A teraz wykonaj pełną sekwencję ćwiczeń przygotowawczych.</p>
+            <p>Ćwicząc Szczelinkę wykonujemy je jedno po drugim. Ich rolą jest wyciszyć umysł i stworzyć właściwy fundament pod najważniejszą część Szczelinki.</p>
+          </div>
+
+          ${renderSequenceTimer()}
+          <div class="helper-note">Każdy etap trwa 3 minuty. Gdy jeden się skończy, zabrzmi dźwięk i automatycznie rozpocznie się następny.</div>
+        `;
+        attachSequenceEvents();
+        return;
+      }
     }
 
     function goNext() {
@@ -1535,8 +2040,18 @@
         return;
       }
 
-      if (step === "2.11") {
-        completeLesson();
+      if (step === "2.12") {
+        if (loadFlag(storageKeys.exercise2Done)) realAdvance();
+        return;
+      }
+
+      if (step === "2.13") {
+        if (loadFlag(storageKeys.exercise3Done)) realAdvance();
+        return;
+      }
+
+      if (step === "2.15") {
+        if (loadFlag(storageKeys.sequenceDone)) completeLesson();
         return;
       }
 
@@ -1558,6 +2073,9 @@
       deleteCookie(storageKeys.topic1);
       deleteCookie(storageKeys.topic2);
       deleteCookie(storageKeys.topic3);
+      deleteCookie(storageKeys.exercise2Done);
+      deleteCookie(storageKeys.exercise3Done);
+      deleteCookie(storageKeys.sequenceDone);
       window.location.href = "Main_Page.html#lekcja3";
     }
 
@@ -1595,9 +2113,24 @@
       hideModal(resumeModal);
       currentStepIndex = 0;
       saveStep(0);
-      saveTopicDone(storageKeys.topic1, false);
-      saveTopicDone(storageKeys.topic2, false);
-      saveTopicDone(storageKeys.topic3, false);
+      saveFlag(storageKeys.topic1, false);
+      saveFlag(storageKeys.topic2, false);
+      saveFlag(storageKeys.topic3, false);
+      saveFlag(storageKeys.exercise2Done, false);
+      saveFlag(storageKeys.exercise3Done, false);
+      saveFlag(storageKeys.sequenceDone, false);
+
+      timer2State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
+      timer3State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
+      sequenceState = {
+        durations: [180, 180, 180],
+        remaining: [180, 180, 180],
+        currentIndex: 0,
+        running: false,
+        done: false,
+        interval: null
+      };
+
       renderStep();
     });
 
@@ -1627,9 +2160,7 @@
     });
 
     topicModal.addEventListener("click", (e) => {
-      if (e.target === topicModal) {
-        hideModal(topicModal);
-      }
+      if (e.target === topicModal) hideModal(topicModal);
     });
 
     document.addEventListener("keydown", (event) => {
@@ -1644,10 +2175,35 @@
         }
 
         if (step === "2.2") {
-          saveTopicDone(storageKeys.topic1, true);
-          saveTopicDone(storageKeys.topic2, true);
-          saveTopicDone(storageKeys.topic3, true);
+          saveFlag(storageKeys.topic1, true);
+          saveFlag(storageKeys.topic2, true);
+          saveFlag(storageKeys.topic3, true);
           updateTopicCardsState();
+          renderStep();
+        }
+
+        if (step === "2.12") {
+          stopSingleTimer(timer2State);
+          timer2State.remaining = 0;
+          timer2State.done = true;
+          saveFlag(storageKeys.exercise2Done, true);
+          renderStep();
+        }
+
+        if (step === "2.13") {
+          stopSingleTimer(timer3State);
+          timer3State.remaining = 0;
+          timer3State.done = true;
+          saveFlag(storageKeys.exercise3Done, true);
+          renderStep();
+        }
+
+        if (step === "2.15") {
+          stopSequenceTimer();
+          sequenceState.remaining = [0,0,0];
+          sequenceState.currentIndex = 2;
+          sequenceState.done = true;
+          saveFlag(storageKeys.sequenceDone, true);
           renderStep();
         }
       }
