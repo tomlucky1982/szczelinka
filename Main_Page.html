@@ -16,20 +16,42 @@ body{margin:0;font-family:Arial,sans-serif;background:#ffffff;color:#1f1f1f}
 position:sticky;
 top:0;
 z-index:1000;
-height:150px;
+min-height:150px;
 background:#ffffff;
 display:flex;
 align-items:center;
+justify-content:space-between;
 padding:0 40px;
 border-bottom:1px solid rgba(0,0,0,0.08);
+gap:24px;
+}
+
+.topbar-left{
+display:flex;
+align-items:center;
+gap:24px;
+min-width:0;
+flex:1;
+}
+
+.topbar-right{
+display:flex;
+align-items:center;
+justify-content:flex-end;
+flex-shrink:0;
 }
 
 .logo-link{display:inline-flex;align-items:center;text-decoration:none;flex-shrink:0}
-.logo{height:125px;width:auto;margin-right:50px;display:block;flex-shrink:0}
+.logo{height:125px;width:auto;margin-right:26px;display:block;flex-shrink:0}
 
-.menu{display:flex;align-items:center;gap:34px}
+.menu{
+display:flex;
+align-items:center;
+gap:34px;
+flex-wrap:wrap;
+}
 
-.menu>a,.dropdown>a{
+.menu>a,.dropdown>a,.contact-link{
 text-decoration:none;
 font-size:18px;
 color:#3aa7d6;
@@ -38,8 +60,8 @@ padding-bottom:6px;
 display:inline-block;
 }
 
-.menu>a:hover,.dropdown>a:hover{opacity:0.9}
-.menu a.active{border-bottom:2px solid #3aa7d6}
+.menu>a:hover,.dropdown>a:hover,.contact-link:hover{opacity:0.9}
+.menu a.active,.contact-link.active{border-bottom:2px solid #3aa7d6}
 
 .dropdown{position:relative}
 
@@ -48,7 +70,7 @@ display:none;
 position:absolute;
 top:100%;
 left:0;
-min-width:180px;
+min-width:190px;
 background:#ffffff;
 border-radius:10px;
 box-shadow:0 8px 24px rgba(0,0,0,0.10);
@@ -91,6 +113,12 @@ display:block;
 flex-shrink:0;
 border-radius:22px;
 background:#ffffff;
+}
+
+.lesson-img.placeholder{
+background:#f3f3f3;
+min-height:280px;
+object-fit:cover;
 }
 
 .lesson-text{max-width:560px;font-size:18px;line-height:1.8}
@@ -148,6 +176,87 @@ max-width:760px;
 margin-left:auto;
 margin-right:auto;
 }
+
+@media (max-width:980px){
+.topbar{
+min-height:120px;
+padding:20px 22px;
+flex-wrap:wrap;
+gap:16px;
+}
+
+.topbar-left,
+.topbar-right{
+width:100%;
+}
+
+.topbar-right{
+justify-content:flex-start;
+}
+
+.logo{
+height:95px;
+margin-right:24px;
+}
+
+.menu{
+gap:20px;
+flex-wrap:wrap;
+}
+
+.lekcje{
+padding:0 22px;
+}
+
+.lesson,
+.lesson.reverse{
+flex-direction:column;
+gap:28px;
+margin-bottom:90px;
+}
+
+.section-gray{
+padding:28px 22px;
+margin-bottom:90px;
+}
+
+.lesson-text{
+max-width:none;
+width:100%;
+}
+
+.lesson-text h2{
+font-size:28px;
+}
+}
+
+@media (max-width:560px){
+.logo{
+height:78px;
+}
+
+.menu>a,.dropdown>a,.contact-link{
+font-size:17px;
+}
+
+.dropdown-content a{
+font-size:15px;
+}
+
+.lesson-text{
+font-size:17px;
+}
+
+.lesson-text h2{
+font-size:26px;
+}
+
+.lesson-button{
+display:block;
+text-align:center;
+width:100%;
+}
+}
 </style>
 </head>
 
@@ -155,79 +264,197 @@ margin-right:auto;
 
 <header class="topbar">
 
-<a href="index.html" class="logo-link">
-<img src="logo.png" class="logo">
-</a>
+  <div class="topbar-left">
 
-<nav class="menu">
+    <a href="index.html" class="logo-link">
+      <img src="logo.png" class="logo" alt="Szczelinka">
+    </a>
 
-<a href="szczelinka.html">Szczelinka</a>
+    <nav class="menu">
 
-<div class="dropdown">
+      <a href="szczelinka.html">Szczelinka</a>
 
-<a class="active" href="#lekcja1">Lekcje</a>
+      <div class="dropdown">
+        <a class="active" href="#lekcja1">Lekcje</a>
 
-<div class="dropdown-content">
-<a href="#lekcja1">Lekcja 1</a>
-<a href="#lekcja2">Lekcja 2</a>
-<a href="#lekcja3">Lekcje 3–8</a>
-</div>
+        <div class="dropdown-content">
+          <a href="#lekcja1">Lekcja 1</a>
+          <a href="#lekcja2">Lekcja 2</a>
+          <a href="#lekcja3">Lekcja 3</a>
+          <a href="#lekcja4">Lekcja 4</a>
+          <a href="#lekcja5">Lekcja 5</a>
+          <a href="#lekcja6">Lekcja 6</a>
+          <a href="#lekcja7">Lekcja 7</a>
+          <a href="#lekcja8">Lekcja 8</a>
+        </div>
+      </div>
 
-</div>
+      <a href="#">Zajęcia</a>
+      <a href="#">Prowadzący</a>
 
-<a href="#">Zajęcia</a>
+    </nav>
+  </div>
 
-</nav>
+  <div class="topbar-right">
+    <a href="#" class="contact-link">Kontakt</a>
+  </div>
 
 </header>
 
 <main class="content">
 <section class="lekcje">
 
-<div id="lekcja1" class="section-gray">
+  <div id="lekcja1" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 1.png" class="lesson-img" alt="Lekcja 1">
 
-<div class="lesson" style="margin-bottom:0">
+      <div class="lesson-text">
+        <h2>Lekcja 1</h2>
 
-<img src="lekcja 1.png" class="lesson-img">
+        <p>
+          W tej lekcji dowiesz się, że prawdziwym celem każdego działania jest poszukiwanie trwałego szczęścia, którego świat zewnętrzny nie może w pełni zaoferować.
+        </p>
 
-<div class="lesson-text">
+        <p>
+          Poznasz pojęcie Szczelinki – punktu absolutnego „teraz” pomiędzy myślami.
+        </p>
 
-<h2>Lekcja 1</h2>
+        <a href="lekcja1.html" class="lesson-button">Przejdź do lekcji</a>
+      </div>
+    </div>
+  </div>
 
-<p>
-W tej lekcji dowiesz się, że prawdziwym celem każdego działania jest poszukiwanie trwałego szczęścia, którego świat zewnętrzny nie może w pełni zaoferować.
-</p>
+  <div id="lekcja2" class="lesson reverse">
+    <img src="lekcja 2.png" class="lesson-img" alt="Lekcja 2">
 
-<p>
-Poznasz pojęcie Szczelinki – punktu absolutnego „teraz” pomiędzy myślami.
-</p>
+    <div class="lesson-text">
+      <h2>Lekcja 2</h2>
 
-<a href="lekcja1.html" class="lesson-button">Przejdź do lekcji</a>
+      <p>
+        Szczelinka to stan intensywnej obecności przy jednoczesnym całkowitym braku myśli.
+      </p>
 
-</div>
-</div>
-</div>
+      <p>
+        W tej lekcji zadasz sobie jedno z najważniejszych pytań: <b>Kim jesteś?</b>
+      </p>
 
-<div id="lekcja2" class="lesson reverse">
+      <a href="lekcja2.html" class="lesson-button">Przejdź do lekcji</a>
+    </div>
+  </div>
 
-<img src="lekcja 2.png" class="lesson-img">
+  <div id="lekcja3" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 3.png" class="lesson-img placeholder" alt="Lekcja 3">
 
-<div class="lesson-text">
+      <div class="lesson-text">
+        <h2>Lekcja 3</h2>
 
-<h2>Lekcja 2</h2>
+        <p>
+          Tutaj pojawi się opis lekcji 3. Na razie zostawiamy miejsce na zdjęcie i treść.
+        </p>
 
-<p>
-Szczelinka to stan intensywnej obecności przy jednoczesnym całkowitym braku myśli.
-</p>
+        <p>
+          W kolejnym kroku uzupełnimy grafikę, opis oraz docelowy link do lekcji.
+        </p>
 
-<p>
-W tej lekcji zadasz sobie jedno z najważniejszych pytań: <b>Kim jesteś?</b>
-</p>
+        <a href="#" class="lesson-button">Wkrótce</a>
+      </div>
+    </div>
+  </div>
 
-<a href="lekcja2.html" class="lesson-button">Przejdź do lekcji</a>
+  <div id="lekcja4" class="lesson reverse">
+    <img src="lekcja 4.png" class="lesson-img placeholder" alt="Lekcja 4">
 
-</div>
-</div>
+    <div class="lesson-text">
+      <h2>Lekcja 4</h2>
+
+      <p>
+        Tutaj pojawi się opis lekcji 4. Na razie dodajemy gotową sekcję, którą potem uzupełnimy.
+      </p>
+
+      <p>
+        Możemy później wstawić właściwy obrazek, opis oraz aktywny przycisk przejścia.
+      </p>
+
+      <a href="#" class="lesson-button">Wkrótce</a>
+    </div>
+  </div>
+
+  <div id="lekcja5" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 5.png" class="lesson-img placeholder" alt="Lekcja 5">
+
+      <div class="lesson-text">
+        <h2>Lekcja 5</h2>
+
+        <p>
+          Sekcja przygotowana pod lekcję 5. Miejsce na zdjęcie, opis i przycisk jest już gotowe.
+        </p>
+
+        <p>
+          Wystarczy później podmienić treść i ustawić właściwy link do pliku lekcji.
+        </p>
+
+        <a href="#" class="lesson-button">Wkrótce</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lekcja6" class="lesson reverse">
+    <img src="lekcja 6.png" class="lesson-img placeholder" alt="Lekcja 6">
+
+    <div class="lesson-text">
+      <h2>Lekcja 6</h2>
+
+      <p>
+        Tutaj będzie opis lekcji 6. Struktura sekcji jest już przygotowana i spójna z resztą strony.
+      </p>
+
+      <p>
+        Na następnym etapie można dodać docelowy obraz oraz gotowy przycisk wejścia do lekcji.
+      </p>
+
+      <a href="#" class="lesson-button">Wkrótce</a>
+    </div>
+  </div>
+
+  <div id="lekcja7" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 7.png" class="lesson-img placeholder" alt="Lekcja 7">
+
+      <div class="lesson-text">
+        <h2>Lekcja 7</h2>
+
+        <p>
+          Sekcja dla lekcji 7 została dodana. Można tu później uzupełnić opis oraz odpowiednią ilustrację.
+        </p>
+
+        <p>
+          Dzięki temu cała mapa lekcji jest już kompletna i gotowa do dalszego rozwijania.
+        </p>
+
+        <a href="#" class="lesson-button">Wkrótce</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lekcja8" class="lesson reverse" style="margin-bottom:0">
+    <img src="lekcja 8.png" class="lesson-img placeholder" alt="Lekcja 8">
+
+    <div class="lesson-text">
+      <h2>Lekcja 8</h2>
+
+      <p>
+        Ostatnia sekcja została przygotowana dla lekcji 8. Na razie jest to szablon do dalszego uzupełnienia.
+      </p>
+
+      <p>
+        Później możemy tu dodać finalny opis, zdjęcie oraz aktywny przycisk wejścia do lekcji.
+      </p>
+
+      <a href="#" class="lesson-button">Wkrótce</a>
+    </div>
+  </div>
 
 </section>
 </main>
