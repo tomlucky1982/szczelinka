@@ -1,252 +1,463 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Szczelinka</title>
-  <link rel="icon" href="favicon_minimal.ico">
-  <meta name="theme-color" content="#3aa7d6">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Szczelinka — Lekcje</title>
+<link rel="icon" href="favicon_minimal.ico" />
+<meta name="theme-color" content="#3aa7d6" />
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:#ffffff;color:#1f1f1f}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: white;
-      color: #1f1f1f;
-    }
+.topbar{
+position:sticky;
+top:0;
+z-index:1000;
+min-height:150px;
+background:#ffffff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+border-bottom:1px solid rgba(0,0,0,0.08);
+gap:24px;
+}
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      height: 150px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
+.topbar-left{
+display:flex;
+align-items:center;
+gap:24px;
+min-width:0;
+flex:1;
+}
 
-    .topbar-left {
-      display: flex;
-      align-items: center;
-    }
+.topbar-right{
+display:flex;
+align-items:center;
+justify-content:flex-end;
+flex-shrink:0;
+}
 
-    .topbar-right {
-      display: flex;
-      align-items: center;
-    }
+.logo-link{display:inline-flex;align-items:center;text-decoration:none;flex-shrink:0}
+.logo{height:125px;width:auto;margin-right:26px;display:block;flex-shrink:0}
 
-    .logo {
-      height: 125px;
-      margin-right: 50px;
-    }
+.menu{
+display:flex;
+align-items:center;
+gap:34px;
+flex-wrap:wrap;
+}
 
-    .menu {
-      display: flex;
-      align-items: center;
-      gap: 34px;
-    }
+.menu>a,.dropdown>a,.contact-link{
+text-decoration:none;
+font-size:18px;
+color:#3aa7d6;
+font-weight:500;
+padding-bottom:6px;
+display:inline-block;
+}
 
-    .menu > a,
-    .dropdown > a,
-    .contact-link {
-      text-decoration: none;
-      font-size: 18px;
-      color: #3aa7d6;
-      font-weight: 500;
-      padding-bottom: 6px;
-      display: inline-block;
-    }
+.menu>a:hover,.dropdown>a:hover,.contact-link:hover{opacity:0.9}
+.menu a.active,.contact-link.active{border-bottom:2px solid #3aa7d6}
 
-    .menu > a.active {
-      border-bottom: 2px solid #3aa7d6;
-    }
+.dropdown{position:relative}
 
-    .dropdown {
-      position: relative;
-    }
+.dropdown-content{
+display:none;
+position:absolute;
+top:100%;
+left:0;
+min-width:190px;
+background:#ffffff;
+border-radius:10px;
+box-shadow:0 8px 24px rgba(0,0,0,0.10);
+padding:10px 0;
+z-index:1100;
+}
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      min-width: 190px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-      padding: 10px 0;
-      z-index: 1100;
-    }
+.dropdown-content a{
+display:block;
+padding:10px 18px;
+text-decoration:none;
+color:#3aa7d6;
+font-size:16px;
+white-space:nowrap;
+}
 
-    .dropdown-content a {
-      display: block;
-      padding: 10px 18px;
-      text-decoration: none;
-      color: #3aa7d6;
-      font-size: 16px;
-      white-space: nowrap;
-    }
+.dropdown-content a:hover{background:rgba(58,167,214,0.07)}
+.dropdown:hover .dropdown-content{display:block}
 
-    .dropdown-content a:hover {
-      background: rgba(58,167,214,0.07);
-    }
+.content{background:#ffffff;padding:70px 0 110px}
 
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
+.lekcje{max-width:1180px;margin:0 auto;padding:0 40px}
 
-    .content {
-      max-width: 1150px;
-      margin: 100px auto;
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      gap: 80px;
-    }
+.lesson{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:70px;
+margin-bottom:130px;
+scroll-margin-top:190px;
+}
 
-    .logo-poziom {
-      width: 420px;
-      max-width: 100%;
-    }
+.lesson.reverse{flex-direction:row-reverse}
 
-    .text {
-      font-size: 19px;
-      line-height: 1.85;
-      max-width: 520px;
-    }
+.lesson-img{
+width:460px;
+max-width:100%;
+height:auto;
+display:block;
+flex-shrink:0;
+border-radius:22px;
+background:#ffffff;
+}
 
-    .text h1 {
-      color: #3aa7d6;
-      margin-bottom: 25px;
-      font-size: 36px;
-    }
+.lesson-img.placeholder{
+background:#f3f3f3;
+min-height:280px;
+object-fit:cover;
+}
 
-    .main-button {
-      display: block;
-      margin: 90px auto 120px auto;
-      padding: 20px 48px;
-      background: #3aa7d6;
-      color: white;
-      text-decoration: none;
-      border-radius: 18px;
-      font-size: 22px;
-      font-weight: 600;
-      width: fit-content;
-      box-shadow: 0 8px 28px rgba(58,167,214,0.25);
-      animation: breath 4s ease-in-out infinite;
-      transition: 0.25s;
-    }
+.lesson-text{max-width:560px;font-size:18px;line-height:1.8}
 
-    .main-button:hover {
-      background: #2e95c2;
-      transform: scale(1.03);
-    }
+.lesson-text h2{
+margin-top:0;
+margin-bottom:22px;
+color:#3aa7d6;
+font-size:32px;
+font-weight:600;
+}
 
-    @keyframes breath {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 6px 18px rgba(58,167,214,0.25);
-      }
-      50% {
-        transform: scale(1.08);
-        box-shadow: 0 12px 40px rgba(58,167,214,0.35);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 6px 18px rgba(58,167,214,0.25);
-      }
-    }
+.lesson-text p{margin:0 0 18px 0}
 
-    @media (max-width: 900px) {
-      .content {
-        flex-direction: column;
-        text-align: center;
-        gap: 40px;
-        margin-top: 60px;
-      }
+.lesson-button{
+display:inline-block;
+margin-top:10px;
+padding:14px 28px;
+background:#3aa7d6;
+color:#ffffff;
+text-decoration:none;
+border-radius:14px;
+font-size:16px;
+font-weight:600;
+transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+box-shadow:0 8px 20px rgba(58,167,214,.18);
+}
 
-      .logo-poziom {
-        width: 320px;
-      }
-    }
-  </style>
+.lesson-button:hover{
+transform:translateY(-1px);
+box-shadow:0 10px 24px rgba(58,167,214,.24);
+background:#2f9cca;
+}
+
+.section-gray{
+background:#f3f3f3;
+border-radius:32px;
+padding:48px;
+margin-bottom:130px;
+}
+
+.lesson.center{display:block;text-align:center}
+
+.lesson.center h2{
+color:#3aa7d6;
+font-size:32px;
+margin-bottom:20px;
+}
+
+.lesson.center p{
+font-size:18px;
+line-height:1.8;
+margin:0 0 28px 0;
+max-width:760px;
+margin-left:auto;
+margin-right:auto;
+}
+
+@media (max-width:980px){
+.topbar{
+min-height:120px;
+padding:20px 22px;
+flex-wrap:wrap;
+gap:16px;
+}
+
+.topbar-left,
+.topbar-right{
+width:100%;
+}
+
+.topbar-right{
+justify-content:flex-start;
+}
+
+.logo{
+height:95px;
+margin-right:24px;
+}
+
+.menu{
+gap:20px;
+flex-wrap:wrap;
+}
+
+.lekcje{
+padding:0 22px;
+}
+
+.lesson,
+.lesson.reverse{
+flex-direction:column;
+gap:28px;
+margin-bottom:90px;
+}
+
+.section-gray{
+padding:28px 22px;
+margin-bottom:90px;
+}
+
+.lesson-text{
+max-width:none;
+width:100%;
+}
+
+.lesson-text h2{
+font-size:28px;
+}
+}
+
+@media (max-width:560px){
+.logo{
+height:78px;
+}
+
+.menu>a,.dropdown>a,.contact-link{
+font-size:17px;
+}
+
+.dropdown-content a{
+font-size:15px;
+}
+
+.lesson-text{
+font-size:17px;
+}
+
+.lesson-text h2{
+font-size:26px;
+}
+
+.lesson-button{
+display:block;
+text-align:center;
+width:100%;
+}
+}
+</style>
 </head>
+
 <body>
 
-  <header class="topbar">
-    <div class="topbar-left">
-      <a href="index.html">
-        <img src="logo.png" class="logo" alt="Szczelinka">
-      </a>
+<header class="topbar">
 
-      <nav class="menu">
-        <a class="active" href="szczelinka.html">Szczelinka</a>
+  <div class="topbar-left">
 
-        <div class="dropdown">
-          <a href="Main_Page.html">Lekcje</a>
+    <a href="index.html" class="logo-link">
+      <img src="logo.png" class="logo" alt="Szczelinka">
+    </a>
 
-          <div class="dropdown-content">
-            <a href="Main_Page.html#lekcja1">Lekcja 1</a>
-            <a href="Main_Page.html#lekcja2">Lekcja 2</a>
-            <a href="Main_Page.html#lekcja3">Lekcja 3</a>
-            <a href="Main_Page.html#lekcja4">Lekcja 4</a>
-            <a href="Main_Page.html#lekcja5">Lekcja 5</a>
-            <a href="Main_Page.html#lekcja6">Lekcja 6</a>
-            <a href="Main_Page.html#lekcja7">Lekcja 7</a>
-            <a href="Main_Page.html#lekcja8">Lekcja 8</a>
-          </div>
+    <nav class="menu">
+
+      <a href="szczelinka.html">Szczelinka</a>
+
+      <div class="dropdown">
+        <a class="active" href="#lekcja1">Lekcje</a>
+
+        <div class="dropdown-content">
+          <a href="#lekcja1">Lekcja 1</a>
+          <a href="#lekcja2">Lekcja 2</a>
+          <a href="#lekcja3">Lekcja 3</a>
+          <a href="#lekcja4">Lekcja 4</a>
+          <a href="#lekcja5">Lekcja 5</a>
+          <a href="#lekcja6">Lekcja 6</a>
+          <a href="#lekcja7">Lekcja 7</a>
+          <a href="#lekcja8">Lekcja 8</a>
         </div>
+      </div>
 
-        <a href="#">Zajęcia</a>
-        <a href="#">Prowadzący</a>
-      </nav>
-    </div>
+      <a href="#">Zajęcia</a>
+      <a href="#">Prowadzący</a>
 
-    <div class="topbar-right">
-      <a href="#" class="contact-link">Kontakt</a>
-    </div>
-  </header>
+    </nav>
+  </div>
 
-  <div class="content">
-    <img src="logo_poziom.png" class="logo-poziom" alt="Szczelinka">
+  <div class="topbar-right">
+    <a href="#" class="contact-link">Kontakt</a>
+  </div>
 
-    <div class="text">
-      <h1>Szczelinka</h1>
+</header>
 
-      <p>
-        Szczelinka to metoda medytacji, która pozwala usunąć z umysłu wszystko, co przemijające.
-        To, co pozostaje i czego nie można usunąć, odsłania prawdę o tym, kim naprawdę jesteśmy.
-      </p>
+<main class="content">
+<section class="lekcje">
 
-      <p>
-        W tej wąskiej „Szczelince” pomiędzy myślami odkrywamy coś zaskakującego.
-        Można wtedy powiedzieć, że cel życia został osiągnięty i nie ma już niczego więcej do odkrycia.
-      </p>
+  <div id="lekcja1" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 1.png" class="lesson-img" alt="Lekcja 1">
 
-      <p>
-        Szczelinka jest również stanem intensywnej obecności,
-        w którym pojawia się całkowity brak myśli.
-      </p>
+      <div class="lesson-text">
+        <h2>Lekcja 1</h2>
 
-      <p>
-        Tego typu medytacja przynosi głębokie poczucie spełnienia,
-        czystości, błogości i spokoju.
-      </p>
+        <p>
+          W tej lekcji dowiesz się, że prawdziwym celem każdego działania jest poszukiwanie trwałego szczęścia, którego świat zewnętrzny nie może w pełni zaoferować.
+        </p>
 
-      <p>
-        Otwiera się wtedy nowy wymiar istnienia —
-        który w rzeczywistości zawsze był z nami,
-        lecz zazwyczaj pozostaje ukryty pod ciągłą aktywnością umysłu.
-      </p>
+        <p>
+          Poznasz pojęcie Szczelinki – punktu absolutnego „teraz” pomiędzy myślami.
+        </p>
+
+        <a href="lekcja1.html" class="lesson-button">Przejdź do lekcji</a>
+      </div>
     </div>
   </div>
 
-  <a href="Main_Page.html" class="main-button">Poznaj Szczelinkę</a>
+  <div id="lekcja2" class="lesson reverse">
+    <img src="lekcja 2.png" class="lesson-img" alt="Lekcja 2">
+
+    <div class="lesson-text">
+      <h2>Lekcja 2</h2>
+
+      <p>
+        Szczelinka to stan intensywnej obecności przy jednoczesnym całkowitym braku myśli.
+      </p>
+
+      <p>
+        W tej lekcji zadasz sobie jedno z najważniejszych pytań: <b>Kim jesteś?</b>
+      </p>
+
+      <a href="lekcja2.html" class="lesson-button">Przejdź do lekcji</a>
+    </div>
+  </div>
+
+  <div id="lekcja3" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 3.png" class="lesson-img placeholder" alt="Lekcja 3">
+
+      <div class="lesson-text">
+        <h2>Lekcja 3</h2>
+
+        <p>
+          Tutaj pojawi się opis lekcji 3. Na razie zostawiamy miejsce na zdjęcie i treść.
+        </p>
+
+        <p>
+          W kolejnym kroku uzupełnimy grafikę, opis oraz docelowy link do lekcji.
+        </p>
+
+        <a href="#" class="lesson-button">Wkrótce</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lekcja4" class="lesson reverse">
+    <img src="lekcja 4.png" class="lesson-img placeholder" alt="Lekcja 4">
+
+    <div class="lesson-text">
+      <h2>Lekcja 4</h2>
+
+      <p>
+        Tutaj pojawi się opis lekcji 4. Na razie dodajemy gotową sekcję, którą potem uzupełnimy.
+      </p>
+
+      <p>
+        Możemy później wstawić właściwy obrazek, opis oraz aktywny przycisk przejścia.
+      </p>
+
+      <a href="#" class="lesson-button">Wkrótce</a>
+    </div>
+  </div>
+
+  <div id="lekcja5" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 5.png" class="lesson-img placeholder" alt="Lekcja 5">
+
+      <div class="lesson-text">
+        <h2>Lekcja 5</h2>
+
+        <p>
+          Sekcja przygotowana pod lekcję 5. Miejsce na zdjęcie, opis i przycisk jest już gotowe.
+        </p>
+
+        <p>
+          Wystarczy później podmienić treść i ustawić właściwy link do pliku lekcji.
+        </p>
+
+        <a href="#" class="lesson-button">Wkrótce</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lekcja6" class="lesson reverse">
+    <img src="lekcja 6.png" class="lesson-img placeholder" alt="Lekcja 6">
+
+    <div class="lesson-text">
+      <h2>Lekcja 6</h2>
+
+      <p>
+        Tutaj będzie opis lekcji 6. Struktura sekcji jest już przygotowana i spójna z resztą strony.
+      </p>
+
+      <p>
+        Na następnym etapie można dodać docelowy obraz oraz gotowy przycisk wejścia do lekcji.
+      </p>
+
+      <a href="#" class="lesson-button">Wkrótce</a>
+    </div>
+  </div>
+
+  <div id="lekcja7" class="section-gray">
+    <div class="lesson" style="margin-bottom:0">
+      <img src="lekcja 7.png" class="lesson-img placeholder" alt="Lekcja 7">
+
+      <div class="lesson-text">
+        <h2>Lekcja 7</h2>
+
+        <p>
+          Sekcja dla lekcji 7 została dodana. Można tu później uzupełnić opis oraz odpowiednią ilustrację.
+        </p>
+
+        <p>
+          Dzięki temu cała mapa lekcji jest już kompletna i gotowa do dalszego rozwijania.
+        </p>
+
+        <a href="#" class="lesson-button">Wkrótce</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lekcja8" class="lesson reverse" style="margin-bottom:0">
+    <img src="lekcja 8.png" class="lesson-img placeholder" alt="Lekcja 8">
+
+    <div class="lesson-text">
+      <h2>Lekcja 8</h2>
+
+      <p>
+        Ostatnia sekcja została przygotowana dla lekcji 8. Na razie jest to szablon do dalszego uzupełnienia.
+      </p>
+
+      <p>
+        Później możemy tu dodać finalny opis, zdjęcie oraz aktywny przycisk wejścia do lekcji.
+      </p>
+
+      <a href="#" class="lesson-button">Wkrótce</a>
+    </div>
+  </div>
+
+</section>
+</main>
 
 </body>
 </html>
