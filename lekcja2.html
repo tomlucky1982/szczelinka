@@ -596,81 +596,194 @@
       transform: translateY(-2px);
     }
 
-    .timer-widget,
-    .multi-timer-widget {
+    .meditation-timer-box {
       width: 100%;
-      max-width: 900px;
-      background: #f5f5f5;
-      border-radius: 24px;
-      padding: 24px 26px;
+      max-width: 950px;
+      background: #ececec;
+      border-radius: 30px;
+      padding: 28px 24px 24px;
       text-align: center;
     }
 
-    .timer-display {
+    .meditation-timer-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: #3aa7d6;
+      margin-bottom: 22px;
+    }
+
+    .meditation-duration-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 42px;
+      margin-bottom: 16px;
+    }
+
+    .circle-adjust-btn {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      border: none;
+      background: #f5f5f5;
+      color: #111;
+      font-size: 42px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .circle-adjust-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .meditation-duration-label {
+      font-size: 50px;
+      font-weight: 700;
+      color: #3aa7d6;
+      min-width: 180px;
+    }
+
+    .meditation-clock {
       font-size: 52px;
       font-weight: 700;
       color: #3aa7d6;
       line-height: 1;
-      margin: 10px 0 18px;
       font-variant-numeric: tabular-nums;
+      margin-bottom: 22px;
     }
 
-    .timer-controls,
-    .multi-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
+    .meditation-start-btn {
+      padding: 18px 34px;
+      border-radius: 20px;
+      border: none;
+      background: #3aa7d6;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 18px;
     }
 
-    .timer-note {
+    .meditation-start-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .meditation-note {
       font-size: 16px;
       color: #666;
-      margin-top: 12px;
       line-height: 1.6;
     }
 
-    .timer-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .sequence-box {
+      width: 100%;
+      max-width: 980px;
+      background: #ececec;
+      border-radius: 30px;
+      padding: 28px 28px 24px;
+      text-align: center;
+    }
+
+    .sequence-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 22px;
+    }
+
+    .sequence-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
       gap: 18px;
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 16px 18px;
-      margin-bottom: 12px;
-      text-align: left;
-      border: 1px solid rgba(0,0,0,0.06);
+      align-items: center;
+      background: #f5f5f5;
+      border-radius: 24px;
+      padding: 16px 22px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
-    .timer-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .timer-row.active {
+    .sequence-row.active {
       border-color: #3aa7d6;
-      box-shadow: 0 10px 24px rgba(58,167,214,0.10);
+      box-shadow: 0 10px 24px rgba(58,167,214,0.12);
     }
 
-    .timer-row.done {
+    .sequence-row.done {
       border-color: #3bb273;
       background: #f7fcf9;
     }
 
-    .timer-row-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #222;
+    .sequence-left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      width: 100%;
     }
 
-    .timer-row-time {
+    .sequence-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: #111;
+      text-align: left;
+    }
+
+    .sequence-adjust {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: nowrap;
+    }
+
+    .mini-adjust-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: #ffffff;
+      color: #111;
       font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mini-adjust-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .sequence-time {
+      font-size: 38px;
       font-weight: 700;
       color: #3aa7d6;
       font-variant-numeric: tabular-nums;
-      min-width: 90px;
+      min-width: 110px;
       text-align: right;
+    }
+
+    .sequence-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .sequence-note {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.6;
+      margin-top: 16px;
     }
 
     @media (max-width: 980px) {
@@ -738,8 +851,22 @@
         grid-template-columns: 1fr;
       }
 
-      .timer-display {
-        font-size: 44px;
+      .meditation-duration-label,
+      .meditation-clock {
+        font-size: 42px;
+      }
+
+      .sequence-row {
+        grid-template-columns: 1fr;
+      }
+
+      .sequence-left {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .sequence-time {
+        text-align: left;
       }
     }
 
@@ -801,17 +928,26 @@
         min-height: 120px;
       }
 
-      .timer-display {
-        font-size: 38px;
+      .meditation-duration-row {
+        gap: 18px;
       }
 
-      .timer-row {
-        flex-direction: column;
-        align-items: flex-start;
+      .circle-adjust-btn {
+        width: 58px;
+        height: 58px;
       }
 
-      .timer-row-time {
-        text-align: left;
+      .meditation-duration-label,
+      .meditation-clock {
+        font-size: 34px;
+      }
+
+      .sequence-name {
+        font-size: 22px;
+      }
+
+      .sequence-time {
+        font-size: 32px;
       }
     }
   </style>
@@ -927,6 +1063,16 @@
     let currentStepIndex = 0;
     let countdown = 60;
     let countdownTimer = null;
+    let timer2State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
+    let timer3State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
+    let sequenceState = {
+      durations: [180, 180, 180],
+      remaining: [180, 180, 180],
+      currentIndex: 0,
+      running: false,
+      done: false,
+      interval: null
+    };
 
     const storageKeys = {
       step: "szczelinka_lesson2_step",
@@ -965,17 +1111,6 @@
 
     const deepSleepModal = document.getElementById("deepSleepModal");
     const deepSleepReadyBtn = document.getElementById("deepSleepReadyBtn");
-
-    let timer2State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
-    let timer3State = { duration: 180, remaining: 180, running: false, done: false, interval: null };
-    let sequenceState = {
-      durations: [180, 180, 180],
-      remaining: [180, 180, 180],
-      currentIndex: 0,
-      running: false,
-      done: false,
-      interval: null
-    };
 
     function setCookie(name, value, days = 180) {
       const expires = new Date(Date.now() + days * 864e5).toUTCString();
@@ -1126,7 +1261,6 @@
         if (loadFlag(key)) card.classList.add("done");
         else card.classList.remove("done");
       });
-
       if (currentStepIndex === 2) enableNext(allTopicsCompleted());
     }
 
@@ -1136,21 +1270,15 @@
       return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
     }
 
+    function formatMinutesLabel(seconds) {
+      const mins = Math.floor(seconds / 60);
+      return `${mins} min`;
+    }
+
     function playBell() {
       try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.6);
-        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.18, audioCtx.currentTime + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.9);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.95);
+        const audio = new Audio("tibetan.mp3");
+        audio.play().catch(() => {});
       } catch (e) {}
     }
 
@@ -1162,75 +1290,9 @@
       state.running = false;
     }
 
-    function resetExerciseTimer(which) {
-      const state = which === 2 ? timer2State : timer3State;
-      stopSingleTimer(state);
-      state.remaining = state.duration;
-      state.done = false;
-      if (which === 2) saveFlag(storageKeys.exercise2Done, false);
-      if (which === 3) saveFlag(storageKeys.exercise3Done, false);
-      renderStep();
-    }
-
-    function changeExerciseTimer(which, delta) {
-      const state = which === 2 ? timer2State : timer3State;
-      if (state.running) return;
-      state.duration = Math.max(60, Math.min(900, state.duration + delta));
-      state.remaining = state.duration;
-      state.done = false;
-      if (which === 2) saveFlag(storageKeys.exercise2Done, false);
-      if (which === 3) saveFlag(storageKeys.exercise3Done, false);
-      renderStep();
-    }
-
-    function startExerciseTimer(which) {
-      const state = which === 2 ? timer2State : timer3State;
-      stopSingleTimer(state);
-      state.running = true;
-      enableNext(false);
-
-      state.interval = setInterval(() => {
-        state.remaining -= 1;
-        updateExerciseTimerUI(which);
-
-        if (state.remaining <= 0) {
-          stopSingleTimer(state);
-          state.remaining = 0;
-          state.done = true;
-          playBell();
-          if (which === 2) saveFlag(storageKeys.exercise2Done, true);
-          if (which === 3) saveFlag(storageKeys.exercise3Done, true);
-          enableNext(true);
-          updateExerciseTimerUI(which);
-        }
-      }, 1000);
-
-      updateExerciseTimerUI(which);
-    }
-
-    function updateExerciseTimerUI(which) {
-      const state = which === 2 ? timer2State : timer3State;
-      const display = document.getElementById(`exercise${which}Display`);
-      if (display) display.textContent = formatTime(state.remaining);
-      const startBtn = document.getElementById(`exercise${which}Start`);
-      const resetBtn = document.getElementById(`exercise${which}Reset`);
-      const plusBtn = document.getElementById(`exercise${which}Plus`);
-      const minusBtn = document.getElementById(`exercise${which}Minus`);
-      const status = document.getElementById(`exercise${which}Status`);
-
-      if (startBtn) startBtn.disabled = state.running;
-      if (resetBtn) resetBtn.disabled = false;
-      if (plusBtn) plusBtn.disabled = state.running;
-      if (minusBtn) minusBtn.disabled = state.running;
-
-      if (status) {
-        if (state.done) status.textContent = "Ćwiczenie zakończone.";
-        else if (state.running) status.textContent = "Timer działa…";
-        else status.textContent = "Ustaw czas i uruchom timer.";
-      }
-    }
-
-    function stopSequenceTimer() {
+    function cleanupSpecialTimers() {
+      stopSingleTimer(timer2State);
+      stopSingleTimer(timer3State);
       if (sequenceState.interval) {
         clearInterval(sequenceState.interval);
         sequenceState.interval = null;
@@ -1238,81 +1300,286 @@
       sequenceState.running = false;
     }
 
-    function resetSequenceTimer() {
-      stopSequenceTimer();
-      sequenceState.remaining = [...sequenceState.durations];
-      sequenceState.currentIndex = 0;
-      sequenceState.done = false;
-      saveFlag(storageKeys.sequenceDone, false);
-      renderStep();
+    function updateExerciseTimerUI(which) {
+      const state = which === 2 ? timer2State : timer3State;
+      const display = document.getElementById(`exercise${which}Display`);
+      const label = document.getElementById(`exercise${which}Label`);
+      const startBtn = document.getElementById(`exercise${which}Start`);
+      const plusBtn = document.getElementById(`exercise${which}Plus`);
+      const minusBtn = document.getElementById(`exercise${which}Minus`);
+      const note = document.getElementById(`exercise${which}Status`);
+
+      if (display) display.textContent = formatTime(state.remaining);
+      if (label) label.textContent = formatMinutesLabel(state.duration);
+      if (startBtn) startBtn.disabled = state.running || state.done;
+      if (plusBtn) plusBtn.disabled = state.running;
+      if (minusBtn) minusBtn.disabled = state.running || state.duration <= 60;
+
+      if (note) {
+        if (state.done) note.textContent = "Timer zakończony. Możesz przejść dalej.";
+        else if (state.running) note.textContent = "Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.";
+        else note.textContent = "Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.";
+      }
     }
 
-    function startSequenceTimer() {
-      stopSequenceTimer();
+    function changeExerciseTimer(which, delta, event) {
+      if (event) event.preventDefault();
+      const state = which === 2 ? timer2State : timer3State;
+      if (state.running) return;
+      state.duration = Math.max(60, Math.min(1800, state.duration + delta));
+      state.remaining = state.duration;
+      state.done = false;
+      if (which === 2) saveFlag(storageKeys.exercise2Done, false);
+      if (which === 3) saveFlag(storageKeys.exercise3Done, false);
+      enableNext(false);
+      updateExerciseTimerUI(which);
+    }
+
+    function resetExerciseTimer(which, event) {
+      if (event) event.preventDefault();
+      const state = which === 2 ? timer2State : timer3State;
+      stopSingleTimer(state);
+      state.remaining = state.duration;
+      state.done = false;
+      if (which === 2) saveFlag(storageKeys.exercise2Done, false);
+      if (which === 3) saveFlag(storageKeys.exercise3Done, false);
+      enableNext(false);
+      updateExerciseTimerUI(which);
+    }
+
+    function startExerciseTimer(which, event) {
+      if (event) event.preventDefault();
+      const state = which === 2 ? timer2State : timer3State;
+      stopSingleTimer(state);
+      state.running = true;
+      enableNext(false);
+      updateExerciseTimerUI(which);
+
+      state.interval = setInterval(() => {
+        state.remaining -= 1;
+        if (state.remaining <= 0) {
+          state.remaining = 0;
+          stopSingleTimer(state);
+          state.done = true;
+          playBell();
+          if (which === 2) saveFlag(storageKeys.exercise2Done, true);
+          if (which === 3) saveFlag(storageKeys.exercise3Done, true);
+          enableNext(true);
+        }
+        updateExerciseTimerUI(which);
+      }, 1000);
+    }
+
+    function updateSequenceUI() {
+      const startBtn = document.getElementById("sequenceStart");
+      const resetBtn = document.getElementById("sequenceReset");
+      const status = document.getElementById("sequenceStatus");
+
+      for (let i = 0; i < 3; i++) {
+        const row = document.getElementById(`seqRow${i}`);
+        const time = document.getElementById(`seqTime${i}`);
+        const minus = document.getElementById(`seqMinus${i}`);
+        const plus = document.getElementById(`seqPlus${i}`);
+
+        if (time) time.textContent = formatTime(sequenceState.remaining[i]);
+        if (row) {
+          row.classList.remove("active", "done");
+          if (sequenceState.running && i === sequenceState.currentIndex) row.classList.add("active");
+          if (sequenceState.remaining[i] === 0) row.classList.add("done");
+        }
+
+        if (minus) minus.disabled = sequenceState.running || sequenceState.durations[i] <= 60;
+        if (plus) plus.disabled = sequenceState.running;
+      }
+
+      if (startBtn) startBtn.disabled = sequenceState.running || sequenceState.done;
+      if (resetBtn) resetBtn.disabled = false;
+
+      if (status) {
+        if (sequenceState.done) status.textContent = "Pełna sekwencja zakończona.";
+        else if (sequenceState.running) status.textContent = "Trwa pełna sekwencja ćwiczeń.";
+        else status.textContent = "Uruchom pełną sekwencję ćwiczeń.";
+      }
+    }
+
+    function changeSequenceDuration(index, delta, event) {
+      if (event) event.preventDefault();
+      if (sequenceState.running) return;
+      sequenceState.durations[index] = Math.max(60, Math.min(1800, sequenceState.durations[index] + delta));
+      sequenceState.remaining[index] = sequenceState.durations[index];
+      sequenceState.done = false;
+      saveFlag(storageKeys.sequenceDone, false);
+      enableNext(false);
+      updateSequenceUI();
+    }
+
+    function resetSequenceTimer(event) {
+      if (event) event.preventDefault();
+      if (sequenceState.interval) {
+        clearInterval(sequenceState.interval);
+        sequenceState.interval = null;
+      }
+      sequenceState.running = false;
+      sequenceState.done = false;
+      sequenceState.currentIndex = 0;
+      sequenceState.remaining = [...sequenceState.durations];
+      saveFlag(storageKeys.sequenceDone, false);
+      enableNext(false);
+      updateSequenceUI();
+    }
+
+    function startSequenceTimer(event) {
+      if (event) event.preventDefault();
+      if (sequenceState.interval) clearInterval(sequenceState.interval);
+
       sequenceState.running = true;
       sequenceState.done = false;
+      sequenceState.currentIndex = sequenceState.remaining.findIndex(v => v > 0);
+      if (sequenceState.currentIndex === -1) {
+        sequenceState.remaining = [...sequenceState.durations];
+        sequenceState.currentIndex = 0;
+      }
+
       enableNext(false);
+      updateSequenceUI();
 
       sequenceState.interval = setInterval(() => {
         const i = sequenceState.currentIndex;
         sequenceState.remaining[i] -= 1;
-        updateSequenceUI();
 
         if (sequenceState.remaining[i] <= 0) {
           sequenceState.remaining[i] = 0;
           playBell();
 
-          if (i < sequenceState.remaining.length - 1) {
-            sequenceState.currentIndex += 1;
+          const nextIndex = sequenceState.remaining.findIndex((v, idx) => idx > i && v > 0);
+          if (nextIndex !== -1) {
+            sequenceState.currentIndex = nextIndex;
           } else {
-            stopSequenceTimer();
+            clearInterval(sequenceState.interval);
+            sequenceState.interval = null;
+            sequenceState.running = false;
             sequenceState.done = true;
             saveFlag(storageKeys.sequenceDone, true);
             enableNext(true);
           }
-          updateSequenceUI();
         }
+
+        updateSequenceUI();
       }, 1000);
+    }
 
+    function renderExercise2Timer() {
+      return `
+        <div class="meditation-timer-box">
+          <div class="meditation-timer-title">Timer medytacji</div>
+
+          <div class="meditation-duration-row">
+            <button class="circle-adjust-btn" id="exercise2Minus" type="button">−</button>
+            <div class="meditation-duration-label" id="exercise2Label">${formatMinutesLabel(timer2State.duration)}</div>
+            <button class="circle-adjust-btn" id="exercise2Plus" type="button">+</button>
+          </div>
+
+          <div class="meditation-clock" id="exercise2Display">${formatTime(timer2State.remaining)}</div>
+
+          <button class="meditation-start-btn" id="exercise2Start" type="button">Start</button>
+
+          <div class="meditation-note" id="exercise2Status">Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.</div>
+        </div>
+      `;
+    }
+
+    function renderExercise3Timer() {
+      return `
+        <div class="meditation-timer-box">
+          <div class="meditation-timer-title">Timer medytacji</div>
+
+          <div class="meditation-duration-row">
+            <button class="circle-adjust-btn" id="exercise3Minus" type="button">−</button>
+            <div class="meditation-duration-label" id="exercise3Label">${formatMinutesLabel(timer3State.duration)}</div>
+            <button class="circle-adjust-btn" id="exercise3Plus" type="button">+</button>
+          </div>
+
+          <div class="meditation-clock" id="exercise3Display">${formatTime(timer3State.remaining)}</div>
+
+          <button class="meditation-start-btn" id="exercise3Start" type="button">Start</button>
+
+          <div class="meditation-note" id="exercise3Status">Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie.</div>
+        </div>
+      `;
+    }
+
+    function renderSequenceTimer() {
+      return `
+        <div class="sequence-box">
+          <div class="sequence-title">Pełna sekwencja ćwiczeń</div>
+
+          <div class="sequence-row" id="seqRow0">
+            <div class="sequence-left">
+              <div class="sequence-name">Liczenie</div>
+              <div class="sequence-adjust">
+                <button class="mini-adjust-btn" id="seqMinus0" type="button">−</button>
+                <button class="mini-adjust-btn" id="seqPlus0" type="button">+</button>
+              </div>
+            </div>
+            <div class="sequence-time" id="seqTime0">${formatTime(sequenceState.remaining[0])}</div>
+          </div>
+
+          <div class="sequence-row" id="seqRow1">
+            <div class="sequence-left">
+              <div class="sequence-name">Dziurki</div>
+              <div class="sequence-adjust">
+                <button class="mini-adjust-btn" id="seqMinus1" type="button">−</button>
+                <button class="mini-adjust-btn" id="seqPlus1" type="button">+</button>
+              </div>
+            </div>
+            <div class="sequence-time" id="seqTime1">${formatTime(sequenceState.remaining[1])}</div>
+          </div>
+
+          <div class="sequence-row" id="seqRow2">
+            <div class="sequence-left">
+              <div class="sequence-name">Oddychanie do brzucha</div>
+              <div class="sequence-adjust">
+                <button class="mini-adjust-btn" id="seqMinus2" type="button">−</button>
+                <button class="mini-adjust-btn" id="seqPlus2" type="button">+</button>
+              </div>
+            </div>
+            <div class="sequence-time" id="seqTime2">${formatTime(sequenceState.remaining[2])}</div>
+          </div>
+
+          <div class="sequence-controls">
+            <button class="btn btn-primary" id="sequenceStart" type="button">Start sekwencji</button>
+            <button class="btn btn-secondary" id="sequenceReset" type="button">Reset</button>
+          </div>
+
+          <div class="sequence-note" id="sequenceStatus">Uruchom pełną sekwencję ćwiczeń.</div>
+        </div>
+      `;
+    }
+
+    function attachExercise2TimerEvents() {
+      document.getElementById("exercise2Minus")?.addEventListener("click", (e) => changeExerciseTimer(2, -60, e));
+      document.getElementById("exercise2Plus")?.addEventListener("click", (e) => changeExerciseTimer(2, 60, e));
+      document.getElementById("exercise2Start")?.addEventListener("click", (e) => startExerciseTimer(2, e));
+      updateExerciseTimerUI(2);
+    }
+
+    function attachExercise3TimerEvents() {
+      document.getElementById("exercise3Minus")?.addEventListener("click", (e) => changeExerciseTimer(3, -60, e));
+      document.getElementById("exercise3Plus")?.addEventListener("click", (e) => changeExerciseTimer(3, 60, e));
+      document.getElementById("exercise3Start")?.addEventListener("click", (e) => startExerciseTimer(3, e));
+      updateExerciseTimerUI(3);
+    }
+
+    function attachSequenceEvents() {
+      document.getElementById("seqMinus0")?.addEventListener("click", (e) => changeSequenceDuration(0, -60, e));
+      document.getElementById("seqPlus0")?.addEventListener("click", (e) => changeSequenceDuration(0, 60, e));
+      document.getElementById("seqMinus1")?.addEventListener("click", (e) => changeSequenceDuration(1, -60, e));
+      document.getElementById("seqPlus1")?.addEventListener("click", (e) => changeSequenceDuration(1, 60, e));
+      document.getElementById("seqMinus2")?.addEventListener("click", (e) => changeSequenceDuration(2, -60, e));
+      document.getElementById("seqPlus2")?.addEventListener("click", (e) => changeSequenceDuration(2, 60, e));
+      document.getElementById("sequenceStart")?.addEventListener("click", (e) => startSequenceTimer(e));
+      document.getElementById("sequenceReset")?.addEventListener("click", (e) => resetSequenceTimer(e));
       updateSequenceUI();
-    }
-
-    function updateSequenceUI() {
-      const titles = ["Liczenie", "Dziurki", "Oddychanie do brzucha"];
-      for (let i = 0; i < 3; i++) {
-        const row = document.getElementById(`seqRow${i}`);
-        const time = document.getElementById(`seqTime${i}`);
-        if (!row || !time) continue;
-
-        time.textContent = formatTime(sequenceState.remaining[i]);
-        row.classList.remove("active", "done");
-
-        if (sequenceState.done || i < sequenceState.currentIndex || (i === 2 && sequenceState.done)) {
-          if (sequenceState.remaining[i] === 0) row.classList.add("done");
-        }
-
-        if (sequenceState.running && i === sequenceState.currentIndex) row.classList.add("active");
-        if (!sequenceState.running && sequenceState.remaining[i] === 0) row.classList.add("done");
-      }
-
-      const startBtn = document.getElementById("sequenceStart");
-      const resetBtn = document.getElementById("sequenceReset");
-      const status = document.getElementById("sequenceStatus");
-
-      if (startBtn) startBtn.disabled = sequenceState.running;
-      if (resetBtn) resetBtn.disabled = false;
-
-      if (status) {
-        if (sequenceState.done) status.textContent = "Pełna sekwencja zakończona.";
-        else if (sequenceState.running) status.textContent = `Trwa: ${titles[sequenceState.currentIndex]}.`;
-        else status.textContent = "Uruchom pełną sekwencję ćwiczeń.";
-      }
-    }
-
-    function cleanupSpecialTimers() {
-      stopSingleTimer(timer2State);
-      stopSingleTimer(timer3State);
-      stopSequenceTimer();
     }
 
     function openTopicModal(topicId) {
@@ -1482,90 +1749,6 @@
         hideModal(topicModal);
         renderStep();
       });
-    }
-
-    function renderExercise2Timer() {
-      return `
-        <div class="timer-widget">
-          <h3>Timer ćwiczenia</h3>
-          <div class="timer-display" id="exercise2Display">${formatTime(timer2State.remaining)}</div>
-          <div class="timer-controls">
-            <button class="btn btn-secondary" id="exercise2Minus">-30 sek</button>
-            <button class="btn btn-secondary" id="exercise2Plus">+30 sek</button>
-            <button class="btn btn-primary" id="exercise2Start">Start</button>
-            <button class="btn btn-secondary" id="exercise2Reset">Reset</button>
-          </div>
-          <div class="timer-note" id="exercise2Status">${timer2State.done ? "Ćwiczenie zakończone." : "Ustaw czas i uruchom timer."}</div>
-        </div>
-      `;
-    }
-
-    function renderExercise3Timer() {
-      return `
-        <div class="timer-widget">
-          <h3>Timer ćwiczenia</h3>
-          <div class="timer-display" id="exercise3Display">${formatTime(timer3State.remaining)}</div>
-          <div class="timer-controls">
-            <button class="btn btn-secondary" id="exercise3Minus">-30 sek</button>
-            <button class="btn btn-secondary" id="exercise3Plus">+30 sek</button>
-            <button class="btn btn-primary" id="exercise3Start">Start</button>
-            <button class="btn btn-secondary" id="exercise3Reset">Reset</button>
-          </div>
-          <div class="timer-note" id="exercise3Status">${timer3State.done ? "Ćwiczenie zakończone." : "Ustaw czas i uruchom timer."}</div>
-        </div>
-      `;
-    }
-
-    function renderSequenceTimer() {
-      const titles = ["Liczenie", "Dziurki", "Oddychanie do brzucha"];
-      return `
-        <div class="multi-timer-widget">
-          <h3>Pełna sekwencja ćwiczeń</h3>
-
-          <div class="timer-row ${sequenceState.currentIndex === 0 && sequenceState.running ? "active" : ""} ${sequenceState.remaining[0] === 0 ? "done" : ""}" id="seqRow0">
-            <div class="timer-row-title">Liczenie</div>
-            <div class="timer-row-time" id="seqTime0">${formatTime(sequenceState.remaining[0])}</div>
-          </div>
-
-          <div class="timer-row ${sequenceState.currentIndex === 1 && sequenceState.running ? "active" : ""} ${sequenceState.remaining[1] === 0 ? "done" : ""}" id="seqRow1">
-            <div class="timer-row-title">Dziurki</div>
-            <div class="timer-row-time" id="seqTime1">${formatTime(sequenceState.remaining[1])}</div>
-          </div>
-
-          <div class="timer-row ${sequenceState.currentIndex === 2 && sequenceState.running ? "active" : ""} ${sequenceState.remaining[2] === 0 ? "done" : ""}" id="seqRow2">
-            <div class="timer-row-title">Oddychanie do brzucha</div>
-            <div class="timer-row-time" id="seqTime2">${formatTime(sequenceState.remaining[2])}</div>
-          </div>
-
-          <div class="multi-controls">
-            <button class="btn btn-primary" id="sequenceStart">Start sekwencji</button>
-            <button class="btn btn-secondary" id="sequenceReset">Reset</button>
-          </div>
-          <div class="timer-note" id="sequenceStatus">${sequenceState.done ? "Pełna sekwencja zakończona." : "Uruchom pełną sekwencję ćwiczeń."}</div>
-        </div>
-      `;
-    }
-
-    function attachExercise2TimerEvents() {
-      document.getElementById("exercise2Minus")?.addEventListener("click", () => changeExerciseTimer(2, -30));
-      document.getElementById("exercise2Plus")?.addEventListener("click", () => changeExerciseTimer(2, 30));
-      document.getElementById("exercise2Start")?.addEventListener("click", () => startExerciseTimer(2));
-      document.getElementById("exercise2Reset")?.addEventListener("click", () => resetExerciseTimer(2));
-      updateExerciseTimerUI(2);
-    }
-
-    function attachExercise3TimerEvents() {
-      document.getElementById("exercise3Minus")?.addEventListener("click", () => changeExerciseTimer(3, -30));
-      document.getElementById("exercise3Plus")?.addEventListener("click", () => changeExerciseTimer(3, 30));
-      document.getElementById("exercise3Start")?.addEventListener("click", () => startExerciseTimer(3));
-      document.getElementById("exercise3Reset")?.addEventListener("click", () => resetExerciseTimer(3));
-      updateExerciseTimerUI(3);
-    }
-
-    function attachSequenceEvents() {
-      document.getElementById("sequenceStart")?.addEventListener("click", () => startSequenceTimer());
-      document.getElementById("sequenceReset")?.addEventListener("click", () => resetSequenceTimer());
-      updateSequenceUI();
     }
 
     function renderStep() {
@@ -1942,7 +2125,7 @@
           </div>
 
           ${renderExercise2Timer()}
-          <div class="helper-note">Możesz przejść dalej dopiero po zakończeniu timera.</div>
+          <div class="helper-note">Wykonaj ćwiczenie, uruchom timer.</div>
         `;
         attachExercise2TimerEvents();
         return;
@@ -1977,7 +2160,7 @@
           </div>
 
           ${renderExercise3Timer()}
-          <div class="helper-note">Możesz przejść dalej dopiero po zakończeniu timera.</div>
+          <div class="helper-note">Wykonaj ćwiczenie, uruchom timer.</div>
         `;
         attachExercise3TimerEvents();
         return;
@@ -2010,7 +2193,6 @@
           </div>
 
           ${renderSequenceTimer()}
-          <div class="helper-note">Każdy etap trwa 3 minuty. Gdy jeden się skończy, zabrzmi dźwięk i automatycznie rozpocznie się następny.</div>
         `;
         attachSequenceEvents();
         return;
@@ -2187,7 +2369,8 @@
           timer2State.remaining = 0;
           timer2State.done = true;
           saveFlag(storageKeys.exercise2Done, true);
-          renderStep();
+          updateExerciseTimerUI(2);
+          enableNext(true);
         }
 
         if (step === "2.13") {
@@ -2195,16 +2378,19 @@
           timer3State.remaining = 0;
           timer3State.done = true;
           saveFlag(storageKeys.exercise3Done, true);
-          renderStep();
+          updateExerciseTimerUI(3);
+          enableNext(true);
         }
 
         if (step === "2.15") {
-          stopSequenceTimer();
-          sequenceState.remaining = [0,0,0];
-          sequenceState.currentIndex = 2;
+          if (sequenceState.interval) clearInterval(sequenceState.interval);
+          sequenceState.interval = null;
+          sequenceState.running = false;
+          sequenceState.remaining = [0, 0, 0];
           sequenceState.done = true;
           saveFlag(storageKeys.sequenceDone, true);
-          renderStep();
+          updateSequenceUI();
+          enableNext(true);
         }
       }
     });
