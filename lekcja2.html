@@ -731,7 +731,7 @@
   <div class="progress-wrap">
     <div class="progress-top">
       <div class="progress-label">Postęp lekcji 2</div>
-      <div class="progress-step" id="progressStep">2.0 / 2.8</div>
+      <div class="progress-step" id="progressStep">2.0 / 2.11</div>
     </div>
     <div class="progress-bar">
       <div class="progress-bar-fill" id="progressFill"></div>
@@ -802,7 +802,7 @@
   <div class="modal-backdrop" id="deepSleepModal">
     <div class="modal">
       <h2>Zanim przejdziemy dalej</h2>
-      <p>Zastanów się jak udowodnić, że Świadek jest obecny w czasie głębokiego snu bez snów.</p>
+      <p>Zastanów się, jak udowodnić, że Świadek jest obecny w czasie głębokiego snu bez snów.</p>
       <div class="modal-actions">
         <button class="btn btn-primary" id="deepSleepReadyBtn">Gotowy</button>
       </div>
@@ -810,11 +810,10 @@
   </div>
 
   <script>
-    const lessonSteps = ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8"];
+    const lessonSteps = ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6", "2.7", "2.8", "2.9", "2.10", "2.11"];
     let currentStepIndex = 0;
     let countdown = 60;
     let countdownTimer = null;
-    let adminBypass = false;
 
     const storageKeys = {
       step: "szczelinka_lesson2_step",
@@ -969,7 +968,7 @@
     function updateProgress() {
       const percent = (currentStepIndex / (lessonSteps.length - 1)) * 100;
       progressFill.style.width = `${percent}%`;
-      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.8`;
+      progressStep.textContent = `${lessonSteps[currentStepIndex]} / 2.11`;
     }
 
     function topicsCompletedCount() {
@@ -1202,7 +1201,6 @@
       }
 
       if (step === "2.1") {
-        adminBypass = false;
         enableNext(false);
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.1</div>
@@ -1210,7 +1208,7 @@
 
           <div class="lesson-body">
             <p>Szczelinka to stan intensywnej obecności przy jednoczesnym całkowitym braku myśli. Tego typu medytacja daje głębokie poczucie spełnienia, czystości, błogości i spokoju. Otwiera się wtedy nowy wymiar istnienia, który był cały czas z nami, ale zazwyczaj był przykryty poprzez aktywność naszego umysłu.</p>
-            <p>Wiemy już, że prawdziwego Szczęścia nie znajdziemy w Świecie. W takim razie gdzie? Od razu nasuwa się odpowiedź: jak nie w Świecie, to może w Sobie? Ale co to właściwie oznacza, jak zabrać się za to szukanie w sobie? Kim my właściwie jesteśmy?</p>
+            <p>Wiemy już, że prawdziwego szczęścia nie znajdziemy w świecie. W takim razie gdzie? Od razu nasuwa się odpowiedź: jeśli nie w świecie, to może w sobie? Ale co to właściwie oznacza? Jak zabrać się za takie poszukiwanie? Kim my właściwie jesteśmy?</p>
           </div>
 
           <div class="question-box">
@@ -1221,7 +1219,6 @@
 
           <div class="helper-note">Daj sobie pełną minutę ciszy, zanim przejdziesz dalej.</div>
         `;
-
         startCountdown(60);
         return;
       }
@@ -1233,7 +1230,7 @@
           <h1 class="lesson-title">Kim jesteś naprawdę?</h1>
 
           <div class="lesson-body">
-            <p>Większość osób na pytanie „Kim Jestem?” odpowie:</p>
+            <p>Większość osób na pytanie „Kim jestem?” odpowie:</p>
             <ul>
               <li>Jestem swoim zawodem (np. lekarzem, nauczycielem, przedsiębiorcą).</li>
               <li>Jestem swoją rolą w rodzinie (np. ojcem, matką, córką, mężem).</li>
@@ -1244,7 +1241,7 @@
               <li>Jestem swoim ciałem (twierdzenie, że poza materialnością nie ma nic więcej)</li>
             </ul>
 
-            <p><strong>Ważne:</strong> Szukamy odpowiedzi na pytanie Kim jesteś? Ale chcemy znaleźć odpowiedź na pytanie Kim Jesteś, naprawdę? Nie usatysfakcjonuje nas cząstkowa odpowiedź, którą da się podważyć. Szukamy odpowiedzi, która byłaby fundamentalnie prawdziwa. Co to znaczy Prawdziwa? Musimy przyjąć, że się nie zmienia, że zawsze jest taka właśnie – czyli prawdziwa. Tylko wtedy możemy nazwać ją naprawdę prawdziwą.</p>
+            <p><strong>Ważne:</strong> Szukamy odpowiedzi na pytanie: Kim jesteś? Ale chcemy znaleźć odpowiedź na pytanie: Kim jesteś naprawdę? Nie usatysfakcjonuje nas odpowiedź cząstkowa, którą da się podważyć. Szukamy odpowiedzi fundamentalnie prawdziwej. Co to znaczy „prawdziwej”? Musimy przyjąć, że to, co prawdziwe, się nie zmienia — że zawsze jest właśnie takie. Tylko wtedy możemy nazwać to naprawdę prawdziwym.</p>
           </div>
 
           <div class="cards-grid">
@@ -1271,14 +1268,13 @@
       }
 
       if (step === "2.3") {
-        adminBypass = false;
         enableNext(false);
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja 2.3</div>
           <h1 class="lesson-title"><strong>Ten, Który Mówi</strong> i <strong>Ten, Który Słucha</strong></h1>
 
           <div class="lesson-body">
-            <p>Spójrzmy jeszcze raz do naszego umysłu. O ile łatwo jest powiedzieć, że nie jestem swoimi emocjami i uczuciami ponieważ one przemijają to wiele osób jest zidentyfikowanych (uważa, że to ja) z wewnętrznym głosem w swojej głowie.</p>
+            <p>Spójrzmy jeszcze raz do naszego umysłu. O ile łatwo jest powiedzieć, że nie jestem swoimi emocjami i uczuciami, ponieważ one przemijają, to wiele osób jest zidentyfikowanych z wewnętrznym głosem w swojej głowie i uważa, że to właśnie jest „ja”.</p>
           </div>
 
           <div class="full-image-box">
@@ -1290,22 +1286,21 @@
           </div>
 
           <div class="lesson-body">
-            <p>W Twojej głowie żyje głos – <strong>Ten, Który Mówi</strong> (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większość osób uważa, że ten głos to właśnie ja. Mogę nie być ciałem, zawodem, wyznaniem ale jestem tym głosem!</p>
+            <p>W Twojej głowie żyje głos — <strong>Ten, Który Mówi</strong> (TKM), np. „Wstawaj, czas iść do pracy” albo „Nie chce mi się iść do pracy”. Znasz ten głos bardzo dobrze. Towarzyszy Ci niemal przez całe życie, komentując, oceniając i pochłaniając Twoją uwagę. Większość osób uważa, że ten głos to właśnie „ja”. Mogę nie być ciałem, zawodem ani wyznaniem, ale jestem tym głosem!</p>
 
             <p>Jednak oprócz tego głosu istnieje jeszcze ktoś inny… Jest tak cichy, że do tej pory mógł umykać Twojej uwadze. To <strong>Ten, Który Słucha</strong> (TKS). Jeśli głos jest słyszany, musi istnieć ktoś, kto go słucha.</p>
 
-            <p>O <strong>Tym, Który Mówi</strong>, wiesz wiele: znasz jego imię, wiek, płeć, upodobania, zawód, wyznanie. A co wiesz o <strong>Tym, Który Słucha</strong>?</p>
+            <p>O <strong>Tym, Który Mówi</strong> wiesz wiele: znasz jego imię, wiek, płeć, upodobania, zawód, wyznanie. A co wiesz o <strong>Tym, Który Słucha</strong>?</p>
 
-            <p><strong>Ten, Który Mówi</strong>, pojawia się i znika. <strong>Ten, Który Słucha</strong> (Doświadcza) jest obecny zawsze. W medytacji staje się jasne, że nie jesteś <strong>Tym, Który Mówi</strong> (TKM).</p>
+            <p><strong>Ten, Który Mówi</strong> pojawia się i znika. <strong>Ten, Który Słucha</strong> (doświadcza) jest obecny zawsze. W medytacji staje się jasne, że nie jesteś <strong>Tym, Który Mówi</strong> (TKM).</p>
           </div>
 
           <div class="margin-note">
-            Bardziej metafizycznymi odpowiedziami jak np. jestem duszą, zajmiemy się później.
+            Bardziej metafizycznymi odpowiedziami, jak np. „jestem duszą”, zajmiemy się później.
           </div>
 
           <div class="helper-note">Daj sobie jeszcze 60 sekund, zanim przejdziesz dalej.</div>
         `;
-
         startCountdown(60);
         return;
       }
@@ -1317,8 +1312,8 @@
           <h1 class="lesson-title">Świadek</h1>
 
           <div class="lesson-body">
-            <p><strong>Ten, który słucha</strong> również widzi obraz, słyszy dźwięk, węszy zapach, kosztuje smak, czuje dotyk, myśli myśli.. Nazwijmy jego/ją/to coś <strong>Świadkiem</strong>.</p>
-            <p>Musimy teraz sprawdzić czym/kim jest <strong>Świadek</strong> i czy jest obecny zawsze – czy jest prawdziwy.</p>
+            <p><strong>Ten, który słucha</strong> również widzi obraz, słyszy dźwięk, wyczuwa zapach, rozpoznaje smak, czuje dotyk, a nawet obserwuje myśli. Nazwijmy to coś <strong>Świadkiem</strong>.</p>
+            <p>Musimy teraz sprawdzić, czym lub kim jest <strong>Świadek</strong> oraz czy jest obecny zawsze — czyli czy jest prawdziwy.</p>
           </div>
         `;
         return;
@@ -1332,8 +1327,8 @@
 
           <div class="summary-row">
             <div class="summary-box">
-              <h3>Wiemy już że,</h3>
-              <p style="font-size:24px; line-height:1.65; margin-top:10px;"><strong>Prawda 3</strong><br>Nie jesteśmy niczym co się zmienia i może być postrzeżone.</p>
+              <h3>Wiemy już, że</h3>
+              <p style="font-size:24px; line-height:1.65; margin-top:10px;"><strong>Prawda 3</strong><br>Nie jesteśmy niczym, co się zmienia i może zostać postrzeżone.</p>
             </div>
             <div class="truth-visual">
               <img src="nie.png" alt="Nie-do-podważenia">
@@ -1353,13 +1348,13 @@
           <h1 class="lesson-title">Kim jest Świadek?</h1>
 
           <div class="lesson-body">
-            <p>Teraz zajmijmy się tym czym/kim jesteśmy – <strong>Świadkiem</strong>. Świadkiem głosu (Tego, który mówi w naszej głowie) ale też Świadkiem wszystkiego innego co się dzieje.</p>
-            <p>Musimy udowodnić 2 twierdzenia:</p>
+            <p>Teraz zajmijmy się tym, czym lub kim jesteśmy — <strong>Świadkiem</strong>. Świadkiem głosu (tego, który mówi w naszej głowie), ale też świadkiem wszystkiego innego, co się dzieje.</p>
+            <p>Musimy udowodnić dwa twierdzenia:</p>
             <ol>
-              <li>świadek jest zawsze obecny, zawsze prawdziwy</li>
-              <li>świadek się nie zmienia</li>
+              <li>Świadek jest zawsze obecny — a więc zawsze prawdziwy.</li>
+              <li>Świadek się nie zmienia.</li>
             </ol>
-            <p>I przyjrzymy się też czym/kim jest ten <strong>Świadek</strong>.</p>
+            <p>Przyjrzymy się też temu, czym lub kim właściwie jest ten <strong>Świadek</strong>.</p>
           </div>
         `;
         return;
@@ -1372,19 +1367,19 @@
           <h1 class="lesson-title">Trzy stany życia</h1>
 
           <div class="lesson-body">
-            <p>W naszym życiu są 3 stany:</p>
+            <p>W naszym życiu są trzy stany:</p>
             <ol>
-              <li>jawa (nasza codzienność)</li>
-              <li>sen ze snami</li>
-              <li>głęboki sen bez snów</li>
+              <li>jawa (nasza codzienność),</li>
+              <li>sen ze snami,</li>
+              <li>głęboki sen bez snów.</li>
             </ol>
-            <p>Zobaczmy że świadek jest obecny zawsze w każdym z tych stanów.</p>
+            <p>Zobaczmy, że Świadek jest obecny zawsze — w każdym z tych stanów.</p>
           </div>
 
           <div class="side-image-row">
             <div class="text-card">
               <h3>Jawa</h3>
-              <p>Na Jawie, łatwo to udowodnić. Cały czas doświadczamy czegoś. Zmysły dostarczają bodźców a one rodzą doświadczenia. Każde doświadczenie składa się z zwartości doświadczenia ale też wymaga kogoś kto je dostrzega (Świadka). Gdyby nie Świadek doświadczenia – doświadczenia by nie było. Na jawie cały czas doświadczamy a to oznacza, że Świadek na Jawie cały czas jest obecny.</p>
+              <p>Na jawie łatwo to zauważyć. Cały czas czegoś doświadczamy. Zmysły dostarczają bodźców, a one rodzą doświadczenia. Każde doświadczenie składa się z treści doświadczenia, ale wymaga też kogoś, kto je dostrzega — Świadka. Gdyby nie było Świadka doświadczenia, nie byłoby samego doświadczenia. Skoro więc na jawie nieustannie czegoś doświadczamy, oznacza to, że Świadek na jawie jest cały czas obecny.</p>
             </div>
             <div class="side-visual">
               <img src="jawa.png" alt="Jawa">
@@ -1394,7 +1389,7 @@
           <div class="side-image-row">
             <div class="text-card">
               <h3>Sen ze snami</h3>
-              <p>W czasie snu ze snami zmysły przestają dostarczać bodźców jedynie umysł pozostaje aktywny. Umysł wyświetla sen. W tym śnie dzieją się różne zdarzenia, ale najważniejsze dla nas w tym momencie jest to że ktoś ten sen postrzega. Kto? Świadek. I to jest ten sam świadek, który doświadcza na jawie teraz doświadcza snu. Zobacz, że To Ty Jesteś Tym Świadkiem. W rzeczywistości nigdy nie zasypiasz!</p>
+              <p>W czasie snu ze snami zmysły przestają dostarczać bodźców, ale umysł pozostaje aktywny. To on wyświetla sen. W śnie dzieją się różne rzeczy, ale najważniejsze dla nas jest teraz to, że ktoś ten sen postrzega. Kto? Świadek. I jest to ten sam Świadek, który doświadcza jawy — teraz doświadcza snu. Zobacz, że to Ty jesteś tym Świadkiem. W rzeczywistości nigdy naprawdę nie zasypiasz.</p>
             </div>
             <div class="side-visual">
               <img src="sen.png" alt="Sen">
@@ -1402,7 +1397,7 @@
           </div>
 
           <div class="lesson-body">
-            <p>A co z głębokim snem gdzie nie ma snów?</p>
+            <p>A co z głębokim snem, w którym nie ma snów?</p>
           </div>
 
           <div class="helper-note">Po kliknięciu „Dalej” zatrzymaj się na chwilę i odpowiedz sobie na to pytanie.</div>
@@ -1418,8 +1413,8 @@
 
           <div class="side-image-row">
             <div class="text-card">
-              <p>W czasie głębokie snu. Umysł również przestaje wyświetlać „film”. Zapada pustka, jest pytanie czy w tej pustce jest Świadek czy zniknął?</p>
-              <p>Wyobraźmy sobie pokój w którym jest lustro. W czasie dnia to lustro idealnie odbija wsyzstko co jest w tym pokoju. Jednak gdy zapada zmrok, załóżmy że ten zmrok jest całkowity lustru nic nie odbija, nic nie wyświetla. Czy natura lustra się zmieniła? Nie, ono nadal jest takie samo. Światło przestało na nie padać więc nic nie odbija jednak kiedy pierwszy promień światła ppadnie na lustro natychmiast zostanie odbity. Natura lustra cały czas była taka sama, on wciąż istniało choć w całkowitych ciemnościach nie dałoby się rozróżnić lustra od zwykłej szyby.</p>
+              <p>W czasie głębokiego snu umysł również przestaje wyświetlać swój „film”. Zapada pustka. Pojawia się więc pytanie: czy w tej pustce Świadek nadal jest obecny, czy może znika?</p>
+              <p>Wyobraźmy sobie pokój, w którym stoi lustro. W ciągu dnia lustro idealnie odbija wszystko, co znajduje się w pokoju. Jednak gdy zapada zmrok — załóżmy, że jest on całkowity — lustro niczego już nie odbija, nic nie wyświetla. Czy jego natura się zmieniła? Nie. Ono nadal jest dokładnie tym samym lustrem. Światło przestało na nie padać, więc niczego nie odbija. Ale gdy tylko pojawi się pierwszy promień światła, natychmiast zostanie odbity. Natura lustra przez cały czas była taka sama. Lustro wciąż istniało, choć w całkowitej ciemności trudno byłoby odróżnić je od zwykłej szyby.</p>
             </div>
             <div class="side-visual">
               <img src="lustro.png" alt="Lustro">
@@ -1428,8 +1423,8 @@
 
           <div class="side-image-row">
             <div class="text-card">
-              <p>W czasie jawy na ekranie naszej świadomości zmysły wyświetlają to co się dzieje, w czasie snu ze snami umysł sam projektuje opowieść snu. W czasie sny bez snów to co doświadcza nadal tam jest ale nie ma czego doświadczać.</p>
-              <p>Załóżmy, że głębokiego snu przychodzi do ciebie Twój ukochany kotek i ociera ci się o Twarz ponieważ chce być nakarmiony. Jeśli by nie było Świadka, to kto zarejestrował by ten bodziec?</p>
+              <p>W czasie jawy na ekranie naszej świadomości zmysły wyświetlają to, co się dzieje. W czasie snu ze snami umysł sam projektuje opowieść snu. W czasie głębokiego snu bez snów to, co doświadcza, nadal tam jest — ale nie ma już czego doświadczać.</p>
+              <p>Załóżmy, że podczas głębokiego snu przychodzi do Ciebie Twój ukochany kotek i ociera się o Twoją twarz, ponieważ chce być nakarmiony. Gdyby nie było Świadka, to kto zarejestrowałby ten bodziec?</p>
             </div>
             <div class="side-visual">
               <img src="kot.png" alt="Kot">
@@ -1439,6 +1434,80 @@
           <div class="helper-note">Daj sobie 2 minuty na głębszą refleksję, zanim przejdziesz dalej.</div>
         `;
         startCountdown(120, "Możesz przejść dalej");
+        return;
+      }
+
+      if (step === "2.9") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.9</div>
+          <h1 class="lesson-title">Świadek się nie zmienia</h1>
+
+          <div class="side-image-row">
+            <div class="text-card">
+              <p>Teraz zobaczmy, że Świadek się nie zmienia.</p>
+              <p>Świadek jest świadkiem wszystkich zmian, ale sam pozostaje poza zmianami.</p>
+              <p>Gdyby Świadek sam się zmieniał, to kto byłby świadkiem tych zmian? Dopiero to, co jest ostatecznym świadkiem wszelkiej zmienności, nazywamy Świadkiem.</p>
+              <p>Świadek nie ma cech. Jest świadkiem wszystkich cech, ale sam pozostaje poza nimi.</p>
+              <p>Coś, co nie ma żadnych cech, nie może się zmieniać. Aby coś mogło się zmieniać, musi mieć cechy, które mogą ulec zmianie. Na przykład: wcześniej było małe, a teraz urosło i jest duże — zmieniła się cecha wielkości.</p>
+              <p>Świadek nie jest ani stary, ani młody. Nie jest ani kobietą, ani mężczyzną. Nie jest duży ani mały, nie jest czerwony ani niebieski. Świadek jest świadkiem wszystkich tych cech, ale sam żadnej z nich nie posiada.</p>
+            </div>
+            <div class="side-visual">
+              <img src="zmiana.png" alt="Zmiana">
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.10") {
+        enableNext(true);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.10</div>
+          <h1 class="lesson-title">Co można powiedzieć o Świadku?</h1>
+
+          <div class="lesson-body">
+            <ul>
+              <li>Istnieje — ewidentnie i niezaprzeczalnie istnieje. To właśnie jesteśmy my.</li>
+              <li>Może doświadczać — jawy, snu ze snami i głębokiego snu.</li>
+              <li>Nie ma cech.</li>
+            </ul>
+
+            <p>Jeśli coś nie ma żadnych cech, to nie ma też granicy — nie da się wskazać miejsca, w którym się kończy. Gdyby Świadek miał granicę, ktoś musiałby być świadomy tej granicy. A ten, kto jest świadomy granicy, jest zarazem świadomy tego, co znajduje się po jednej i po drugiej jej stronie. Tym samym jego istnienie przekraczałoby tę granicę.</p>
+
+            <p>Świadek nie ma granicy, a więc można powiedzieć, że jest nieskończony. A jeszcze trafniej byłoby powiedzieć, że jest poza przestrzenią.</p>
+
+            <p>O Świadku nie można nawet powiedzieć, że jest „tu”, a nie „tam”. Nie jest zlokalizowany w przestrzeni. Nie jest też „Twój”. A skoro nie jest Twój, to lepiej mówić o nim <strong>Świadomość</strong>, a nie <strong>Świadek</strong>.</p>
+
+            <p>To ważne, ponieważ nie chodzi o małego kogoś mieszkającego w mojej głowie i wykonującego proces świadkowania, ale o <strong>Świadomość</strong>, która nie ma już cech osoby. Mówiliśmy przecież, że Świadek — a więc Świadomość — nie ma żadnych cech, w tym również cechy mówiącej, że jest czyjaś, np. Twoja.</p>
+
+            <p>Świadomość nie ma cech, a więc nie ma także cechy wieku. Nie ma cechy mówiącej o tym, kiedy się urodziła albo kiedy umrze. Nie ma też cechy, poprzez którą dałoby się ją umiejscowić w czasie. Dlatego można powiedzieć, że Świadomość jest poza czasem. Można też powiedzieć, że jest wieczna — w tym sensie, że nie ma takiego momentu, w którym by jej nie było. Jeszcze trafniej byłoby jednak powiedzieć: jest poza czasem.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (step === "2.11") {
+        enableNext(false);
+        lessonContent.innerHTML = `
+          <div class="lesson-kicker">Lekcja 2.11</div>
+          <h1 class="lesson-title">Prawda 4</h1>
+
+          <div class="summary-row">
+            <div class="summary-box">
+              <p style="font-size:24px; line-height:1.7; margin-top:4px;">
+                <strong>Prawda 4</strong><br>
+                Jesteś wieczną, nieskończoną, niezmienną Świadomością, która jest świadkiem wszystkiego.
+              </p>
+            </div>
+            <div class="truth-visual">
+              <img src="nie.png" alt="Nie-do-podważenia">
+            </div>
+          </div>
+
+          <div class="helper-note">Daj sobie 60 sekund na spokojne przyjęcie tej prawdy.</div>
+        `;
+        startCountdown(60);
         return;
       }
     }
@@ -1466,7 +1535,7 @@
         return;
       }
 
-      if (step === "2.8") {
+      if (step === "2.11") {
         completeLesson();
         return;
       }
@@ -1568,7 +1637,7 @@
         const step = lessonSteps[currentStepIndex];
         event.preventDefault();
 
-        if (step === "2.1") {
+        if (step === "2.1" || step === "2.3" || step === "2.5" || step === "2.8" || step === "2.11") {
           stopCountdown();
           enableNext(true);
           countdownBox.textContent = "";
@@ -1580,24 +1649,6 @@
           saveTopicDone(storageKeys.topic3, true);
           updateTopicCardsState();
           renderStep();
-        }
-
-        if (step === "2.3") {
-          stopCountdown();
-          enableNext(true);
-          countdownBox.textContent = "";
-        }
-
-        if (step === "2.5") {
-          stopCountdown();
-          enableNext(true);
-          countdownBox.textContent = "";
-        }
-
-        if (step === "2.8") {
-          stopCountdown();
-          enableNext(true);
-          countdownBox.textContent = "";
         }
       }
     });
