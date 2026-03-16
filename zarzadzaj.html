@@ -1,356 +1,269 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Szczelinka - panel zarządzania</title>
-  <style>
-    body {
-      font-family: Georgia, serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<title>Szczelinka - panel zarządzania</title>
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 30px 20px 60px 20px;
-    }
+<style>
 
-    .card {
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      padding: 24px;
-      margin-bottom: 24px;
-    }
+body{
+font-family: Georgia, serif;
+background:#f4f6f8;
+margin:0;
+}
 
-    h1, h2, h3 {
-      margin-top: 0;
-    }
+.container{
+max-width:1100px;
+margin:auto;
+padding:30px;
+}
 
-    input[type="email"],
-    input[type="password"],
-    input[type="text"] {
-      width: 100%;
-      max-width: 420px;
-      padding: 12px;
-      margin: 8px 0;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 20px rgba(0,0,0,0.08);
+margin-bottom:25px;
+}
 
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 8px;
-    }
+input{
+width:400px;
+padding:10px;
+margin:5px 0;
+}
 
-    .hidden {
-      display: none;
-    }
+button{
+padding:10px 20px;
+cursor:pointer;
+}
 
-    .lessons-grid label {
-      display: block;
-      margin-bottom: 8px;
-    }
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+th,td{
+border:1px solid #ddd;
+padding:8px;
+}
 
-    .message {
-      margin-top: 12px;
-    }
+th{
+background:#f1f1f1;
+}
 
-    .table-wrap {
-      overflow-x: auto;
-      margin-top: 16px;
-    }
+.hidden{
+display:none;
+}
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      min-width: 800px;
-      background: white;
-    }
+</style>
 
-    th, td {
-      border: 1px solid #d9d9d9;
-      padding: 10px;
-      text-align: left;
-      vertical-align: top;
-      font-size: 14px;
-    }
-
-    th {
-      background: #f1f1f1;
-    }
-
-    .muted {
-      color: #666;
-      font-size: 14px;
-    }
-  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Panel zarządzania</h1>
 
-    <div id="loginSection" class="card">
-      <h2>Logowanie admina</h2>
+<div class="container">
 
-      <input id="email" type="email" placeholder="email admina" />
-      <br>
+<h1>Panel zarządzania</h1>
 
-      <input id="password" type="password" placeholder="hasło" />
-      <br>
+<div id="loginSection" class="card">
 
-      <button onclick="login()">Zaloguj</button>
+<h2>Logowanie admina</h2>
 
-      <p id="msg" class="message"></p>
-    </div>
+<input id="email" placeholder="email"><br>
+<input id="password" type="password" placeholder="hasło"><br>
 
-    <div id="adminSection" class="hidden">
-      <div class="card">
-        <div class="topbar">
-          <div>
-            <h2 style="margin-bottom: 6px;">Zalogowano poprawnie</h2>
-            <div class="muted">Tutaj zarządzasz dostępami do lekcji i sprawdzasz wejścia.</div>
-          </div>
-          <button onclick="logout()">Wyloguj</button>
-        </div>
-      </div>
+<button onclick="login()">Zaloguj</button>
 
-      <div class="card">
-        <h2>Dodaj dostęp do lekcji</h2>
+<p id="msg"></p>
 
-        <input id="displayName" type="text" placeholder="Nazwa użytkownika np. Jan Kowalski" />
-        <br>
+</div>
 
-        <input id="userLogin" type="text" placeholder="Login" />
-        <br>
+<div id="adminSection" class="hidden">
 
-        <input id="userPassword" type="text" placeholder="Hasło" />
-        <br>
+<div class="card">
 
-        <h3>Dostęp do lekcji</h3>
+<h2>Zalogowano poprawnie</h2>
 
-        <div class="lessons-grid">
-          <label><input type="checkbox" class="lessonBox" value="3"> Lekcja 3</label>
-          <label><input type="checkbox" class="lessonBox" value="4"> Lekcja 4</label>
-          <label><input type="checkbox" class="lessonBox" value="5"> Lekcja 5</label>
-          <label><input type="checkbox" class="lessonBox" value="6"> Lekcja 6</label>
-          <label><input type="checkbox" class="lessonBox" value="7"> Lekcja 7</label>
-          <label><input type="checkbox" class="lessonBox" value="8"> Lekcja 8</label>
-        </div>
+<button onclick="logout()">Wyloguj</button>
 
-        <button onclick="createAccess()">Utwórz dostęp</button>
+</div>
 
-        <p id="createMsg" class="message"></p>
-      </div>
+<div class="card">
 
-      <div class="card">
-        <div class="topbar">
-          <div>
-            <h2 style="margin-bottom: 6px;">Statystyki wejść</h2>
-            <div class="muted">Ostatnie 100 zdarzeń logowania i wejść do lekcji.</div>
-          </div>
-          <button onclick="loadStats()">Odśwież statystyki</button>
-        </div>
+<h2>Dodaj dostęp do lekcji</h2>
 
-        <div id="statsBox" class="table-wrap"></div>
-      </div>
-    </div>
-  </div>
+<input id="displayName" placeholder="Nazwa użytkownika"><br>
+<input id="userLogin" placeholder="Login"><br>
+<input id="userPassword" placeholder="Hasło"><br>
 
-  <script type="module">
-    import { supabase } from './supabase-client.js'
+<h3>Dostęp do lekcji</h3>
 
-    const loginSection = document.getElementById('loginSection')
-    const adminSection = document.getElementById('adminSection')
-    const msg = document.getElementById('msg')
-    const createMsg = document.getElementById('createMsg')
-    const statsBox = document.getElementById('statsBox')
+<label><input type="checkbox" class="lessonBox" value="3"> Lekcja 3</label><br>
+<label><input type="checkbox" class="lessonBox" value="4"> Lekcja 4</label><br>
+<label><input type="checkbox" class="lessonBox" value="5"> Lekcja 5</label><br>
+<label><input type="checkbox" class="lessonBox" value="6"> Lekcja 6</label><br>
+<label><input type="checkbox" class="lessonBox" value="7"> Lekcja 7</label><br>
+<label><input type="checkbox" class="lessonBox" value="8"> Lekcja 8</label><br><br>
 
-    async function checkSession() {
-      const { data, error } = await supabase.auth.getSession()
+<button onclick="createAccess()">Utwórz dostęp</button>
 
-      if (error) {
-        msg.innerText = 'Błąd sesji: ' + error.message
-        loginSection.classList.remove('hidden')
-        adminSection.classList.add('hidden')
-        return
-      }
+<p id="createMsg"></p>
 
-      if (data.session) {
-        loginSection.classList.add('hidden')
-        adminSection.classList.remove('hidden')
-        await loadStats()
-      } else {
-        loginSection.classList.remove('hidden')
-        adminSection.classList.add('hidden')
-      }
-    }
+</div>
 
-    window.login = async function () {
-      const email = document.getElementById('email').value.trim()
-      const password = document.getElementById('password').value
+<div class="card">
 
-      msg.innerText = ''
+<h2>Statystyki wejść</h2>
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      })
+<button onclick="loadStats()">Odśwież statystyki</button>
 
-      if (error) {
-        msg.innerText = 'Błąd logowania: ' + error.message
-      } else {
-        msg.innerText = 'Zalogowano poprawnie'
-        await checkSession()
-      }
-    }
+<div id="statsBox"></div>
 
-    window.logout = async function () {
-      const { error } = await supabase.auth.signOut()
+</div>
 
-      if (error) {
-        alert('Błąd wylogowania: ' + error.message)
-      }
+</div>
 
-      await checkSession()
-    }
+</div>
 
-    window.createAccess = async function () {
-      const displayName = document.getElementById('displayName').value.trim()
-      const login = document.getElementById('userLogin').value.trim()
-      const password = document.getElementById('userPassword').value.trim()
+<script type="module">
 
-      const selectedLessons = Array.from(document.querySelectorAll('.lessonBox:checked'))
-        .map(el => parseInt(el.value, 10))
+import { supabase } from './supabase-client.js'
 
-      createMsg.innerText = ''
+const loginSection=document.getElementById('loginSection')
+const adminSection=document.getElementById('adminSection')
 
-      if (!displayName || !login || !password || selectedLessons.length === 0) {
-        createMsg.innerText = 'Uzupełnij wszystkie pola i wybierz co najmniej jedną lekcję.'
-        return
-      }
+async function checkSession(){
 
-      const { data: accountData, error: accountError } = await supabase
-        .from('access_accounts')
-        .insert([{ display_name: displayName }])
-        .select()
+const {data}=await supabase.auth.getSession()
 
-      if (accountError) {
-        createMsg.innerText = 'Błąd tworzenia użytkownika: ' + accountError.message
-        return
-      }
+if(data.session){
+loginSection.classList.add('hidden')
+adminSection.classList.remove('hidden')
+loadStats()
+}
+else{
+loginSection.classList.remove('hidden')
+adminSection.classList.add('hidden')
+}
 
-      const accountId = accountData[0].id
+}
 
-      const { data: lessonsData, error: lessonsError } = await supabase
-        .from('lessons')
-        .select('id, lesson_no')
-        .in('lesson_no', selectedLessons)
+window.login=async function(){
 
-      if (lessonsError) {
-        createMsg.innerText = 'Błąd pobierania lekcji: ' + lessonsError.message
-        return
-      }
+const email=document.getElementById('email').value
+const password=document.getElementById('password').value
 
-      const credentials = lessonsData.map(lesson => ({
-        account_id: accountId,
-        lesson_id: lesson.id,
-        login: login,
-        password_plain: password
-      }))
+const {error}=await supabase.auth.signInWithPassword({
+email,
+password
+})
 
-      const { error: credentialsError } = await supabase
-        .from('lesson_credentials')
-        .insert(credentials)
+if(error){
+document.getElementById('msg').innerText=error.message
+}
+else{
+checkSession()
+}
 
-      if (credentialsError) {
-        createMsg.innerText = 'Błąd zapisu dostępów: ' + credentialsError.message
-        return
-      }
+}
 
-      createMsg.innerText = 'Dostęp zapisany.'
+window.logout=async function(){
 
-      document.getElementById('displayName').value = ''
-      document.getElementById('userLogin').value = ''
-      document.getElementById('userPassword').value = ''
-      document.querySelectorAll('.lessonBox').forEach(el => {
-        el.checked = false
-      })
+await supabase.auth.signOut()
+checkSession()
 
-      await loadStats()
-    }
+}
 
-    window.loadStats = async function () {
-      statsBox.innerHTML = 'Ładowanie...'
+window.createAccess=async function(){
 
-      const { data, error } = await supabase
-        .from('lesson_access_events')
-        .select(`
-          id,
-          event_type,
-          viewed_at,
-          user_agent,
-          lesson_id,
-          lesson_credentials (
-            login
-          )
-        `)
-        .order('viewed_at', { ascending: false })
-        .limit(100)
+const displayName=document.getElementById('displayName').value
+const login=document.getElementById('userLogin').value
+const password=document.getElementById('userPassword').value
 
-      if (error) {
-        statsBox.innerHTML = 'Błąd ładowania statystyk: ' + error.message
-        return
-      }
+const selectedLessons=Array.from(document.querySelectorAll('.lessonBox:checked'))
+.map(el=>parseInt(el.value))
 
-      if (!data || data.length === 0) {
-        statsBox.innerHTML = 'Brak statystyk.'
-        return
-      }
+if(!displayName||!login||!password||selectedLessons.length===0){
+document.getElementById('createMsg').innerText="Uzupełnij wszystkie pola"
+return
+}
 
-      let html = `
-        <table>
-          <tr>
-            <th>Data</th>
-            <th>Login</th>
-            <th>Lekcja</th>
-            <th>Typ</th>
-            <th>User Agent</th>
-          </tr>
-      `
+const {data:account}=await supabase
+.from('access_accounts')
+.insert([{display_name:displayName}])
+.select()
 
-      data.forEach(row => {
-        const login = row.lesson_credentials?.login || '-'
+const accountId=account[0].id
 
-        html += `
-          <tr>
-            <td>${new Date(row.viewed_at).toLocaleString('pl-PL')}</td>
-            <td>${login}</td>
-            <td>${row.lesson_id}</td>
-            <td>${row.event_type}</td>
-            <td>${row.user_agent || ''}</td>
-          </tr>
-        `
-      })
+const {data:lessons}=await supabase
+.from('lessons')
+.select()
+.in('lesson_no',selectedLessons)
 
-      html += `</table>`
-      statsBox.innerHTML = html
-    }
+const rows=lessons.map(l=>({
+account_id:accountId,
+lesson_id:l.id,
+login:login,
+password_plain:password
+}))
 
-    checkSession()
-  </script>
+await supabase
+.from('lesson_credentials')
+.insert(rows)
+
+document.getElementById('createMsg').innerText="Dostęp zapisany"
+
+}
+
+window.loadStats=async function(){
+
+const statsBox=document.getElementById('statsBox')
+
+const {data}=await supabase
+.from('lesson_access_events')
+.select(`
+viewed_at,
+event_type,
+lesson_id,
+lesson_credentials(login),
+lessons(lesson_no),
+user_agent
+`)
+.order('viewed_at',{ascending:false})
+.limit(100)
+
+let html=`<table>
+<tr>
+<th>Data</th>
+<th>Login</th>
+<th>Lekcja</th>
+<th>Typ</th>
+<th>Przeglądarka</th>
+</tr>`
+
+data.forEach(row=>{
+
+html+=`
+<tr>
+<td>${new Date(row.viewed_at).toLocaleString()}</td>
+<td>${row.lesson_credentials?.login||""}</td>
+<td>${row.lessons?.lesson_no||""}</td>
+<td>${row.event_type}</td>
+<td>${row.user_agent||""}</td>
+</tr>
+`
+
+})
+
+html+=`</table>`
+
+statsBox.innerHTML=html
+
+}
+
+checkSession()
+
+</script>
+
 </body>
 </html>
