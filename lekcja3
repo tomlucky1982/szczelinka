@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+<meta charset="UTF-8">
+<title>Lekcja 3</title>
+</head>
+
+<body>
+
+<h1>Lekcja 3</h1>
+
+<div id="loginBox">
+
+<h2>Logowanie do lekcji</h2>
+
+<input id="login" placeholder="login">
+<br><br>
+
+<input id="password" type="password" placeholder="hasło">
+<br><br>
+
+<button onclick="checkLogin()">Wejdź</button>
+
+<p id="msg"></p>
+
+</div>
+
+<div id="lessonContent" style="display:none"></div>
+
+<script type="module">
+
+import { supabase } from './supabase-client.js'
+
+window.checkLogin = async function(){
+
+const login = document.getElementById('login').value
+const password = document.getElementById('password').value
+
+const { data, error } = await supabase
+.from('lesson_credentials')
+.select('*')
+.eq('login', login)
+.eq('password_plain', password)
+
+if(error){
+document.getElementById('msg').innerText = error.message
+return
+}
+
+if(!data || data.length === 0){
+document.getElementById('msg').innerText = "Błędny login lub hasło"
+return
+}
+
+const credential = data[0]
+
+if(credential.lesson_id != 1){
+document.getElementById('msg').innerText = "Brak dostępu do tej lekcji"
+return
+}
+
+loadLesson()
+
+}
+
+async function loadLesson(){
+
+document.getElementById('loginBox').style.display = "none"
+
+const { data } = await supabase
+.from('lesson_content')
+.select('*')
+.eq('lesson_id',1)
+
+document.getElementById('lessonContent').innerHTML = data[0].html_content
+document.getElementById('lessonContent').style.display = "block"
+
+}
+
+</script>
+
+</body>
+</html>
