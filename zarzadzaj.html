@@ -1,51 +1,179 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
-<meta charset="UTF-8">
-<title>Szczelinka - panel zarządzania</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Szczelinka - panel zarządzania</title>
 </head>
-
 <body>
 
-<h1>Panel zarządzania</h1>
+  <h1>Panel zarządzania</h1>
 
-<h2>Logowanie admina</h2>
+  <div id="loginSection">
+    <h2>Logowanie admina</h2>
 
-<input id="email" placeholder="email">
-<br><br>
+    <input id="email" type="email" placeholder="email admina" />
+    <br><br>
 
-<input id="password" type="password" placeholder="hasło">
-<br><br>
+    <input id="password" type="password" placeholder="hasło" />
+    <br><br>
 
-<button onclick="login()">Zaloguj</button>
+    <button onclick="login()">Zaloguj</button>
 
-<p id="msg"></p>
+    <p id="msg"></p>
+  </div>
 
-<script type="module">
+  <div id="adminSection" style="display:none;">
+    <p><strong>Zalogowano poprawnie</strong></p>
+    <button onclick="logout()">Wyloguj</button>
 
-import { supabase } from './supabase-client.js'
+    <hr>
 
-window.login = async function(){
+    <h2>Dodaj dostęp do lekcji</h2>
 
-const email = document.getElementById('email').value
-const password = document.getElementById('password').value
+    <input id="displayName" placeholder="Nazwa użytkownika np. Jan Kowalski" />
+    <br><br>
 
-const { data, error } = await supabase.auth.signInWithPassword({
-email,
-password
-})
+    <input id="userLogin" placeholder="Login" />
+    <br><br>
 
-if(error){
-document.getElementById('msg').innerText = error.message
-}
-else{
-document.getElementById('msg').innerText = "Zalogowano poprawnie"
-}
+    <input id="userPassword" placeholder="Hasło" />
+    <br><br>
 
-}
+    <h3>Dostęp do lekcji</h3>
 
-</script>
+    <label><input type="checkbox" class="lessonBox" value="3"> Lekcja 3</label><br>
+    <label><input type="checkbox" class="lessonBox" value="4"> Lekcja 4</label><br>
+    <label><input type="checkbox" class="lessonBox" value="5"> Lekcja 5</label><br>
+    <label><input type="checkbox" class="lessonBox" value="6"> Lekcja 6</label><br>
+    <label><input type="checkbox" class="lessonBox" value="7"> Lekcja 7</label><br>
+    <label><input type="checkbox" class="lessonBox" value="8"> Lekcja 8</label><br><br>
 
+    <button onclick="createAccess()">Utwórz dostęp</button>
+
+    <p id="createMsg"></p>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase-client.js'
+
+    const loginSection = document.getElementById('loginSection')
+    const adminSection = document.getElementById('adminSection')
+    const msg = document.getElementById('msg')
+    const createMsg = document.getElementById('createMsg')
+
+    async function checkSession() {
+      const { data, error } = await supabase.auth.getSession()
+
+      if (error) {
+        msg.innerText = error.message
+        loginSection.style.display = 'block'
+        adminSection.style.display = 'none'
+        return
+      }
+
+      if (data.session) {
+        loginSection.style.display = 'none'
+        adminSection.style.display = 'block'
+      } else {
+        loginSection.style.display = 'block'
+        adminSection.style.display = 'none'
+      }
+    }
+
+    window.login = async function () {
+      const email = document.getElementById('email').value.trim()
+      const password = document.getElementById('password').value
+
+      msg.innerText = ''
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
+
+      if (error) {
+        msg.innerText = error.message
+      } else {
+        msg.innerText = 'Zalogowano poprawnie'
+        await checkSession()
+      }
+    }
+
+    window.logout = async function () {
+      const { error } = await supabase.auth.signOut()
+
+      if (error) {
+        alert('Błąd wylogowania: ' + error.message)
+      }
+
+      await checkSession()
+    }
+
+    window.createAccess = async function () {
+      const displayName = document.getElementById('displayName').value.trim()
+      const login = document.getElementById('userLogin').value.trim()
+      const password = document.getElementById('userPassword').value.trim()
+
+      const selectedLessons = Array.from(document.querySelectorAll('.lessonBox:checked'))
+        .map(el => parseInt(el.value, 10))
+
+      createMsg.innerText = ''
+
+      if (!displayName || !login || !password || selectedLessons.length === 0) {
+        createMsg.innerText = 'Uzupełnij wszystkie pola i wybierz co najmniej jedną lekcję.'
+        return
+      }
+
+      const { data: accountData, error: accountError } = await supabase
+        .from('access_accounts')
+        .insert([{ display_name: displayName }])
+        .select()
+
+      if (accountError) {
+        createMsg.innerText = 'Błąd tworzenia użytkownika: ' + accountError.message
+        return
+      }
+
+      const accountId = accountData[0].id
+
+      const { data: lessonsData, error: lessonsError } = await supabase
+        .from('lessons')
+        .select('id, lesson_no')
+        .in('lesson_no', selectedLessons)
+
+      if (lessonsError) {
+        createMsg.innerText = 'Błąd pobierania lekcji: ' + lessonsError.message
+        return
+      }
+
+      const credentials = lessonsData.map(lesson => ({
+        account_id: accountId,
+        lesson_id: lesson.id,
+        login: login,
+        password_plain: password
+      }))
+
+      const { error: credentialsError } = await supabase
+        .from('lesson_credentials')
+        .insert(credentials)
+
+      if (credentialsError) {
+        createMsg.innerText = 'Błąd zapisu dostępów: ' + credentialsError.message
+        return
+      }
+
+      createMsg.innerText = 'Dostęp zapisany.'
+
+      document.getElementById('displayName').value = ''
+      document.getElementById('userLogin').value = ''
+      document.getElementById('userPassword').value = ''
+      document.querySelectorAll('.lessonBox').forEach(el => {
+        el.checked = false
+      })
+    }
+
+    checkSession()
+  </script>
 </body>
 </html>
