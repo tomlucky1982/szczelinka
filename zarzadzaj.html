@@ -10,17 +10,18 @@
       background: #f4f6f8;
       margin: 0;
       padding: 0;
+      color: #111;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 30px 20px 60px 20px;
     }
 
     .card {
       background: #ffffff;
-      border-radius: 10px;
+      border-radius: 14px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       padding: 24px;
       margin-bottom: 24px;
@@ -30,15 +31,22 @@
       margin-top: 0;
     }
 
+    h1 {
+      margin-bottom: 24px;
+    }
+
     input[type="email"],
     input[type="password"],
     input[type="text"] {
       width: 100%;
-      max-width: 420px;
+      max-width: 460px;
       padding: 12px;
       margin: 8px 0;
       font-size: 16px;
       box-sizing: border-box;
+      border: 1px solid #cfcfcf;
+      border-radius: 8px;
+      background: #fff;
     }
 
     button {
@@ -46,10 +54,25 @@
       font-size: 16px;
       cursor: pointer;
       margin-top: 8px;
+      border: 1px solid #999;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    button:hover {
+      background: #f7f7f7;
     }
 
     .hidden {
       display: none;
+    }
+
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px 16px;
+      max-width: 700px;
+      margin-bottom: 10px;
     }
 
     .lessons-grid label {
@@ -67,6 +90,12 @@
 
     .message {
       margin-top: 12px;
+      min-height: 24px;
+    }
+
+    .muted {
+      color: #666;
+      font-size: 14px;
     }
 
     .table-wrap {
@@ -77,7 +106,7 @@
     table {
       border-collapse: collapse;
       width: 100%;
-      min-width: 800px;
+      min-width: 860px;
       background: white;
     }
 
@@ -93,13 +122,50 @@
       background: #f1f1f1;
     }
 
-    .muted {
-      color: #666;
-      font-size: 14px;
-    }
-
     .warning {
       color: #b00020;
+      font-weight: bold;
+    }
+
+    .ok {
+      color: #1c6b2a;
+      font-weight: bold;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .summary-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .summary-item {
+      background: #fafafa;
+      border: 1px solid #e3e3e3;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .summary-label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .summary-value {
+      font-size: 28px;
       font-weight: bold;
     }
   </style>
@@ -127,9 +193,24 @@
         <div class="topbar">
           <div>
             <h2 style="margin-bottom: 6px;">Zalogowano poprawnie</h2>
-            <div class="muted">Tutaj zarządzasz dostępami do lekcji i sprawdzasz wejścia.</div>
+            <div class="muted">Tutaj zarządzasz dostępami do lekcji i sprawdzasz aktywność użytkowników.</div>
           </div>
           <button onclick="logout()">Wyloguj</button>
+        </div>
+
+        <div class="summary-boxes">
+          <div class="summary-item">
+            <div class="summary-label">Łączna liczba zdarzeń</div>
+            <div class="summary-value" id="summaryEvents">-</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Liczba aktywnych loginów</div>
+            <div class="summary-value" id="summaryLogins">-</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Podejrzane loginy</div>
+            <div class="summary-value" id="summaryWarnings">-</div>
+          </div>
         </div>
       </div>
 
@@ -167,22 +248,36 @@
             <h2 style="margin-bottom: 6px;">Statystyki wejść</h2>
             <div class="muted">Ostatnie 100 zdarzeń logowania i wejść do lekcji.</div>
           </div>
-          <button onclick="loadStats()">Odśwież statystyki</button>
+          <button onclick="refreshAll()">Odśwież wszystko</button>
         </div>
 
         <div id="statsBox" class="table-wrap"></div>
       </div>
 
-      <div class="card">
-        <div class="topbar">
-          <div>
-            <h2 style="margin-bottom: 6px;">Analiza loginów</h2>
-            <div class="muted">Pokazuje liczbę wejść i liczbę różnych urządzeń / przeglądarek dla każdego loginu.</div>
+      <div class="grid-two">
+        <div class="card">
+          <div class="topbar">
+            <div>
+              <h2 style="margin-bottom: 6px;">Analiza loginów</h2>
+              <div class="muted">Pokazuje liczbę wejść i liczbę różnych urządzeń / przeglądarek dla każdego loginu.</div>
+            </div>
+            <button onclick="loadLoginStats()">Analizuj loginy</button>
           </div>
-          <button onclick="loadLoginStats()">Analizuj loginy</button>
+
+          <div id="loginStats" class="table-wrap"></div>
         </div>
 
-        <div id="loginStats" class="table-wrap"></div>
+        <div class="card">
+          <div class="topbar">
+            <div>
+              <h2 style="margin-bottom: 6px;">Postęp kursu użytkowników</h2>
+              <div class="muted">Najwyższa lekcja osiągnięta przez login, liczba wejść i ostatnia aktywność.</div>
+            </div>
+            <button onclick="loadCourseProgress()">Pokaż postęp</button>
+          </div>
+
+          <div id="courseProgress" class="table-wrap"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -196,6 +291,20 @@
     const createMsg = document.getElementById('createMsg')
     const statsBox = document.getElementById('statsBox')
     const loginStatsBox = document.getElementById('loginStats')
+    const courseProgressBox = document.getElementById('courseProgress')
+
+    const lessonMap = {
+      1: 3,
+      2: 4,
+      3: 5,
+      4: 6,
+      5: 7,
+      6: 8
+    }
+
+    function lessonIdToLessonNo(lessonId) {
+      return lessonMap[lessonId] || lessonId
+    }
 
     async function checkSession() {
       const { data, error } = await supabase.auth.getSession()
@@ -210,8 +319,7 @@
       if (data.session) {
         loginSection.classList.add('hidden')
         adminSection.classList.remove('hidden')
-        await loadStats()
-        await loadLoginStats()
+        await refreshAll()
       } else {
         loginSection.classList.remove('hidden')
         adminSection.classList.add('hidden')
@@ -309,8 +417,7 @@
         el.checked = false
       })
 
-      await loadStats()
-      await loadLoginStats()
+      await refreshAll()
     }
 
     window.loadStats = async function () {
@@ -341,15 +448,6 @@
         return
       }
 
-      const lessonMap = {
-        1: 3,
-        2: 4,
-        3: 5,
-        4: 6,
-        5: 7,
-        6: 8
-      }
-
       let html = `
         <table>
           <tr>
@@ -363,7 +461,7 @@
 
       data.forEach(row => {
         const login = row.lesson_credentials?.login || '-'
-        const lessonNo = lessonMap[row.lesson_id] || row.lesson_id
+        const lessonNo = lessonIdToLessonNo(row.lesson_id)
 
         html += `
           <tr>
@@ -422,6 +520,8 @@
         }
       })
 
+      let warningCount = 0
+
       let html = `
         <table>
           <tr>
@@ -438,9 +538,10 @@
           const views = map[login].views
           const devices = map[login].agents.size
 
-          let status = 'OK'
+          let status = '<span class="ok">OK</span>'
           if (devices > 2) {
             status = '<span class="warning">Uwaga</span>'
+            warningCount += 1
           }
 
           html += `
@@ -455,6 +556,107 @@
 
       html += `</table>`
       loginStatsBox.innerHTML = html
+
+      document.getElementById('summaryWarnings').textContent = warningCount
+      document.getElementById('summaryLogins').textContent = Object.keys(map).length
+    }
+
+    window.loadCourseProgress = async function () {
+      courseProgressBox.innerHTML = 'Ładowanie...'
+
+      const { data, error } = await supabase
+        .from('lesson_access_events')
+        .select(`
+          viewed_at,
+          lesson_id,
+          event_type,
+          lesson_credentials (
+            login
+          )
+        `)
+        .order('viewed_at', { ascending: false })
+
+      if (error) {
+        courseProgressBox.innerHTML = 'Błąd ładowania postępu kursu: ' + error.message
+        return
+      }
+
+      if (!data || data.length === 0) {
+        courseProgressBox.innerHTML = 'Brak danych o postępie kursu.'
+        return
+      }
+
+      const map = {}
+
+      data.forEach(row => {
+        const login = row.lesson_credentials?.login
+        if (!login) return
+
+        const lessonNo = lessonIdToLessonNo(row.lesson_id)
+
+        if (!map[login]) {
+          map[login] = {
+            highestLesson: lessonNo,
+            views: 0,
+            lastSeen: row.viewed_at
+          }
+        }
+
+        if (lessonNo > map[login].highestLesson) {
+          map[login].highestLesson = lessonNo
+        }
+
+        map[login].views += 1
+
+        if (new Date(row.viewed_at) > new Date(map[login].lastSeen)) {
+          map[login].lastSeen = row.viewed_at
+        }
+      })
+
+      let html = `
+        <table>
+          <tr>
+            <th>Login</th>
+            <th>Najwyższa lekcja</th>
+            <th>Liczba wejść</th>
+            <th>Ostatnie wejście</th>
+          </tr>
+      `
+
+      Object.keys(map)
+        .sort((a, b) => map[b].highestLesson - map[a].highestLesson)
+        .forEach(login => {
+          html += `
+            <tr>
+              <td>${login}</td>
+              <td>${map[login].highestLesson}</td>
+              <td>${map[login].views}</td>
+              <td>${new Date(map[login].lastSeen).toLocaleString('pl-PL')}</td>
+            </tr>
+          `
+        })
+
+      html += `</table>`
+      courseProgressBox.innerHTML = html
+    }
+
+    async function loadSummary() {
+      const { count, error } = await supabase
+        .from('lesson_access_events')
+        .select('*', { count: 'exact', head: true })
+
+      if (error) {
+        document.getElementById('summaryEvents').textContent = '-'
+      } else {
+        document.getElementById('summaryEvents').textContent = count ?? 0
+      }
+    }
+
+    window.refreshAll = async function () {
+      await loadSummary()
+      await loadStats()
+      await loadLoginStats()
+      await loadCourseProgress()
     }
 
     checkSession()
