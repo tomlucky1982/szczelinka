@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lekcja 6</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #f4f6f8;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    input {
+      width: 100%;
+      max-width: 420px;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    #msg {
+      margin-top: 12px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <h1>Lekcja 6</h1>
+      <button id="logoutBtn" class="hidden">Wyloguj</button>
+    </div>
+
+    <div id="loginBox" class="card">
+      <h2>🔒 Dostęp do lekcji</h2>
+      <input id="login" placeholder="login" />
+      <input id="password" type="password" placeholder="hasło" />
+      <br>
+      <button onclick="checkLogin()">Wejdź</button>
+      <p id="msg"></p>
+    </div>
+
+    <div id="lessonContent" class="card hidden"></div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabase-client.js'
+
+    const LESSON_ID = 4
+    const SESSION_KEY = 'szczelinka_lesson6_session'
+
+    const loginBox = document.getElementById('loginBox')
+    const lessonContent = document.getElementById('lessonContent')
+    const msg = document.getElementById('msg')
+    const logoutBtn = document.getElementById('logoutBtn')
+
+    async function saveEvent(credentialId, eventType) {
+      await supabase
+        .from('lesson_access_events')
+        .insert([{
+          credential_id: credentialId,
+          lesson_id: LESSON_ID,
+          event_type: eventType,
+          user_agent: navigator.userAgent
+        }])
+    }
+
+    async function loadLesson(credentialId = null) {
+      const { data, error } = await supabase
+        .from('lesson_content')
+        .select('html_content')
+        .eq('lesson_id', LESSON_ID)
+        .single()
+
+      if (error) {
+        msg.innerText = 'Nie udało się pobrać treści lekcji.'
+        return
+      }
+
+      if (credentialId) {
+        await saveEvent(credentialId, 'lesson_view')
+      }
+
+      loginBox.classList.add('hidden')
+      lessonContent.innerHTML = data.html_content
+      lessonContent.classList.remove('hidden')
+      logoutBtn.classList.remove('hidden')
+    }
+
+    function saveSession(credential) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({
+        credential_id: credential.id,
+        lesson_id: credential.lesson_id,
+        login: credential.login,
+        saved_at: new Date().toISOString()
+      }))
+    }
+
+    function clearSession() {
+      localStorage.removeItem(SESSION_KEY)
+    }
+
+    async function restoreSession() {
+      const raw = localStorage.getItem(SESSION_KEY)
+      if (!raw) return
+
+      try {
+        const session = JSON.parse(raw)
+
+        if (session.lesson_id !== LESSON_ID) {
+          clearSession()
+          return
+        }
+
+        const { data, error } = await supabase
+          .from('lesson_credentials')
+          .select('id, lesson_id, login, is_active')
+          .eq('id', session.credential_id)
+          .eq('lesson_id', LESSON_ID)
+          .eq('is_active', true)
+          .single()
+
+        if (error || !data) {
+          clearSession()
+          return
+        }
+
+        await loadLesson(data.id)
+      } catch {
+        clearSession()
+      }
+    }
+
+    window.checkLogin = async function () {
+      const login = document.getElementById('login').value.trim()
+      const password = document.getElementById('password').value
+
+      msg.innerText = ''
+
+      const { data, error } = await supabase
+        .from('lesson_credentials')
+        .select('id, lesson_id, login, is_active')
+        .eq('login', login)
+        .eq('password_plain', password)
+        .eq('lesson_id', LESSON_ID)
+        .eq('is_active', true)
+
+      if (error) {
+        msg.innerText = 'Błąd logowania: ' + error.message
+        return
+      }
+
+      if (!data || data.length === 0) {
+        msg.innerText = 'Błędny login lub hasło'
+        return
+      }
+
+      const credential = data[0]
+
+      await saveEvent(credential.id, 'login_success')
+      saveSession(credential)
+      await loadLesson(credential.id)
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      clearSession()
+      lessonContent.classList.add('hidden')
+      lessonContent.innerHTML = ''
+      loginBox.classList.remove('hidden')
+      logoutBtn.classList.add('hidden')
+      msg.innerText = ''
+      document.getElementById('password').value = ''
+    })
+
+    restoreSession()
+  </script>
+</body>
+</html>
