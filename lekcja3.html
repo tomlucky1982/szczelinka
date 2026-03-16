@@ -87,7 +87,18 @@
     const msg = document.getElementById('msg')
     const logoutBtn = document.getElementById('logoutBtn')
 
-    async function loadLesson() {
+    async function saveEvent(credentialId, eventType) {
+      await supabase
+        .from('lesson_access_events')
+        .insert([{
+          credential_id: credentialId,
+          lesson_id: LESSON_ID,
+          event_type: eventType,
+          user_agent: navigator.userAgent
+        }])
+    }
+
+    async function loadLesson(credentialId = null) {
       const { data, error } = await supabase
         .from('lesson_content')
         .select('html_content')
@@ -97,6 +108,10 @@
       if (error) {
         msg.innerText = 'Nie udało się pobrać treści lekcji.'
         return
+      }
+
+      if (credentialId) {
+        await saveEvent(credentialId, 'lesson_view')
       }
 
       loginBox.classList.add('hidden')
@@ -143,7 +158,7 @@
           return
         }
 
-        await loadLesson()
+        await loadLesson(data.id)
       } catch {
         clearSession()
       }
@@ -174,8 +189,10 @@
       }
 
       const credential = data[0]
+
+      await saveEvent(credential.id, 'login_success')
       saveSession(credential)
-      await loadLesson()
+      await loadLesson(credential.id)
     }
 
     logoutBtn.addEventListener('click', () => {
