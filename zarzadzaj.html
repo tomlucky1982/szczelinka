@@ -4,54 +4,170 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Szczelinka - panel zarządzania</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 60px 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      max-width: 420px;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .lessons-grid label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .message {
+      margin-top: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 800px;
+      background: white;
+    }
+
+    th, td {
+      border: 1px solid #d9d9d9;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f1f1f1;
+    }
+
+    .muted {
+      color: #666;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Panel zarządzania</h1>
 
-  <h1>Panel zarządzania</h1>
+    <div id="loginSection" class="card">
+      <h2>Logowanie admina</h2>
 
-  <div id="loginSection">
-    <h2>Logowanie admina</h2>
+      <input id="email" type="email" placeholder="email admina" />
+      <br>
 
-    <input id="email" type="email" placeholder="email admina" />
-    <br><br>
+      <input id="password" type="password" placeholder="hasło" />
+      <br>
 
-    <input id="password" type="password" placeholder="hasło" />
-    <br><br>
+      <button onclick="login()">Zaloguj</button>
 
-    <button onclick="login()">Zaloguj</button>
+      <p id="msg" class="message"></p>
+    </div>
 
-    <p id="msg"></p>
-  </div>
+    <div id="adminSection" class="hidden">
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h2 style="margin-bottom: 6px;">Zalogowano poprawnie</h2>
+            <div class="muted">Tutaj zarządzasz dostępami do lekcji i sprawdzasz wejścia.</div>
+          </div>
+          <button onclick="logout()">Wyloguj</button>
+        </div>
+      </div>
 
-  <div id="adminSection" style="display:none;">
-    <p><strong>Zalogowano poprawnie</strong></p>
-    <button onclick="logout()">Wyloguj</button>
+      <div class="card">
+        <h2>Dodaj dostęp do lekcji</h2>
 
-    <hr>
+        <input id="displayName" type="text" placeholder="Nazwa użytkownika np. Jan Kowalski" />
+        <br>
 
-    <h2>Dodaj dostęp do lekcji</h2>
+        <input id="userLogin" type="text" placeholder="Login" />
+        <br>
 
-    <input id="displayName" placeholder="Nazwa użytkownika np. Jan Kowalski" />
-    <br><br>
+        <input id="userPassword" type="text" placeholder="Hasło" />
+        <br>
 
-    <input id="userLogin" placeholder="Login" />
-    <br><br>
+        <h3>Dostęp do lekcji</h3>
 
-    <input id="userPassword" placeholder="Hasło" />
-    <br><br>
+        <div class="lessons-grid">
+          <label><input type="checkbox" class="lessonBox" value="3"> Lekcja 3</label>
+          <label><input type="checkbox" class="lessonBox" value="4"> Lekcja 4</label>
+          <label><input type="checkbox" class="lessonBox" value="5"> Lekcja 5</label>
+          <label><input type="checkbox" class="lessonBox" value="6"> Lekcja 6</label>
+          <label><input type="checkbox" class="lessonBox" value="7"> Lekcja 7</label>
+          <label><input type="checkbox" class="lessonBox" value="8"> Lekcja 8</label>
+        </div>
 
-    <h3>Dostęp do lekcji</h3>
+        <button onclick="createAccess()">Utwórz dostęp</button>
 
-    <label><input type="checkbox" class="lessonBox" value="3"> Lekcja 3</label><br>
-    <label><input type="checkbox" class="lessonBox" value="4"> Lekcja 4</label><br>
-    <label><input type="checkbox" class="lessonBox" value="5"> Lekcja 5</label><br>
-    <label><input type="checkbox" class="lessonBox" value="6"> Lekcja 6</label><br>
-    <label><input type="checkbox" class="lessonBox" value="7"> Lekcja 7</label><br>
-    <label><input type="checkbox" class="lessonBox" value="8"> Lekcja 8</label><br><br>
+        <p id="createMsg" class="message"></p>
+      </div>
 
-    <button onclick="createAccess()">Utwórz dostęp</button>
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h2 style="margin-bottom: 6px;">Statystyki wejść</h2>
+            <div class="muted">Ostatnie 100 zdarzeń logowania i wejść do lekcji.</div>
+          </div>
+          <button onclick="loadStats()">Odśwież statystyki</button>
+        </div>
 
-    <p id="createMsg"></p>
+        <div id="statsBox" class="table-wrap"></div>
+      </div>
+    </div>
   </div>
 
   <script type="module">
@@ -61,23 +177,25 @@
     const adminSection = document.getElementById('adminSection')
     const msg = document.getElementById('msg')
     const createMsg = document.getElementById('createMsg')
+    const statsBox = document.getElementById('statsBox')
 
     async function checkSession() {
       const { data, error } = await supabase.auth.getSession()
 
       if (error) {
-        msg.innerText = error.message
-        loginSection.style.display = 'block'
-        adminSection.style.display = 'none'
+        msg.innerText = 'Błąd sesji: ' + error.message
+        loginSection.classList.remove('hidden')
+        adminSection.classList.add('hidden')
         return
       }
 
       if (data.session) {
-        loginSection.style.display = 'none'
-        adminSection.style.display = 'block'
+        loginSection.classList.add('hidden')
+        adminSection.classList.remove('hidden')
+        await loadStats()
       } else {
-        loginSection.style.display = 'block'
-        adminSection.style.display = 'none'
+        loginSection.classList.remove('hidden')
+        adminSection.classList.add('hidden')
       }
     }
 
@@ -93,7 +211,7 @@
       })
 
       if (error) {
-        msg.innerText = error.message
+        msg.innerText = 'Błąd logowania: ' + error.message
       } else {
         msg.innerText = 'Zalogowano poprawnie'
         await checkSession()
@@ -171,6 +289,65 @@
       document.querySelectorAll('.lessonBox').forEach(el => {
         el.checked = false
       })
+
+      await loadStats()
+    }
+
+    window.loadStats = async function () {
+      statsBox.innerHTML = 'Ładowanie...'
+
+      const { data, error } = await supabase
+        .from('lesson_access_events')
+        .select(`
+          id,
+          event_type,
+          viewed_at,
+          user_agent,
+          lesson_id,
+          lesson_credentials (
+            login
+          )
+        `)
+        .order('viewed_at', { ascending: false })
+        .limit(100)
+
+      if (error) {
+        statsBox.innerHTML = 'Błąd ładowania statystyk: ' + error.message
+        return
+      }
+
+      if (!data || data.length === 0) {
+        statsBox.innerHTML = 'Brak statystyk.'
+        return
+      }
+
+      let html = `
+        <table>
+          <tr>
+            <th>Data</th>
+            <th>Login</th>
+            <th>Lekcja</th>
+            <th>Typ</th>
+            <th>User Agent</th>
+          </tr>
+      `
+
+      data.forEach(row => {
+        const login = row.lesson_credentials?.login || '-'
+
+        html += `
+          <tr>
+            <td>${new Date(row.viewed_at).toLocaleString('pl-PL')}</td>
+            <td>${login}</td>
+            <td>${row.lesson_id}</td>
+            <td>${row.event_type}</td>
+            <td>${row.user_agent || ''}</td>
+          </tr>
+        `
+      })
+
+      html += `</table>`
+      statsBox.innerHTML = html
     }
 
     checkSession()
