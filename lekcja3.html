@@ -1,134 +1,194 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lekcja 3</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #f4f6f8;
+      margin: 0;
+    }
 
-<meta charset="UTF-8">
-<title>Lekcja 3</title>
+    .container {
+      max-width: 760px;
+      margin: auto;
+      padding: 40px 20px;
+    }
 
-<style>
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
 
-body{
-font-family: Georgia, serif;
-background:#f4f6f8;
-margin:0;
-}
+    input {
+      width: 100%;
+      max-width: 420px;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
 
-.container{
-max-width:700px;
-margin:auto;
-padding:40px;
-}
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
 
-.loginBox{
-background:white;
-padding:30px;
-border-radius:8px;
-box-shadow:0 4px 20px rgba(0,0,0,0.1);
-text-align:center;
-}
+    #msg {
+      margin-top: 12px;
+    }
 
-input{
-width:80%;
-padding:10px;
-margin:10px;
-font-size:16px;
-}
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
 
-button{
-padding:10px 25px;
-font-size:16px;
-cursor:pointer;
-}
-
-#lessonContent{
-background:white;
-padding:30px;
-border-radius:8px;
-box-shadow:0 4px 20px rgba(0,0,0,0.1);
-}
-
-</style>
-
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <div class="topbar">
+      <h1>Lekcja 3</h1>
+      <button id="logoutBtn" class="hidden">Wyloguj</button>
+    </div>
 
-<div class="container">
+    <div id="loginBox" class="card">
+      <h2>🔒 Dostęp do lekcji</h2>
+      <input id="login" placeholder="login" />
+      <input id="password" type="password" placeholder="hasło" />
+      <br>
+      <button onclick="checkLogin()">Wejdź</button>
+      <p id="msg"></p>
+    </div>
 
-<h1>Lekcja 3</h1>
+    <div id="lessonContent" class="card hidden"></div>
+  </div>
 
-<div id="loginBox" class="loginBox">
+  <script type="module">
+    import { supabase } from './supabase-client.js'
 
-<h2>🔒 Dostęp do lekcji</h2>
+    const LESSON_ID = 1
+    const SESSION_KEY = 'szczelinka_lesson3_session'
 
-<input id="login" placeholder="login">
-<br>
+    const loginBox = document.getElementById('loginBox')
+    const lessonContent = document.getElementById('lessonContent')
+    const msg = document.getElementById('msg')
+    const logoutBtn = document.getElementById('logoutBtn')
 
-<input id="password" type="password" placeholder="hasło">
-<br>
+    async function loadLesson() {
+      const { data, error } = await supabase
+        .from('lesson_content')
+        .select('html_content')
+        .eq('lesson_id', LESSON_ID)
+        .single()
 
-<button onclick="checkLogin()">Wejdź</button>
+      if (error) {
+        msg.innerText = 'Nie udało się pobrać treści lekcji.'
+        return
+      }
 
-<p id="msg"></p>
+      loginBox.classList.add('hidden')
+      lessonContent.innerHTML = data.html_content
+      lessonContent.classList.remove('hidden')
+      logoutBtn.classList.remove('hidden')
+    }
 
-</div>
+    function saveSession(credential) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({
+        credential_id: credential.id,
+        lesson_id: credential.lesson_id,
+        login: credential.login,
+        saved_at: new Date().toISOString()
+      }))
+    }
 
-<div id="lessonContent" style="display:none"></div>
+    function clearSession() {
+      localStorage.removeItem(SESSION_KEY)
+    }
 
-</div>
+    async function restoreSession() {
+      const raw = localStorage.getItem(SESSION_KEY)
+      if (!raw) return
 
-<script type="module">
+      try {
+        const session = JSON.parse(raw)
 
-import { supabase } from './supabase-client.js'
+        if (session.lesson_id !== LESSON_ID) {
+          clearSession()
+          return
+        }
 
-window.checkLogin = async function(){
+        const { data, error } = await supabase
+          .from('lesson_credentials')
+          .select('id, lesson_id, login, is_active')
+          .eq('id', session.credential_id)
+          .eq('lesson_id', LESSON_ID)
+          .eq('is_active', true)
+          .single()
 
-const login = document.getElementById('login').value
-const password = document.getElementById('password').value
+        if (error || !data) {
+          clearSession()
+          return
+        }
 
-const { data, error } = await supabase
-.from('lesson_credentials')
-.select('*')
-.eq('login', login)
-.eq('password_plain', password)
+        await loadLesson()
+      } catch {
+        clearSession()
+      }
+    }
 
-if(error){
-document.getElementById('msg').innerText = error.message
-return
-}
+    window.checkLogin = async function () {
+      const login = document.getElementById('login').value.trim()
+      const password = document.getElementById('password').value
 
-if(!data || data.length === 0){
-document.getElementById('msg').innerText = "Błędny login lub hasło"
-return
-}
+      msg.innerText = ''
 
-const credential = data[0]
+      const { data, error } = await supabase
+        .from('lesson_credentials')
+        .select('id, lesson_id, login, is_active')
+        .eq('login', login)
+        .eq('password_plain', password)
+        .eq('lesson_id', LESSON_ID)
+        .eq('is_active', true)
 
-if(credential.lesson_id != 1){
-document.getElementById('msg').innerText = "Brak dostępu do tej lekcji"
-return
-}
+      if (error) {
+        msg.innerText = 'Błąd logowania: ' + error.message
+        return
+      }
 
-loadLesson()
+      if (!data || data.length === 0) {
+        msg.innerText = 'Błędny login lub hasło'
+        return
+      }
 
-}
+      const credential = data[0]
+      saveSession(credential)
+      await loadLesson()
+    }
 
-async function loadLesson(){
+    logoutBtn.addEventListener('click', () => {
+      clearSession()
+      lessonContent.classList.add('hidden')
+      lessonContent.innerHTML = ''
+      loginBox.classList.remove('hidden')
+      logoutBtn.classList.add('hidden')
+      msg.innerText = ''
+      document.getElementById('password').value = ''
+    })
 
-document.getElementById('loginBox').style.display = "none"
-
-const { data } = await supabase
-.from('lesson_content')
-.select('*')
-.eq('lesson_id',1)
-
-document.getElementById('lessonContent').innerHTML = data[0].html_content
-document.getElementById('lessonContent').style.display = "block"
-
-}
-
-</script>
-
+    restoreSession()
+  </script>
 </body>
 </html>
