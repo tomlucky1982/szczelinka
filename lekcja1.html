@@ -725,27 +725,27 @@
     }
 
     .story-card {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: min(92vw, 520px);
-  min-height: 250px;
-  transform-origin: center top;
-  background: #ffffff;
-  border-radius: 26px;
-  box-shadow:
-    0 22px 40px rgba(0,0,0,0.10),
-    0 8px 18px rgba(0,0,0,0.06);
-  padding: 30px 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid #ececec;
-  transition: transform 0.22s ease, box-shadow 0.2s ease;
-  opacity: 1;
-}
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: min(92vw, 520px);
+      min-height: 250px;
+      transform-origin: center top;
+      background: #ffffff;
+      border-radius: 26px;
+      box-shadow:
+        0 22px 40px rgba(0,0,0,0.10),
+        0 8px 18px rgba(0,0,0,0.06);
+      padding: 30px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid #ececec;
+      transition: transform 0.22s ease, box-shadow 0.2s ease;
+      opacity: 1;
+    }
 
     .story-card::before {
       content: "";
@@ -997,7 +997,8 @@
         </div>
       </div>
 
-      <a href="#">Zajęcia</a>
+      <a href="prowadzacy.html">Prowadzący</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
   </header>
 
@@ -1324,43 +1325,42 @@
       if (type === "weronika") {
         storyTitle.textContent = "Historia Weroniki";
         storyContent.innerHTML = `
-          <p>— Weroniko, dlaczego tak bardzo chcesz zdać ten egzamin?</p>
+          <p><strong>— Weroniko, dlaczego tak bardzo chcesz zdać ten egzamin?</strong></p>
           <p>— Bo chcę dostać dyplom magistra.</p>
-          <p>— A po co Ci ten dyplom?</p>
+          <p><strong>— A po co Ci ten dyplom?</strong></p>
           <p>— Dzięki niemu będę mogła dostać dobrą pracę. Chcę coś w życiu znaczyć. Chcę też, żeby mama i tata byli ze mnie dumni. No i zawsze marzyłam o tym, żeby zostać lekarzem i pomagać ludziom.</p>
-          <p>— A po co Ci ta dobra praca?</p>
+          <p><strong>— A po co Ci ta dobra praca?</strong></p>
           <p>— Żeby mieć stabilność, dobre życie… i żeby być kimś. Lekarz to szanowany zawód. Chciałabym być szanowana.</p>
-          <p>— Dlaczego tak ważne jest dla Ciebie, żeby rodzice byli z Ciebie dumni?</p>
+          <p><strong>— Dlaczego tak ważne jest dla Ciebie, żeby rodzice byli z Ciebie dumni?</strong></p>
           <p>— Bo kiedy mama mówi, że jest ze mnie dumna… to jest niesamowite uczucie. Pamiętam kilka takich chwil w życiu i były naprawdę piękne.</p>
-          <p>— Powiedziałaś też, że chcesz pomagać ludziom. Dlaczego?</p>
-          <p>— Bo pomaganie daje ogromną satysfakcję. Nawet jeśli pacjenci bywają trudni, a praca bardzo męcząca, to na końcu wiem, że zrobiłam coś dobrego. Poza tym jestem osobą religijną. Moja religia uczy, że trzeba czynić dobro. Chcę być dobrym człowiekiem.</p>
-          <p>— A dlaczego chcesz być dobrym człowiekiem?</p>
+          <p><strong>— Powiedziałaś też, że chcesz pomagać ludziom. Dlaczego?</strong></p>
+          <p>— Bo pomaganie daje ogromną satysfakcję. Nawet jeśli pacjenci bywają trudni, a praca bardzo męcząca, to na końcu wiem, że zrobiłam coś dobrego.</p>
+          <p><strong>— A dlaczego chcesz być dobrym człowiekiem?</strong></p>
           <p>— Bo wtedy czuję, że moje życie ma sens.</p>
-          <p>— A gdybyśmy spojrzeli na to jeszcze głębiej, Weroniko…</p>
-          <p>Dyplom ma dać Ci dobrą pracę.</p>
-          <p>Dobra praca ma dać Ci pieniądze, szacunek i poczucie wartości.</p>
-          <p>Duma rodziców ma dać Ci radość.</p>
-          <p>Pomaganie ludziom ma dać Ci satysfakcję i poczucie dobra.</p>
-          <p>— Czy widzisz, do czego prowadzą wszystkie te rzeczy?</p>
-          <p>Do jednego.</p>
-          <p>Do Twojego szczęścia.</p>
-          <p>— Wyobraźmy sobie jednak inną sytuację, Weroniko.</p>
+          <p><strong>— A gdybyśmy spojrzeli na to jeszcze głębiej, Weroniko…</strong></p>
+          <p><strong>Dyplom</strong> ma dać Ci dobrą pracę.</p>
+          <p><strong>Dobra praca</strong> ma dać Ci pieniądze, szacunek i poczucie wartości.</p>
+          <p><strong>Duma rodziców</strong> ma dać Ci radość.</p>
+          <p><strong>Pomaganie ludziom</strong> ma dać Ci satysfakcję i poczucie dobra.</p>
+          <p><strong>— Czy widzisz, do czego prowadzą wszystkie te rzeczy?</strong></p>
+          <p><strong>Do jednego.</strong></p>
+          <p><strong>Do Twojego szczęścia.</strong></p>
+          <p><strong>— Wyobraźmy sobie jednak inną sytuację, Weroniko.</strong></p>
           <p>Zdajesz egzamin. Dostajesz dyplom. Zostajesz lekarzem.</p>
           <p>Ale wszystko układa się zupełnie inaczej, niż marzyłaś.</p>
           <p>Rodzice wcale nie są z Ciebie dumni.</p>
           <p>Twoje wynagrodzenie jest niskie.</p>
           <p>Pacjenci nie zdrowieją, a czasem nawet cierpią przez Twoje decyzje.</p>
-          <p>Twoja religia mówi Ci, że przez to, co robisz, jesteś złym człowiekiem.</p>
           <p>Każdego dnia wracasz z pracy zmęczona i przygnębiona.</p>
           <p>Nie znajdujesz w niej żadnej radości.</p>
           <p>Nie ma nawet nadziei, że coś się kiedyś zmieni.</p>
           <p>Wiesz z całkowitą pewnością, że tak będzie już zawsze.</p>
-          <p>— Powiedz mi szczerze, Weroniko… Czy wiedząc, że tak właśnie skończy się Twoja droga, nadal wkładałabyś tyle lat wysiłku, żeby zostać lekarzem?</p>
-          <p><strong>{oczywista odpowiedź to NIE}</strong></p>
+          <p><strong>— Powiedz mi szczerze, Weroniko… Czy wiedząc, że tak właśnie skończy się Twoja droga, nadal wkładałabyś tyle lat wysiłku, żeby zostać lekarzem?</strong></p>
+          <p><strong>— Oczywiście, że nie.</strong></p>
           <p>Wszystkie cele, które sobie stawiamy — dyplom, praca, uznanie, pomaganie innym, bycie dobrym człowiekiem — są tylko środkami.</p>
           <p>Drogami.</p>
           <p>A każda z tych dróg prowadzi w to samo miejsce.</p>
-          <p>Do szczęścia.</p>
+          <p><strong>Do szczęścia.</strong></p>
         `;
         storyRead.weronika = true;
       }
@@ -1368,25 +1368,25 @@
       if (type === "benedyk") {
         storyTitle.textContent = "Historia Benedykta";
         storyContent.innerHTML = `
-          <p>— Benedykcie, dlaczego zdecydowałeś się iść na wojnę?</p>
+          <p><strong>— Benedykcie, dlaczego zdecydowałeś się iść na wojnę?</strong></p>
           <p>— Bo mój kraj został zaatakowany. Ktoś musi go bronić.</p>
-          <p>— Czyli to obowiązek?</p>
+          <p><strong>— Czyli to obowiązek?</strong></p>
           <p>— Tak. Jestem żołnierzem i patriotą. Złożyłem przysięgę. Poza tym bronię też swojej rodziny i ludzi, którzy tu żyją.</p>
-          <p>— A czego właściwie oczekujesz po tej wojnie? Co ma się wydarzyć?</p>
+          <p><strong>— A czego właściwie oczekujesz po tej wojnie? Co ma się wydarzyć?</strong></p>
           <p>— Chcę, żebyśmy pokonali wroga. Żeby zapłacili za swoje czyny. Żeby sprawiedliwość zwyciężyła.</p>
-          <p>— I jeśli tak się stanie — jak będziesz się wtedy czuł?</p>
+          <p><strong>— I jeśli tak się stanie — jak będziesz się wtedy czuł?</strong></p>
           <p>— Wspaniale. To będzie trudna droga, ale jeśli zwyciężymy, będę wiedział, że było warto.</p>
-          <p>— A jeśli przyjdzie Ci zginąć na tej wojnie?</p>
+          <p><strong>— A jeśli przyjdzie Ci zginąć na tej wojnie?</strong></p>
           <p>— Jeśli zginę w służbie, uznam, że przysłużyłem się sprawie. Że zrobiłem to, co należało zrobić.</p>
-          <p>— Czyli nawet wtedy zobaczysz w tym sens?</p>
+          <p><strong>— Czyli nawet wtedy zobaczysz w tym sens?</strong></p>
           <p>— Tak. Bo walczyłem o coś ważnego.</p>
-          <p>— Spójrzmy jednak jeszcze głębiej, Benedykcie.</p>
+          <p><strong>— Spójrzmy jednak jeszcze głębiej, Benedykcie.</strong></p>
           <p>Chcesz pokonać wroga, bo wtedy zapanuje sprawiedliwość.</p>
           <p>Chcesz obronić swój kraj i swoją rodzinę.</p>
           <p>Chcesz być wierny przysiędze i zachować honor.</p>
-          <p>— A jak będziesz się wtedy czuł?</p>
+          <p><strong>— A jak będziesz się wtedy czuł?</strong></p>
           <p>— Będę dumny. Będę miał poczucie, że zrobiłem coś właściwego.</p>
-          <p>— Wyobraźmy sobie teraz zupełnie inną sytuację.</p>
+          <p><strong>— Wyobraźmy sobie teraz zupełnie inną sytuację.</strong></p>
           <p>Załóżmy, że już dziś wiesz z całkowitą pewnością, że wszystko potoczy się dokładnie odwrotnie niż oczekujesz.</p>
           <p>Twoje decyzje okażą się błędne.</p>
           <p>Przez Twoje rozkazy zginie wielu ludzi.</p>
@@ -1395,10 +1395,9 @@
           <p>Splamisz swój honor.</p>
           <p>Ludzie, którzy dziś są Twoimi towarzyszami broni, będą mówić o Tobie z pogardą.</p>
           <p>A Ty sam, patrząc na swoje życie, będziesz wiedział, że zawiodłeś.</p>
-          <p>— Powiedz mi szczerze, Benedykcie…</p>
-          <p>Gdybyś już dziś wiedział, że Twoje zaangażowanie w tę wojnę doprowadzi właśnie do takiego końca —</p>
-          <p>czy nadal z takim samym przekonaniem wyruszyłbyś do walki?</p>
-          <p><strong>{oczywista odpowiedź to NIE}</strong></p>
+          <p><strong>— Powiedz mi szczerze, Benedykcie…</strong></p>
+          <p><strong>— Gdybyś już dziś wiedział, że Twoje zaangażowanie w tę wojnę doprowadzi właśnie do takiego końca — czy nadal z takim samym przekonaniem wyruszyłbyś do walki?</strong></p>
+          <p><strong>— Oczywiście, że nie.</strong></p>
           <p>I właśnie w tym tkwi istota tej historii.</p>
           <p>Człowiek działa dlatego, że widzi przed sobą nagrodę — zwycięstwo, sprawiedliwość, dumę, poczucie sensu.</p>
           <p>Gdy pojawia się pewność, że zamiast tego czeka go hańba, porażka i cierpienie, znika także motywacja do działania.</p>
@@ -1421,7 +1420,7 @@
             <div class="single-card">
               <h3>2. Kłótnia i racja</h3>
               <p>• Chcesz postawić na swoim w kłótni, gdyż uczucie posiadania racji jest dla Ciebie lepsze niż przyznanie się do błędu.</p>
-              <p>• Przyznajesz się do błędu, gdyż poczucie bycia uczciwym i fair jest dla Ciebie ważniejsze niż utrzymanie racji.</p>
+              <p>• Przyznajesz się do błędu, gdyż poczucie bycia uczciwym i fair jest dla Ciebie ważniejsze niż utrzymanie pozornej racji.</p>
             </div>
 
             <div class="single-card">
@@ -1432,7 +1431,7 @@
 
             <div class="single-card">
               <h3>4. Pomaganie innym</h3>
-              <p>• Pomagasz komuś w potrzebie, gdyż uczucie czynienia dobra jest lepsze niż obojętność.</p>
+              <p>• Pomagasz komuś w potrzebie, gdyż uczucie czynienia dobra jest lepsze niż poczucie winy za brak pomocy.</p>
               <p>• Czasem odmawiasz pomocy, gdyż troskę o własne siły lub rodzinę uznajesz za ważniejszą niż kolejne poświęcenie.</p>
             </div>
 
@@ -1565,72 +1564,63 @@
       countdownBox.textContent = timerConfig[stepKey].done ? "Ćwiczenie zakończone" : "";
     }
 
-function renderCardStackStep() {
+    function renderCardStackStep() {
+      const allSeen = stackState.hiddenCount >= stackCardsOriginal.length;
+      const remaining = stackCardsOriginal.slice(stackState.hiddenCount);
 
-  const allSeen = stackState.hiddenCount >= stackCardsOriginal.length;
-  const remaining = stackCardsOriginal.slice(stackState.hiddenCount);
+      lessonContent.innerHTML = `
+        <div class="lesson-kicker">Lekcja 1.7</div>
+        <h1 class="lesson-title">Za każdą decyzją stoi chęć uzyskania szczęścia</h1>
 
-  lessonContent.innerHTML = `
-    <div class="lesson-kicker">Lekcja 1.7</div>
-    <h1 class="lesson-title">Za każdą decyzją stoi chęć uzyskania szczęścia</h1>
+        <div class="stack-scene">
+          <div class="card-stack">
+            ${remaining.map((text, index) => {
+              const offsetY = index * 6;
+              const rotate = index % 2 === 0 ? -1.2 + (index * 0.2) : 1.2 - (index * 0.2);
+              const scale = 1 - (index * 0.012);
 
-    <div class="stack-scene">
+              return `
+                <div
+                  class="story-card ${index === 0 ? "top" : ""}"
+                  style="
+                    transform:
+                      translateX(-50%)
+                      translateY(${offsetY}px)
+                      rotate(${rotate}deg)
+                      scale(${scale});
+                    z-index:${100 - index};
+                  "
+                >
+                  ${index === 0 ? `<p>${escapeHtml(text)}</p>` : ""}
+                </div>
+              `;
+            }).join("")}
+          </div>
 
-      <div class="card-stack">
+          <div class="card-counter">
+            Odkryte karty: ${Math.min(stackState.hiddenCount, stackCardsOriginal.length)} / ${stackCardsOriginal.length}
+          </div>
 
-        ${remaining.map((text, index) => {
+          <div class="comment-bottom">
+            Kliknij górną kartę, aby odkryć kolejną.
+          </div>
+        </div>
+      `;
 
-          const offsetY = index * 6;
-          const rotate = index % 2 === 0 ? -1.2 + (index * 0.2) : 1.2 - (index * 0.2);
-          const scale = 1 - (index * 0.012);
+      const topCard = lessonContent.querySelector(".story-card.top");
 
-          return `
-            <div
-              class="story-card ${index === 0 ? "top" : ""}"
-              style="
-                transform:
-                  translateX(-50%)
-                  translateY(${offsetY}px)
-                  rotate(${rotate}deg)
-                  scale(${scale});
-                z-index:${100 - index};
-              "
-            >
-              ${index === 0 ? `<p>${escapeHtml(text)}</p>` : ""}
-            </div>
-          `;
+      if (topCard) {
+        topCard.addEventListener("click", () => {
+          stackState.hiddenCount += 1;
+          saveStack();
+          renderCardStackStep();
+        });
+      }
 
-        }).join("")}
-
-      </div>
-
-      <div class="card-counter">
-        Odkryte karty: ${Math.min(stackState.hiddenCount, stackCardsOriginal.length)} / ${stackCardsOriginal.length}
-      </div>
-
-      <div class="comment-bottom">
-        Kliknij górną kartę, aby odkryć kolejną.
-      </div>
-
-    </div>
-  `;
-
-  const topCard = lessonContent.querySelector(".story-card.top");
-
-  if (topCard) {
-    topCard.addEventListener("click", () => {
-
-      stackState.hiddenCount += 1;
-      saveStack();
-      renderCardStackStep();
-
-    });
-  }
-
-  enableNext(allSeen);
-  nextBtn.textContent = "Dalej";
-  countdownBox.textContent = allSeen ? "Wszystkie karty odkryte" : "";
-}
+      enableNext(allSeen);
+      nextBtn.textContent = "Dalej";
+      countdownBox.textContent = allSeen ? "Wszystkie karty odkryte" : "";
+    }
 
     function renderStep() {
       stopCountdown();
@@ -1648,7 +1638,7 @@ function renderCardStackStep() {
 
       if (step === "1.0") {
         enableNext(!!savedName.trim());
-        nextBtn.textContent = "Dalej";
+        nextBtn.textContent = "Zaczynam";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
           <h1 class="lesson-title">Wpisz swoje imię</h1>
@@ -1656,7 +1646,13 @@ function renderCardStackStep() {
             <input id="nameInput" class="name-input" type="text" maxlength="40" placeholder="Twoje imię" value="${escapeHtml(savedName)}" autocomplete="given-name" />
           </div>
           <div class="hint">
-            Jeśli wrócisz z tej samej przeglądarki, zapamiętamy Twoje imię i zaproponujemy wznowienie lekcji od miejsca, w którym skończyłeś.
+            Jeśli wrócisz z tej samej przeglądarki, zapamiętamy Twoje imię i zaproponujemy wznowienie lekcji od miejsca, w którym lekcja została przerwana.
+          </div>
+
+          <div class="margin-note" style="margin-top:18px; font-size:20px; border-left:4px solid #3aa7d6; background:#f4fbff;">
+            <strong>Mądrość zawarta w tej lekcji nie lubi pośpiechu.</strong><br>
+            Podaruj sobie przynajmniej pół godziny niezmąconego spokoju, odkładając na bok resztę świata.<br>
+            Nie spiesz się, krocz uważnie – to może zmienić Twoje życie.
           </div>
         `;
         const nameInput = document.getElementById("nameInput");
@@ -1687,10 +1683,10 @@ function renderCardStackStep() {
             </div>
           </div>
 
-          <div class="lesson-body center">
-            <p>Oba te obszary przenikają się nawzajem.</p>
-            <p>Z Medytacji wypływać będą prawdy, które poszerzą nasz zbiór Rozumienia.</p>
-            <p>Elementy Rozumienia sprawią, że będziemy mogli głębiej zejść w Medytacji.</p>
+          <div class="margin-note">
+            Oba te obszary przenikają się nawzajem.<br><br>
+            Z Medytacji wypływać będą prawdy, które poszerzą nasz zbiór Rozumienia.<br>
+            Elementy Rozumienia sprawią, że będziemy mogli głębiej zejść w Medytacji.
           </div>
         `;
         return;
@@ -1761,7 +1757,6 @@ function renderCardStackStep() {
           <div class="margin-note">
             Szczęście, inaczej satysfakcja, spełnienie, błogość, miłość, spokój, radość, pełnia.
           </div>
-
         `;
         return;
       }
@@ -1915,73 +1910,68 @@ function renderCardStackStep() {
             <p>Lewa część przedstawia przeszłość, prawa — przyszłość.</p>
             <p>Doświadczenia zapamiętane jako pozytywne — plusy — dające szczęście, oraz negatywne — minusy — powodujące cierpienie.</p>
             <p>Nauczeni przeszłymi doświadczeniami, staramy się kształtować przyszłość tak, aby było w niej jak najwięcej „plusów”, a jak najmniej „minusów”.</p>
-            <p>To jest wykres naszego życia. Całe nasze życie tak wygląda. Chcemy więcej plusów, a mniej minusów. To jest wymiar horyzontalny, powierzchowny.</p>
-            <p>Jest jeszcze jeden wymiar w naszym życiu – to wymiar głębi. Jest on reprezentowany na tym wykresie jako punkt absolutnego teraz. Ten punkt bardzo łatwo przeoczyć, gdyż zwykle jesteśmy zajęci zdobywaniem plusów i unikaniem minusów.</p>
           </div>
         `;
         return;
       }
 
       if (step === "1.11") {
-        enableNext(true);
+        enableNext(false);
         nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Krótka przypowieść</h1>
+          <h1 class="lesson-title">A jednak nawet to nie daje trwałego szczęścia</h1>
 
-          <div class="deep-box">
-            <p>Pewien kupiec zgubił monetę. Szukał więc jej z zaangażowaniem.</p>
-            <p>Przechodzień pyta go: „Przyjacielu, co robisz?”</p>
-            <p>— Szukam monety.</p>
-            <p>— A gdzie ją zgubiłeś?</p>
-            <p>— Zgubiłem ją tam w rowie, ale szukam tutaj pod latarnią, ponieważ tu jest jaśniej.</p>
+          <div class="lesson-body">
+            <p>Jeżeli coś dało Ci radość raz, próbujesz to powtórzyć.</p>
+            <p>Ale bardzo szybko okazuje się, że ten sam bodziec nie działa już tak samo mocno.</p>
+            <p>Umysł chce więcej, mocniej, częściej — i właśnie dlatego trwała satysfakcja wymyka się z rąk.</p>
           </div>
 
-          <img src="kupiec.png" class="scene-image" alt="Kupiec szukający monety">
-
-          <div class="lesson-body center">
-            <p>Czy on kiedykolwiek znajdzie swoją monetę? <strong>NIE.</strong></p>
-            <p>Może milion lat szukać, ale szuka w niewłaściwym miejscu.</p>
+          <div class="margin-note">
+            To, co chwilowo przyjemne, bardzo łatwo zamienia się w przyzwyczajenie. A przyzwyczajenie przestaje karmić.
           </div>
         `;
+        startCountdown(60);
         return;
       }
 
       if (step === "1.12") {
-        enableNext(false);
-        nextBtn.textContent = "Szukam";
+        enableNext(true);
+        nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Prawda 2</h1>
+          <h1 class="lesson-title">Skoro świat jest zmienny, trwałe szczęście nie może zależeć od świata</h1>
 
-          <div class="truth-row">
-            <div class="deep-box">
-              <p><strong>${escapeHtml(name)}, szukasz trwałego Szczęścia w Świecie. Jednak Świat nie może dać Tobie trwałego szczęścia, gdyż sam jest nietrwały.</strong></p>
-              <p>Możesz szukać Szczęścia w Świecie milion lat, ale go tam nie znajdziesz.</p>
-              <p>Prawdziwe Szczęście istnieje, ale leży gdzie indziej.</p>
-              <p><strong>Żeby je znaleźć, musimy szukać gdzieś indziej.</strong></p>
-            </div>
-            <img src="nie.png" class="stamp-img" alt="Nie-do-podważenia">
+          <div class="formula">
+            <span>Nietrwały świat</span>
+            <span class="arrow">≠</span>
+            <span style="color:#3aa7d6;">Trwałe Szczęście</span>
+          </div>
+
+          <div class="deep-box">
+            <p>Jeżeli coś jest niestabilne, nie da się na tym oprzeć czegoś trwałego.</p>
+            <p>Dlatego medytacja Szczelinka nie polega na coraz lepszym układaniu świata zewnętrznego.</p>
+            <p>Polega na odkrywaniu czegoś głębszego niż świat i głębszego niż zmienność.</p>
           </div>
         `;
-        startCountdown(60, "Możesz szukać dalej");
         return;
       }
 
       if (step === "1.13") {
         enableNext(true);
-        nextBtn.textContent = "Dalej";
+        nextBtn.textContent = "Przechodzę do ćwiczenia";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Za chwilę rozpoczniemy naukę Medytacji Szczelinka</h1>
+          <h1 class="lesson-title">Przejdźmy teraz do praktyki</h1>
 
           <div class="lesson-body center">
-            <p>Zanim to zrobimy, określmy sobie, dlaczego właściwie mamy medytować:</p>
-            <p><strong>Poprzez medytację chcemy odnaleźć trwałe Szczęście i zakończyć Cierpienie.</strong></p>
+            <p>Teraz nie będziemy już tylko rozumieć.</p>
+            <p>Zaczniemy dotykać tego doświadczeniem.</p>
           </div>
 
           <div class="margin-note">
-            Medytacja nie służy do relaksu, poprawienia parametrów zdrowotnych, nie służy do tego, by stać się skuteczniejszym w realizowaniu zadań, dłużej żyć itd. Te wszystkie rzeczy są jedynie miłym produktem ubocznym.
+            Nie próbuj niczego osiągać na siłę. Wystarczy uczciwie wykonać ćwiczenie.
           </div>
         `;
         return;
@@ -1990,17 +1980,13 @@ function renderCardStackStep() {
       if (step === "1.14") {
         renderMeditationTimer(
           "1.14",
-          "Ćwiczenie 1 „Liczenie”",
+          "Ćwiczenie 1 — uspokojenie",
           `
-            <p><strong>Poziom podstawowy</strong></p>
-            <p>1. Usiądź wygodnie, może być na poduszce do medytacji, może na krześle. Plecy proste ale nie napięte.</p>
-            <p>2. Wybierz, czy chcesz liczyć wdechy czy wydechy. Zamknij oczy.</p>
-            <p>3. Licz od 1 do 10. Jeśli się pomylisz lub pominiesz jakąś liczbę, zacznij od początku.</p>
-            <p>4. Jeśli dojdziesz do 10, świetnie. Rozpocznij liczenie od 1 ponownie.</p>
-            <p>5. Nie przyspieszaj ani nie zwalniaj oddechu. Skup na nim swoją uwagę, obserwuj go.</p>
-            <p>Zobacz ile razy uda się Tobie policzyć od 1 do 10 bez zgubienia żadnej cyfry.</p>
+            <p>Usiądź wygodnie.</p>
+            <p>Nie walcz z myślami.</p>
+            <p>Po prostu zauważaj oddech i pozwól ciału nieco się wyciszyć.</p>
           `,
-          "Włącz dźwięk. Ustaw czas, uruchom timer i wykonaj ćwiczenie."
+          "Ustaw odpowiedni czas i rozpocznij ćwiczenie."
         );
         return;
       }
@@ -2010,32 +1996,15 @@ function renderCardStackStep() {
         nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Gratulacje! To było pierwsze ćwiczenie przygotowujące.</h1>
+          <h1 class="lesson-title">Co zauważyłeś?</h1>
 
-          <div class="lesson-body">
-            <p>Jest to ćwiczenie na koncentrację. Obserwujemy oddech, który zawsze mamy ze sobą. Z tysiąca myśli wybieramy jedną. To o 999 mniej. To jeszcze nie 0, ale dużo bliżej.</p>
+          <div class="lesson-body center">
+            <p>Nawet w prostym ćwiczeniu mogłeś zauważyć, jak mocno umysł jest przyzwyczajony do ruchu, ocen i pośpiechu.</p>
+            <p>To bardzo ważna obserwacja.</p>
           </div>
 
-          <div class="single-column-wrap">
-            <div class="single-card">
-              <h3>Ciekawość</h3>
-              <p>Obserwuj swój oddech jak badacz, który odkrywa zupełnie nowy okaz motyla. Wyobraź sobie, że „widzisz” swój oddech po raz pierwszy. Umysł lubi zajmować się tym, co jest dla niego interesujące i nowe.</p>
-            </div>
-
-            <div class="single-card">
-              <h3>Zadowolenie</h3>
-              <p>Uświadom sobie, że to ćwiczenie jest przyjemne. Nie musisz nic innego robić, nikt cię nie pogania. Masz przed sobą tylko jedno proste zadanie. Umysł łatwiej skupia się na tym, co sprawia mu przyjemność.</p>
-            </div>
-
-            <div class="single-card">
-              <h3>Determinacja</h3>
-              <p>Wyobraź sobie, że niesiesz szklankę wypełnioną po brzegi wodą i musisz przejść przez zatłoczony targ, nie uroniwszy ani kropli. Gdyby od tego zadania zależało nasze życie, jak bardzo byśmy byli skoncentrowani?</p>
-            </div>
-
-            <div class="single-card">
-              <h3>Dokładność</h3>
-              <p>Przed rozpoczęciem medytacji postanów, że wykonasz to zadanie tak starannie i dokładnie, jak to możliwe.</p>
-            </div>
+          <div class="margin-note">
+            Umysł przez większość czasu biegnie za czymś albo przed czymś ucieka.
           </div>
         `;
         return;
@@ -2044,13 +2013,13 @@ function renderCardStackStep() {
       if (step === "1.16") {
         renderMeditationTimer(
           "1.16",
-          "„Liczenie”",
+          "Ćwiczenie 2 — bycie świadkiem",
           `
-            <p>Wykonamy to ćwiczenie jeszcze raz. Tym razem w nieco bardziej zaawansowanej formie.</p>
-            <p>Twoja koncentracja pozwala nie tylko poprawnie liczyć i nie gubić cyfr, ale także zapobiegać wkradaniu się myśli między liczbami.</p>
-            <p>Zauważ, że jeśli jesteś w 100% skupiony na oddechu, inne myśli nie pojawiają się. Gdy tylko lekko osłabisz koncentrację, myśli mogą zacząć się wkradać.</p>
+            <p>Teraz usiądź ponownie.</p>
+            <p>Zauważaj pojawiające się myśli, odczucia i impulsy.</p>
+            <p>Nie wchodź w nie. Tylko je dostrzegaj.</p>
           `,
-          "Ustaw czas, uruchom timer i wykonaj ćwiczenie."
+          "Nie analizuj. Tylko obserwuj."
         );
         return;
       }
@@ -2060,28 +2029,19 @@ function renderCardStackStep() {
         nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Aplikacja do medytacji</h1>
+          <h1 class="lesson-title">To, co obserwuje, nie jest tym samym co to, co się zmienia</h1>
 
-          <div class="lesson-body center">
-            <p>Pobierz sobie na telefon darmową aplikację <strong>„Interval Timer Tibetan Bowl”</strong>.</p>
-            <p>
-              <a href="https://play.google.com/store/apps/details?id=co.m16mb.secco.ittb" target="_blank" rel="noopener noreferrer">
-                Otwórz stronę aplikacji
-              </a>
-            </p>
+          <div class="deep-box">
+            <p>Myśli się zmieniają.</p>
+            <p>Emocje się zmieniają.</p>
+            <p>Odczucia w ciele się zmieniają.</p>
+            <p>A jednak jest coś, co to wszystko zauważa.</p>
           </div>
 
-          <div class="two-col-text-image">
-            <div class="lesson-body">
-              <p>W ustawieniach zaawansowanych tej aplikacji możesz ustawiać różne czasy medytacji i łączyć je w sekwencje.</p>
-              <p>Na przykład:</p>
-              <p>ćwiczenie 1 – 2 min, ćwiczenie 2 – 2 min; i tak dalej.</p>
-            </div>
-
-            <div class="right-image-stack">
-              <img src="qr1.png" class="scene-image small" alt="Kod QR do aplikacji">
-              <img src="screen1.png" class="scene-image small" alt="Ustawienia zaawansowane aplikacji">
-            </div>
+          <div class="formula">
+            <span>Zmienne treści</span>
+            <span class="arrow">≠</span>
+            <span style="color:#3aa7d6;">Świadek</span>
           </div>
         `;
         return;
@@ -2089,14 +2049,19 @@ function renderCardStackStep() {
 
       if (step === "1.18") {
         enableNext(true);
-        nextBtn.textContent = "Podejmuję";
+        nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Praca domowa</h1>
+          <h1 class="lesson-title">Świadek nie potrzebuje pośpiechu</h1>
 
-          <div class="lesson-body center">
-            <p>Zanim przejdziesz do lekcji nr 2 — wykonaj we własnym zakresie 5 razy sesję medytacyjną z liczeniem oddechów.</p>
-            <p>Każda sesja niech trwa <strong>5 minut</strong>.</p>
+          <div class="lesson-body">
+            <p>To umysł chce szybko domknąć, zrozumieć, zdobyć, przejść dalej.</p>
+            <p>Świadek tylko widzi.</p>
+            <p>I właśnie dlatego prawdziwa medytacja dojrzewa w spokoju.</p>
+          </div>
+
+          <div class="margin-note">
+            Mądrość nie otwiera się przed tym, kto biegnie. Otwiera się przed tym, kto naprawdę patrzy.
           </div>
         `;
         return;
@@ -2104,79 +2069,51 @@ function renderCardStackStep() {
 
       if (step === "1.19") {
         enableNext(true);
-        nextBtn.textContent = "Dalej";
+        nextBtn.textContent = "Kończę lekcję 1";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Podsumowanie</h1>
+          <h1 class="lesson-title">Najważniejsze z tej lekcji</h1>
 
-          <div class="single-column-wrap">
-            <div class="single-card" style="text-align:center;">
-              <h3>Pobierz Notatki z Lekcji 1</h3>
-              <p>
-                <a href="Szczelinka 1.pdf" target="_blank" rel="noopener noreferrer" style="font-size:20px; text-decoration:none;">
-                  📄 Do pobrania: Szczelinka 1.pdf
-                </a>
-              </p>
-            </div>
-
-            <div class="single-card">
-              <h3>W tej lekcji omówiliśmy:</h3>
-              <p>• Jak każde nasze działanie i decyzja mają nas prowadzić do szczęścia. Ta siła — dążenie do szczęścia — kieruje naszym życiem.</p>
-              <p>• Świat jest nietrwały i nie da nam trwałej satysfakcji.</p>
-              <p>• Szukając prawdziwego Szczęścia zwracamy się do wewnątrz.</p>
-              <p>• Pomóc nam w tym może medytacja.</p>
-              <p>• Medytacja Szczelinka to przerwa pomiędzy myślami, w niej możemy odkryć to, czego szukaliśmy.</p>
-              <p>• Poznaliśmy też pierwsze ćwiczenie medytacyjne – „Liczenie”.</p>
-            </div>
+          <div class="list-box">
+            <div class="list-item">Każde działanie człowieka ostatecznie zmierza do szczęścia.</div>
+            <div class="list-item">Świat jest nietrwały, więc nie może dać trwałego szczęścia.</div>
+            <div class="list-item">Medytacja prowadzi do odkrycia czegoś głębszego niż świat i jego zmienność.</div>
+            <div class="list-item">To, co zauważa zmienne treści, samo nie jest tymi treściami.</div>
           </div>
         `;
         return;
       }
 
       if (step === "1.20") {
-        enableNext(true);
-        nextBtn.textContent = "Zakończ";
+        enableNext(false);
+        nextBtn.textContent = "Zakończono";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Gratulacje ukończenia lekcji #1</h1>
+          <h1 class="lesson-title">Dziękuję Ci, ${escapeHtml(name)}</h1>
 
           <div class="lesson-body center">
-            <p>To był pierwszy krok.</p>
-            <p>Możesz teraz wrócić do spisu lekcji.</p>
+            <p>To był dopiero początek.</p>
+            <p>Jeśli chcesz, możesz wrócić do tej lekcji ponownie — spokojniej, głębiej, uważniej.</p>
+          </div>
+
+          <div class="margin-note">
+            To, co naprawdę ważne, często odsłania się dopiero przy drugim albo trzecim przejściu.
           </div>
         `;
+        countdownBox.textContent = "Lekcja zakończona";
         return;
       }
     }
 
-    backBtn.addEventListener("click", () => {
-      goBack();
+    resumeYesBtn.addEventListener("click", () => {
+      hideModal(resumeModal);
+      currentStepIndex = loadStep();
+      renderStep();
     });
 
-    nextBtn.addEventListener("click", () => {
-      const step = lessonSteps[currentStepIndex];
-
-      if (step === "1.2") {
-        if (nextBtn.disabled) return;
-        showModal(confirmModal);
-        return;
-      }
-
-      if (step === "1.8") {
-        if (nextBtn.disabled) return;
-        showModal(reflectionModal);
-        return;
-      }
-
-      if (step === "1.20") {
-        if (nextBtn.disabled) return;
-        window.location.href = "Main_Page.html#lekcja1";
-        return;
-      }
-
-      if (["1.5", "1.7", "1.14", "1.16"].includes(step) && nextBtn.disabled) return;
-
-      goNext();
+    resumeNoBtn.addEventListener("click", () => {
+      hideModal(resumeModal);
+      resetProgress();
     });
 
     confirmYesBtn.addEventListener("click", () => {
@@ -2186,9 +2123,6 @@ function renderCardStackStep() {
 
     confirmNoBtn.addEventListener("click", () => {
       hideModal(confirmModal);
-      currentStepIndex = 2;
-      saveStep(currentStepIndex);
-      renderStep();
     });
 
     reflectionYesBtn.addEventListener("click", () => {
@@ -2202,65 +2136,39 @@ function renderCardStackStep() {
 
     storyCloseBtn.addEventListener("click", () => {
       hideModal(storyModal);
-      renderStep();
     });
 
-    resumeYesBtn.addEventListener("click", () => {
-      hideModal(resumeModal);
-      currentStepIndex = loadStep();
-      renderStep();
-    });
+    nextBtn.addEventListener("click", () => {
+      const step = lessonSteps[currentStepIndex];
 
-    resumeNoBtn.addEventListener("click", () => {
-      hideModal(resumeModal);
-      resetProgress();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.ctrlKey && (event.key === "d" || event.key === "D")) {
-        event.preventDefault();
-        const step = lessonSteps[currentStepIndex];
-
-        if (["1.2", "1.6", "1.8", "1.9", "1.12"].includes(step)) {
-          stopCountdown();
-          enableNext(true);
-          countdownBox.textContent = "Możesz przejść dalej";
-        }
-
-        if (step === "1.5") {
-          storyRead = { weronika: true, benedyk: true, codzienne: true };
-          saveStories();
-          renderStep();
-        }
-
-        if (step === "1.7") {
-          stackState.hiddenCount = stackCardsOriginal.length;
-          saveStack();
-          renderCardStackStep();
-        }
-
-        if (step === "1.14" || step === "1.16") {
-          timerConfig[step].running = false;
-          timerConfig[step].done = true;
-          timerConfig[step].secondsLeft = 0;
-          saveTimers();
-          renderStep();
-        }
+      if (step === "1.2") {
+        showModal(confirmModal);
+        return;
       }
+
+      if (step === "1.8") {
+        showModal(reflectionModal);
+        return;
+      }
+
+      if (step === "1.20") return;
+      goNext();
     });
+
+    backBtn.addEventListener("click", goBack);
 
     function init() {
       loadStories();
       loadStack();
       loadTimers();
+
       const savedName = loadName();
       const savedStep = loadStep();
 
       if (savedName && savedStep > 0) {
-        resumeText.textContent = `${savedName}, czy chcesz wrócić do miejsca, w którym ostatnio skończyłeś?`;
+        resumeText.textContent = `Witaj ponownie, ${savedName}. Czy chcesz wrócić do miejsca, w którym lekcja została przerwana?`;
         showModal(resumeModal);
       } else {
-        currentStepIndex = savedStep;
         renderStep();
       }
     }
