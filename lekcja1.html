@@ -17,17 +17,33 @@
       min-height: 100vh;
     }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      height: 150px;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      padding: 0 40px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    }
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  min-height: 150px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 24px;
+}
+    .topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+  flex: 1;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
 
     .logo-link {
       display: inline-flex;
@@ -45,24 +61,27 @@
     }
 
     .menu {
-      display: flex;
-      align-items: center;
-      gap: 34px;
-    }
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  flex-wrap: wrap;
+}
 
-    .menu > a,
-    .dropdown > a {
-      text-decoration: none;
-      font-size: 18px;
-      color: #3aa7d6;
-      font-weight: 500;
-      padding-bottom: 6px;
-      display: inline-block;
-    }
+.menu > a,
+.dropdown > a,
+.contact-link {
+  text-decoration: none;
+  font-size: 18px;
+  color: #3aa7d6;
+  font-weight: 500;
+  padding-bottom: 6px;
+  display: inline-block;
+}
 
-    .menu a.active {
-      border-bottom: 2px solid #3aa7d6;
-    }
+    .menu > a.active,
+.contact-link.active {
+  border-bottom: 2px solid #3aa7d6;
+}
 
     .dropdown {
       position: relative;
@@ -851,24 +870,33 @@
       padding-left: 22px;
     }
 
-    @media (max-width: 980px) {
-      .topbar {
-        height: auto;
-        min-height: 120px;
-        padding: 20px 22px;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
+@media (max-width: 980px) {
+  .topbar {
+    height: auto;
+    min-height: 120px;
+    padding: 20px 22px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
-      .logo {
-        height: 95px;
-        margin-right: 24px;
-      }
+  .topbar-left,
+  .topbar-right {
+    width: 100%;
+  }
 
-      .menu {
-        gap: 20px;
-        flex-wrap: wrap;
-      }
+  .topbar-right {
+    justify-content: flex-start;
+  }
+
+  .logo {
+    height: 95px;
+    margin-right: 24px;
+  }
+
+  .menu {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 
       .progress-wrap {
         padding: 20px 22px 0;
@@ -912,18 +940,19 @@
     }
 
     @media (max-width: 560px) {
-      .logo {
-        height: 78px;
-      }
+  .logo {
+    height: 78px;
+  }
 
-      .menu > a,
-      .dropdown > a {
-        font-size: 17px;
-      }
+  .menu > a,
+  .dropdown > a,
+  .contact-link {
+    font-size: 17px;
+  }
 
-      .dropdown-content a {
-        font-size: 15px;
-      }
+  .dropdown-content a {
+    font-size: 15px;
+  }
 
       .lesson-title {
         font-size: 32px;
@@ -981,6 +1010,7 @@
   </audio>
 
   <header class="topbar">
+  <div class="topbar-left">
     <a href="index.html" class="logo-link" aria-label="Powrót do strony głównej">
       <img src="logo.png" class="logo" alt="Szczelinka">
     </a>
@@ -989,19 +1019,28 @@
       <a href="szczelinka.html">Szczelinka</a>
 
       <div class="dropdown">
-        <a class="active" href="Main_Page.html#lekcja1">Lekcje</a>
+        <a class="active" href="Main_Page.html">Lekcje</a>
         <div class="dropdown-content">
-          <a href="lekcja1.html">Lekcja 1</a>
+          <a href="Main_Page.html#lekcja1">Lekcja 1</a>
           <a href="Main_Page.html#lekcja2">Lekcja 2</a>
-          <a href="Main_Page.html#lekcja3">Lekcje 3–8</a>
+          <a href="Main_Page.html#lekcja3">Lekcja 3</a>
+          <a href="Main_Page.html#lekcja4">Lekcja 4</a>
+          <a href="Main_Page.html#lekcja5">Lekcja 5</a>
+          <a href="Main_Page.html#lekcja6">Lekcja 6</a>
+          <a href="Main_Page.html#lekcja7">Lekcja 7</a>
+          <a href="Main_Page.html#lekcja8">Lekcja 8</a>
         </div>
       </div>
 
+      <a href="#">Zajęcia</a>
       <a href="prowadzacy.html">Prowadzący</a>
-    <div class="topbar-right">
-      <a href="#" class="contact-link">Kontakt</a>
     </nav>
-  </header>
+  </div>
+
+  <div class="topbar-right">
+    <a href="#" class="contact-link">Kontakt</a>
+  </div>
+</header>
 
   <div class="progress-wrap">
     <div class="progress-top">
