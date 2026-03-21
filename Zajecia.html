@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zajęcia - Szczelinka</title>
+  <link rel="icon" href="favicon_minimal.ico">
+  <meta name="theme-color" content="#3aa7d6">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: #1f1f1f;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 150px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 125px;
+      margin-right: 50px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .menu > a,
+    .dropdown > a,
+    .contact-link {
+      text-decoration: none;
+      font-size: 18px;
+      color: #3aa7d6;
+      font-weight: 500;
+      padding-bottom: 6px;
+      display: inline-block;
+    }
+
+    .menu > a.active {
+      border-bottom: 2px solid #3aa7d6;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 190px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      padding: 10px 0;
+      z-index: 1100;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      text-decoration: none;
+      color: #3aa7d6;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .dropdown-content a:hover {
+      background: rgba(58,167,214,0.07);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .page-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 70px 40px 100px 40px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .hero h1 {
+      margin: 0 0 18px 0;
+      font-size: 42px;
+      color: #3aa7d6;
+      font-weight: 600;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 820px;
+      font-size: 20px;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border: 1px solid rgba(58,167,214,0.14);
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 34px 34px 34px 34px;
+      margin-bottom: 28px;
+    }
+
+    .section-card h2 {
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 30px;
+      color: #3aa7d6;
+      font-weight: 600;
+    }
+
+    .section-card p,
+    .section-card li {
+      font-size: 18px;
+      line-height: 1.9;
+      color: #2b2b2b;
+    }
+
+    .meeting-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: start;
+      margin-top: 20px;
+    }
+
+    .info-box {
+      background: #f8fcfe;
+      border: 1px solid rgba(58,167,214,0.18);
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-top: 22px;
+    }
+
+    .info-row {
+      margin-bottom: 10px;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .map-wrap {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border: 1px solid rgba(58,167,214,0.14);
+      background: #f7f7f7;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+      border: 0;
+      display: block;
+    }
+
+    .map-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: #3aa7d6;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .places-list {
+      margin: 18px 0 0 0;
+      padding-left: 24px;
+    }
+
+    .subscribe-box {
+      background: linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+      border: 1px solid rgba(58,167,214,0.18);
+      border-radius: 22px;
+      padding: 30px;
+      margin-top: 20px;
+    }
+
+    .subscribe-box h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 28px;
+      color: #3aa7d6;
+      font-weight: 600;
+    }
+
+    .subscribe-box p {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .subscribe-form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .subscribe-form input[type="email"] {
+      flex: 1 1 320px;
+      min-width: 240px;
+      padding: 16px 18px;
+      font-size: 17px;
+      border-radius: 14px;
+      border: 1px solid #c9d8df;
+      outline: none;
+      background: white;
+    }
+
+    .subscribe-form input[type="email"]:focus {
+      border-color: #3aa7d6;
+      box-shadow: 0 0 0 4px rgba(58,167,214,0.12);
+    }
+
+    .subscribe-form button {
+      padding: 16px 26px;
+      font-size: 17px;
+      border: none;
+      border-radius: 14px;
+      background: #3aa7d6;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s ease;
+      box-shadow: 0 8px 24px rgba(58,167,214,0.24);
+    }
+
+    .subscribe-form button:hover {
+      background: #2e95c2;
+      transform: translateY(-1px);
+    }
+
+    .subscribe-message {
+      min-height: 28px;
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .success {
+      color: #1c6b2a;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #b00020;
+      font-weight: 600;
+    }
+
+    .small-note {
+      margin-top: 10px;
+      color: #5b5b5b;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 980px) {
+      .meeting-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        height: auto;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .topbar-left {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo {
+        margin-right: 0;
+        margin-bottom: 12px;
+        height: 96px;
+      }
+
+      .menu {
+        flex-wrap: wrap;
+        gap: 18px 24px;
+      }
+
+      .page-wrap {
+        padding-top: 40px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrap {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .section-card,
+      .subscribe-box {
+        padding: 22px;
+      }
+
+      .hero p,
+      .section-card p,
+      .section-card li {
+        font-size: 17px;
+      }
+
+      .subscribe-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .subscribe-form button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html">
+        <img src="logo.png" class="logo" alt="Szczelinka">
+      </a>
+
+      <nav class="menu">
+        <a href="szczelinka.html">Szczelinka</a>
+
+        <div class="dropdown">
+          <a href="Main_Page.html">Lekcje</a>
+          <div class="dropdown-content">
+            <a href="Main_Page.html#lekcja1">Lekcja 1</a>
+            <a href="Main_Page.html#lekcja2">Lekcja 2</a>
+            <a href="Main_Page.html#lekcja3">Lekcja 3</a>
+            <a href="Main_Page.html#lekcja4">Lekcja 4</a>
+            <a href="Main_Page.html#lekcja5">Lekcja 5</a>
+            <a href="Main_Page.html#lekcja6">Lekcja 6</a>
+            <a href="Main_Page.html#lekcja7">Lekcja 7</a>
+            <a href="Main_Page.html#lekcja8">Lekcja 8</a>
+          </div>
+        </div>
+
+        <a class="active" href="zajecia.html">Zajęcia</a>
+        <a href="prowadzacy.html">Prowadzący</a>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <a href="kontakt.html" class="contact-link">Kontakt</a>
+    </div>
+  </header>
+
+  <main class="page-wrap">
+    <section class="hero">
+      <h1>Zajęcia Szczelinki</h1>
+      <p>
+        Możesz spotykać się z nami podczas regularnych spotkań wtorkowych, warsztatów oraz odosobnień.
+        Każda z tych form daje inną możliwość pogłębiania praktyki i kontaktu z grupą.
+      </p>
+    </section>
+
+    <section class="section-card">
+      <h2>Spotkania Wtorkowe ze Szczelinką</h2>
+
+      <p>
+        Spotykamy się we wtorki w godzinach <strong>18.00–20.00</strong>.
+        Miejsce spotkań to <strong>Klub Mistrzów, ul. Szolc-Rogozińskiego 4, lokal nad pocztą, sala kolonialna</strong>.
+      </p>
+
+      <div class="meeting-grid">
+        <div>
+          <div class="info-box">
+            <div class="info-row"><strong>Godziny:</strong> 18.00–20.00</div>
+            <div class="info-row"><strong>Adres:</strong> Klub Mistrzów, Szolc-Rogozińskiego 4, lokal nad pocztą, sala kolonialna</div>
+            <div class="info-row"><strong>Dołączenie:</strong> Jeśli zamierzasz dołączyć – napisz proszę email.</div>
+          </div>
+
+          <p>
+            Podczas tych spotkań wspólnie praktykujemy, zazwyczaj w formie dwóch sesji medytacyjnych.
+            Jest to również okazja do zadania pytania dotyczącego praktyki albo do podzielenia się doświadczeniami z grupą.
+          </p>
+
+          <p>
+            Na wtorkowe spotkania przychodzą osoby, które znają już medytację Szczelinki.
+            Można jednak także dołączyć i poznawać Szczelinkę zazwyczaj w modelu
+            <strong>1 spotkanie = 1 lekcja Szczelinki</strong>.
+          </p>
+        </div>
+
+        <div>
+          <div class="map-wrap">
+            <iframe
+              title="Mapa - Klub Mistrzów, Szolc-Rogozińskiego 4"
+              src="https://www.google.com/maps?q=Szolc-Rogozi%C5%84skiego%204,%20Warszawa&z=16&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <a
+            class="map-link"
+            href="https://www.google.com/maps/search/?api=1&query=Szolc-Rogozi%C5%84skiego+4,+Warszawa"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Otwórz mapę Google w nowym oknie
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2>Warsztaty Szczelinki</h2>
+
+      <p>
+        Zazwyczaj są to weekendowe spotkania, podczas których przerabiamy wszystkie
+        <strong>8 lekcji pierwszej części Szczelinki</strong>.
+      </p>
+
+      <p>
+        Po uczestnictwie w takim warsztacie można samodzielnie praktykować dalej
+        albo dołączyć do spotkań wtorkowych.
+      </p>
+    </section>
+
+    <section class="section-card">
+      <h2>Odosobnienia Szczelinki</h2>
+
+      <p>
+        Od czasu do czasu wyjeżdżamy z grupą na odosobnienia.
+        Jest to kilka dni intensywnej praktyki, które dają okazję do pogłębienia doświadczenia.
+      </p>
+
+      <p>Do tej pory odosobnienia odbywały się:</p>
+
+      <ol class="places-list">
+        <li>Kalatówki (Zakopane)</li>
+        <li>Karpacz (przy świątyni Wang)</li>
+        <li>Zamek w Krasiczynie</li>
+        <li>Białobrzegi (zalew Zegrzyński)</li>
+      </ol>
+
+      <p>
+        Takie odosobnienia dają okazję do głębszego wejścia w praktykę,
+        większego skupienia oraz bycia w ciszy i obecności przez dłuższy czas.
+      </p>
+    </section>
+
+    <section class="subscribe-box">
+      <h3>Powiadomienia o warsztatach i odosobnieniach</h3>
+
+      <p>
+        Jeśli chcesz otrzymywać powiadomienia o Warsztatach Szczelinki i odosobnieniach,
+        wpisz poniżej swój adres mailowy.
+      </p>
+
+      <form id="notifyForm" class="subscribe-form">
+        <input
+          id="notifyEmail"
+          type="email"
+          placeholder="Wpisz swój adres email"
+          autocomplete="email"
+          required
+        >
+        <button type="submit">Prześlij</button>
+      </form>
+
+      <div id="notifyMessage" class="subscribe-message"></div>
+
+      <div class="small-note">
+        Zapis oznacza zgodę na otrzymywanie informacji organizacyjnych o warsztatach i odosobnieniach Szczelinki.
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { supabase } from './supabase-client.js'
+
+    const form = document.getElementById('notifyForm')
+    const emailInput = document.getElementById('notifyEmail')
+    const messageBox = document.getElementById('notifyMessage')
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const email = emailInput.value.trim().toLowerCase()
+      messageBox.className = 'subscribe-message'
+      messageBox.textContent = ''
+
+      if (!email) {
+        messageBox.classList.add('error')
+        messageBox.textContent = 'Wpisz adres email.'
+        return
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        messageBox.classList.add('error')
+        messageBox.textContent = 'Wpisz poprawny adres email.'
+        return
+      }
+
+      const submitButton = form.querySelector('button')
+      submitButton.disabled = true
+      submitButton.textContent = 'Wysyłanie...'
+
+      try {
+        const { error } = await supabase
+          .from('event_subscribers')
+          .upsert(
+            [{
+              email: email,
+              is_active: true,
+              source: 'zajecia.html'
+            }],
+            { onConflict: 'email' }
+          )
+
+        if (error) throw error
+
+        emailInput.value = ''
+        messageBox.classList.add('success')
+        messageBox.textContent = 'Dziękujemy za zapis. Będziemy informować o kolejnych warsztatach i odosobnieniach.'
+      } catch (err) {
+        messageBox.classList.add('error')
+        messageBox.textContent = 'Nie udało się zapisać adresu. Spróbuj ponownie za chwilę.'
+        console.error(err)
+      } finally {
+        submitButton.disabled = false
+        submitButton.textContent = 'Prześlij'
+      }
+    })
+  </script>
+</body>
+</html>
