@@ -326,17 +326,20 @@
     const courseProgressBox = document.getElementById('courseProgress')
     const subscribersBox = document.getElementById('subscribersBox')
 
-    const lessonMap = {
-      1: 3,
-      2: 4,
-      3: 5,
-      4: 6,
-      5: 7,
-      6: 8
-    }
+    async function getLessonNoByIdMap() {
+      const { data, error } = await supabase
+        .from('lessons')
+        .select('id, lesson_no')
 
-    function lessonIdToLessonNo(lessonId) {
-      return lessonMap[lessonId] || lessonId
+      if (error || !data) {
+        return {}
+      }
+
+      const map = {}
+      data.forEach(row => {
+        map[row.id] = row.lesson_no
+      })
+      return map
     }
 
     async function checkSession() {
@@ -425,6 +428,19 @@
         return
       }
 
+      if (!lessonsData || lessonsData.length === 0) {
+        createMsg.innerText = 'Nie znaleziono wybranych lekcji w tabeli lessons.'
+        return
+      }
+
+      const foundLessonNos = lessonsData.map(row => row.lesson_no)
+      const missingLessons = selectedLessons.filter(no => !foundLessonNos.includes(no))
+
+      if (missingLessons.length > 0) {
+        createMsg.innerText = 'Brakuje w tabeli lessons lekcji: ' + missingLessons.join(', ')
+        return
+      }
+
       const credentials = lessonsData.map(lesson => ({
         account_id: accountId,
         lesson_id: lesson.id,
@@ -441,7 +457,7 @@
         return
       }
 
-      createMsg.innerText = 'Dostęp zapisany.'
+      createMsg.innerText = 'Dostęp zapisany poprawnie.'
 
       document.getElementById('displayName').value = ''
       document.getElementById('userLogin').value = ''
@@ -455,6 +471,8 @@
 
     window.loadStats = async function () {
       statsBox.innerHTML = 'Ładowanie...'
+
+      const lessonMap = await getLessonNoByIdMap()
 
       const { data, error } = await supabase
         .from('lesson_access_events')
@@ -494,7 +512,7 @@
 
       data.forEach(row => {
         const login = row.lesson_credentials?.login || '-'
-        const lessonNo = lessonIdToLessonNo(row.lesson_id)
+        const lessonNo = lessonMap[row.lesson_id] ?? row.lesson_id
 
         html += `
           <tr>
@@ -530,6 +548,8 @@
 
       if (!data || data.length === 0) {
         loginStatsBox.innerHTML = 'Brak danych do analizy loginów.'
+        document.getElementById('summaryWarnings').textContent = 0
+        document.getElementById('summaryLogins').textContent = 0
         return
       }
 
@@ -597,6 +617,8 @@
     window.loadCourseProgress = async function () {
       courseProgressBox.innerHTML = 'Ładowanie...'
 
+      const lessonMap = await getLessonNoByIdMap()
+
       const { data, error } = await supabase
         .from('lesson_access_events')
         .select(`
@@ -625,7 +647,7 @@
         const login = row.lesson_credentials?.login
         if (!login) return
 
-        const lessonNo = lessonIdToLessonNo(row.lesson_id)
+        const lessonNo = lessonMap[row.lesson_id] ?? row.lesson_id
 
         if (!map[login]) {
           map[login] = {
