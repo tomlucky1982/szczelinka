@@ -326,22 +326,6 @@
     const courseProgressBox = document.getElementById('courseProgress')
     const subscribersBox = document.getElementById('subscribersBox')
 
-    async function getLessonNoByIdMap() {
-      const { data, error } = await supabase
-        .from('lessons')
-        .select('id, lesson_no')
-
-      if (error || !data) {
-        return {}
-      }
-
-      const map = {}
-      data.forEach(row => {
-        map[row.id] = row.lesson_no
-      })
-      return map
-    }
-
     async function checkSession() {
       const { data, error } = await supabase.auth.getSession()
 
@@ -406,46 +390,41 @@
         return
       }
 
-      const { data: accountData, error: accountError } = await supabase
+      const { data: existingAccount, error: existingAccountError } = await supabase
         .from('access_accounts')
-        .insert([{ display_name: displayName }])
-        .select()
+        .select('id')
+        .eq('display_name', displayName)
+        .limit(1)
 
-      if (accountError) {
-        createMsg.innerText = 'Błąd tworzenia użytkownika: ' + accountError.message
+      if (existingAccountError) {
+        createMsg.innerText = 'Błąd sprawdzania użytkownika: ' + existingAccountError.message
         return
       }
 
-      const accountId = accountData[0].id
+      let accountId = null
 
-      const { data: lessonsData, error: lessonsError } = await supabase
-        .from('lessons')
-        .select('id, lesson_no')
-        .in('lesson_no', selectedLessons)
+      if (existingAccount && existingAccount.length > 0) {
+        accountId = existingAccount[0].id
+      } else {
+        const { data: accountData, error: accountError } = await supabase
+          .from('access_accounts')
+          .insert([{ display_name: displayName }])
+          .select()
 
-      if (lessonsError) {
-        createMsg.innerText = 'Błąd pobierania lekcji: ' + lessonsError.message
-        return
+        if (accountError) {
+          createMsg.innerText = 'Błąd tworzenia użytkownika: ' + accountError.message
+          return
+        }
+
+        accountId = accountData[0].id
       }
 
-      if (!lessonsData || lessonsData.length === 0) {
-        createMsg.innerText = 'Nie znaleziono wybranych lekcji w tabeli lessons.'
-        return
-      }
-
-      const foundLessonNos = lessonsData.map(row => row.lesson_no)
-      const missingLessons = selectedLessons.filter(no => !foundLessonNos.includes(no))
-
-      if (missingLessons.length > 0) {
-        createMsg.innerText = 'Brakuje w tabeli lessons lekcji: ' + missingLessons.join(', ')
-        return
-      }
-
-      const credentials = lessonsData.map(lesson => ({
+      const credentials = selectedLessons.map(lessonNo => ({
         account_id: accountId,
-        lesson_id: lesson.id,
+        lesson_id: lessonNo,
         login: login,
-        password_plain: password
+        password_plain: password,
+        is_active: true
       }))
 
       const { error: credentialsError } = await supabase
@@ -471,8 +450,6 @@
 
     window.loadStats = async function () {
       statsBox.innerHTML = 'Ładowanie...'
-
-      const lessonMap = await getLessonNoByIdMap()
 
       const { data, error } = await supabase
         .from('lesson_access_events')
@@ -512,13 +489,12 @@
 
       data.forEach(row => {
         const login = row.lesson_credentials?.login || '-'
-        const lessonNo = lessonMap[row.lesson_id] ?? row.lesson_id
 
         html += `
           <tr>
             <td>${new Date(row.viewed_at).toLocaleString('pl-PL')}</td>
             <td>${login}</td>
-            <td>${lessonNo}</td>
+            <td>${row.lesson_id}</td>
             <td>${row.event_type}</td>
             <td>${row.user_agent || ''}</td>
           </tr>
@@ -617,8 +593,6 @@
     window.loadCourseProgress = async function () {
       courseProgressBox.innerHTML = 'Ładowanie...'
 
-      const lessonMap = await getLessonNoByIdMap()
-
       const { data, error } = await supabase
         .from('lesson_access_events')
         .select(`
@@ -647,7 +621,7 @@
         const login = row.lesson_credentials?.login
         if (!login) return
 
-        const lessonNo = lessonMap[row.lesson_id] ?? row.lesson_id
+        const lessonNo = row.lesson_id
 
         if (!map[login]) {
           map[login] = {
