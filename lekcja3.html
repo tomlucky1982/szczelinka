@@ -106,40 +106,9 @@
       display: block;
     }
 
-    .hero {
-      max-width: 1150px;
-      margin: 90px auto 70px auto;
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      gap: 80px;
-    }
-
-    .hero-image {
-      width: 420px;
-      max-width: 100%;
-    }
-
-    .hero-text {
-      max-width: 520px;
-    }
-
-    .hero-text h1 {
-      color: #3aa7d6;
-      margin: 0 0 18px 0;
-      font-size: 38px;
-      font-weight: 600;
-    }
-
-    .hero-text p {
-      font-size: 19px;
-      line-height: 1.85;
-      margin: 0 0 18px 0;
-    }
-
     .login-panel {
       max-width: 760px;
-      margin: 0 auto 110px auto;
+      margin: 90px auto 110px auto;
       padding: 0 20px;
     }
 
@@ -250,7 +219,7 @@
 
     .lesson-card {
       max-width: 900px;
-      margin: 0 auto 100px auto;
+      margin: 40px auto 100px auto;
     }
 
     .hidden {
@@ -302,24 +271,9 @@
         gap: 18px;
       }
 
-      .hero {
-        flex-direction: column;
-        text-align: center;
-        gap: 34px;
+      .login-panel {
         margin-top: 50px;
         padding: 0 20px;
-      }
-
-      .hero-image {
-        width: 300px;
-      }
-
-      .hero-text h1 {
-        font-size: 32px;
-      }
-
-      .hero-text p {
-        font-size: 18px;
       }
 
       .login-card,
@@ -365,21 +319,6 @@
       <a href="kontakt.html" class="contact-link">Kontakt</a>
     </div>
   </header>
-
-  <section class="hero">
-    <img src="logo_poziom.png" class="hero-image" alt="Szczelinka">
-
-    <div class="hero-text">
-      <h1>Lekcja 3</h1>
-      <p>
-        Dostęp do tej lekcji jest chroniony. Wpisz swój login i hasło,
-        aby przejść dalej i otworzyć treść lekcji.
-      </p>
-      <p>
-        Po zalogowaniu lekcja wyświetli się poniżej, bez zmiany stylu całej strony.
-      </p>
-    </div>
-  </section>
 
   <section class="login-panel">
     <div id="loginBox" class="login-card">
@@ -472,7 +411,7 @@
         lessonContent.innerHTML = data.html_content
         lessonContent.classList.remove('hidden')
         logoutBtn.classList.remove('hidden')
-        window.scrollTo({ top: lessonContent.offsetTop - 30, behavior: 'smooth' })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       } catch (e) {
         msg.innerText = e.message || 'Nie udało się pobrać treści lekcji.'
       }
