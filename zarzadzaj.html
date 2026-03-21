@@ -14,7 +14,7 @@
     }
 
     .container {
-      max-width: 1180px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 30px 20px 60px 20px;
     }
@@ -138,12 +138,6 @@
       gap: 24px;
     }
 
-    @media (max-width: 900px) {
-      .grid-two {
-        grid-template-columns: 1fr;
-      }
-    }
-
     .summary-boxes {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -167,6 +161,28 @@
     .summary-value {
       font-size: 28px;
       font-weight: bold;
+    }
+
+    .danger-btn {
+      background: #fff5f5;
+      border-color: #e0b6b6;
+      color: #8e1b1b;
+    }
+
+    .danger-btn:hover {
+      background: #ffe8e8;
+    }
+
+    .small-btn {
+      padding: 8px 12px;
+      font-size: 13px;
+      margin-top: 0;
+    }
+
+    @media (max-width: 900px) {
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -193,7 +209,7 @@
         <div class="topbar">
           <div>
             <h2 style="margin-bottom: 6px;">Zalogowano poprawnie</h2>
-            <div class="muted">Tutaj zarządzasz dostępami do lekcji i sprawdzasz aktywność użytkowników.</div>
+            <div class="muted">Tutaj zarządzasz dostępami do lekcji, sprawdzasz aktywność i zapisane adresy email.</div>
           </div>
           <button onclick="logout()">Wyloguj</button>
         </div>
@@ -210,6 +226,10 @@
           <div class="summary-item">
             <div class="summary-label">Podejrzane loginy</div>
             <div class="summary-value" id="summaryWarnings">-</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Zapisy na powiadomienia</div>
+            <div class="summary-value" id="summarySubscribers">-</div>
           </div>
         </div>
       </div>
@@ -240,6 +260,18 @@
         <button onclick="createAccess()">Utwórz dostęp</button>
 
         <p id="createMsg" class="message"></p>
+      </div>
+
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h2 style="margin-bottom: 6px;">Zapisy na warsztaty i odosobnienia</h2>
+            <div class="muted">Adresy mailowe zebrane z zakładki „Zajęcia”.</div>
+          </div>
+          <button onclick="loadSubscribers()">Odśwież zapisy</button>
+        </div>
+
+        <div id="subscribersBox" class="table-wrap"></div>
       </div>
 
       <div class="card">
@@ -292,6 +324,7 @@
     const statsBox = document.getElementById('statsBox')
     const loginStatsBox = document.getElementById('loginStats')
     const courseProgressBox = document.getElementById('courseProgress')
+    const subscribersBox = document.getElementById('subscribersBox')
 
     const lessonMap = {
       1: 3,
@@ -640,6 +673,99 @@
       courseProgressBox.innerHTML = html
     }
 
+    window.loadSubscribers = async function () {
+      subscribersBox.innerHTML = 'Ładowanie...'
+
+      const { data, error } = await supabase
+        .from('event_subscribers')
+        .select('id, email, is_active, source, created_at, updated_at')
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        subscribersBox.innerHTML = 'Błąd ładowania zapisów: ' + error.message
+        document.getElementById('summarySubscribers').textContent = '-'
+        return
+      }
+
+      if (!data || data.length === 0) {
+        subscribersBox.innerHTML = 'Brak zapisanych adresów.'
+        document.getElementById('summarySubscribers').textContent = 0
+        return
+      }
+
+      document.getElementById('summarySubscribers').textContent = data.filter(row => row.is_active).length
+
+      let html = `
+        <table>
+          <tr>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Źródło</th>
+            <th>Data zapisu</th>
+            <th>Ostatnia zmiana</th>
+            <th>Akcja</th>
+          </tr>
+      `
+
+      data.forEach(row => {
+        const status = row.is_active
+          ? '<span class="ok">Aktywny</span>'
+          : '<span class="warning">Nieaktywny</span>'
+
+        const actionButton = row.is_active
+          ? `<button class="small-btn danger-btn" onclick="deactivateSubscriber('${row.id}')">Dezaktywuj</button>`
+          : `<button class="small-btn" onclick="activateSubscriber('${row.id}')">Aktywuj</button>`
+
+        html += `
+          <tr>
+            <td>${row.email}</td>
+            <td>${status}</td>
+            <td>${row.source || '-'}</td>
+            <td>${row.created_at ? new Date(row.created_at).toLocaleString('pl-PL') : '-'}</td>
+            <td>${row.updated_at ? new Date(row.updated_at).toLocaleString('pl-PL') : '-'}</td>
+            <td>${actionButton}</td>
+          </tr>
+        `
+      })
+
+      html += `</table>`
+      subscribersBox.innerHTML = html
+    }
+
+    window.deactivateSubscriber = async function (id) {
+      const { error } = await supabase
+        .from('event_subscribers')
+        .update({
+          is_active: false,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+
+      if (error) {
+        alert('Nie udało się dezaktywować adresu: ' + error.message)
+        return
+      }
+
+      await loadSubscribers()
+    }
+
+    window.activateSubscriber = async function (id) {
+      const { error } = await supabase
+        .from('event_subscribers')
+        .update({
+          is_active: true,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+
+      if (error) {
+        alert('Nie udało się aktywować adresu: ' + error.message)
+        return
+      }
+
+      await loadSubscribers()
+    }
+
     async function loadSummary() {
       const { count, error } = await supabase
         .from('lesson_access_events')
@@ -657,6 +783,7 @@
       await loadStats()
       await loadLoginStats()
       await loadCourseProgress()
+      await loadSubscribers()
     }
 
     checkSession()
