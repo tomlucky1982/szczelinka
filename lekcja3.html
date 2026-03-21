@@ -388,6 +388,21 @@
         }])
     }
 
+    function executeScripts(container) {
+      const scripts = container.querySelectorAll('script')
+
+      scripts.forEach((oldScript) => {
+        const newScript = document.createElement('script')
+
+        for (const attr of oldScript.attributes) {
+          newScript.setAttribute(attr.name, attr.value)
+        }
+
+        newScript.textContent = oldScript.textContent
+        oldScript.parentNode.replaceChild(newScript, oldScript)
+      })
+    }
+
     async function loadLesson(credentialId = null) {
       try {
         const contentLessonId = await getLessonContentIdByLessonNo(LESSON_ID)
@@ -409,6 +424,7 @@
 
         loginBox.classList.add('hidden')
         lessonContent.innerHTML = data.html_content
+        executeScripts(lessonContent)
         lessonContent.classList.remove('hidden')
         logoutBtn.classList.remove('hidden')
         window.scrollTo({ top: 0, behavior: 'smooth' })
