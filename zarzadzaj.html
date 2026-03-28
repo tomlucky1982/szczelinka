@@ -14,7 +14,7 @@
     }
 
     .container {
-      max-width: 1240px;
+      max-width: 1500px;
       margin: 0 auto;
       padding: 30px 20px 60px 20px;
     }
@@ -67,19 +67,6 @@
       display: none;
     }
 
-    .lessons-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 8px 16px;
-      max-width: 700px;
-      margin-bottom: 10px;
-    }
-
-    .lessons-grid label {
-      display: block;
-      margin-bottom: 8px;
-    }
-
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -106,7 +93,7 @@
     table {
       border-collapse: collapse;
       width: 100%;
-      min-width: 860px;
+      min-width: 1700px;
       background: white;
     }
 
@@ -120,6 +107,12 @@
 
     th {
       background: #f1f1f1;
+      white-space: nowrap;
+    }
+
+    .center {
+      text-align: center;
+      vertical-align: middle;
     }
 
     .warning {
@@ -130,12 +123,6 @@
     .ok {
       color: #1c6b2a;
       font-weight: bold;
-    }
-
-    .grid-two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
     }
 
     .summary-boxes {
@@ -179,9 +166,68 @@
       margin-top: 0;
     }
 
+    .inline-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .inline-form input {
+      max-width: 300px;
+      margin: 0;
+    }
+
+    .search-box {
+      max-width: 340px !important;
+    }
+
+    .lesson-stat {
+      min-width: 120px;
+      line-height: 1.35;
+    }
+
+    .login-main {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .subtle {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .sticky-head thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .row-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 120px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      margin-top: 4px;
+    }
+
     @media (max-width: 900px) {
-      .grid-two {
-        grid-template-columns: 1fr;
+      .inline-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .inline-form input {
+        max-width: none;
       }
     }
   </style>
@@ -209,7 +255,7 @@
         <div class="topbar">
           <div>
             <h2 style="margin-bottom: 6px;">Zalogowano poprawnie</h2>
-            <div class="muted">Tutaj zarządzasz dostępami do lekcji, sprawdzasz aktywność użytkowników i zapisane adresy email.</div>
+            <div class="muted">Tutaj zarządzasz loginami, dostępami do lekcji oraz aktywnością użytkowników.</div>
           </div>
           <button onclick="logout()">Wyloguj</button>
         </div>
@@ -220,11 +266,11 @@
             <div class="summary-value" id="summaryEvents">-</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Liczba aktywnych loginów</div>
+            <div class="summary-label">Liczba loginów</div>
             <div class="summary-value" id="summaryLogins">-</div>
           </div>
           <div class="summary-item">
-            <div class="summary-label">Podejrzane loginy</div>
+            <div class="summary-label">Loginy z > 2 przeglądarek</div>
             <div class="summary-value" id="summaryWarnings">-</div>
           </div>
           <div class="summary-item">
@@ -235,31 +281,35 @@
       </div>
 
       <div class="card">
-        <h2>Dodaj dostęp do lekcji</h2>
-
-        <input id="displayName" type="text" placeholder="Nazwa użytkownika np. Jan Kowalski" />
-        <br>
-
-        <input id="userLogin" type="text" placeholder="Login" />
-        <br>
-
-        <input id="userPassword" type="text" placeholder="Hasło" />
-        <br>
-
-        <h3>Dostęp do lekcji</h3>
-
-        <div class="lessons-grid">
-          <label><input type="checkbox" class="lessonBox" value="3"> Lekcja 3</label>
-          <label><input type="checkbox" class="lessonBox" value="4"> Lekcja 4</label>
-          <label><input type="checkbox" class="lessonBox" value="5"> Lekcja 5</label>
-          <label><input type="checkbox" class="lessonBox" value="6"> Lekcja 6</label>
-          <label><input type="checkbox" class="lessonBox" value="7"> Lekcja 7</label>
-          <label><input type="checkbox" class="lessonBox" value="8"> Lekcja 8</label>
+        <div class="topbar">
+          <div>
+            <h2 style="margin-bottom: 6px;">Dodaj nowy login</h2>
+            <div class="muted">Tworzenie nowego loginu zostało uproszczone tylko do loginu i hasła. Uprawnienia nadajesz potem w tabeli poniżej.</div>
+          </div>
         </div>
 
-        <button onclick="createAccess()">Utwórz dostęp</button>
+        <div class="inline-form">
+          <input id="userLogin" type="text" placeholder="Login" />
+          <input id="userPassword" type="text" placeholder="Hasło" />
+          <button onclick="createAccess()">Dodaj login</button>
+        </div>
 
         <p id="createMsg" class="message"></p>
+      </div>
+
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h2 style="margin-bottom: 6px;">Loginy, dostęp do lekcji i analiza aktywności</h2>
+            <div class="muted">W jednym miejscu: zaznaczanie dostępu do lekcji 3-8, liczba wejść do każdej lekcji, data ostatniej wizyty, łączna liczba wejść oraz liczba różnych przeglądarek / urządzeń.</div>
+          </div>
+          <div class="inline-form" style="align-items:center; gap: 10px;">
+            <input id="loginSearch" class="search-box" type="text" placeholder="Szukaj po loginie" oninput="renderAccessTable()" />
+            <button onclick="refreshAll()">Odśwież wszystko</button>
+          </div>
+        </div>
+
+        <div id="accessTableBox" class="table-wrap"></div>
       </div>
 
       <div class="card">
@@ -280,36 +330,10 @@
             <h2 style="margin-bottom: 6px;">Statystyki wejść</h2>
             <div class="muted">Ostatnie 100 zdarzeń logowania i wejść do lekcji.</div>
           </div>
-          <button onclick="refreshAll()">Odśwież wszystko</button>
+          <button onclick="loadStats()">Odśwież statystyki</button>
         </div>
 
         <div id="statsBox" class="table-wrap"></div>
-      </div>
-
-      <div class="grid-two">
-        <div class="card">
-          <div class="topbar">
-            <div>
-              <h2 style="margin-bottom: 6px;">Analiza loginów</h2>
-              <div class="muted">Pokazuje liczbę wejść i liczbę różnych urządzeń / przeglądarek dla każdego loginu.</div>
-            </div>
-            <button onclick="loadLoginStats()">Analizuj loginy</button>
-          </div>
-
-          <div id="loginStats" class="table-wrap"></div>
-        </div>
-
-        <div class="card">
-          <div class="topbar">
-            <div>
-              <h2 style="margin-bottom: 6px;">Postęp kursu użytkowników</h2>
-              <div class="muted">Najwyższa lekcja osiągnięta przez login, liczba wejść i ostatnia aktywność.</div>
-            </div>
-            <button onclick="loadCourseProgress()">Pokaż postęp</button>
-          </div>
-
-          <div id="courseProgress" class="table-wrap"></div>
-        </div>
       </div>
     </div>
   </div>
@@ -317,14 +341,19 @@
   <script type="module">
     import { supabase } from './supabase-client.js'
 
+    const LESSONS = [3, 4, 5, 6, 7, 8]
+
     const loginSection = document.getElementById('loginSection')
     const adminSection = document.getElementById('adminSection')
     const msg = document.getElementById('msg')
     const createMsg = document.getElementById('createMsg')
     const statsBox = document.getElementById('statsBox')
-    const loginStatsBox = document.getElementById('loginStats')
-    const courseProgressBox = document.getElementById('courseProgress')
     const subscribersBox = document.getElementById('subscribersBox')
+    const accessTableBox = document.getElementById('accessTableBox')
+
+    let credentialsCache = []
+    let eventsCache = []
+    let loginRowsCache = []
 
     async function checkSession() {
       const { data, error } = await supabase.auth.getSession()
@@ -352,10 +381,7 @@
 
       msg.innerText = ''
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      })
+      const { error } = await supabase.auth.signInWithPassword({ email, password })
 
       if (error) {
         msg.innerText = 'Błąd logowania: ' + error.message
@@ -375,82 +401,97 @@
       await checkSession()
     }
 
+    async function ensureAccessAccount(login) {
+      const { data: existingCredential, error: credentialLookupError } = await supabase
+        .from('lesson_credentials')
+        .select('account_id')
+        .eq('login', login)
+        .limit(1)
+
+      if (credentialLookupError) throw credentialLookupError
+
+      if (existingCredential && existingCredential.length > 0 && existingCredential[0].account_id) {
+        return existingCredential[0].account_id
+      }
+
+      const { data: existingAccount, error: accountLookupError } = await supabase
+        .from('access_accounts')
+        .select('id')
+        .eq('display_name', login)
+        .limit(1)
+
+      if (accountLookupError) throw accountLookupError
+
+      if (existingAccount && existingAccount.length > 0) {
+        return existingAccount[0].id
+      }
+
+      const { data: accountData, error: accountError } = await supabase
+        .from('access_accounts')
+        .insert([{ display_name: login }])
+        .select()
+
+      if (accountError) throw accountError
+
+      return accountData[0].id
+    }
+
     window.createAccess = async function () {
-      const displayName = document.getElementById('displayName').value.trim()
       const login = document.getElementById('userLogin').value.trim()
       const password = document.getElementById('userPassword').value.trim()
 
-      const selectedLessons = Array.from(document.querySelectorAll('.lessonBox:checked'))
-        .map(el => parseInt(el.value, 10))
-
       createMsg.innerText = ''
 
-      if (!displayName || !login || !password || selectedLessons.length === 0) {
-        createMsg.innerText = 'Uzupełnij wszystkie pola i wybierz co najmniej jedną lekcję.'
+      if (!login || !password) {
+        createMsg.innerText = 'Uzupełnij login i hasło.'
         return
       }
 
-      const { data: existingAccount, error: existingAccountError } = await supabase
-        .from('access_accounts')
-        .select('id')
-        .eq('display_name', displayName)
-        .limit(1)
+      try {
+        const { data: existingLogin, error: existingLoginError } = await supabase
+          .from('lesson_credentials')
+          .select('id')
+          .eq('login', login)
+          .limit(1)
 
-      if (existingAccountError) {
-        createMsg.innerText = 'Błąd sprawdzania użytkownika: ' + existingAccountError.message
-        return
-      }
+        if (existingLoginError) throw existingLoginError
 
-      let accountId = null
-
-      if (existingAccount && existingAccount.length > 0) {
-        accountId = existingAccount[0].id
-      } else {
-        const { data: accountData, error: accountError } = await supabase
-          .from('access_accounts')
-          .insert([{ display_name: displayName }])
-          .select()
-
-        if (accountError) {
-          createMsg.innerText = 'Błąd tworzenia użytkownika: ' + accountError.message
+        if (existingLogin && existingLogin.length > 0) {
+          createMsg.innerText = 'Taki login już istnieje. Uprawnienia zmienisz w tabeli poniżej.'
           return
         }
 
-        accountId = accountData[0].id
+        const accountId = await ensureAccessAccount(login)
+
+        const { error: insertError } = await supabase
+          .from('lesson_credentials')
+          .insert([{ account_id: accountId, lesson_id: 3, login, password_plain: password, is_active: false }])
+
+        if (insertError) throw insertError
+
+        createMsg.innerText = 'Login dodany poprawnie. Teraz możesz nadać mu dostęp do lekcji w tabeli poniżej.'
+        document.getElementById('userLogin').value = ''
+        document.getElementById('userPassword').value = ''
+
+        await refreshAll()
+      } catch (error) {
+        createMsg.innerText = 'Błąd zapisu loginu: ' + error.message
       }
-
-      const credentials = selectedLessons.map(lessonNo => ({
-        account_id: accountId,
-        lesson_id: lessonNo,
-        login: login,
-        password_plain: password,
-        is_active: true
-      }))
-
-      const { error: credentialsError } = await supabase
-        .from('lesson_credentials')
-        .insert(credentials)
-
-      if (credentialsError) {
-        createMsg.innerText = 'Błąd zapisu dostępów: ' + credentialsError.message
-        return
-      }
-
-      createMsg.innerText = 'Dostęp zapisany poprawnie.'
-
-      document.getElementById('displayName').value = ''
-      document.getElementById('userLogin').value = ''
-      document.getElementById('userPassword').value = ''
-      document.querySelectorAll('.lessonBox').forEach(el => {
-        el.checked = false
-      })
-
-      await refreshAll()
     }
 
-    window.loadStats = async function () {
-      statsBox.innerHTML = 'Ładowanie...'
+    async function loadCredentials() {
+      const { data, error } = await supabase
+        .from('lesson_credentials')
+        .select('id, account_id, lesson_id, login, password_plain, is_active')
+        .order('login', { ascending: true })
+        .order('lesson_id', { ascending: true })
 
+      if (error) throw error
+
+      credentialsCache = data || []
+    }
+
+    async function loadEventsCache() {
       const { data, error } = await supabase
         .from('lesson_access_events')
         .select(`
@@ -464,14 +505,283 @@
           )
         `)
         .order('viewed_at', { ascending: false })
-        .limit(100)
 
-      if (error) {
-        statsBox.innerHTML = 'Błąd ładowania statystyk: ' + error.message
+      if (error) throw error
+
+      eventsCache = data || []
+    }
+
+    function buildLoginRows() {
+      const map = {}
+
+      credentialsCache.forEach(row => {
+        if (!row.login) return
+
+        if (!map[row.login]) {
+          map[row.login] = {
+            login: row.login,
+            password: row.password_plain || '',
+            accountId: row.account_id || null,
+            lessons: {},
+            totalVisits: 0,
+            browsers: new Set(),
+            lastSeenAny: null
+          }
+        }
+
+        if (!map[row.login].accountId && row.account_id) {
+          map[row.login].accountId = row.account_id
+        }
+
+        if (!map[row.login].password && row.password_plain) {
+          map[row.login].password = row.password_plain
+        }
+
+        map[row.login].lessons[row.lesson_id] = {
+          credentialId: row.id,
+          accountId: row.account_id,
+          active: !!row.is_active,
+          visits: 0,
+          lastSeen: null
+        }
+      })
+
+      Object.values(map).forEach(row => {
+        LESSONS.forEach(lessonNo => {
+          if (!row.lessons[lessonNo]) {
+            row.lessons[lessonNo] = {
+              credentialId: null,
+              accountId: row.accountId,
+              active: false,
+              visits: 0,
+              lastSeen: null
+            }
+          }
+        })
+      })
+
+      eventsCache.forEach(eventRow => {
+        const login = eventRow.lesson_credentials?.login
+        if (!login || !map[login]) return
+
+        const lessonNo = eventRow.lesson_id
+        if (!map[login].lessons[lessonNo]) {
+          map[login].lessons[lessonNo] = {
+            credentialId: null,
+            accountId: map[login].accountId,
+            active: false,
+            visits: 0,
+            lastSeen: null
+          }
+        }
+
+        map[login].totalVisits += 1
+
+        if (eventRow.user_agent) {
+          map[login].browsers.add(eventRow.user_agent)
+        }
+
+        map[login].lessons[lessonNo].visits += 1
+
+        const eventDate = eventRow.viewed_at
+        if (!map[login].lessons[lessonNo].lastSeen || new Date(eventDate) > new Date(map[login].lessons[lessonNo].lastSeen)) {
+          map[login].lessons[lessonNo].lastSeen = eventDate
+        }
+
+        if (!map[login].lastSeenAny || new Date(eventDate) > new Date(map[login].lastSeenAny)) {
+          map[login].lastSeenAny = eventDate
+        }
+      })
+
+      loginRowsCache = Object.values(map).sort((a, b) => a.login.localeCompare(b.login, 'pl'))
+
+      document.getElementById('summaryLogins').textContent = loginRowsCache.length
+      document.getElementById('summaryWarnings').textContent = loginRowsCache.filter(row => row.browsers.size > 2).length
+    }
+
+    function formatDate(value) {
+      if (!value) return '-'
+      return new Date(value).toLocaleString('pl-PL')
+    }
+
+    function lessonCellHtml(row, lessonNo) {
+      const lesson = row.lessons[lessonNo]
+      const checked = lesson.active ? 'checked' : ''
+
+      return `
+        <td class="center">
+          <input type="checkbox" data-login="${row.login}" data-lesson="${lessonNo}" ${checked}>
+        </td>
+        <td class="lesson-stat">
+          <div><strong>${lesson.visits}</strong> wejść</div>
+          <div class="subtle">ostatnia: ${formatDate(lesson.lastSeen)}</div>
+        </td>
+      `
+    }
+
+    window.renderAccessTable = function () {
+      const query = (document.getElementById('loginSearch').value || '').trim().toLowerCase()
+
+      const rows = loginRowsCache.filter(row => row.login.toLowerCase().includes(query))
+
+      if (rows.length === 0) {
+        accessTableBox.innerHTML = 'Brak loginów spełniających kryteria.'
         return
       }
 
-      if (!data || data.length === 0) {
+      let html = `
+        <table class="sticky-head">
+          <thead>
+            <tr>
+              <th>Login</th>
+              <th>Hasło</th>
+              <th>Dostęp L3</th>
+              <th>L3 statystyki</th>
+              <th>Dostęp L4</th>
+              <th>L4 statystyki</th>
+              <th>Dostęp L5</th>
+              <th>L5 statystyki</th>
+              <th>Dostęp L6</th>
+              <th>L6 statystyki</th>
+              <th>Dostęp L7</th>
+              <th>L7 statystyki</th>
+              <th>Dostęp L8</th>
+              <th>L8 statystyki</th>
+              <th>Łącznie wejść</th>
+              <th>Różne przeglądarki</th>
+              <th>Ostatnia aktywność</th>
+              <th>Ocena</th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody>
+      `
+
+      rows.forEach(row => {
+        const browserCount = row.browsers.size
+        const status = browserCount > 2
+          ? '<span class="warning">Uwaga</span>'
+          : '<span class="ok">OK</span>'
+
+        html += `
+          <tr>
+            <td>
+              <div class="login-main">${row.login}</div>
+              <div class="subtle">login użytkownika</div>
+            </td>
+            <td>
+              <input type="text" value="${row.password || ''}" data-password-input="${row.login}" style="max-width:140px; margin:0; padding:8px; font-size:14px;">
+            </td>
+            ${LESSONS.map(lessonNo => lessonCellHtml(row, lessonNo)).join('')}
+            <td><strong>${row.totalVisits}</strong></td>
+            <td>
+              ${browserCount}
+              ${browserCount > 0 ? `<div class="pill">urządzenia / UA</div>` : ''}
+            </td>
+            <td>${formatDate(row.lastSeenAny)}</td>
+            <td>${status}</td>
+            <td>
+              <div class="row-actions">
+                <button class="small-btn" onclick="saveLoginRow('${row.login}')">Zapisz</button>
+                <button class="small-btn danger-btn" onclick="deleteLogin('${row.login}')">Usuń login</button>
+              </div>
+            </td>
+          </tr>
+        `
+      })
+
+      html += '</tbody></table>'
+      accessTableBox.innerHTML = html
+    }
+
+    window.saveLoginRow = async function (login) {
+      try {
+        const row = loginRowsCache.find(item => item.login === login)
+        if (!row) {
+          alert('Nie znaleziono loginu.')
+          return
+        }
+
+        const passwordInput = document.querySelector(`[data-password-input="${CSS.escape(login)}"]`)
+        const newPassword = passwordInput ? passwordInput.value.trim() : ''
+
+        if (!newPassword) {
+          alert('Hasło nie może być puste.')
+          return
+        }
+
+        const accountId = row.accountId || await ensureAccessAccount(login)
+
+        const wantedLessons = LESSONS.map(lessonNo => {
+          const checkbox = document.querySelector(`input[type="checkbox"][data-login="${CSS.escape(login)}"][data-lesson="${lessonNo}"]`)
+          return {
+            lessonNo,
+            isChecked: !!checkbox?.checked
+          }
+        })
+
+        for (const item of wantedLessons) {
+          const existing = row.lessons[item.lessonNo]
+
+          if (existing && existing.credentialId) {
+            const { error } = await supabase
+              .from('lesson_credentials')
+              .update({
+                password_plain: newPassword,
+                is_active: item.isChecked
+              })
+              .eq('id', existing.credentialId)
+
+            if (error) throw error
+          } else {
+            const { data, error } = await supabase
+              .from('lesson_credentials')
+              .insert([{
+                account_id: accountId,
+                lesson_id: item.lessonNo,
+                login,
+                password_plain: newPassword,
+                is_active: item.isChecked
+              }])
+              .select('id')
+
+            if (error) throw error
+
+            row.lessons[item.lessonNo].credentialId = data?.[0]?.id || null
+          }
+        }
+
+        await refreshAll()
+        alert('Zmiany zapisane.')
+      } catch (error) {
+        alert('Nie udało się zapisać zmian: ' + error.message)
+      }
+    }
+
+    window.deleteLogin = async function (login) {
+      const confirmed = confirm(`Czy na pewno usunąć login ${login}?`)
+      if (!confirmed) return
+
+      try {
+        const { error } = await supabase
+          .from('lesson_credentials')
+          .delete()
+          .eq('login', login)
+
+        if (error) throw error
+
+        await refreshAll()
+      } catch (error) {
+        alert('Nie udało się usunąć loginu: ' + error.message)
+      }
+    }
+
+    window.loadStats = async function () {
+      statsBox.innerHTML = 'Ładowanie...'
+
+      const recentRows = (eventsCache || []).slice(0, 100)
+
+      if (!recentRows.length) {
         statsBox.innerHTML = 'Brak statystyk.'
         return
       }
@@ -487,12 +797,12 @@
           </tr>
       `
 
-      data.forEach(row => {
+      recentRows.forEach(row => {
         const login = row.lesson_credentials?.login || '-'
 
         html += `
           <tr>
-            <td>${new Date(row.viewed_at).toLocaleString('pl-PL')}</td>
+            <td>${formatDate(row.viewed_at)}</td>
             <td>${login}</td>
             <td>${row.lesson_id}</td>
             <td>${row.event_type}</td>
@@ -503,170 +813,6 @@
 
       html += `</table>`
       statsBox.innerHTML = html
-    }
-
-    window.loadLoginStats = async function () {
-      loginStatsBox.innerHTML = 'Ładowanie...'
-
-      const { data, error } = await supabase
-        .from('lesson_access_events')
-        .select(`
-          lesson_credentials (
-            login
-          ),
-          user_agent
-        `)
-
-      if (error) {
-        loginStatsBox.innerHTML = 'Błąd ładowania analizy loginów: ' + error.message
-        return
-      }
-
-      if (!data || data.length === 0) {
-        loginStatsBox.innerHTML = 'Brak danych do analizy loginów.'
-        document.getElementById('summaryWarnings').textContent = 0
-        document.getElementById('summaryLogins').textContent = 0
-        return
-      }
-
-      const map = {}
-
-      data.forEach(row => {
-        const login = row.lesson_credentials?.login
-        if (!login) return
-
-        if (!map[login]) {
-          map[login] = {
-            views: 0,
-            agents: new Set()
-          }
-        }
-
-        map[login].views += 1
-
-        if (row.user_agent) {
-          map[login].agents.add(row.user_agent)
-        }
-      })
-
-      let warningCount = 0
-
-      let html = `
-        <table>
-          <tr>
-            <th>Login</th>
-            <th>Liczba wejść</th>
-            <th>Różne urządzenia / przeglądarki</th>
-            <th>Ocena</th>
-          </tr>
-      `
-
-      Object.keys(map)
-        .sort((a, b) => map[b].views - map[a].views)
-        .forEach(login => {
-          const views = map[login].views
-          const devices = map[login].agents.size
-
-          let status = '<span class="ok">OK</span>'
-          if (devices > 2) {
-            status = '<span class="warning">Uwaga</span>'
-            warningCount += 1
-          }
-
-          html += `
-            <tr>
-              <td>${login}</td>
-              <td>${views}</td>
-              <td>${devices}</td>
-              <td>${status}</td>
-            </tr>
-          `
-        })
-
-      html += `</table>`
-      loginStatsBox.innerHTML = html
-
-      document.getElementById('summaryWarnings').textContent = warningCount
-      document.getElementById('summaryLogins').textContent = Object.keys(map).length
-    }
-
-    window.loadCourseProgress = async function () {
-      courseProgressBox.innerHTML = 'Ładowanie...'
-
-      const { data, error } = await supabase
-        .from('lesson_access_events')
-        .select(`
-          viewed_at,
-          lesson_id,
-          event_type,
-          lesson_credentials (
-            login
-          )
-        `)
-        .order('viewed_at', { ascending: false })
-
-      if (error) {
-        courseProgressBox.innerHTML = 'Błąd ładowania postępu kursu: ' + error.message
-        return
-      }
-
-      if (!data || data.length === 0) {
-        courseProgressBox.innerHTML = 'Brak danych o postępie kursu.'
-        return
-      }
-
-      const map = {}
-
-      data.forEach(row => {
-        const login = row.lesson_credentials?.login
-        if (!login) return
-
-        const lessonNo = row.lesson_id
-
-        if (!map[login]) {
-          map[login] = {
-            highestLesson: lessonNo,
-            views: 0,
-            lastSeen: row.viewed_at
-          }
-        }
-
-        if (lessonNo > map[login].highestLesson) {
-          map[login].highestLesson = lessonNo
-        }
-
-        map[login].views += 1
-
-        if (new Date(row.viewed_at) > new Date(map[login].lastSeen)) {
-          map[login].lastSeen = row.viewed_at
-        }
-      })
-
-      let html = `
-        <table>
-          <tr>
-            <th>Login</th>
-            <th>Najwyższa lekcja</th>
-            <th>Liczba wejść</th>
-            <th>Ostatnie wejście</th>
-          </tr>
-      `
-
-      Object.keys(map)
-        .sort((a, b) => map[b].highestLesson - map[a].highestLesson)
-        .forEach(login => {
-          html += `
-            <tr>
-              <td>${login}</td>
-              <td>${map[login].highestLesson}</td>
-              <td>${map[login].views}</td>
-              <td>${new Date(map[login].lastSeen).toLocaleString('pl-PL')}</td>
-            </tr>
-          `
-        })
-
-      html += `</table>`
-      courseProgressBox.innerHTML = html
     }
 
     window.loadSubscribers = async function () {
@@ -717,8 +863,8 @@
             <td>${row.email}</td>
             <td>${status}</td>
             <td>${row.source || '-'}</td>
-            <td>${row.created_at ? new Date(row.created_at).toLocaleString('pl-PL') : '-'}</td>
-            <td>${row.updated_at ? new Date(row.updated_at).toLocaleString('pl-PL') : '-'}</td>
+            <td>${row.created_at ? formatDate(row.created_at) : '-'}</td>
+            <td>${row.updated_at ? formatDate(row.updated_at) : '-'}</td>
             <td>${actionButton}</td>
           </tr>
         `
@@ -731,10 +877,7 @@
     window.deactivateSubscriber = async function (id) {
       const { error } = await supabase
         .from('event_subscribers')
-        .update({
-          is_active: false,
-          updated_at: new Date().toISOString()
-        })
+        .update({ is_active: false, updated_at: new Date().toISOString() })
         .eq('id', id)
 
       if (error) {
@@ -748,10 +891,7 @@
     window.activateSubscriber = async function (id) {
       const { error } = await supabase
         .from('event_subscribers')
-        .update({
-          is_active: true,
-          updated_at: new Date().toISOString()
-        })
+        .update({ is_active: true, updated_at: new Date().toISOString() })
         .eq('id', id)
 
       if (error) {
@@ -767,19 +907,22 @@
         .from('lesson_access_events')
         .select('*', { count: 'exact', head: true })
 
-      if (error) {
-        document.getElementById('summaryEvents').textContent = '-'
-      } else {
-        document.getElementById('summaryEvents').textContent = count ?? 0
-      }
+      document.getElementById('summaryEvents').textContent = error ? '-' : (count ?? 0)
     }
 
     window.refreshAll = async function () {
-      await loadSummary()
-      await loadStats()
-      await loadLoginStats()
-      await loadCourseProgress()
-      await loadSubscribers()
+      try {
+        accessTableBox.innerHTML = 'Ładowanie...'
+        await loadSummary()
+        await loadCredentials()
+        await loadEventsCache()
+        buildLoginRows()
+        renderAccessTable()
+        await loadStats()
+        await loadSubscribers()
+      } catch (error) {
+        accessTableBox.innerHTML = 'Błąd ładowania danych: ' + error.message
+      }
     }
 
     checkSession()
