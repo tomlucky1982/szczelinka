@@ -14,7 +14,7 @@
     }
 
     .container {
-      max-width: 1500px;
+      max-width: 1520px;
       margin: 0 auto;
       padding: 30px 20px 60px 20px;
     }
@@ -29,10 +29,6 @@
 
     h1, h2, h3 {
       margin-top: 0;
-    }
-
-    h1 {
-      margin-bottom: 24px;
     }
 
     input[type="email"],
@@ -91,6 +87,13 @@
       flex-wrap: wrap;
     }
 
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     .message {
       margin-top: 12px;
       min-height: 24px;
@@ -137,11 +140,17 @@
       font-weight: bold;
     }
 
-    .toolbar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
+    .add-user-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px 18px;
+      align-items: end;
+    }
+
+    .inline-note {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
     }
 
     .table-scroll {
@@ -170,14 +179,6 @@
       font-size: 13px;
       white-space: nowrap;
       background: #fff;
-    }
-
-    th:first-child, td:first-child {
-      border-left: 0;
-    }
-
-    tr:first-child th {
-      border-top: 0;
     }
 
     thead th {
@@ -209,7 +210,7 @@
       left: 180px;
       z-index: 4;
       background: #fff;
-      min-width: 110px;
+      min-width: 120px;
     }
 
     thead th.sticky-second {
@@ -242,30 +243,8 @@
       min-width: 110px;
     }
 
-    .add-user-box {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px 18px;
-      align-items: end;
-    }
-
-    .inline-note {
-      font-size: 12px;
-      color: #666;
-      margin-top: 4px;
-    }
-
     .subscribers-wrap {
       margin-top: 16px;
-    }
-
-    .pill {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      border: 1px solid #ddd;
-      background: #fafafa;
     }
 
     @media (max-width: 900px) {
@@ -339,7 +318,7 @@
         </div>
 
         <div class="inline-note">
-          Login zostanie dodany bez uprawnień. Uprawnienia do lekcji 3–8 nadajesz później checkboxami w tabeli poniżej.
+          Nowy login dostaje od razu rekordy dla lekcji 3–8, ale wszystkie bez dostępu. Dostęp włączasz checkboxami w tabeli.
         </div>
 
         <p id="createMsg" class="message"></p>
@@ -349,11 +328,8 @@
         <div class="topbar">
           <div>
             <h2 style="margin-bottom: 6px;">Loginy i uprawnienia</h2>
-            <div class="muted">
-              Nagłówek tabeli jest przyklejony. Tabelę można przewijać w dół i w bok.
-            </div>
+            <div class="muted">Nagłówek tabeli jest przyklejony. Tabelę można przewijać w dół i w bok.</div>
           </div>
-
           <div class="toolbar">
             <button onclick="refreshAll()">Odśwież wszystko</button>
           </div>
@@ -391,7 +367,7 @@
     const TARGET_LESSON_NUMBERS = [3, 4, 5, 6, 7, 8]
 
     let lessonsMapByNumber = {}
-    let lessonsList = []
+    let lessonNumberById = {}
 
     function escapeHtml(value) {
       return String(value ?? '')
@@ -411,21 +387,20 @@
       }
     }
 
-    function inferLessonNumber(row) {
+    function extractLessonNumber(row) {
       if (!row || typeof row !== 'object') return null
 
-      const candidates = [
+      const directCandidates = [
         row.lesson_no,
         row.lesson_number,
-        row.number,
-        row.sort_order,
-        row.position,
-        row.order_no
+        row.number
       ]
 
-      for (const value of candidates) {
-        const num = Number(value)
-        if (TARGET_LESSON_NUMBERS.includes(num)) return num
+      for (const val of directCandidates) {
+        const num = Number(val)
+        if (TARGET_LESSON_NUMBERS.includes(num)) {
+          return num
+        }
       }
 
       const textCandidates = [
@@ -436,21 +411,22 @@
         row.label
       ].filter(Boolean)
 
-      for (const txt of textCandidates) {
-        const str = String(txt).toLowerCase()
+      for (const value of textCandidates) {
+        const str = String(value).toLowerCase().trim()
+
         for (const n of TARGET_LESSON_NUMBERS) {
-          if (
-            str === `lekcja-${n}` ||
-            str === `lekcja_${n}` ||
-            str === `lesson-${n}` ||
-            str === `lesson_${n}` ||
-            str === `lesson${n}` ||
-            str === `lekcja${n}` ||
-            str.includes(`lekcja ${n}`) ||
-            str.includes(`lesson ${n}`) ||
-            str.endsWith(`-${n}`) ||
-            str.endsWith(`_${n}`)
-          ) {
+          const patterns = [
+            `lekcja ${n}`,
+            `lekcja-${n}`,
+            `lekcja_${n}`,
+            `lekcja${n}`,
+            `lesson ${n}`,
+            `lesson-${n}`,
+            `lesson_${n}`,
+            `lesson${n}`
+          ]
+
+          if (patterns.some(p => str === p || str.includes(p))) {
             return n
           }
         }
@@ -468,26 +444,27 @@
         throw new Error('Nie udało się pobrać tabeli lessons: ' + error.message)
       }
 
-      lessonsList = Array.isArray(data) ? data : []
       lessonsMapByNumber = {}
+      lessonNumberById = {}
 
-      for (const row of lessonsList) {
-        const lessonNumber = inferLessonNumber(row)
-        if (!TARGET_LESSON_NUMBERS.includes(lessonNumber)) continue
+      for (const row of data || []) {
+        const lessonNumber = extractLessonNumber(row)
+        if (!lessonNumber) continue
 
         lessonsMapByNumber[lessonNumber] = {
           id: row.id,
           number: lessonNumber,
           raw: row
         }
+
+        lessonNumberById[row.id] = lessonNumber
       }
 
-      const missing = TARGET_LESSON_NUMBERS.filter(no => !lessonsMapByNumber[no])
-      if (missing.length > 0) {
+      const missing = TARGET_LESSON_NUMBERS.filter(n => !lessonsMapByNumber[n])
+      if (missing.length) {
         throw new Error(
-          'Nie udało się dopasować lekcji z tabeli lessons dla numerów: ' +
-          missing.join(', ') +
-          '. Sprawdź kolumny w tabeli lessons.'
+          'Nie udało się rozpoznać lekcji: ' + missing.join(', ') +
+          '. Sprawdź dane w tabeli lessons.'
         )
       }
     }
@@ -542,9 +519,9 @@
     }
 
     async function getOrCreateAccountId(login) {
-      const { data: existingAccounts, error: existingError } = await supabase
+      const { data: existing, error: existingError } = await supabase
         .from('access_accounts')
-        .select('id, display_name')
+        .select('id')
         .eq('display_name', login)
         .limit(1)
 
@@ -552,8 +529,8 @@
         throw new Error('Błąd sprawdzania access_accounts: ' + existingError.message)
       }
 
-      if (existingAccounts && existingAccounts.length > 0) {
-        return existingAccounts[0].id
+      if (existing && existing.length > 0) {
+        return existing[0].id
       }
 
       const { data: inserted, error: insertError } = await supabase
@@ -585,7 +562,7 @@
       }
 
       try {
-        await getOrCreateAccountId(login)
+        await loadLessonsMap()
 
         const { data: existingCreds, error: existingCredsError } = await supabase
           .from('lesson_credentials')
@@ -602,20 +579,19 @@
           return
         }
 
-        createMsg.innerText = 'Tworzę login...'
-
-        const placeholderLessonId = lessonsMapByNumber[3].id
         const accountId = await getOrCreateAccountId(login)
+
+        const rowsToInsert = TARGET_LESSON_NUMBERS.map(lessonNumber => ({
+          account_id: accountId,
+          lesson_id: lessonsMapByNumber[lessonNumber].id,
+          login: login,
+          password_plain: password,
+          is_active: false
+        }))
 
         const { error: insertError } = await supabase
           .from('lesson_credentials')
-          .insert([{
-            account_id: accountId,
-            lesson_id: placeholderLessonId,
-            login: login,
-            password_plain: password,
-            is_active: false
-          }])
+          .insert(rowsToInsert)
 
         if (insertError) {
           throw new Error('Błąd tworzenia loginu: ' + insertError.message)
@@ -623,7 +599,7 @@
 
         document.getElementById('newLogin').value = ''
         document.getElementById('newPassword').value = ''
-        createMsg.innerText = 'Login utworzony. Teraz zaznacz uprawnienia checkboxami w tabeli.'
+        createMsg.innerText = 'Login utworzony poprawnie.'
         await loadCredentialsTable()
       } catch (err) {
         createMsg.innerText = err.message || 'Wystąpił błąd.'
@@ -666,8 +642,6 @@
             login,
             password: cred.password_plain || '',
             accountId: cred.account_id || null,
-            credentialRows: [],
-            lessonRowsByNumber: {},
             totalViews: 0,
             userAgents: new Set(),
             perLesson: {}
@@ -683,119 +657,73 @@
           }
         }
 
-        users[login].credentialRows.push(cred)
+        const lessonNumber = lessonNumberById[cred.lesson_id]
+        if (!lessonNumber || !users[login].perLesson[lessonNumber]) continue
 
-        const lessonNumber = Object.values(lessonsMapByNumber).find(x => x.id === cred.lesson_id)?.number
-        if (lessonNumber) {
-          users[login].perLesson[lessonNumber].hasAccess = !!cred.is_active
-          users[login].perLesson[lessonNumber].credentialId = cred.id
-          users[login].lessonRowsByNumber[lessonNumber] = cred
-        }
+        users[login].perLesson[lessonNumber].hasAccess = !!cred.is_active
+        users[login].perLesson[lessonNumber].credentialId = cred.id
       }
 
-      for (const row of events || []) {
-        const login = row.lesson_credentials?.login
-        if (!login) continue
-        if (!users[login]) continue
+      for (const ev of events || []) {
+        const login = ev.lesson_credentials?.login
+        if (!login || !users[login]) continue
 
         users[login].totalViews += 1
-        if (row.user_agent) users[login].userAgents.add(row.user_agent)
+        if (ev.user_agent) {
+          users[login].userAgents.add(ev.user_agent)
+        }
 
-        const lessonNumber = Object.values(lessonsMapByNumber).find(x => x.id === row.lesson_id)?.number
-        if (!lessonNumber) continue
+        const lessonNumber = lessonNumberById[ev.lesson_id]
+        if (!lessonNumber || !users[login].perLesson[lessonNumber]) continue
 
         users[login].perLesson[lessonNumber].count += 1
 
         const currentLast = users[login].perLesson[lessonNumber].lastVisit
-        if (!currentLast || new Date(row.viewed_at) > new Date(currentLast)) {
-          users[login].perLesson[lessonNumber].lastVisit = row.viewed_at
+        if (!currentLast || new Date(ev.viewed_at) > new Date(currentLast)) {
+          users[login].perLesson[lessonNumber].lastVisit = ev.viewed_at
         }
       }
 
       return users
     }
 
-    async function ensureCredentialForLesson(user, lessonNumber) {
-      const lessonId = lessonsMapByNumber[lessonNumber].id
-
-      if (user.perLesson[lessonNumber]?.credentialId) {
-        return user.perLesson[lessonNumber].credentialId
-      }
-
-      const accountId = user.accountId || await getOrCreateAccountId(user.login)
-
-      const { data, error } = await supabase
-        .from('lesson_credentials')
-        .insert([{
-          account_id: accountId,
-          lesson_id: lessonId,
-          login: user.login,
-          password_plain: user.password || '',
-          is_active: true
-        }])
-        .select('id, lesson_id, account_id, login, password_plain, is_active')
-        .limit(1)
-
-      if (error) {
-        throw new Error('Nie udało się dodać uprawnienia: ' + error.message)
-      }
-
-      if (!data || data.length === 0) {
-        throw new Error('Nie udało się dodać uprawnienia.')
-      }
-
-      return data[0].id
-    }
-
     window.toggleLessonAccess = async function (login, lessonNumber, checkboxEl) {
       const checked = checkboxEl.checked
+      checkboxEl.disabled = true
 
       try {
-        checkboxEl.disabled = true
-
-        const users = await buildUsersData()
-        const user = users[login]
-
-        if (!user) {
-          throw new Error('Nie znaleziono loginu: ' + login)
-        }
+        await loadLessonsMap()
 
         const lessonId = lessonsMapByNumber[lessonNumber].id
 
-        if (checked) {
-          if (user.perLesson[lessonNumber].credentialId) {
-            const { error } = await supabase
-              .from('lesson_credentials')
-              .update({
-                is_active: true,
-                lesson_id: lessonId,
-                password_plain: user.password || ''
-              })
-              .eq('id', user.perLesson[lessonNumber].credentialId)
+        const { data: row, error: rowError } = await supabase
+          .from('lesson_credentials')
+          .select('id')
+          .eq('login', login)
+          .eq('lesson_id', lessonId)
+          .limit(1)
 
-            if (error) {
-              throw new Error('Nie udało się zapisać zmian: ' + error.message)
-            }
-          } else {
-            await ensureCredentialForLesson(user, lessonNumber)
-          }
-        } else {
-          if (user.perLesson[lessonNumber].credentialId) {
-            const { error } = await supabase
-              .from('lesson_credentials')
-              .update({ is_active: false })
-              .eq('id', user.perLesson[lessonNumber].credentialId)
+        if (rowError) {
+          throw new Error('Nie udało się pobrać rekordu uprawnienia: ' + rowError.message)
+        }
 
-            if (error) {
-              throw new Error('Nie udało się zapisać zmian: ' + error.message)
-            }
-          }
+        if (!row || row.length === 0) {
+          throw new Error(`Brak rekordu dla loginu "${login}" i lekcji ${lessonNumber}.`)
+        }
+
+        const { error: updateError } = await supabase
+          .from('lesson_credentials')
+          .update({ is_active: checked })
+          .eq('id', row[0].id)
+
+        if (updateError) {
+          throw new Error('Nie udało się zapisać zmian: ' + updateError.message)
         }
 
         await loadCredentialsTable()
       } catch (err) {
-        alert(err.message || 'Wystąpił błąd podczas zapisu zmian.')
         checkboxEl.checked = !checked
+        alert(err.message || 'Wystąpił błąd podczas zapisu zmian.')
       } finally {
         checkboxEl.disabled = false
       }
