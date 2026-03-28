@@ -197,6 +197,7 @@
       font-size: 16px;
       min-height: 24px;
       color: #b03a3a;
+      white-space: pre-line;
     }
 
     .access-note {
@@ -355,7 +356,7 @@
   <script type="module">
     import { supabase } from './supabase-client.js'
 
-    const LESSON_ID = 3
+    const LESSON_NO = 3
     const SESSION_KEY = 'szczelinka_lesson3_session'
 
     const loginBox = document.getElementById('loginBox')
@@ -363,26 +364,78 @@
     const msg = document.getElementById('msg')
     const logoutBtn = document.getElementById('logoutBtn')
 
-    async function getLessonContentIdByLessonNo(lessonNo) {
-      const { data: lessonRow, error: lessonError } = await supabase
-        .from('lessons')
-        .select('id')
-        .eq('lesson_no', lessonNo)
-        .single()
+    let resolvedLessonId = null
 
-      if (lessonError || !lessonRow) {
-        throw new Error('Nie znaleziono definicji lekcji w tabeli lessons.')
+    function normalizeLessonNumberRow(row) {
+      const directCandidates = [
+        row.lesson_no,
+        row.lesson_number,
+        row.number
+      ]
+
+      for (const value of directCandidates) {
+        const num = Number(value)
+        if (num === LESSON_NO) return true
       }
 
-      return lessonRow.id
+      const textCandidates = [
+        row.slug,
+        row.code,
+        row.title,
+        row.name,
+        row.label
+      ].filter(Boolean)
+
+      for (const value of textCandidates) {
+        const str = String(value).toLowerCase().trim()
+        const patterns = [
+          `lekcja ${LESSON_NO}`,
+          `lekcja-${LESSON_NO}`,
+          `lekcja_${LESSON_NO}`,
+          `lekcja${LESSON_NO}`,
+          `lesson ${LESSON_NO}`,
+          `lesson-${LESSON_NO}`,
+          `lesson_${LESSON_NO}`,
+          `lesson${LESSON_NO}`
+        ]
+
+        if (patterns.some(p => str === p || str.includes(p))) {
+          return true
+        }
+      }
+
+      return false
+    }
+
+    async function resolveLessonId() {
+      if (resolvedLessonId) return resolvedLessonId
+
+      const { data, error } = await supabase
+        .from('lessons')
+        .select('*')
+
+      if (error || !data || data.length === 0) {
+        throw new Error('Nie udało się pobrać definicji lekcji.')
+      }
+
+      const lessonRow = data.find(normalizeLessonNumberRow)
+
+      if (!lessonRow || !lessonRow.id) {
+        throw new Error('Nie znaleziono rekordu lekcji 3 w tabeli lessons.')
+      }
+
+      resolvedLessonId = lessonRow.id
+      return resolvedLessonId
     }
 
     async function saveEvent(credentialId, eventType) {
+      const lessonId = await resolveLessonId()
+
       await supabase
         .from('lesson_access_events')
         .insert([{
           credential_id: credentialId,
-          lesson_id: LESSON_ID,
+          lesson_id: lessonId,
           event_type: eventType,
           user_agent: navigator.userAgent
         }])
@@ -405,12 +458,12 @@
 
     async function loadLesson(credentialId = null) {
       try {
-        const contentLessonId = await getLessonContentIdByLessonNo(LESSON_ID)
+        const lessonId = await resolveLessonId()
 
         const { data, error } = await supabase
           .from('lesson_content')
           .select('html_content')
-          .eq('lesson_id', contentLessonId)
+          .eq('lesson_id', lessonId)
           .single()
 
         if (error || !data) {
@@ -452,8 +505,9 @@
 
       try {
         const session = JSON.parse(raw)
+        const lessonId = await resolveLessonId()
 
-        if (session.lesson_id !== LESSON_ID) {
+        if (Number(session.lesson_id) !== Number(lessonId)) {
           clearSession()
           return
         }
@@ -462,7 +516,7 @@
           .from('lesson_credentials')
           .select('id, lesson_id, login, is_active')
           .eq('id', session.credential_id)
-          .eq('lesson_id', LESSON_ID)
+          .eq('lesson_id', lessonId)
           .eq('is_active', true)
           .single()
 
@@ -480,32 +534,43 @@
     window.checkLogin = async function () {
       const login = document.getElementById('login').value.trim()
       const password = document.getElementById('password').value
-
       msg.innerText = ''
 
-      const { data, error } = await supabase
-        .from('lesson_credentials')
-        .select('id, lesson_id, login, is_active')
-        .eq('login', login)
-        .eq('password_plain', password)
-        .eq('lesson_id', LESSON_ID)
-        .eq('is_active', true)
-
-      if (error) {
-        msg.innerText = 'Błąd logowania: ' + error.message
+      if (!login || !password) {
+        msg.innerText = 'Podaj login i hasło.'
         return
       }
 
-      if (!data || data.length === 0) {
-        msg.innerText = 'Błędny login lub hasło'
-        return
+      try {
+        const lessonId = await resolveLessonId()
+
+        const { data, error } = await supabase
+          .from('lesson_credentials')
+          .select('id, lesson_id, login, is_active')
+          .eq('login', login)
+          .eq('password_plain', password)
+          .eq('lesson_id', lessonId)
+          .eq('is_active', true)
+          .limit(1)
+
+        if (error) {
+          msg.innerText = 'Błąd logowania: ' + error.message
+          return
+        }
+
+        if (!data || data.length === 0) {
+          msg.innerText = 'Błędny login lub hasło'
+          return
+        }
+
+        const credential = data[0]
+
+        await saveEvent(credential.id, 'login_success')
+        saveSession(credential)
+        await loadLesson(credential.id)
+      } catch (e) {
+        msg.innerText = e.message || 'Nie udało się zalogować.'
       }
-
-      const credential = data[0]
-
-      await saveEvent(credential.id, 'login_success')
-      saveSession(credential)
-      await loadLesson(credential.id)
     }
 
     logoutBtn.addEventListener('click', () => {
