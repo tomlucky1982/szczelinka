@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5Q5D7GV4');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prowadzący | Szczelinka</title>
+  <link rel="icon" href="favicon_minimal.ico">
+  <meta name="theme-color" content="#3aa7d6">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: #1f1f1f;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 150px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 125px;
+      margin-right: 50px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .menu > a,
+    .dropdown > a,
+    .contact-link {
+      text-decoration: none;
+      font-size: 18px;
+      color: #3aa7d6;
+      font-weight: 500;
+      padding-bottom: 6px;
+      display: inline-block;
+    }
+
+    .menu > a.active {
+      border-bottom: 2px solid #3aa7d6;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 190px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      padding: 10px 0;
+      z-index: 1100;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      text-decoration: none;
+      color: #3aa7d6;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .dropdown-content a:hover {
+      background: rgba(58,167,214,0.07);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .page-wrap {
+      max-width: 1150px;
+      margin: 90px auto 120px auto;
+      padding: 0 40px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 70px;
+      align-items: start;
+      margin-bottom: 70px;
+    }
+
+    .photo-card {
+      position: sticky;
+      top: 190px;
+    }
+
+    .photo {
+      width: 100%;
+      border-radius: 24px;
+      display: block;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.10);
+      background: #f5f5f5;
+    }
+
+    .photo-note {
+      margin-top: 16px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #5b5b5b;
+    }
+
+    .content {
+      font-size: 19px;
+      line-height: 1.9;
+    }
+
+    h1 {
+      color: #3aa7d6;
+      font-size: 40px;
+      margin: 0 0 28px 0;
+      line-height: 1.2;
+    }
+
+    h2 {
+      color: #3aa7d6;
+      font-size: 30px;
+      margin: 70px 0 24px 0;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 22px 0;
+    }
+
+    .lead {
+      font-size: 22px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .facts {
+      margin: 28px 0 34px 0;
+      padding: 28px 30px;
+      background: rgba(58,167,214,0.06);
+      border-radius: 22px;
+      border: 1px solid rgba(58,167,214,0.12);
+    }
+
+    .facts ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .facts li {
+      margin-bottom: 14px;
+    }
+
+    .facts li:last-child {
+      margin-bottom: 0;
+    }
+
+    .facts a,
+    .content a {
+      color: #2e95c2;
+    }
+
+    .separator {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(58,167,214,0.35), transparent);
+      margin: 50px 0;
+    }
+
+    .quote-box {
+      margin: 34px 0;
+      padding: 26px 28px;
+      border-left: 4px solid #3aa7d6;
+      background: rgba(58,167,214,0.05);
+      border-radius: 0 18px 18px 0;
+      font-style: italic;
+    }
+
+    @media (max-width: 980px) {
+      .topbar {
+        height: auto;
+        padding: 20px;
+        align-items: flex-start;
+        gap: 18px;
+        flex-direction: column;
+      }
+
+      .topbar-left {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .topbar-right {
+        align-items: flex-start;
+      }
+
+      .logo {
+        height: 90px;
+        margin-right: 0;
+        margin-bottom: 12px;
+      }
+
+      .menu {
+        flex-wrap: wrap;
+        gap: 18px 24px;
+      }
+
+      .page-wrap {
+        margin-top: 50px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .photo-card {
+        position: static;
+        max-width: 420px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-wrap {
+        padding: 0 20px;
+      }
+
+      .content {
+        font-size: 18px;
+        line-height: 1.82;
+      }
+
+      .lead {
+        font-size: 20px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      h2 {
+        font-size: 27px;
+      }
+
+      .facts {
+        padding: 22px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5Q5D7GV4"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html">
+        <img src="logo.png" class="logo" alt="Szczelinka">
+      </a>
+
+      <nav class="menu">
+        <a href="szczelinka.html">Szczelinka</a>
+
+        <div class="dropdown">
+          <a href="Main_Page.html">Lekcje</a>
+
+          <div class="dropdown-content">
+            <a href="Main_Page.html#lekcja1">Lekcja 1</a>
+            <a href="Main_Page.html#lekcja2">Lekcja 2</a>
+            <a href="Main_Page.html#lekcja3">Lekcja 3</a>
+            <a href="Main_Page.html#lekcja4">Lekcja 4</a>
+            <a href="Main_Page.html#lekcja5">Lekcja 5</a>
+            <a href="Main_Page.html#lekcja6">Lekcja 6</a>
+            <a href="Main_Page.html#lekcja7">Lekcja 7</a>
+            <a href="Main_Page.html#lekcja8">Lekcja 8</a>
+          </div>
+        </div>
+
+        <a href="zajecia.html">Zajęcia</a>
+        <a class="active" href="prowadzacy.html">Prowadzący</a>
+      </nav>
+    </div>
+
+    <div class="topbar-right">
+      <a href="kontakt.html" class="contact-link">Kontakt</a>
+    </div>
+  </header>
+
+  <main class="page-wrap">
+    <section class="hero">
+      <aside class="photo-card">
+        <img src="tomek.jpg" alt="Tomasz Szczęsny" class="photo">
+        <div class="photo-note">
+          Tomasz Szczęsny — prowadzący medytację Szczelinka.
+        </div>
+      </aside>
+
+      <article class="content">
+        <h1>Prowadzący</h1>
+
+        <p class="lead">
+          Nazywam się Tomasz Szczęsny i od 8 lat nauczam medytacji Szczelinka.
+        </p>
+
+        <div class="facts">
+          <ul>
+            <li>Metoda medytacji Szczelinka powstała w październiku 2017 roku.</li>
+            <li>14 kwietnia 2018 odbył się pierwszy warsztat Szczelinki.</li>
+            <li>Od tego czasu prowadzę zajęcia, warsztaty i odosobnienia, podczas których nauczam tej metody.</li>
+            <li>
+              Jestem również Mistrzem i Nauczycielem Reiki. Więcej o Reiki możesz przeczytać tutaj:
+              <a href="https://reiki.info.pl" target="_blank" rel="noopener noreferrer">reiki.info.pl</a>.
+            </li>
+          </ul>
+        </div>
+
+        <h2>Droga do Szczelinki</h2>
+
+        <p>
+          Moja droga nie zaczęła się od jednego momentu — była procesem dojrzewania, który trwał około 20 lat.
+        </p>
+
+        <p>
+          Na wczesnym etapie spotkałem Reiki.
+        </p>
+
+        <p>
+          4 listopada 2001 roku mój Mistrz i Nauczyciel, Marian Bartkowiak, inicjował mnie na pierwszy stopień. Miałem wtedy 19 lat.
+          Po latach praktyki, 5 października 2019 roku, zostałem inicjowany na Mistrza Reiki.
+        </p>
+
+        <p>
+          Przez ten czas uczestniczyłem w wielu medytacjach, warsztatach i praktykach duchowych.
+          Z czasem narodziła się we mnie jedna, bardzo prosta, a zarazem wymagająca idea:
+        </p>
+
+        <div class="quote-box">
+          Czy możliwe jest być w absolutnym Teraz? Takim Teraz, w którym nie ma już żadnej domieszki —
+          żadnego komentarza umysłu, żadnej myśli, żadnego wyobrażenia.
+        </div>
+
+        <p>
+          Próbowałem.
+        </p>
+
+        <p>
+          Siadałem i mówiłem sobie: teraz nie będę myślał — po prostu będę.
+        </p>
+
+        <p>
+          I za każdym razem pojawiały się myśli. Czysta siła woli nie wystarczała.
+        </p>
+
+        <p>
+          Szukałem dalej.
+        </p>
+
+        <p>
+          Praktykowałem metody religijne — modlitwy, kontemplację.
+        </p>
+
+        <p>
+          Próbowałem też świeckich technik medytacyjnych.
+        </p>
+
+        <p>
+          Każda z nich odsłaniała coś wartościowego, lecz żadna nie prowadziła mnie do tego, czego naprawdę szukałem.
+        </p>
+
+        <p>
+          Moje poszukiwania zaprowadziły mnie na odosobnienie w Tyńcu, do klasztoru Benedyktynów niedaleko Krakowa.
+        </p>
+
+        <p>
+          Tam praktykowaliśmy szczególny rodzaj modlitwy — powtarzanie jednego świętego zdania, aż umysł zaczyna się wyciszać i pojawia się stan kontemplacji.
+          Dawało to efekt wyciszenia, a nawet słodyczy w sercu, ale nie dawało tego absolutnego Teraz, którego szukałem.
+        </p>
+
+        <p>
+          W pewnym momencie postanowiłem odejść od ustalonej formy.
+        </p>
+
+        <p>
+          Zacząłem eksperymentować.
+        </p>
+
+        <p>
+          Wracałem do metod, które wcześniej nie działały — lecz teraz patrzyłem na nie inaczej.
+        </p>
+
+        <p>
+          Kluczowa okazała się powtarzalność i rytm, którymi wtedy byłem przesiąknięty, a zastosowanie ich do innej praktyki zmodyfikowało ją na tyle, że zaczęła działać.
+          Warunki ogólnego wyciszenia i odosobnienia też odegrały ważną rolę w tym odkryciu i pomogły dostrzec coś, co wcześniej mi umykało.
+        </p>
+
+        <p>
+          To był spektakularny moment. Wejście w absolutne Teraz.
+        </p>
+
+        <p>
+          Pojawiła się ogromna różnica między tym, co znałem wcześniej, a tym doświadczeniem.
+        </p>
+
+        <p>
+          Pamiętam, że po zakończonej medytacji ciężar mojego ciała, zamiast spoczywać na poduszce, był uniesiony przez mięśnie moich ud w górę.
+          Mimo że to musiało trwać wiele minut i powinienem być tym zmęczony, nie czułem żadnego zmęczenia.
+          Byłem pełen energii. Wiedziałem, że wydarzyło się coś ważnego.
+        </p>
+
+        <p>
+          Tę metodę nazwałem Szczelinką.
+          Jest to metoda medytacji, która nie wymaga odwoływania się do żadnej religii ani filozofii.
+          Po tych latach praktyki i nauczania mogę potwierdzić, że w tej Szczelince, pomiędzy myślami, jest do odkrycia ogromna głębia i sens życia.
+        </p>
+
+        <div class="separator"></div>
+
+        <p>
+          Jakiś czas później ktoś zauważył we mnie zmianę.
+        </p>
+
+        <p>
+          Zapytał: co się wydarzyło?
+        </p>
+
+        <p>
+          Opisałem metodę — krótko, zwięźle.
+        </p>
+
+        <p>
+          Byłem przekonany, że to wystarczy.
+        </p>
+
+        <p>
+          Po dwóch tygodniach zapytałem o efekty.
+        </p>
+
+        <p>
+          Odpowiedź mnie zaskoczyła: nic się nie dzieje.
+        </p>
+
+        <p>
+          Poprosiłem tę osobę, aby opisała swoją praktykę.
+        </p>
+
+        <p>
+          I wtedy zobaczyłem — subtelny, ale kluczowy błąd.
+        </p>
+
+        <p>
+          Zrozumiałem, że to, co dla mnie stało się oczywiste, dla innych wcale takie nie jest.
+        </p>
+
+        <p>
+          Że potrzebne jest głębsze wprowadzenie.
+        </p>
+
+        <p>
+          Spotkaliśmy się.
+        </p>
+
+        <p>
+          Potem kolejne osoby zaczęły pytać.
+        </p>
+
+        <p>
+          Zaczęły się rozmowy, spotkania, warsztaty…
+        </p>
+      </article>
+    </section>
+  </main>
+
+</body>
+</html>
