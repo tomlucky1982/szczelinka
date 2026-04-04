@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5Q5D7GV4');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kontakt – Szczelinka</title>
@@ -102,7 +109,7 @@
 
     /* ===== SEKCJA ===== */
     .container {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 120px auto;
       padding: 0 20px;
     }
@@ -149,6 +156,106 @@
       text-decoration: underline;
     }
 
+    .contact-divider {
+      width: 100%;
+      max-width: 560px;
+      height: 1px;
+      background: rgba(58,167,214,0.16);
+      margin: 34px auto 34px auto;
+    }
+
+    .subscribe-box {
+      background: linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+      border: 1px solid rgba(58,167,214,0.18);
+      border-radius: 22px;
+      padding: 30px;
+      margin-top: 10px;
+      text-align: left;
+    }
+
+    .subscribe-box h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 28px;
+      color: #3aa7d6;
+      text-align: left;
+    }
+
+    .subscribe-box p {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 18px;
+      line-height: 1.8;
+      text-align: left;
+    }
+
+    .subscribe-form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .subscribe-form input[type="email"] {
+      flex: 1 1 320px;
+      min-width: 240px;
+      padding: 16px 18px;
+      font-size: 17px;
+      border-radius: 14px;
+      border: 1px solid #c9d8df;
+      outline: none;
+      background: white;
+    }
+
+    .subscribe-form input[type="email"]:focus {
+      border-color: #3aa7d6;
+      box-shadow: 0 0 0 4px rgba(58,167,214,0.12);
+    }
+
+    .subscribe-form button {
+      padding: 16px 26px;
+      font-size: 17px;
+      border: none;
+      border-radius: 14px;
+      background: #3aa7d6;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s ease;
+      box-shadow: 0 8px 24px rgba(58,167,214,0.24);
+    }
+
+    .subscribe-form button:hover {
+      background: #2e95c2;
+      transform: scale(1.02);
+    }
+
+    .subscribe-message {
+      min-height: 28px;
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .success {
+      color: #1c6b2a;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #b00020;
+      font-weight: 600;
+    }
+
+    .small-note {
+      margin-top: 10px;
+      color: #5b5b5b;
+      font-size: 14px;
+      line-height: 1.7;
+      text-align: left;
+    }
+
     @media (max-width: 900px) {
       .topbar {
         height: auto;
@@ -181,9 +288,29 @@
         font-size: 34px;
       }
     }
+
+    @media (max-width: 640px) {
+      .subscribe-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .subscribe-form button {
+        width: 100%;
+      }
+
+      .subscribe-box {
+        padding: 22px;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5Q5D7GV4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
   <!-- ===== MENU ===== -->
   <header class="topbar">
@@ -241,8 +368,95 @@
           Tomasz.szczesny@forumrozwoju.pl
         </a>
       </div>
+
+      <div class="contact-divider"></div>
+
+      <section class="subscribe-box">
+        <h3>Powiadomienia o warsztatach i odosobnieniach</h3>
+
+        <p>
+          Jeśli chcesz otrzymywać powiadomienia o Warsztatach Szczelinki i odosobnieniach,
+          wpisz poniżej swój adres mailowy.
+        </p>
+
+        <form id="notifyForm" class="subscribe-form">
+          <input
+            id="notifyEmail"
+            type="email"
+            placeholder="Wpisz swój adres email"
+            autocomplete="email"
+            required
+          >
+          <button type="submit">Prześlij</button>
+        </form>
+
+        <div id="notifyMessage" class="subscribe-message"></div>
+
+        <div class="small-note">
+          Po zapisaniu adres zostanie dodany do listy powiadomień o warsztatach i odosobnieniach.
+        </div>
+      </section>
     </div>
   </section>
+
+  <script type="module">
+    import { supabase } from './supabase-client.js'
+
+    const form = document.getElementById('notifyForm')
+    const emailInput = document.getElementById('notifyEmail')
+    const messageBox = document.getElementById('notifyMessage')
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+
+      const email = emailInput.value.trim().toLowerCase()
+      messageBox.className = 'subscribe-message'
+      messageBox.textContent = ''
+
+      if (!email) {
+        messageBox.classList.add('error')
+        messageBox.textContent = 'Wpisz adres email.'
+        return
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        messageBox.classList.add('error')
+        messageBox.textContent = 'Wpisz poprawny adres email.'
+        return
+      }
+
+      const submitButton = form.querySelector('button')
+      submitButton.disabled = true
+      submitButton.textContent = 'Wysyłanie...'
+
+      try {
+        const { error } = await supabase
+          .from('event_subscribers')
+          .upsert(
+            [{
+              email: email,
+              is_active: true,
+              source: 'kontakt.html'
+            }],
+            { onConflict: 'email' }
+          )
+
+        if (error) throw error
+
+        emailInput.value = ''
+        messageBox.classList.add('success')
+        messageBox.textContent = 'Dziękujemy za zapis. Będziemy informować o kolejnych warsztatach i odosobnieniach.'
+      } catch (err) {
+        messageBox.classList.add('error')
+        messageBox.textContent = 'Nie udało się zapisać adresu. Spróbuj ponownie za chwilę.'
+        console.error(err)
+      } finally {
+        submitButton.disabled = false
+        submitButton.textContent = 'Prześlij'
+      }
+    })
+  </script>
 
 </body>
 </html>
