@@ -2071,37 +2071,82 @@ function renderCardStackStep() {
         return;
       }
 
-      if (step === "1.13") {
-        const positionsRead = storyRead.pozycje;
-        enableNext(positionsRead);
-        nextBtn.textContent = "Dalej";
-        lessonContent.innerHTML = `
-          <div class="lesson-kicker">Lekcja ${step}</div>
-          <h1 class="lesson-title">Za chwilę rozpoczniemy naukę Medytacji Szczelinka</h1>
+if (step === "1.13") {
+  enableNext(false);
+  nextBtn.textContent = "Dalej";
 
-          <div class="lesson-body center">
-            <p>Zanim to zrobimy, określmy sobie, dlaczego właściwie mamy medytować:</p>
-            <p><strong>Poprzez medytację chcemy odnaleźć trwałe Szczęście i zakończyć Cierpienie.</strong></p>
-          </div>
+  lessonContent.innerHTML = `
+    <div class="lesson-kicker">Lekcja ${step}</div>
 
-          <div class="margin-note">
-            Medytacja nie służy do relaksu, poprawienia parametrów zdrowotnych, nie służy do tego, by stać się skuteczniejszym w realizowaniu zadań, dłużej żyć itd. Te wszystkie rzeczy są jedynie miłym produktem ubocznym.
-          </div>
+    <h1 class="lesson-title">Poprzez medytację chcemy odnaleźć trwałe Szczęście i zakończyć Cierpienie.</h1>
 
-          <div class="story-buttons">
-            <div class="story-tile ${positionsRead ? "done" : ""}" id="pozycjeTile">
-              <div class="tile-check">✓</div>
-              <h3>Pozycje do medytacji</h3>
-              <p>Musisz to przeczytać, aby przejść dalej.</p>
-            </div>
-          </div>
-        `;
+    <div class="margin-note">
+      Medytacja nie służy do relaksu, poprawienia parametrów zdrowotnych, nie służy do tego, by stać się skuteczniejszym w realizowaniu zadań, dłużej żyć itd. Te wszystkie rzeczy są jedynie miłym produktem ubocznym.
+    </div>
 
-        document.getElementById("pozycjeTile").addEventListener("click", () => openStory("pozycje"));
-        countdownBox.textContent = positionsRead ? "Pozycje do medytacji przeczytane" : "";
-        return;
-      }
+    <div style="display:flex; justify-content:center; margin-top:30px;">
+      <div id="pozycjeBox" style="
+        background:#f5f5f5;
+        border-radius:20px;
+        padding:24px;
+        max-width:420px;
+        width:100%;
+        cursor:pointer;
+        border:2px solid #3bb273;
+        text-align:center;
+        transition:0.2s;
+      ">
+        <h3 style="margin-top:0; color:#3aa7d6;">Pozycje do medytacji</h3>
 
+        <div style="display:flex; justify-content:center; gap:10px; margin:15px 0;">
+          <img src="siad.png" style="width:80px; border-radius:10px;">
+          <img src="krzeslo.png" style="width:80px; border-radius:10px;">
+          <img src="laweczka.png" style="width:80px; border-radius:10px;">
+        </div>
+
+        <p style="margin:0; font-size:18px;">Zobacz pozycje do medytacji</p>
+      </div>
+    </div>
+
+    <div class="comment-bottom" id="pozycjeStatus">Kliknij aby przeczytać</div>
+  `;
+
+  const box = document.getElementById("pozycjeBox");
+
+  box.addEventListener("click", () => {
+    storyTitle.textContent = "Pozycje do medytacji";
+
+    storyContent.innerHTML = `
+      <p><strong>Na początek polecam trzy pozycje do medytacji.</strong></p>
+
+      <p><strong>1. Siad japoński</strong><br>
+      Siedzimy na poduszce do medytacji. Ważnym elementem jest jej wysokość — im wyższa, tym mniejszy nacisk na stopy, ale jeśli jest zbyt wysoka, trudno utrzymać proste plecy bez napinania mięśni. Dla osób początkujących stopy mogą cierpnąć – zaczynamy od krótkich sesji.</p>
+
+      <img src="siad.png" style="width:100%; border-radius:12px; margin:10px 0;">
+
+      <p><strong>2. Siedzenie na krześle</strong><br>
+      Siedzimy na brzegu krzesła. Kolana pod kątem prostym. Nie opieramy się. Ręce na udach.</p>
+
+      <img src="krzeslo.png" style="width:100%; border-radius:12px; margin:10px 0;">
+
+      <p><strong>3. Ławeczka</strong><br>
+      Podobna do siadu japońskiego, ale z mniejszym obciążeniem stóp.</p>
+
+      <img src="laweczka.png" style="width:100%; border-radius:12px; margin:10px 0;">
+
+      <p><strong>Wyprostowane plecy</strong><br>
+      Plecy powinny być naturalnie proste – bez napięcia.</p>
+    `;
+
+    showModal(storyModal);
+    scrollStoryModalTop();
+
+    enableNext(true);
+    document.getElementById("pozycjeStatus").textContent = "Pozycje do medytacji przeczytane";
+  });
+
+  return;
+}
       if (step === "1.14") {
         renderMeditationTimer(
           "1.14",
