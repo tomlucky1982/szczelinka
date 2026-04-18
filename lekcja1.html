@@ -2072,7 +2072,9 @@ function renderCardStackStep() {
       }
 
 if (step === "1.13") {
-  enableNext(false);
+  if (!window.lesson113Read) window.lesson113Read = false;
+
+  enableNext(window.lesson113Read);
   nextBtn.textContent = "Dalej";
 
   lessonContent.innerHTML = `
@@ -2085,8 +2087,8 @@ if (step === "1.13") {
     </div>
 
     <div style="display:flex; justify-content:center; margin-top:32px; width:100%;">
-      <div id="pozycjeTile" class="story-tile" style="max-width:420px; width:100%; text-align:center; position:relative;">
-        <div class="tile-check" id="pozycjeTileCheck" style="display:none;">✓</div>
+      <div id="pozycjeTile" class="story-tile ${window.lesson113Read ? "done" : ""}" style="max-width:420px; width:100%; text-align:center; position:relative;">
+        <div class="tile-check" id="pozycjeTileCheck" style="${window.lesson113Read ? "display:flex;" : "display:none;"}">✓</div>
         <h3>Pozycje do medytacji</h3>
 
         <div style="display:flex; justify-content:center; align-items:center; gap:12px; margin:16px 0 14px 0; flex-wrap:nowrap;">
@@ -2099,7 +2101,9 @@ if (step === "1.13") {
       </div>
     </div>
 
-    <div class="comment-bottom" id="pozycjeComment">Przeczytaj materiał, aby przejść dalej.</div>
+    <div class="comment-bottom" id="pozycjeComment">
+      ${window.lesson113Read ? "Pozycje do medytacji przeczytane" : "Przeczytaj materiał, aby przejść dalej."}
+    </div>
   `;
 
   const pozycjeTile = document.getElementById("pozycjeTile");
@@ -2140,18 +2144,20 @@ if (step === "1.13") {
       Zalecam, aby plecy były wyprostowane, jednak nie chodzi o to, by przez całą medytację kontrolować swoją postawę. Jeśli trafimy w „Szczelinkę”, plecy naturalnie będą miały tendencję do prostowania się.</p>
     `;
 
-    showModal(storyModal);
-    scrollStoryModalTop();
+    window.lesson113Read = true;
+    enableNext(true);
 
     pozycjeTile.classList.add("done");
     pozycjeTileCheck.style.display = "flex";
     pozycjeComment.textContent = "Pozycje do medytacji przeczytane";
     countdownBox.textContent = "Pozycje do medytacji przeczytane";
-    enableNext(true);
+
+    showModal(storyModal);
+    scrollStoryModalTop();
   });
 
   return;
-}      if (step === "1.14") {
+}}      if (step === "1.14") {
         renderMeditationTimer(
           "1.14",
           "Ćwiczenie 1 „Liczenie”",
