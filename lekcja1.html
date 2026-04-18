@@ -1135,7 +1135,8 @@
     let storyRead = {
       weronika: false,
       benedyk: false,
-      codzienne: false
+      codzienne: false,
+      pozycje: false
     };
 
     const stackCardsOriginal = [
@@ -1291,7 +1292,7 @@
 
     function resetProgress() {
       currentStepIndex = 0;
-      storyRead = { weronika: false, benedyk: false, codzienne: false };
+      storyRead = { weronika: false, benedyk: false, codzienne: false, pozycje: false };
       resetStack(false);
       resetTimerStep("1.14");
       resetTimerStep("1.16");
@@ -1457,6 +1458,56 @@
           <p><strong>Brak nadziei na szczęście = brak działania. Za każdym działaniem kryje się nadzieja na szczęście.</strong></p>
         `;
         storyRead.benedyk = true;
+      }
+
+      if (type === "pozycje") {
+        storyTitle.textContent = "Pozycje do medytacji";
+        storyContent.innerHTML = `
+          <div class="single-column-wrap">
+            <div class="single-card">
+              <h3>Na początek polecam trzy pozycje do medytacji</h3>
+            </div>
+
+            <div class="single-card">
+              <h3>1. Siad japoński</h3>
+              <p>Siedzimy na poduszce do medytacji. Ważnym elementem jest jej wysokość — im wyższa, tym mniejszy nacisk na stopy, ale jeśli jest zbyt wysoka, trudno utrzymać proste plecy bez napinania mięśni. Dla osób, które nie praktykowały tego typu siedzenia, na początku stopy mogą cierpnąć. Dlatego warto zaczynać od krótkich sesji i stopniowo je wydłużać. Ręce trzymamy na udach. Zauważ, że im bardziej wysuniesz dłonie do przodu, tym bardziej ciało pochyli się do przodu. Znajdź takie ułożenie dłoni, które pozwoli utrzymać plecy proste i jednocześnie rozluźnione.</p>
+              <img src="siad.png" class="diagram-image" alt="Siad japoński">
+            </div>
+
+            <div class="single-card">
+              <h3>2. Siedzenie na krześle</h3>
+              <p>Siedzimy na brzegu krzesła. Kolana zgięte pod kątem prostym, podobnie jak kąt między plecami a udami. Nie opieramy się o oparcie. Można podłożyć matę lub koc pod stopy, aby było cieplej i stabilniej. Ręce spoczywają na udach.</p>
+              <img src="krzeslo.png" class="diagram-image" alt="Siedzenie na krześle">
+            </div>
+
+            <div class="single-card">
+              <h3>3. Ławeczka</h3>
+              <p>Podobna postawa do siadu japońskiego, z tym, że zamiast poduszki stosujemy ławeczkę. W tej pozycji stopy są mniej obciążone.</p>
+              <img src="laweczka.png" class="diagram-image" alt="Medytacja na ławeczce">
+            </div>
+
+            <div class="single-card">
+              <p>Oczywiście istnieją także inne pozycje, takie jak np. pół-lotos, pełny lotos czy siedzenie „po turecku”, pozycja birmańska. Dla osób początkujących lub mniej rozciągniętych mogą one jednak oznaczać spory dyskomfort, zwłaszcza w kolanach. W medytacji Szczelinka nie ma potrzeby przechodzenia przez ból, aby go przekroczyć.</p>
+              <p>Uważajmy na swoje ciało — nie ma konieczności go narażać. Wybierzmy taką pozycję, która jest komfortowa, albo przynajmniej taką, w której dyskomfort jest na tyle mały, że możemy „zapomnieć” o ciele w trakcie medytacji.</p>
+            </div>
+
+            <div class="single-card">
+              <h3>Leżenie</h3>
+              <p>Dla osób początkujących pozycja leżąca często kończy się odpłynięciem w półsen lub sen, dlatego nie polecam jej na początek.</p>
+            </div>
+
+            <div class="single-card">
+              <h3>Medytacja w ruchu</h3>
+              <p>Tę formę medytacji omówię w dalszych lekcjach Szczelinki.</p>
+            </div>
+
+            <div class="single-card">
+              <h3>Wyprostowane plecy</h3>
+              <p>Zalecam, aby plecy były wyprostowane, jednak nie chodzi o to, by przez całą medytację kontrolować swoją postawę. Jeśli trafimy w „Szczelinkę”, plecy naturalnie będą miały tendencję do prostowania się.</p>
+            </div>
+          </div>
+        `;
+        storyRead.pozycje = true;
       }
 
       if (type === "codzienne") {
@@ -2021,7 +2072,8 @@ function renderCardStackStep() {
       }
 
       if (step === "1.13") {
-        enableNext(true);
+        const positionsRead = storyRead.pozycje;
+        enableNext(positionsRead);
         nextBtn.textContent = "Dalej";
         lessonContent.innerHTML = `
           <div class="lesson-kicker">Lekcja ${step}</div>
@@ -2035,7 +2087,18 @@ function renderCardStackStep() {
           <div class="margin-note">
             Medytacja nie służy do relaksu, poprawienia parametrów zdrowotnych, nie służy do tego, by stać się skuteczniejszym w realizowaniu zadań, dłużej żyć itd. Te wszystkie rzeczy są jedynie miłym produktem ubocznym.
           </div>
+
+          <div class="story-buttons">
+            <div class="story-tile ${positionsRead ? "done" : ""}" id="pozycjeTile">
+              <div class="tile-check">✓</div>
+              <h3>Pozycje do medytacji</h3>
+              <p>Musisz to przeczytać, aby przejść dalej.</p>
+            </div>
+          </div>
         `;
+
+        document.getElementById("pozycjeTile").addEventListener("click", () => openStory("pozycje"));
+        countdownBox.textContent = positionsRead ? "Pozycje do medytacji przeczytane" : "";
         return;
       }
 
@@ -2280,7 +2343,13 @@ function renderCardStackStep() {
         }
 
         if (step === "1.5") {
-          storyRead = { weronika: true, benedyk: true, codzienne: true };
+          storyRead = { weronika: true, benedyk: true, codzienne: true, pozycje: storyRead.pozycje || false };
+          saveStories();
+          renderStep();
+        }
+
+        if (step === "1.13") {
+          storyRead.pozycje = true;
           saveStories();
           renderStep();
         }
