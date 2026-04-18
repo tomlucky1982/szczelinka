@@ -2084,70 +2084,74 @@ if (step === "1.13") {
       Medytacja nie służy do relaksu, poprawienia parametrów zdrowotnych, nie służy do tego, by stać się skuteczniejszym w realizowaniu zadań, dłużej żyć itd. Te wszystkie rzeczy są jedynie miłym produktem ubocznym.
     </div>
 
-    <div style="display:flex; justify-content:center; margin-top:30px;">
-      <div id="pozycjeBox" style="
-        background:#f5f5f5;
-        border-radius:20px;
-        padding:24px;
-        max-width:420px;
-        width:100%;
-        cursor:pointer;
-        border:2px solid #3bb273;
-        text-align:center;
-        transition:0.2s;
-      ">
-        <h3 style="margin-top:0; color:#3aa7d6;">Pozycje do medytacji</h3>
+    <div style="display:flex; justify-content:center; margin-top:32px; width:100%;">
+      <div id="pozycjeTile" class="story-tile" style="max-width:420px; width:100%; text-align:center; position:relative;">
+        <div class="tile-check" id="pozycjeTileCheck" style="display:none;">✓</div>
+        <h3>Pozycje do medytacji</h3>
 
-        <div style="display:flex; justify-content:center; gap:10px; margin:15px 0;">
-          <img src="siad.png" style="width:80px; border-radius:10px;">
-          <img src="krzeslo.png" style="width:80px; border-radius:10px;">
-          <img src="laweczka.png" style="width:80px; border-radius:10px;">
+        <div style="display:flex; justify-content:center; align-items:center; gap:12px; margin:16px 0 14px 0; flex-wrap:nowrap;">
+          <img src="siad.png" alt="Siad japoński" style="width:92px; height:92px; object-fit:cover; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.08);">
+          <img src="krzeslo.png" alt="Siedzenie na krześle" style="width:92px; height:92px; object-fit:cover; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.08);">
+          <img src="laweczka.png" alt="Ławeczka" style="width:92px; height:92px; object-fit:cover; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.08);">
         </div>
 
-        <p style="margin:0; font-size:18px;">Zobacz pozycje do medytacji</p>
+        <p>Zobacz pozycje do medytacji</p>
       </div>
     </div>
 
-    <div class="comment-bottom" id="pozycjeStatus">Kliknij aby przeczytać</div>
+    <div class="comment-bottom" id="pozycjeComment">Przeczytaj materiał, aby przejść dalej.</div>
   `;
 
-  const box = document.getElementById("pozycjeBox");
+  const pozycjeTile = document.getElementById("pozycjeTile");
+  const pozycjeTileCheck = document.getElementById("pozycjeTileCheck");
+  const pozycjeComment = document.getElementById("pozycjeComment");
 
-  box.addEventListener("click", () => {
+  pozycjeTile.addEventListener("click", () => {
     storyTitle.textContent = "Pozycje do medytacji";
-
     storyContent.innerHTML = `
       <p><strong>Na początek polecam trzy pozycje do medytacji.</strong></p>
 
       <p><strong>1. Siad japoński</strong><br>
-      Siedzimy na poduszce do medytacji. Ważnym elementem jest jej wysokość — im wyższa, tym mniejszy nacisk na stopy, ale jeśli jest zbyt wysoka, trudno utrzymać proste plecy bez napinania mięśni. Dla osób początkujących stopy mogą cierpnąć – zaczynamy od krótkich sesji.</p>
+      Siedzimy na poduszce do medytacji. Ważnym elementem jest jej wysokość — im wyższa, tym mniejszy nacisk na stopy, ale jeśli jest zbyt wysoka, trudno utrzymać proste plecy bez napinania mięśni. Dla osób, które nie praktykowały tego typu siedzenia, na początku stopy mogą cierpnąć. Dlatego warto zaczynać od krótkich sesji i stopniowo je wydłużać. Ręce trzymamy na udach. Zauważ, że im bardziej wysuniesz dłonie do przodu, tym bardziej ciało pochyli się do przodu. Znajdź takie ułożenie dłoni, które pozwoli utrzymać plecy proste i jednocześnie rozluźnione.</p>
 
-      <img src="siad.png" style="width:100%; border-radius:12px; margin:10px 0;">
+      <img src="siad.png" alt="Siad japoński" style="width:100%; max-width:420px; display:block; margin:14px auto 22px auto; border-radius:16px; box-shadow:0 10px 28px rgba(0,0,0,0.08);">
 
       <p><strong>2. Siedzenie na krześle</strong><br>
-      Siedzimy na brzegu krzesła. Kolana pod kątem prostym. Nie opieramy się. Ręce na udach.</p>
+      Siedzimy na brzegu krzesła. Kolana zgięte pod kątem prostym, podobnie jak kąt między plecami a udami. Nie opieramy się o oparcie. Można podłożyć matę lub koc pod stopy, aby było cieplej i stabilniej. Ręce spoczywają na udach.</p>
 
-      <img src="krzeslo.png" style="width:100%; border-radius:12px; margin:10px 0;">
+      <img src="krzeslo.png" alt="Siedzenie na krześle" style="width:100%; max-width:420px; display:block; margin:14px auto 22px auto; border-radius:16px; box-shadow:0 10px 28px rgba(0,0,0,0.08);">
 
       <p><strong>3. Ławeczka</strong><br>
-      Podobna do siadu japońskiego, ale z mniejszym obciążeniem stóp.</p>
+      Podobna postawa do siadu japońskiego, z tym, że zamiast poduszki stosujemy ławeczkę. W tej pozycji stopy są mniej obciążone.</p>
 
-      <img src="laweczka.png" style="width:100%; border-radius:12px; margin:10px 0;">
+      <img src="laweczka.png" alt="Ławeczka do medytacji" style="width:100%; max-width:420px; display:block; margin:14px auto 22px auto; border-radius:16px; box-shadow:0 10px 28px rgba(0,0,0,0.08);">
+
+      <p>Oczywiście istnieją także inne pozycje, takie jak np. pół-lotos, pełny lotos czy siedzenie „po turecku”, pozycja birmańska. Dla osób początkujących lub mniej rozciągniętych mogą one jednak oznaczać spory dyskomfort, zwłaszcza w kolanach. W medytacji Szczelinka nie ma potrzeby przechodzenia przez ból, aby go przekroczyć.</p>
+
+      <p>Uważajmy na swoje ciało — nie ma konieczności go narażać. Wybierzmy taką pozycję, która jest komfortowa, albo przynajmniej taką, w której dyskomfort jest na tyle mały, że możemy „zapomnieć” o ciele w trakcie medytacji.</p>
+
+      <p><strong>Leżenie</strong><br>
+      Dla osób początkujących pozycja leżąca często kończy się odpłynięciem w półsen lub sen, dlatego nie polecam jej na początek.</p>
+
+      <p><strong>Medytacja w ruchu</strong><br>
+      Tę formę medytacji omówię w dalszych lekcjach Szczelinki.</p>
 
       <p><strong>Wyprostowane plecy</strong><br>
-      Plecy powinny być naturalnie proste – bez napięcia.</p>
+      Zalecam, aby plecy były wyprostowane, jednak nie chodzi o to, by przez całą medytację kontrolować swoją postawę. Jeśli trafimy w „Szczelinkę”, plecy naturalnie będą miały tendencję do prostowania się.</p>
     `;
 
     showModal(storyModal);
     scrollStoryModalTop();
 
+    pozycjeTile.classList.add("done");
+    pozycjeTileCheck.style.display = "flex";
+    pozycjeComment.textContent = "Pozycje do medytacji przeczytane";
+    countdownBox.textContent = "Pozycje do medytacji przeczytane";
     enableNext(true);
-    document.getElementById("pozycjeStatus").textContent = "Pozycje do medytacji przeczytane";
   });
 
   return;
-}
-      if (step === "1.14") {
+}      if (step === "1.14") {
         renderMeditationTimer(
           "1.14",
           "Ćwiczenie 1 „Liczenie”",
