@@ -1,75 +1,73 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lekcja 4</title>
-  <link rel="icon" href="favicon_minimal.ico">
-  <meta name="theme-color" content="#3aa7d6">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcja 4</title>
+</head>
+<body>
 
-  <style>
-    * { box-sizing: border-box; }
+<h2>Logowanie do lekcji 4</h2>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: white;
-      color: #1f1f1f;
-    }
+<input id="login" placeholder="login">
+<input id="password" type="password" placeholder="hasło">
+<button onclick="checkLogin()">Wejdź</button>
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      height: 150px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
+<p id="msg"></p>
 
-    .topbar-left {
-      display: flex;
-      align-items: center;
-    }
+<div id="lessonContent" style="display:none;"></div>
 
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+<script type="module">
+import { supabase } from './supabase-client.js'
 
-    .logo {
-      height: 125px;
-      margin-right: 50px;
-    }
+const LESSON_NO = 4
 
-    .menu {
-      display: flex;
-      align-items: center;
-      gap: 34px;
-    }
+async function getLessonId() {
+  const { data } = await supabase.from('lessons').select('*')
+  const lesson = data.find(l => String(l.lesson_no) === "4" || String(l.number) === "4")
+  return lesson.id
+}
 
-    .menu > a,
-    .dropdown > a,
-    .contact-link,
-    .logout-link {
-      text-decoration: none;
-      font-size: 18px;
-      color: #3aa7d6;
-      font-weight: 500;
-      padding-bottom: 6px;
-      display: inline-block;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
+async function loadLesson() {
+  const lessonId = await getLessonId()
 
-    .menu > a.active {
-      border-bottom: 2px solid #3aa7d6;
-    }
+  const { data } = await supabase
+    .from('lesson_content')
+    .select('html_content')
+    .eq('lesson_id', lessonId)
+    .single()
 
+  document.getElementById("lessonContent").innerHTML = data.html_content
+  document.getElementById("lessonContent").style.display = "block"
+}
+
+window.checkLogin = async function () {
+  const login = document.getElementById('login').value.trim()
+  const password = document.getElementById('password').value
+
+  if (!login || !password) {
+    msg.innerText = "Podaj login i hasło"
+    return
+  }
+
+  const lessonId = await getLessonId()
+
+  const { data } = await supabase
+    .from('lesson_credentials')
+    .select('*')
+    .eq('lesson_id', lessonId)
+    .eq('login', login)
+    .eq('password_plain', password)
+    .eq('is_active', true)
+
+  if (!data.length) {
+    msg.innerText = "Brak dostępu"
+    return
+  }
+
+  await loadLesson()
+}
+</script>
+
+</body>
 </html>
