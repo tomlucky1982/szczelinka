@@ -1,73 +1,590 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lekcja 4</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lekcja 4</title>
+  <link rel="icon" href="favicon_minimal.ico">
+  <meta name="theme-color" content="#3aa7d6">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: white;
+      color: #1f1f1f;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 150px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      height: 125px;
+      margin-right: 50px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+    }
+
+    .menu > a,
+    .dropdown > a,
+    .contact-link,
+    .logout-link {
+      text-decoration: none;
+      font-size: 18px;
+      color: #3aa7d6;
+      font-weight: 500;
+      padding-bottom: 6px;
+      display: inline-block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .menu > a.active {
+      border-bottom: 2px solid #3aa7d6;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 190px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+      padding: 10px 0;
+      z-index: 1100;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 18px;
+      text-decoration: none;
+      color: #3aa7d6;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .dropdown-content a:hover {
+      background: rgba(58,167,214,0.07);
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .login-panel {
+      max-width: 760px;
+      margin: 90px auto 110px auto;
+      padding: 0 20px;
+    }
+
+    .login-card,
+    .lesson-card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 12px 38px rgba(58,167,214,0.14);
+      border: 1px solid rgba(58,167,214,0.12);
+      padding: 38px 34px;
+    }
+
+    .login-card h2 {
+      margin: 0 0 12px 0;
+      color: #3aa7d6;
+      font-size: 30px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .login-intro {
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.7;
+      margin: 0 0 28px 0;
+      color: #4b4b4b;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #3aa7d6;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 16px;
+      font-size: 16px;
+      border: 1px solid rgba(58,167,214,0.25);
+      border-radius: 14px;
+      outline: none;
+      transition: 0.2s ease;
+      background: #fbfdff;
+    }
+
+    input:focus {
+      border-color: #3aa7d6;
+      box-shadow: 0 0 0 4px rgba(58,167,214,0.12);
+      background: white;
+    }
+
+    .action-row {
+      text-align: center;
+      margin-top: 26px;
+    }
+
+    .main-button {
+      display: inline-block;
+      padding: 16px 42px;
+      background: #3aa7d6;
+      color: white;
+      border: none;
+      border-radius: 18px;
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(58,167,214,0.25);
+      animation: breath 4s ease-in-out infinite;
+      transition: 0.25s;
+    }
+
+    .main-button:hover {
+      background: #2e95c2;
+      transform: scale(1.03);
+    }
+
+    #msg {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 16px;
+      min-height: 24px;
+      color: #b03a3a;
+      white-space: pre-line;
+    }
+
+    .access-note {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #4f4f4f;
+    }
+
+    .access-note a {
+      color: #3aa7d6;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .access-note a:hover {
+      text-decoration: underline;
+    }
+
+    .lesson-card {
+      max-width: 900px;
+      margin: 40px auto 100px auto;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes breath {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 6px 18px rgba(58,167,214,0.25);
+      }
+      50% {
+        transform: scale(1.04);
+        box-shadow: 0 12px 40px rgba(58,167,214,0.35);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 6px 18px rgba(58,167,214,0.25);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .topbar {
+        height: auto;
+        padding: 18px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .topbar-left {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .topbar-right {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .logo {
+        height: 90px;
+        margin-right: 0;
+        margin-bottom: 12px;
+      }
+
+      .menu {
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .login-panel {
+        margin-top: 50px;
+        padding: 0 20px;
+      }
+
+      .login-card,
+      .lesson-card {
+        padding: 28px 20px;
+        border-radius: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<h2>Logowanie do lekcji 4</h2>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html">
+        <img src="logo.png" class="logo" alt="Szczelinka">
+      </a>
 
-<input id="login" placeholder="login">
-<input id="password" type="password" placeholder="hasło">
-<button onclick="checkLogin()">Wejdź</button>
+      <nav class="menu">
+        <a href="szczelinka.html">Szczelinka</a>
 
-<p id="msg"></p>
+        <div class="dropdown">
+          <a class="active" href="Main_Page.html">Lekcje</a>
+          <div class="dropdown-content">
+            <a href="Main_Page.html#lekcja1">Lekcja 1</a>
+            <a href="Main_Page.html#lekcja2">Lekcja 2</a>
+            <a href="Main_Page.html#lekcja3">Lekcja 3</a>
+            <a href="Main_Page.html#lekcja4">Lekcja 4</a>
+            <a href="Main_Page.html#lekcja5">Lekcja 5</a>
+            <a href="Main_Page.html#lekcja6">Lekcja 6</a>
+            <a href="Main_Page.html#lekcja7">Lekcja 7</a>
+            <a href="Main_Page.html#lekcja8">Lekcja 8</a>
+          </div>
+        </div>
 
-<div id="lessonContent" style="display:none;"></div>
+        <a href="zajecia.html">Zajęcia</a>
+        <a href="prowadzacy.html">Prowadzący</a>
+      </nav>
+    </div>
 
-<script type="module">
-import { supabase } from './supabase-client.js'
+    <div class="topbar-right">
+      <button id="logoutBtn" class="logout-link hidden">Wyloguj</button>
+      <a href="kontakt.html" class="contact-link">Kontakt</a>
+    </div>
+  </header>
 
-const LESSON_NO = 4
+  <section class="login-panel">
+    <div id="loginBox" class="login-card">
+      <h2>Dostęp do lekcji</h2>
+      <p class="login-intro">
+        Wprowadź dane dostępowe do lekcji 4.
+      </p>
 
-async function getLessonId() {
-  const { data } = await supabase.from('lessons').select('*')
-  const lesson = data.find(l => String(l.lesson_no) === "4" || String(l.number) === "4")
-  return lesson.id
-}
+      <div class="form-group">
+        <label for="login" class="form-label">Login</label>
+        <input id="login" placeholder="Wpisz login" autocomplete="username" />
+      </div>
 
-async function loadLesson() {
-  const lessonId = await getLessonId()
+      <div class="form-group">
+        <label for="password" class="form-label">Hasło</label>
+        <input id="password" type="password" placeholder="Wpisz hasło" autocomplete="current-password" />
+      </div>
 
-  const { data } = await supabase
-    .from('lesson_content')
-    .select('html_content')
-    .eq('lesson_id', lessonId)
-    .single()
+      <div class="action-row">
+        <button class="main-button" onclick="checkLogin()">Wejdź do lekcji</button>
+      </div>
 
-  document.getElementById("lessonContent").innerHTML = data.html_content
-  document.getElementById("lessonContent").style.display = "block"
-}
+      <p id="msg"></p>
 
-window.checkLogin = async function () {
-  const login = document.getElementById('login').value.trim()
-  const password = document.getElementById('password').value
+      <div class="access-note">
+        Jeśli chcesz otrzymać dostęp do lekcji 3-8 skontaktuj się ze mną
+        w zakładce <a href="kontakt.html">kontakt</a>.
+      </div>
+    </div>
+  </section>
 
-  if (!login || !password) {
-    msg.innerText = "Podaj login i hasło"
-    return
-  }
+  <section id="lessonContent" class="lesson-card hidden"></section>
 
-  const lessonId = await getLessonId()
+  <script type="module">
+    import { supabase } from './supabase-client.js'
 
-  const { data } = await supabase
-    .from('lesson_credentials')
-    .select('*')
-    .eq('lesson_id', lessonId)
-    .eq('login', login)
-    .eq('password_plain', password)
-    .eq('is_active', true)
+    const LESSON_NO = 4
+    const SESSION_KEY = 'szczelinka_lesson4_session'
 
-  if (!data.length) {
-    msg.innerText = "Brak dostępu"
-    return
-  }
+    const loginBox = document.getElementById('loginBox')
+    const lessonContent = document.getElementById('lessonContent')
+    const msg = document.getElementById('msg')
+    const logoutBtn = document.getElementById('logoutBtn')
 
-  await loadLesson()
-}
-</script>
+    let resolvedLessonId = null
 
+    function normalizeLessonNumberRow(row) {
+      const directCandidates = [
+        row.lesson_no,
+        row.lesson_number,
+        row.number
+      ]
+
+      for (const value of directCandidates) {
+        const num = Number(value)
+        if (num === LESSON_NO) return true
+      }
+
+      const textCandidates = [
+        row.slug,
+        row.code,
+        row.title,
+        row.name,
+        row.label
+      ].filter(Boolean)
+
+      for (const value of textCandidates) {
+        const str = String(value).toLowerCase().trim()
+        const patterns = [
+          `lekcja ${LESSON_NO}`,
+          `lekcja-${LESSON_NO}`,
+          `lekcja_${LESSON_NO}`,
+          `lekcja${LESSON_NO}`,
+          `lesson ${LESSON_NO}`,
+          `lesson-${LESSON_NO}`,
+          `lesson_${LESSON_NO}`,
+          `lesson${LESSON_NO}`
+        ]
+
+        if (patterns.some(p => str === p || str.includes(p))) {
+          return true
+        }
+      }
+
+      return false
+    }
+
+    async function resolveLessonId() {
+      if (resolvedLessonId) return resolvedLessonId
+
+      const { data, error } = await supabase
+        .from('lessons')
+        .select('*')
+
+      if (error || !data || data.length === 0) {
+        throw new Error('Nie udało się pobrać definicji lekcji.')
+      }
+
+      const lessonRow = data.find(normalizeLessonNumberRow)
+
+      if (!lessonRow || !lessonRow.id) {
+        throw new Error('Nie znaleziono rekordu lekcji 4 w tabeli lessons.')
+      }
+
+      resolvedLessonId = lessonRow.id
+      return resolvedLessonId
+    }
+
+    async function saveEvent(credentialId, eventType) {
+      const lessonId = await resolveLessonId()
+
+      await supabase
+        .from('lesson_access_events')
+        .insert([{
+          credential_id: credentialId,
+          lesson_id: lessonId,
+          event_type: eventType,
+          user_agent: navigator.userAgent
+        }])
+    }
+
+    function executeScripts(container) {
+      const scripts = container.querySelectorAll('script')
+
+      scripts.forEach((oldScript) => {
+        const newScript = document.createElement('script')
+
+        for (const attr of oldScript.attributes) {
+          newScript.setAttribute(attr.name, attr.value)
+        }
+
+        newScript.textContent = oldScript.textContent
+        oldScript.parentNode.replaceChild(newScript, oldScript)
+      })
+    }
+
+    async function loadLesson(credentialId = null) {
+      try {
+        const lessonId = await resolveLessonId()
+
+        const { data, error } = await supabase
+          .from('lesson_content')
+          .select('html_content')
+          .eq('lesson_id', lessonId)
+          .single()
+
+        if (error || !data) {
+          msg.innerText = 'Nie udało się pobrać treści lekcji.'
+          return
+        }
+
+        if (credentialId) {
+          await saveEvent(credentialId, 'lesson_view')
+        }
+
+        loginBox.classList.add('hidden')
+        lessonContent.innerHTML = data.html_content
+        executeScripts(lessonContent)
+        lessonContent.classList.remove('hidden')
+        logoutBtn.classList.remove('hidden')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } catch (e) {
+        msg.innerText = e.message || 'Nie udało się pobrać treści lekcji.'
+      }
+    }
+
+    function saveSession(credential) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({
+        credential_id: credential.id,
+        lesson_id: credential.lesson_id,
+        login: credential.login,
+        saved_at: new Date().toISOString()
+      }))
+    }
+
+    function clearSession() {
+      localStorage.removeItem(SESSION_KEY)
+    }
+
+    async function restoreSession() {
+      const raw = localStorage.getItem(SESSION_KEY)
+      if (!raw) return
+
+      try {
+        const session = JSON.parse(raw)
+        const lessonId = await resolveLessonId()
+
+        if (Number(session.lesson_id) !== Number(lessonId)) {
+          clearSession()
+          return
+        }
+
+        const { data, error } = await supabase
+          .from('lesson_credentials')
+          .select('id, lesson_id, login, is_active')
+          .eq('id', session.credential_id)
+          .eq('lesson_id', lessonId)
+          .eq('is_active', true)
+          .single()
+
+        if (error || !data) {
+          clearSession()
+          return
+        }
+
+        await loadLesson(data.id)
+      } catch {
+        clearSession()
+      }
+    }
+
+    window.checkLogin = async function () {
+      const login = document.getElementById('login').value.trim()
+      const password = document.getElementById('password').value
+      msg.innerText = ''
+
+      if (!login || !password) {
+        msg.innerText = 'Podaj login i hasło.'
+        return
+      }
+
+      try {
+        const lessonId = await resolveLessonId()
+
+        const { data, error } = await supabase
+          .from('lesson_credentials')
+          .select('id, lesson_id, login, is_active')
+          .eq('login', login)
+          .eq('password_plain', password)
+          .eq('lesson_id', lessonId)
+          .eq('is_active', true)
+          .limit(1)
+
+        if (error) {
+          msg.innerText = 'Błąd logowania: ' + error.message
+          return
+        }
+
+        if (!data || data.length === 0) {
+          msg.innerText = 'Błędny login lub hasło'
+          return
+        }
+
+        const credential = data[0]
+
+        await saveEvent(credential.id, 'login_success')
+        saveSession(credential)
+        await loadLesson(credential.id)
+      } catch (e) {
+        msg.innerText = e.message || 'Nie udało się zalogować.'
+      }
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      clearSession()
+      lessonContent.classList.add('hidden')
+      lessonContent.innerHTML = ''
+      loginBox.classList.remove('hidden')
+      logoutBtn.classList.add('hidden')
+      msg.innerText = ''
+      document.getElementById('password').value = ''
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    })
+
+    restoreSession()
+  </script>
 </body>
 </html>
