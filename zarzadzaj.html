@@ -166,7 +166,7 @@
       border-collapse: separate;
       border-spacing: 0;
       width: 100%;
-      min-width: 1850px;
+      min-width: 2350px;
       background: #fff;
     }
 
@@ -247,6 +247,90 @@
       margin-top: 16px;
     }
 
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      box-sizing: border-box;
+      border: 1px solid #cfcfcf;
+      border-radius: 8px;
+      background: #fff;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .reward-form-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 160px minmax(220px, 2fr) auto;
+      gap: 12px 16px;
+      align-items: end;
+    }
+
+    .reward-form-grid textarea {
+      min-height: 74px;
+      margin-bottom: 0;
+    }
+
+    .reward-form-grid input {
+      max-width: none;
+    }
+
+    .reward-table input[type="text"],
+    .reward-table input[type="number"],
+    .reward-table textarea {
+      max-width: none;
+      margin: 0;
+      font-size: 13px;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .reward-table textarea {
+      min-height: 82px;
+      min-width: 360px;
+    }
+
+    .reward-table input[type="checkbox"] {
+      transform: scale(1.15);
+    }
+
+    .profiles-note {
+      margin-top: 18px;
+    }
+
+    .badge-ok {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #edf8ef;
+      color: #1c6b2a;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .badge-no {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f3f3f3;
+      color: #555;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    @media (max-width: 1100px) {
+      .reward-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 900px) {
       .table-scroll {
         max-height: 65vh;
@@ -299,6 +383,14 @@
             <div class="summary-label">Zapisy na powiadomienia</div>
             <div class="summary-value" id="summarySubscribers">-</div>
           </div>
+          <div class="summary-item">
+            <div class="summary-label">Ukończyli Lekcję 8</div>
+            <div class="summary-value" id="summaryLesson8Completed">-</div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Najdłuższa seria medytacji</div>
+            <div class="summary-value" id="summaryMaxStreak">-</div>
+          </div>
         </div>
       </div>
 
@@ -327,6 +419,40 @@
       <div class="card">
         <div class="topbar">
           <div>
+            <h2 style="margin-bottom: 6px;">Zadania i nagrody Szczelinki</h2>
+            <div class="muted">Tu edytujesz zadania widoczne w narzędziu medytacji: nazwa zadania, wymagana liczba dni z rzędu i treść nagrody.</div>
+          </div>
+          <button onclick="loadRewards()">Odśwież nagrody</button>
+        </div>
+
+        <div class="reward-form-grid" style="margin-top: 16px;">
+          <div>
+            <div class="inline-note">Nazwa zadania</div>
+            <input id="rewardTitle" type="text" placeholder="np. Zadanie 3" />
+          </div>
+          <div>
+            <div class="inline-note">Dni z rzędu</div>
+            <input id="rewardDays" type="number" min="1" step="1" placeholder="np. 14" />
+          </div>
+          <div>
+            <div class="inline-note">Treść nagrody</div>
+            <textarea id="rewardText" placeholder="Treść nagrody, którą zobaczy użytkownik po wykonaniu zadania"></textarea>
+          </div>
+          <div>
+            <button onclick="createReward()">Dodaj zadanie</button>
+          </div>
+        </div>
+
+        <p id="rewardsMsg" class="message"></p>
+
+        <div id="rewardsTableWrap" class="table-scroll" style="max-height: 520px;">
+          <div style="padding:16px;">Ładowanie...</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="topbar">
+          <div>
             <h2 style="margin-bottom: 6px;">Loginy i uprawnienia</h2>
             <div class="muted">Nagłówek tabeli jest przyklejony. Tabelę można przewijać w dół i w bok.</div>
           </div>
@@ -337,6 +463,14 @@
 
         <div id="credentialsTableWrap" class="table-scroll">
           <div style="padding:16px;">Ładowanie...</div>
+        </div>
+
+        <div class="profiles-note">
+          <h3 style="margin-bottom: 6px;">Profile narzędzia medytacji</h3>
+          <div class="muted">Jeżeli użytkownik korzysta z narzędzia bez rozpoznanego loginu, pojawi się tutaj jako osobny profil techniczny.</div>
+          <div id="meditationProfilesBox" class="table-scroll" style="max-height: 360px;">
+            <div style="padding:16px;">Ładowanie...</div>
+          </div>
         </div>
       </div>
 
@@ -363,8 +497,32 @@
     const createMsg = document.getElementById('createMsg')
     const credentialsTableWrap = document.getElementById('credentialsTableWrap')
     const subscribersBox = document.getElementById('subscribersBox')
+    const meditationProfilesBox = document.getElementById('meditationProfilesBox')
+    const rewardsTableWrap = document.getElementById('rewardsTableWrap')
+    const rewardsMsg = document.getElementById('rewardsMsg')
 
     const TARGET_LESSON_NUMBERS = [3, 4, 5, 6, 7, 8]
+    const PROFILE_TABLE = 'szczelinka_profiles'
+    const REWARDS_TABLE = 'szczelinka_rewards'
+
+    const DEFAULT_REWARDS = [
+      {
+        id: 'zadanie-1',
+        title: 'Zadanie 1',
+        days_required: 3,
+        reward_text: 'Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.',
+        active: true,
+        sort_order: 1
+      },
+      {
+        id: 'zadanie-2',
+        title: 'Zadanie 2',
+        days_required: 7,
+        reward_text: 'Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.',
+        active: true,
+        sort_order: 2
+      }
+    ]
 
     let lessonsMapByNumber = {}
     let lessonNumberById = {}
@@ -385,6 +543,50 @@
       } catch {
         return '-'
       }
+    }
+
+    function formatDateOnly(value) {
+      if (!value) return '-'
+      try {
+        return new Date(value).toLocaleDateString('pl-PL')
+      } catch {
+        return String(value)
+      }
+    }
+
+    function yesNoBadge(value) {
+      return value ? '<span class="badge-ok">TAK</span>' : '<span class="badge-no">NIE</span>'
+    }
+
+    function shortenProfileId(value) {
+      const str = String(value || '')
+      if (!str) return '-'
+      if (str.length <= 26) return str
+      return str.slice(0, 16) + '...' + str.slice(-6)
+    }
+
+    function normalizeProfileCandidates(profile) {
+      const candidates = [
+        profile.user_id,
+        profile.login,
+        profile.display_name,
+        profile.account_id
+      ].filter(Boolean).map(x => String(x).trim().toLowerCase())
+
+      return [...new Set(candidates)]
+    }
+
+    async function loadMeditationProfilesRaw() {
+      const { data, error } = await supabase
+        .from(PROFILE_TABLE)
+        .select('*')
+        .order('updated_at', { ascending: false })
+
+      if (error) {
+        throw new Error('Błąd ładowania szczelinka_profiles: ' + error.message)
+      }
+
+      return data || []
     }
 
     function extractLessonNumber(row) {
@@ -631,6 +833,21 @@
         throw new Error('Błąd ładowania lesson_access_events: ' + eventsError.message)
       }
 
+      let meditationProfiles = []
+      try {
+        meditationProfiles = await loadMeditationProfilesRaw()
+      } catch (err) {
+        meditationProfiles = []
+        console.warn(err)
+      }
+
+      const profilesByCandidate = {}
+      for (const profile of meditationProfiles) {
+        for (const key of normalizeProfileCandidates(profile)) {
+          profilesByCandidate[key] = profile
+        }
+      }
+
       const users = {}
 
       for (const cred of credentials || []) {
@@ -644,7 +861,8 @@
             accountId: cred.account_id || null,
             totalViews: 0,
             userAgents: new Set(),
-            perLesson: {}
+            perLesson: {},
+            szczelinka: null
           }
 
           for (const lessonNumber of TARGET_LESSON_NUMBERS) {
@@ -662,6 +880,11 @@
 
         users[login].perLesson[lessonNumber].hasAccess = !!cred.is_active
         users[login].perLesson[lessonNumber].credentialId = cred.id
+      }
+
+      for (const login of Object.keys(users)) {
+        const key = String(login).trim().toLowerCase()
+        users[login].szczelinka = profilesByCandidate[key] || null
       }
 
       for (const ev of events || []) {
@@ -776,6 +999,7 @@
         if (userList.length === 0) {
           credentialsTableWrap.innerHTML = '<div style="padding:16px;">Brak loginów.</div>'
           document.getElementById('summaryWarnings').textContent = '0'
+          await loadMeditationProfilesBox()
           return
         }
 
@@ -786,6 +1010,10 @@
                 <th class="login-col">Login</th>
                 <th class="sticky-second">Hasło</th>
                 ${TARGET_LESSON_NUMBERS.map(no => `<th class="lesson-head">Lekcja ${no}</th>`).join('')}
+                <th>Lekcja 8 ukończona</th>
+                <th>Dni medytacji z rzędu</th>
+                <th>Ostatnia medytacja</th>
+                <th>Łącznie medytacji</th>
                 <th>Łącznie wejść</th>
                 <th>Różne przeglądarki</th>
                 <th>Ocena</th>
@@ -829,7 +1057,15 @@
             `
           }
 
+          const profile = user.szczelinka
+          const lesson8Completed = profile ? !!profile.lesson8_completed : false
+          const lesson8CompletedAt = profile && profile.lesson8_completed_at ? `<br><span class="lesson-last">${escapeHtml(formatDateTime(profile.lesson8_completed_at))}</span>` : ''
+
           html += `
+              <td>${yesNoBadge(lesson8Completed)}${lesson8CompletedAt}</td>
+              <td><strong>${profile ? Number(profile.meditation_streak || 0) : '-'}</strong></td>
+              <td>${profile ? escapeHtml(formatDateOnly(profile.meditation_last_date)) : '-'}</td>
+              <td>${profile ? Number(profile.meditation_total_count || 0) : '-'}</td>
               <td>${user.totalViews}</td>
               <td>${browsersCount}</td>
               <td>${status}</td>
@@ -847,9 +1083,267 @@
 
         credentialsTableWrap.innerHTML = html
         document.getElementById('summaryWarnings').textContent = warningCount
+        await loadMeditationProfilesBox()
       } catch (err) {
         credentialsTableWrap.innerHTML = `<div style="padding:16px; color:#b00020;">${escapeHtml(err.message || 'Wystąpił błąd.')}</div>`
       }
+    }
+
+    async function loadMeditationProfilesBox() {
+      if (!meditationProfilesBox) return
+      meditationProfilesBox.innerHTML = '<div style="padding:16px;">Ładowanie...</div>'
+
+      try {
+        const profiles = await loadMeditationProfilesRaw()
+
+        const completed = profiles.filter(row => row.lesson8_completed).length
+        const maxStreak = profiles.reduce((max, row) => Math.max(max, Number(row.meditation_streak || 0)), 0)
+        document.getElementById('summaryLesson8Completed').textContent = completed
+        document.getElementById('summaryMaxStreak').textContent = maxStreak
+
+        if (!profiles.length) {
+          meditationProfilesBox.innerHTML = '<div style="padding:16px;">Brak profili narzędzia medytacji.</div>'
+          return
+        }
+
+        let html = `
+          <table style="min-width:900px;">
+            <thead>
+              <tr>
+                <th>Profil</th>
+                <th>Lekcja 8</th>
+                <th>Ukończona</th>
+                <th>Dni z rzędu</th>
+                <th>Ostatnia medytacja</th>
+                <th>Łącznie medytacji</th>
+                <th>Ostatnia zmiana</th>
+              </tr>
+            </thead>
+            <tbody>
+        `
+
+        for (const row of profiles) {
+          html += `
+            <tr>
+              <td title="${escapeHtml(row.user_id)}">${escapeHtml(shortenProfileId(row.user_id))}</td>
+              <td>${yesNoBadge(row.lesson8_completed)}</td>
+              <td>${escapeHtml(formatDateTime(row.lesson8_completed_at))}</td>
+              <td><strong>${Number(row.meditation_streak || 0)}</strong></td>
+              <td>${escapeHtml(formatDateOnly(row.meditation_last_date))}</td>
+              <td>${Number(row.meditation_total_count || 0)}</td>
+              <td>${escapeHtml(formatDateTime(row.updated_at))}</td>
+            </tr>
+          `
+        }
+
+        html += `
+            </tbody>
+          </table>
+        `
+
+        meditationProfilesBox.innerHTML = html
+      } catch (err) {
+        meditationProfilesBox.innerHTML = `<div style="padding:16px; color:#b00020;">${escapeHtml(err.message || 'Nie udało się pobrać profili narzędzia medytacji.')}</div>`
+        document.getElementById('summaryLesson8Completed').textContent = '-'
+        document.getElementById('summaryMaxStreak').textContent = '-'
+      }
+    }
+
+    async function ensureDefaultRewardsIfEmpty() {
+      const { data, error } = await supabase
+        .from(REWARDS_TABLE)
+        .select('id')
+        .limit(1)
+
+      if (error) {
+        throw new Error('Błąd sprawdzania szczelinka_rewards: ' + error.message)
+      }
+
+      if (data && data.length > 0) return
+
+      const { error: insertError } = await supabase
+        .from(REWARDS_TABLE)
+        .insert(DEFAULT_REWARDS.map(row => ({
+          ...row,
+          updated_at: new Date().toISOString()
+        })))
+
+      if (insertError) {
+        throw new Error('Błąd dodawania startowych zadań: ' + insertError.message)
+      }
+    }
+
+    window.loadRewards = async function () {
+      rewardsTableWrap.innerHTML = '<div style="padding:16px;">Ładowanie...</div>'
+      rewardsMsg.innerText = ''
+
+      try {
+        await ensureDefaultRewardsIfEmpty()
+
+        const { data, error } = await supabase
+          .from(REWARDS_TABLE)
+          .select('id, title, days_required, reward_text, active, sort_order, updated_at')
+          .order('sort_order', { ascending: true })
+          .order('days_required', { ascending: true })
+
+        if (error) {
+          throw new Error('Błąd ładowania szczelinka_rewards: ' + error.message)
+        }
+
+        if (!data || data.length === 0) {
+          rewardsTableWrap.innerHTML = '<div style="padding:16px;">Brak zadań i nagród.</div>'
+          return
+        }
+
+        let html = `
+          <table class="reward-table" style="min-width:1200px;">
+            <thead>
+              <tr>
+                <th>Zadanie</th>
+                <th>Dni z rzędu</th>
+                <th>Treść nagrody</th>
+                <th>Aktywne</th>
+                <th>Kolejność</th>
+                <th>Ostatnia zmiana</th>
+                <th>Akcje</th>
+              </tr>
+            </thead>
+            <tbody>
+        `
+
+        data.forEach((row, index) => {
+          html += `
+            <tr>
+              <td><input id="reward_title_${index}" type="text" value="${escapeHtml(row.title || '')}"></td>
+              <td><input id="reward_days_${index}" type="number" min="1" step="1" value="${Number(row.days_required || 1)}"></td>
+              <td><textarea id="reward_text_${index}">${escapeHtml(row.reward_text || '')}</textarea></td>
+              <td><input id="reward_active_${index}" type="checkbox" ${row.active ? 'checked' : ''}></td>
+              <td><input id="reward_order_${index}" type="number" step="1" value="${Number(row.sort_order || index + 1)}"></td>
+              <td>${escapeHtml(formatDateTime(row.updated_at))}</td>
+              <td>
+                <button class="small-btn" onclick="saveReward('${escapeHtml(row.id)}', ${index})">Zapisz</button>
+                <button class="small-btn danger-btn" onclick="deleteReward('${escapeHtml(row.id)}')">Usuń</button>
+              </td>
+            </tr>
+          `
+        })
+
+        html += `
+            </tbody>
+          </table>
+        `
+
+        rewardsTableWrap.innerHTML = html
+      } catch (err) {
+        rewardsTableWrap.innerHTML = `<div style="padding:16px; color:#b00020;">${escapeHtml(err.message || 'Wystąpił błąd.')}</div>`
+      }
+    }
+
+    window.createReward = async function () {
+      const title = document.getElementById('rewardTitle').value.trim()
+      const days = Number(document.getElementById('rewardDays').value || 0)
+      const rewardText = document.getElementById('rewardText').value.trim()
+
+      rewardsMsg.innerText = ''
+
+      if (!title || !days || !rewardText) {
+        rewardsMsg.innerText = 'Podaj nazwę zadania, liczbę dni i treść nagrody.'
+        return
+      }
+
+      try {
+        const { data: existing, error: existingError } = await supabase
+          .from(REWARDS_TABLE)
+          .select('sort_order')
+
+        if (existingError) {
+          throw new Error('Błąd sprawdzania kolejności zadań: ' + existingError.message)
+        }
+
+        const nextOrder = existing && existing.length
+          ? Math.max(...existing.map(row => Number(row.sort_order || 0))) + 1
+          : 1
+
+        const id = 'zadanie-' + Date.now().toString(36)
+
+        const { error } = await supabase
+          .from(REWARDS_TABLE)
+          .insert([{
+            id,
+            title,
+            days_required: days,
+            reward_text: rewardText,
+            active: true,
+            sort_order: nextOrder,
+            updated_at: new Date().toISOString()
+          }])
+
+        if (error) {
+          throw new Error('Błąd dodawania zadania: ' + error.message)
+        }
+
+        document.getElementById('rewardTitle').value = ''
+        document.getElementById('rewardDays').value = ''
+        document.getElementById('rewardText').value = ''
+        rewardsMsg.innerText = 'Zadanie dodane poprawnie.'
+        await loadRewards()
+      } catch (err) {
+        rewardsMsg.innerText = err.message || 'Nie udało się dodać zadania.'
+      }
+    }
+
+    window.saveReward = async function (id, index) {
+      rewardsMsg.innerText = ''
+
+      const title = document.getElementById(`reward_title_${index}`).value.trim()
+      const days = Number(document.getElementById(`reward_days_${index}`).value || 0)
+      const rewardText = document.getElementById(`reward_text_${index}`).value.trim()
+      const active = document.getElementById(`reward_active_${index}`).checked
+      const sortOrder = Number(document.getElementById(`reward_order_${index}`).value || index + 1)
+
+      if (!title || !days || !rewardText) {
+        rewardsMsg.innerText = 'Uzupełnij nazwę zadania, liczbę dni i treść nagrody.'
+        return
+      }
+
+      const { error } = await supabase
+        .from(REWARDS_TABLE)
+        .update({
+          title,
+          days_required: days,
+          reward_text: rewardText,
+          active,
+          sort_order: sortOrder,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+
+      if (error) {
+        rewardsMsg.innerText = 'Nie udało się zapisać zadania: ' + error.message
+        return
+      }
+
+      rewardsMsg.innerText = 'Zadanie zapisane poprawnie.'
+      await loadRewards()
+    }
+
+    window.deleteReward = async function (id) {
+      if (!confirm('Usunąć to zadanie i nagrodę?')) return
+
+      rewardsMsg.innerText = ''
+
+      const { error } = await supabase
+        .from(REWARDS_TABLE)
+        .delete()
+        .eq('id', id)
+
+      if (error) {
+        rewardsMsg.innerText = 'Nie udało się usunąć zadania: ' + error.message
+        return
+      }
+
+      rewardsMsg.innerText = 'Zadanie usunięte.'
+      await loadRewards()
     }
 
     async function loadSummary() {
@@ -965,6 +1459,7 @@
       await loadSummary()
       await loadCredentialsTable()
       await loadSubscribers()
+      await loadRewards()
     }
 
     checkSession()
