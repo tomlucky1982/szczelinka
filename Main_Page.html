@@ -199,27 +199,24 @@ margin-right:auto;
 }
 
 
-
-/* === Narzędzie Szczelinki po Lekcji 8 === */
-.graduate-tool{
-  display:none;
-  margin:0 0 92px 0;
-  padding:42px;
-  border-radius:34px;
-  background:linear-gradient(135deg,#f5faff 0%,#ffffff 52%,#f7fbf8 100%);
+/* ===== NARZĘDZIE SZCZELINKI PO LEKCJI 8 ===== */
+.hidden{display:none!important}
+.szczelinka-tool{
+  margin:0 0 90px;
+  background:linear-gradient(135deg,#f5faff,#ffffff 55%,#f7fbf8);
   border:1px solid rgba(58,167,214,.22);
-  box-shadow:0 16px 46px rgba(58,167,214,.10);
-  scroll-margin-top:190px;
+  border-radius:34px;
+  padding:38px;
+  box-shadow:0 14px 38px rgba(58,167,214,.10);
 }
-.graduate-tool.visible{display:block}
-.graduate-tool-header{
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:32px;
-  align-items:end;
-  margin-bottom:30px;
+.szczelinka-tool-head{
+  display:flex;
+  justify-content:space-between;
+  gap:28px;
+  align-items:flex-start;
+  margin-bottom:28px;
 }
-.graduate-kicker{
+.szczelinka-tool-kicker{
   color:#3aa7d6;
   font-size:14px;
   font-weight:800;
@@ -227,155 +224,109 @@ margin-right:auto;
   text-transform:uppercase;
   margin-bottom:10px;
 }
-.graduate-tool h1,
-.graduate-tool h2,
-.graduate-tool h3{margin-top:0}
-.graduate-tool h1{
-  color:#111;
-  font-size:38px;
-  line-height:1.14;
-  margin-bottom:16px;
+.szczelinka-tool h2{
+  margin:0 0 12px;
+  color:#1f1f1f;
+  font-size:34px;
+  line-height:1.18;
 }
-.graduate-tool-intro{
-  font-size:18px;
-  line-height:1.75;
-  margin:0;
-  color:#333;
-}
-.streak-card{
+.szczelinka-tool p{font-size:18px;line-height:1.7;margin:0 0 14px;color:#2d2d2d}
+.szczelinka-streak-card{
+  min-width:220px;
   background:#fff;
+  border:1px solid rgba(58,167,214,.18);
+  border-radius:24px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 10px 24px rgba(0,0,0,.05);
+}
+.szczelinka-streak-number{
+  font-size:54px;
+  line-height:1;
+  color:#3aa7d6;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.szczelinka-streak-label{font-size:15px;color:#555;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.szczelinka-task-box{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.06);
   border-radius:26px;
   padding:24px;
-  border:1px solid rgba(58,167,214,.18);
-  box-shadow:0 10px 28px rgba(0,0,0,.05);
+  margin:18px 0 24px;
 }
-.streak-number{
-  font-size:58px;
-  line-height:1;
+.szczelinka-task-title{
+  font-size:22px;
   font-weight:900;
   color:#3aa7d6;
-  letter-spacing:-.03em;
+  margin-bottom:8px;
 }
-.streak-label{
-  color:#555;
-  font-size:15px;
-  font-weight:800;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  margin-top:8px;
+.szczelinka-progress-track{
+  height:12px;
+  background:#e9eef1;
+  border-radius:999px;
+  overflow:hidden;
+  margin:16px 0 10px;
 }
-.tool-grid{
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:26px;
-  align-items:start;
+.szczelinka-progress-fill{
+  height:100%;
+  width:0;
+  background:#3aa7d6;
+  border-radius:999px;
+  transition:width .3s ease;
 }
-.sequence-tool-box,
-.progress-tool-box{
-  background:#fff;
-  border-radius:28px;
+.szczelinka-progress-text{font-size:15px;color:#555;font-weight:700}
+.szczelinka-sequence{
+  background:#ececec;
+  border-radius:30px;
   padding:26px;
-  border:1px solid rgba(0,0,0,.06);
-  box-shadow:0 10px 30px rgba(0,0,0,.05);
+  text-align:center;
 }
-.sequence-tool-box h2,
-.progress-tool-box h2{
-  color:#3aa7d6;
-  font-size:27px;
-  margin-bottom:18px;
+.szczelinka-sequence-title{
+  font-size:26px;
+  font-weight:900;
+  margin:0 0 18px;
+  color:#111;
 }
-.sequence-tool-row{
+.szczelinka-seq-row{
   display:grid;
   grid-template-columns:auto 1fr auto auto;
   gap:12px;
   align-items:center;
-  background:#f5f5f5;
-  border-radius:20px;
+  background:#f7f7f7;
+  border:1px solid rgba(0,0,0,.05);
+  border-radius:22px;
   padding:14px 16px;
   margin-bottom:12px;
-  border:1px solid rgba(0,0,0,.05);
 }
-.sequence-tool-row.active{border-color:#3aa7d6;background:#fbfeff;box-shadow:0 8px 20px rgba(58,167,214,.10)}
-.sequence-tool-row.done{border-color:#3bb273;background:#f7fcf9}
-.sequence-tool-name{font-size:17px;font-weight:800;line-height:1.35;color:#111}
-.sequence-tool-time{font-size:28px;font-weight:900;color:#3aa7d6;min-width:96px;text-align:right;font-variant-numeric:tabular-nums}
-.tool-mini-btn{
+.szczelinka-seq-row.active{background:#fbfeff;border-color:#3aa7d6;box-shadow:0 8px 20px rgba(58,167,214,.12)}
+.szczelinka-seq-row.done{background:#f7fcf9;border-color:#3bb273}
+.szczelinka-seq-name{text-align:left;font-size:19px;font-weight:900;color:#111;line-height:1.35}
+.szczelinka-seq-time{font-size:28px;font-weight:900;color:#3aa7d6;font-variant-numeric:tabular-nums;min-width:96px;text-align:right}
+.szczelinka-mini-btn,.szczelinka-action-btn{
   border:none;
-  border-radius:13px;
-  padding:10px 13px;
-  background:#eaf6fb;
-  color:#236c88;
-  font-weight:900;
-  font-size:16px;
   cursor:pointer;
-}
-.tool-mini-btn:hover{background:#dff2f9}
-.tool-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-.tool-btn{
-  border:none;
-  border-radius:15px;
-  padding:13px 18px;
-  font-size:16px;
+  border-radius:14px;
   font-weight:900;
-  cursor:pointer;
-  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+  font-family:Arial,sans-serif;
 }
-.tool-btn:hover{transform:translateY(-1px)}
-.tool-btn.primary{background:#3aa7d6;color:#fff;box-shadow:0 8px 20px rgba(58,167,214,.18)}
-.tool-btn.secondary{background:#efefef;color:#222}
-.tool-btn.green{background:#3bb273;color:#fff;box-shadow:0 8px 20px rgba(59,178,115,.18)}
-.tool-status{
-  margin-top:16px;
-  color:#555;
-  font-size:15px;
-  line-height:1.6;
-  padding:14px 16px;
-  background:#f7fbf8;
-  border-radius:16px;
-}
-.task-card{
-  background:#f5faff;
-  border:1px solid rgba(58,167,214,.16);
-  border-radius:22px;
-  padding:20px;
-  margin-bottom:18px;
-}
-.task-title{font-size:20px;font-weight:900;color:#111;margin-bottom:8px}
-.task-desc{font-size:16px;line-height:1.65;color:#333;margin:0 0 14px}
-.task-bar{height:12px;background:#e7edf0;border-radius:999px;overflow:hidden;margin:14px 0 10px}
-.task-bar-fill{height:100%;width:0;background:#3aa7d6;border-radius:999px;transition:width .3s ease}
-.reward-list{display:grid;gap:12px;margin-top:16px}
-.reward-card{
-  border-radius:18px;
-  padding:16px;
-  border:1px solid rgba(216,168,94,.25);
-  background:linear-gradient(135deg,#fff8e9,#fff);
-}
-.reward-card.locked{background:#f5f5f5;border-color:#e5e5e5;color:#777}
-.reward-card strong{display:block;margin-bottom:6px;color:#6b3f13}
-.reward-card.locked strong{color:#777}
-.reward-surprise{
+.szczelinka-mini-btn{padding:10px 14px;background:#eaf6fb;color:#236c88;font-size:18px}
+.szczelinka-action-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.szczelinka-action-btn{padding:14px 20px;background:#efefef;color:#222;font-size:16px}
+.szczelinka-action-btn.primary{background:#3aa7d6;color:#fff}
+.szczelinka-action-btn.green{background:#3bb273;color:#fff}
+.szczelinka-status{font-size:16px;line-height:1.6;color:#555;margin-top:16px}
+.szczelinka-reward{
   display:none;
-  margin-top:18px;
-  border-radius:22px;
-  padding:20px;
-  background:linear-gradient(135deg,#fff8e9,#f7fbf8);
-  border:1px solid rgba(216,168,94,.35);
+  background:linear-gradient(135deg,#fff8e9,#fff);
+  border:1px solid rgba(216,168,94,.36);
+  border-radius:24px;
+  padding:22px;
+  margin-top:22px;
   color:#6b3f13;
-  font-size:17px;
-  line-height:1.65;
 }
-.reward-surprise.visible{display:block}
-@media (max-width:980px){
-  .graduate-tool{padding:30px 22px;margin-bottom:80px}
-  .graduate-tool-header,.tool-grid{grid-template-columns:1fr}
-  .graduate-tool h1{font-size:32px}
-}
-@media (max-width:560px){
-  .sequence-tool-row{grid-template-columns:auto 1fr auto}
-  .sequence-tool-time{grid-column:1 / -1;text-align:center}
-  .tool-btn{width:100%}
-}
+.szczelinka-reward.show{display:block}
+.szczelinka-reward strong{display:block;font-size:22px;margin-bottom:8px;color:#6b3f13}
 
 @media (max-width:980px){
 .topbar{
@@ -429,6 +380,13 @@ width:100%;
 font-size:28px;
 }
 }
+
+
+.szczelinka-tool{padding:28px 22px;margin-bottom:70px}
+.szczelinka-tool-head{flex-direction:column}
+.szczelinka-streak-card{width:100%;min-width:0}
+.szczelinka-seq-row{grid-template-columns:auto 1fr auto}
+.szczelinka-seq-time{grid-column:1 / -1;text-align:center}
 
 @media (max-width:560px){
 .logo{
@@ -509,66 +467,73 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main class="content">
 <section class="lekcje">
 
-  <!-- Narzędzie dostępne po ukończeniu Lekcji 8 -->
-  <div id="narzedzie-szczelinki" class="graduate-tool" aria-live="polite">
-    <div class="graduate-tool-header">
+  <section id="szczelinka-narzedzie" class="szczelinka-tool hidden" aria-live="polite">
+    <div class="szczelinka-tool-head">
       <div>
-        <div class="graduate-kicker">Dostęp po ukończeniu Lekcji 8</div>
-        <h1>Narzędzie do sekwencji Szczelinki</h1>
-        <p class="graduate-tool-intro">
-          To miejsce służy do regularnej praktyki pełnej sekwencji: liczenie, dziurki, oddychanie do brzucha i pytanie o kolejną myśl. Po wykonaniu medytacji na stronie licznik zapisze kolejny dzień z rzędu i pokaże postęp w zadaniu.
-        </p>
+        <div class="szczelinka-tool-kicker">Dostęp po ukończeniu Lekcji 8</div>
+        <h2>Narzędzie do sekwencji Szczelinki</h2>
+        <p>Ustaw czas etapów i wykonaj pełną sekwencję. Domyślnie: <b>2 minuty liczenia, 2 minuty dziurek, 2 minuty brzucha i 19 minut pytania.</b></p>
+        <p id="szczelinka-access-note">Ładuję dostęp i postępy...</p>
       </div>
-      <div class="streak-card">
-        <div class="streak-number" id="streakDays">0</div>
-        <div class="streak-label">dni z rzędu z medytacją</div>
+      <div class="szczelinka-streak-card">
+        <div class="szczelinka-streak-number" id="szczelinka-streak-number">0</div>
+        <div class="szczelinka-streak-label">dni z rzędu</div>
       </div>
     </div>
 
-    <div class="tool-grid">
-      <section class="sequence-tool-box">
-        <h2>Sekwencja medytacyjna</h2>
-        <div class="sequence-tool-row" id="seqToolRow0">
-          <button class="tool-mini-btn" data-seq-minus="0">−</button>
-          <div class="sequence-tool-name">Liczenie</div>
-          <button class="tool-mini-btn" data-seq-plus="0">+</button>
-          <div class="sequence-tool-time" id="seqToolTime0">02:00</div>
-        </div>
-        <div class="sequence-tool-row" id="seqToolRow1">
-          <button class="tool-mini-btn" data-seq-minus="1">−</button>
-          <div class="sequence-tool-name">Dziurki</div>
-          <button class="tool-mini-btn" data-seq-plus="1">+</button>
-          <div class="sequence-tool-time" id="seqToolTime1">02:00</div>
-        </div>
-        <div class="sequence-tool-row" id="seqToolRow2">
-          <button class="tool-mini-btn" data-seq-minus="2">−</button>
-          <div class="sequence-tool-name">Oddychanie do brzucha</div>
-          <button class="tool-mini-btn" data-seq-plus="2">+</button>
-          <div class="sequence-tool-time" id="seqToolTime2">02:00</div>
-        </div>
-        <div class="sequence-tool-row" id="seqToolRow3">
-          <button class="tool-mini-btn" data-seq-minus="3">−</button>
-          <div class="sequence-tool-name">Pytanie: Jaka będzie moja kolejna myśl?</div>
-          <button class="tool-mini-btn" data-seq-plus="3">+</button>
-          <div class="sequence-tool-time" id="seqToolTime3">19:00</div>
-        </div>
-        <div class="tool-actions">
-          <button class="tool-btn primary" id="seqToolStart">Start</button>
-          <button class="tool-btn secondary" id="seqToolPause">Pauza</button>
-          <button class="tool-btn secondary" id="seqToolReset">Reset</button>
-          <button class="tool-btn green" id="seqToolDone">Zakończ medytację</button>
-        </div>
-        <div class="tool-status" id="seqToolStatus">Domyślna sekwencja to 2;2;2;19 minut. Czas każdej części możesz dowolnie zmienić przyciskami + i −.</div>
-      </section>
-
-      <section class="progress-tool-box">
-        <h2>Licznik postępów</h2>
-        <div class="task-card" id="currentTaskCard"></div>
-        <div class="reward-surprise" id="rewardSurprise"></div>
-        <div class="reward-list" id="rewardList"></div>
-      </section>
+    <div class="szczelinka-task-box">
+      <div class="szczelinka-task-title" id="szczelinka-task-title">Zadanie</div>
+      <p id="szczelinka-task-desc">Ładuję zadanie...</p>
+      <div class="szczelinka-progress-track"><div class="szczelinka-progress-fill" id="szczelinka-progress-fill"></div></div>
+      <div class="szczelinka-progress-text" id="szczelinka-progress-text"></div>
     </div>
-  </div>
+
+    <div class="szczelinka-sequence">
+      <div class="szczelinka-sequence-title">Sekwencja medytacyjna</div>
+
+      <div class="szczelinka-seq-row" id="szczelinka-seq-row-0">
+        <button class="szczelinka-mini-btn" data-minus-seq="0">−</button>
+        <div class="szczelinka-seq-name">Liczenie</div>
+        <button class="szczelinka-mini-btn" data-plus-seq="0">+</button>
+        <div class="szczelinka-seq-time" id="szczelinka-seq-time-0">02:00</div>
+      </div>
+
+      <div class="szczelinka-seq-row" id="szczelinka-seq-row-1">
+        <button class="szczelinka-mini-btn" data-minus-seq="1">−</button>
+        <div class="szczelinka-seq-name">Dziurki</div>
+        <button class="szczelinka-mini-btn" data-plus-seq="1">+</button>
+        <div class="szczelinka-seq-time" id="szczelinka-seq-time-1">02:00</div>
+      </div>
+
+      <div class="szczelinka-seq-row" id="szczelinka-seq-row-2">
+        <button class="szczelinka-mini-btn" data-minus-seq="2">−</button>
+        <div class="szczelinka-seq-name">Oddychanie do brzucha</div>
+        <button class="szczelinka-mini-btn" data-plus-seq="2">+</button>
+        <div class="szczelinka-seq-time" id="szczelinka-seq-time-2">02:00</div>
+      </div>
+
+      <div class="szczelinka-seq-row" id="szczelinka-seq-row-3">
+        <button class="szczelinka-mini-btn" data-minus-seq="3">−</button>
+        <div class="szczelinka-seq-name">Pytanie: Jaka będzie moja kolejna myśl?</div>
+        <button class="szczelinka-mini-btn" data-plus-seq="3">+</button>
+        <div class="szczelinka-seq-time" id="szczelinka-seq-time-3">19:00</div>
+      </div>
+
+      <div class="szczelinka-action-row">
+        <button class="szczelinka-action-btn primary" id="szczelinka-sequence-start">Start</button>
+        <button class="szczelinka-action-btn" id="szczelinka-sequence-pause">Pauza</button>
+        <button class="szczelinka-action-btn" id="szczelinka-sequence-reset">Reset</button>
+        <button class="szczelinka-action-btn green" id="szczelinka-sequence-done">Zakończ i zapisz dzień</button>
+      </div>
+
+      <div class="szczelinka-status" id="szczelinka-sequence-status">Każde przejście uruchamia gong. Przyciski + / − zmieniają czas o minutę.</div>
+    </div>
+
+    <div class="szczelinka-reward" id="szczelinka-reward-box">
+      <strong id="szczelinka-reward-title">Nagroda</strong>
+      <div id="szczelinka-reward-text"></div>
+    </div>
+  </section>
 
 
   <div id="lekcja1" class="section-gray">
@@ -727,315 +692,317 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </main>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-(function(){
-  const SUPABASE_URL = "";       // <- wklej ten sam URL Supabase co w lekcjach
-  const SUPABASE_ANON_KEY = "";  // <- wklej ten sam anon public key
+<script type="module">
+  import { supabase } from './supabase-client.js';
+
   const PROFILE_TABLE = "szczelinka_profiles";
   const REWARDS_TABLE = "szczelinka_rewards";
-  const LESSON_PROGRESS_TABLE = "lesson_progress";
   const USER_KEY = "szczelinka_user_id";
-  const PROFILE_STORAGE_KEY = "szczelinka_profile_v1";
-  const LESSON8_COMPLETE_KEY = "lesson8_completed_v1";
-  const REWARDS_STORAGE_KEY = "szczelinka_rewards_v1";
-  const SEQUENCE_STORAGE_KEY = "szczelinka_sequence_tool_v1";
-  const DEFAULT_DURATIONS = [120,120,120,1140];
-  const DEFAULT_REWARDS = [
-    {id:"zadanie-1",title:"Zadanie 1",days_required:3,reward_text:"Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.",active:true,sort_order:1},
-    {id:"zadanie-2",title:"Zadanie 2",days_required:7,reward_text:"Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.",active:true,sort_order:2}
+  const LOCAL_PROFILE_KEY = "szczelinka_profile_local_v1";
+  const LOCAL_REWARDS_KEY = "szczelinka_rewards_local_v1";
+
+  const defaultRewards = [
+    { id:"zadanie-1", title:"Zadanie 1", days_required:3, reward_text:"Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.", active:true, sort_order:1 },
+    { id:"zadanie-2", title:"Zadanie 2", days_required:7, reward_text:"Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.", active:true, sort_order:2 }
   ];
 
-  const tool = document.getElementById("narzedzie-szczelinki");
-  if(!tool) return;
-
-  let supabaseClient = null;
-  if(window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY){
-    supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-  }
+  const tool = document.getElementById("szczelinka-narzedzie");
+  const accessNote = document.getElementById("szczelinka-access-note");
+  const streakNumber = document.getElementById("szczelinka-streak-number");
+  const taskTitle = document.getElementById("szczelinka-task-title");
+  const taskDesc = document.getElementById("szczelinka-task-desc");
+  const progressFill = document.getElementById("szczelinka-progress-fill");
+  const progressText = document.getElementById("szczelinka-progress-text");
+  const rewardBox = document.getElementById("szczelinka-reward-box");
+  const rewardTitle = document.getElementById("szczelinka-reward-title");
+  const rewardText = document.getElementById("szczelinka-reward-text");
+  const statusBox = document.getElementById("szczelinka-sequence-status");
 
   function getUserId(){
     let id = localStorage.getItem(USER_KEY);
     if(!id){
       id = "user_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
-      localStorage.setItem(USER_KEY,id);
+      localStorage.setItem(USER_KEY, id);
     }
     return id;
   }
+
   const userId = getUserId();
+  let profile = null;
+  let rewards = [...defaultRewards];
+  let sequence = {
+    durations:[120,120,120,1140],
+    remaining:[120,120,120,1140],
+    currentIndex:0,
+    running:false,
+    done:false,
+    interval:null
+  };
 
-  let profile = {user_id:userId,lesson8_completed:false,lesson8_completed_at:null,meditation_streak:0,meditation_last_date:null,meditation_total_count:0};
-  let rewards = DEFAULT_REWARDS.map(x=>({...x}));
-  let sequenceState = {durations:[...DEFAULT_DURATIONS],remaining:[...DEFAULT_DURATIONS],currentIndex:0,running:false,done:false,interval:null};
-
-  function escapeHtml(str){
-    return String(str ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+  function localDateString(date = new Date()){
+    const y = date.getFullYear();
+    const m = String(date.getMonth()+1).padStart(2,"0");
+    const d = String(date.getDate()).padStart(2,"0");
+    return `${y}-${m}-${d}`;
   }
+
+  function yesterdayString(){
+    const d = new Date();
+    d.setDate(d.getDate()-1);
+    return localDateString(d);
+  }
+
   function formatTime(sec){
-    sec = Math.max(0,Number(sec)||0);
-    const m = Math.floor(sec/60), s = sec%60;
+    const m = Math.floor(sec/60);
+    const s = sec%60;
     return String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
   }
-  function todayLocal(){
-    const d = new Date();
-    const shifted = new Date(d.getTime() - d.getTimezoneOffset()*60000);
-    return shifted.toISOString().slice(0,10);
+
+  function escapeHtml(str){
+    return String(str || "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
   }
-  function diffDays(a,b){
-    if(!a || !b) return null;
-    return Math.round((new Date(b+"T00:00:00") - new Date(a+"T00:00:00"))/86400000);
-  }
-  function normalizeProfile(p){
-    return Object.assign({user_id:userId,lesson8_completed:false,lesson8_completed_at:null,meditation_streak:0,meditation_last_date:null,meditation_total_count:0}, p || {});
-  }
-  function saveLocalProfile(){
-    localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(profile));
-    if(profile.lesson8_completed) localStorage.setItem(LESSON8_COMPLETE_KEY,"yes");
-  }
-  async function saveProfile(){
-    profile.updated_at = new Date().toISOString();
-    saveLocalProfile();
-    if(supabaseClient){
-      try{
-        await supabaseClient.from(PROFILE_TABLE).upsert(profile,{onConflict:"user_id"});
-      }catch(e){console.warn("Nie udało się zapisać profilu w Supabase",e)}
-    }
-  }
-  function completedFromOldLessonStorage(){
+
+  function fallbackProfile(){
     try{
-      const raw = localStorage.getItem("lesson8ProgressState_v1");
-      if(!raw) return false;
-      const s = JSON.parse(raw);
-      return !!(s && (s.completed === true || Number(s.currentStepIndex) >= 22));
-    }catch(e){return false;}
+      const raw = localStorage.getItem(LOCAL_PROFILE_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return {
+      user_id:userId,
+      lesson8_completed: localStorage.getItem("lesson8_completed") === "yes",
+      lesson8_completed_at: localStorage.getItem("lesson8_completed_at") || null,
+      meditation_streak:0,
+      meditation_last_date:null,
+      meditation_total_count:0
+    };
   }
-  async function checkSupabaseLessonProgress(){
-    if(!supabaseClient) return false;
-    try{
-      const {data} = await supabaseClient.from(LESSON_PROGRESS_TABLE).select("state").eq("user_id",userId).eq("lesson_id","lesson8").maybeSingle();
-      const s = data && data.state;
-      return !!(s && (s.completed === true || Number(s.currentStepIndex) >= 22));
-    }catch(e){return false;}
-  }
+
   async function loadProfile(){
     try{
-      const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
-      if(raw) profile = normalizeProfile(JSON.parse(raw));
-    }catch(e){}
-    if(localStorage.getItem(LESSON8_COMPLETE_KEY)==="yes" || completedFromOldLessonStorage()){
-      profile.lesson8_completed = true;
-      profile.lesson8_completed_at = profile.lesson8_completed_at || new Date().toISOString();
+      const { data, error } = await supabase
+        .from(PROFILE_TABLE)
+        .select("*")
+        .eq("user_id", userId)
+        .maybeSingle();
+      if(error) throw error;
+      profile = data || fallbackProfile();
+    }catch(e){
+      profile = fallbackProfile();
     }
-    if(supabaseClient){
-      try{
-        const {data} = await supabaseClient.from(PROFILE_TABLE).select("*").eq("user_id",userId).maybeSingle();
-        if(data) profile = normalizeProfile(data);
-      }catch(e){console.warn("Nie udało się pobrać profilu z Supabase",e)}
-      if(!profile.lesson8_completed && await checkSupabaseLessonProgress()){
-        profile.lesson8_completed = true;
-        profile.lesson8_completed_at = profile.lesson8_completed_at || new Date().toISOString();
-        await saveProfile();
-      }
-    }
-    saveLocalProfile();
   }
-  function saveLocalRewards(){localStorage.setItem(REWARDS_STORAGE_KEY,JSON.stringify(rewards));}
+
+  async function saveProfile(){
+    profile.updated_at = new Date().toISOString();
+    localStorage.setItem(LOCAL_PROFILE_KEY, JSON.stringify(profile));
+    if(profile.lesson8_completed){
+      localStorage.setItem("lesson8_completed", "yes");
+      if(profile.lesson8_completed_at) localStorage.setItem("lesson8_completed_at", profile.lesson8_completed_at);
+    }
+    try{
+      await supabase.from(PROFILE_TABLE).upsert(profile, { onConflict:"user_id" });
+    }catch(e){
+      console.warn("Nie udało się zapisać profilu w Supabase", e);
+    }
+  }
+
   async function loadRewards(){
     try{
-      const raw = localStorage.getItem(REWARDS_STORAGE_KEY);
-      if(raw){
-        const parsed = JSON.parse(raw);
-        if(Array.isArray(parsed) && parsed.length) rewards = parsed;
-      }
-    }catch(e){}
-    if(supabaseClient){
+      const { data, error } = await supabase
+        .from(REWARDS_TABLE)
+        .select("*")
+        .eq("active", true)
+        .order("sort_order", { ascending:true })
+        .order("days_required", { ascending:true });
+      if(error) throw error;
+      if(data && data.length) rewards = data;
+    }catch(e){
       try{
-        const {data} = await supabaseClient.from(REWARDS_TABLE).select("*").eq("active",true).order("sort_order",{ascending:true}).order("days_required",{ascending:true});
-        if(Array.isArray(data) && data.length) rewards = data;
-      }catch(e){console.warn("Nie udało się pobrać nagród z Supabase",e)}
+        const raw = localStorage.getItem(LOCAL_REWARDS_KEY);
+        if(raw) rewards = JSON.parse(raw);
+      }catch(err){}
     }
-    rewards = rewards.filter(r=>r.active !== false).sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0) || (Number(a.days_required)||0)-(Number(b.days_required)||0));
-    saveLocalRewards();
+    rewards = rewards.filter(r => r.active !== false).sort((a,b) => (a.sort_order || 0) - (b.sort_order || 0) || a.days_required - b.days_required);
   }
-  function saveSequenceLocal(){
-    const copy = {durations:sequenceState.durations,remaining:sequenceState.remaining,currentIndex:sequenceState.currentIndex,done:sequenceState.done};
-    localStorage.setItem(SEQUENCE_STORAGE_KEY,JSON.stringify(copy));
-  }
-  function loadSequenceLocal(){
-    try{
-      const raw = localStorage.getItem(SEQUENCE_STORAGE_KEY);
-      if(!raw) return;
-      const s = JSON.parse(raw);
-      if(s && Array.isArray(s.durations) && s.durations.length===4){
-        sequenceState.durations = s.durations.map(x=>Math.max(60,Math.min(3600,Number(x)||120)));
-        sequenceState.remaining = Array.isArray(s.remaining) && s.remaining.length===4 ? s.remaining.map((x,i)=>Math.max(0,Math.min(3600,Number(x)||sequenceState.durations[i]))) : [...sequenceState.durations];
-        sequenceState.currentIndex = Math.max(0,Math.min(3,Number(s.currentIndex)||0));
-        sequenceState.done = !!s.done;
-      }
-    }catch(e){}
+
+  function renderProgress(){
+    const streak = Number(profile.meditation_streak || 0);
+    streakNumber.textContent = streak;
+
+    const nextTask = rewards.find(r => Number(r.days_required) > streak);
+    const lastUnlocked = [...rewards].reverse().find(r => Number(r.days_required) <= streak);
+
+    if(nextTask){
+      const required = Number(nextTask.days_required);
+      const missing = Math.max(0, required - streak);
+      const percent = Math.min(100, Math.round((streak / required) * 100));
+      taskTitle.textContent = nextTask.title || "Zadanie";
+      taskDesc.innerHTML = `Medytuj <b>${required} dni z rzędu</b>. Masz już <b>${streak}</b>. Brakuje: <b>${missing}</b>.`;
+      progressFill.style.width = percent + "%";
+      progressText.textContent = `${streak} / ${required} dni z rzędu`;
+      rewardBox.classList.remove("show");
+    }else if(lastUnlocked){
+      taskTitle.textContent = "Wszystkie dostępne zadania wykonane";
+      taskDesc.innerHTML = `Masz <b>${streak}</b> dni z rzędu. Możesz dodać kolejne zadanie w zakładce zarządzaj.`;
+      progressFill.style.width = "100%";
+      progressText.textContent = `${streak} dni z rzędu`;
+      rewardTitle.textContent = lastUnlocked.title || "Nagroda";
+      rewardText.innerHTML = escapeHtml(lastUnlocked.reward_text || "").replace(/\n/g,"<br>");
+      rewardBox.classList.add("show");
+    }else{
+      taskTitle.textContent = "Brak zadań";
+      taskDesc.textContent = "Dodaj zadanie w zakładce zarządzaj.";
+      progressFill.style.width = "0%";
+      progressText.textContent = "";
+      rewardBox.classList.remove("show");
+    }
   }
 
   function updateSequenceUI(){
-    sequenceState.remaining.forEach((sec,i)=>{
-      const time = document.getElementById("seqToolTime"+i);
-      const row = document.getElementById("seqToolRow"+i);
+    sequence.remaining.forEach((sec, i) => {
+      const time = document.getElementById("szczelinka-seq-time-"+i);
+      const row = document.getElementById("szczelinka-seq-row-"+i);
       if(time) time.textContent = formatTime(sec);
       if(row){
-        row.classList.toggle("active",sequenceState.currentIndex===i && !sequenceState.done);
-        row.classList.toggle("done",sequenceState.done || i < sequenceState.currentIndex);
+        row.classList.toggle("active", sequence.currentIndex === i && !sequence.done);
+        row.classList.toggle("done", sequence.done || i < sequence.currentIndex);
       }
     });
-    saveSequenceLocal();
   }
-  function resetSequence(full){
-    if(sequenceState.interval) clearInterval(sequenceState.interval);
-    sequenceState.interval = null;
-    sequenceState.running = false;
-    sequenceState.done = false;
-    sequenceState.currentIndex = 0;
-    sequenceState.remaining = [...sequenceState.durations];
-    if(full){sequenceState.durations = [...DEFAULT_DURATIONS]; sequenceState.remaining = [...DEFAULT_DURATIONS];}
-    const status = document.getElementById("seqToolStatus");
-    if(status) status.textContent = "Sekwencja ustawiona. Naciśnij Start, gdy chcesz rozpocząć.";
-    updateSequenceUI();
-  }
-  function gong(){
-    try{ new Audio("tibetan.mp3").play().catch(()=>{}); }catch(e){}
-  }
-  async function recordMeditation(){
-    const today = todayLocal();
-    const last = profile.meditation_last_date;
-    const difference = diffDays(last,today);
-    let counted = false;
-    if(last === today){
-      counted = false;
-    }else if(difference === 1){
-      profile.meditation_streak = (Number(profile.meditation_streak)||0) + 1;
-      counted = true;
-    }else{
-      profile.meditation_streak = 1;
-      counted = true;
-    }
-    if(counted){
-      profile.meditation_last_date = today;
-      profile.meditation_total_count = (Number(profile.meditation_total_count)||0) + 1;
-    }
-    await saveProfile();
-    return counted;
-  }
-  async function completeMeditation(manual){
-    if(sequenceState.interval) clearInterval(sequenceState.interval);
-    sequenceState.interval = null;
-    sequenceState.running = false;
-    sequenceState.done = true;
-    sequenceState.remaining = [0,0,0,0];
-    updateSequenceUI();
-    const before = Number(profile.meditation_streak)||0;
-    const counted = await recordMeditation();
-    const after = Number(profile.meditation_streak)||0;
-    const status = document.getElementById("seqToolStatus");
-    if(status){
-      status.textContent = counted ? "Medytacja zaliczona. Dzisiejszy dzień został dopisany do serii." : "Medytacja wykonana. Dzisiejszy dzień był już wcześniej zaliczony, więc seria nie została naliczona drugi raz.";
-    }
-    const newlyUnlocked = rewards.filter(r => before < Number(r.days_required) && after >= Number(r.days_required));
-    renderProgress(newlyUnlocked[0]);
-  }
+
   function bindSequence(){
-    document.querySelectorAll("[data-seq-minus]").forEach(btn=>{
-      btn.addEventListener("click",()=>{
-        if(sequenceState.running) return;
-        const i = Number(btn.dataset.seqMinus);
-        sequenceState.durations[i] = Math.max(60,sequenceState.durations[i]-60);
-        sequenceState.remaining[i] = sequenceState.durations[i];
-        sequenceState.done = false;
+    document.querySelectorAll("[data-minus-seq]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if(sequence.running) return;
+        const i = Number(btn.dataset.minusSeq);
+        sequence.durations[i] = Math.max(60, sequence.durations[i]-60);
+        sequence.remaining[i] = sequence.durations[i];
         updateSequenceUI();
       });
     });
-    document.querySelectorAll("[data-seq-plus]").forEach(btn=>{
-      btn.addEventListener("click",()=>{
-        if(sequenceState.running) return;
-        const i = Number(btn.dataset.seqPlus);
-        sequenceState.durations[i] = Math.min(3600,sequenceState.durations[i]+60);
-        sequenceState.remaining[i] = sequenceState.durations[i];
-        sequenceState.done = false;
+
+    document.querySelectorAll("[data-plus-seq]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if(sequence.running) return;
+        const i = Number(btn.dataset.plusSeq);
+        sequence.durations[i] = Math.min(60*60, sequence.durations[i]+60);
+        sequence.remaining[i] = sequence.durations[i];
         updateSequenceUI();
       });
     });
-    document.getElementById("seqToolStart").addEventListener("click",()=>{
-      if(sequenceState.running || sequenceState.done) return;
-      sequenceState.running = true;
-      const status = document.getElementById("seqToolStatus");
-      if(status) status.textContent = "Sekwencja trwa.";
-      sequenceState.interval = setInterval(()=>{
-        const i = sequenceState.currentIndex;
-        sequenceState.remaining[i] = Math.max(0,sequenceState.remaining[i]-1);
-        if(sequenceState.remaining[i] <= 0){
-          gong();
-          sequenceState.currentIndex += 1;
-          if(sequenceState.currentIndex >= sequenceState.remaining.length){
-            completeMeditation(false);
-            return;
+
+    document.getElementById("szczelinka-sequence-start").addEventListener("click", () => {
+      if(sequence.running || sequence.done) return;
+      sequence.running = true;
+      statusBox.textContent = "Sekwencja trwa.";
+      updateSequenceUI();
+      sequence.interval = setInterval(() => {
+        const i = sequence.currentIndex;
+        sequence.remaining[i] -= 1;
+        if(sequence.remaining[i] <= 0){
+          try{ new Audio("tibetan.mp3").play().catch(()=>{}); }catch(e){}
+          sequence.currentIndex += 1;
+          if(sequence.currentIndex >= sequence.remaining.length){
+            clearInterval(sequence.interval);
+            sequence.interval = null;
+            sequence.running = false;
+            sequence.done = true;
+            statusBox.textContent = "Sekwencja wykonana. Zapisuję dzień praktyki.";
+            recordMeditationDay();
           }
         }
         updateSequenceUI();
-      },1000);
+      }, 1000);
+    });
+
+    document.getElementById("szczelinka-sequence-pause").addEventListener("click", () => {
+      if(sequence.interval) clearInterval(sequence.interval);
+      sequence.interval = null;
+      sequence.running = false;
+      statusBox.textContent = "Pauza.";
       updateSequenceUI();
     });
-    document.getElementById("seqToolPause").addEventListener("click",()=>{
-      if(sequenceState.interval) clearInterval(sequenceState.interval);
-      sequenceState.interval = null;
-      sequenceState.running = false;
-      const status = document.getElementById("seqToolStatus");
-      if(status) status.textContent = "Pauza. Możesz kontynuować przyciskiem Start.";
+
+    document.getElementById("szczelinka-sequence-reset").addEventListener("click", () => {
+      if(sequence.interval) clearInterval(sequence.interval);
+      sequence = { durations:[120,120,120,1140], remaining:[120,120,120,1140], currentIndex:0, running:false, done:false, interval:null };
+      statusBox.textContent = "Zresetowano sekwencję do 2;2;2;19 minut.";
       updateSequenceUI();
     });
-    document.getElementById("seqToolReset").addEventListener("click",()=>resetSequence(false));
-    document.getElementById("seqToolDone").addEventListener("click",()=>completeMeditation(true));
+
+    document.getElementById("szczelinka-sequence-done").addEventListener("click", () => {
+      if(sequence.interval) clearInterval(sequence.interval);
+      sequence.interval = null;
+      sequence.running = false;
+      sequence.done = true;
+      statusBox.textContent = "Sekwencja oznaczona jako wykonana. Zapisuję dzień praktyki.";
+      updateSequenceUI();
+      recordMeditationDay();
+    });
   }
 
-  function renderProgress(newReward){
-    document.getElementById("streakDays").textContent = Number(profile.meditation_streak)||0;
-    const streak = Number(profile.meditation_streak)||0;
-    const next = rewards.find(r => streak < Number(r.days_required));
-    const taskCard = document.getElementById("currentTaskCard");
-    if(next){
-      const target = Number(next.days_required)||0;
-      const left = Math.max(0,target-streak);
-      const percent = target ? Math.min(100,Math.round((streak/target)*100)) : 0;
-      taskCard.innerHTML = `<div class="task-title">${escapeHtml(next.title)}</div><p class="task-desc">Zadanie: medytuj ${target} dni z rzędu. Masz już <b>${streak}</b>. Brakuje Ci <b>${left}</b> ${left===1?'dnia':'dni'}.</p><div class="task-bar"><div class="task-bar-fill" style="width:${percent}%"></div></div><p class="task-desc">Po wykonaniu zadania odblokujesz nagrodę niespodziankę.</p>`;
-    }else{
-      taskCard.innerHTML = `<div class="task-title">Wszystkie obecne zadania wykonane</div><p class="task-desc">Masz ${streak} dni z rzędu. Kolejne zadania możesz dodać w zakładce „zarządzaj”.</p><div class="task-bar"><div class="task-bar-fill" style="width:100%"></div></div>`;
-    }
-    const surprise = document.getElementById("rewardSurprise");
-    if(newReward){
-      surprise.classList.add("visible");
-      surprise.innerHTML = `<strong>Nagroda odblokowana: ${escapeHtml(newReward.title)}</strong><br>${escapeHtml(newReward.reward_text)}`;
-    }else{
-      surprise.classList.remove("visible");
-      surprise.innerHTML = "";
-    }
-    const list = document.getElementById("rewardList");
-    list.innerHTML = rewards.map(r=>{
-      const achieved = streak >= Number(r.days_required);
-      return `<div class="reward-card ${achieved?'':'locked'}"><strong>${achieved?'Odblokowano':'Zablokowane'}: ${escapeHtml(r.title)} · ${Number(r.days_required)||0} dni</strong>${achieved ? escapeHtml(r.reward_text) : 'Nagroda pokaże się po wykonaniu zadania.'}</div>`;
-    }).join("");
-  }
+  async function recordMeditationDay(){
+    const today = localDateString();
+    const yesterday = yesterdayString();
+    const lastDate = profile.meditation_last_date;
+    const oldStreak = Number(profile.meditation_streak || 0);
 
-  async function init(){
-    await loadProfile();
-    if(!profile.lesson8_completed){
-      tool.classList.remove("visible");
+    if(lastDate === today){
+      statusBox.textContent = "Dzisiejsza medytacja była już zapisana. Licznik pozostaje bez zmian.";
+      renderProgress();
       return;
     }
+
+    if(lastDate === yesterday){
+      profile.meditation_streak = oldStreak + 1;
+    }else{
+      profile.meditation_streak = 1;
+    }
+
+    profile.meditation_last_date = today;
+    profile.meditation_total_count = Number(profile.meditation_total_count || 0) + 1;
+    await saveProfile();
+
+    const newStreak = Number(profile.meditation_streak || 0);
+    const unlocked = rewards.find(r => Number(r.days_required) === newStreak) || rewards.filter(r => Number(r.days_required) <= newStreak).pop();
+
+    statusBox.textContent = `Zapisano dzień praktyki. Aktualny licznik: ${newStreak} dni z rzędu.`;
+    renderProgress();
+
+    if(unlocked && Number(unlocked.days_required) <= newStreak){
+      rewardTitle.textContent = unlocked.title || "Nagroda";
+      rewardText.innerHTML = escapeHtml(unlocked.reward_text || "").replace(/\n/g,"<br>");
+      rewardBox.classList.add("show");
+    }
+  }
+
+  async function initSzczelinkaTool(){
+    await loadProfile();
     await loadRewards();
-    loadSequenceLocal();
-    tool.classList.add("visible");
+
+    if(!profile.lesson8_completed && localStorage.getItem("lesson8_completed") === "yes"){
+      profile.lesson8_completed = true;
+      profile.lesson8_completed_at = localStorage.getItem("lesson8_completed_at") || new Date().toISOString();
+      await saveProfile();
+    }
+
+    if(!profile.lesson8_completed){
+      tool.classList.add("hidden");
+      return;
+    }
+
+    tool.classList.remove("hidden");
+    accessNote.textContent = "Masz dostęp do narzędzia, ponieważ ukończyłeś/aś Lekcję 8.";
+    renderProgress();
     bindSequence();
     updateSequenceUI();
-    renderProgress();
   }
-  init();
-})();
+
+  initSzczelinkaTool();
 </script>
 
 </body>
