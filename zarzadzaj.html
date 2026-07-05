@@ -2,972 +2,245 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Szczelinka - panel zarządzania</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zarządzaj | Szczelinka</title>
+
   <style>
-    body {
-      font-family: Georgia, serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 0;
-      color: #111;
-    }
-
-    .container {
-      max-width: 1520px;
-      margin: 0 auto;
-      padding: 30px 20px 60px 20px;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 14px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-
-    h1, h2, h3 {
-      margin-top: 0;
-    }
-
-    input[type="email"],
-    input[type="password"],
-    input[type="text"] {
-      width: 100%;
-      max-width: 460px;
-      padding: 12px;
-      margin: 8px 0;
-      font-size: 16px;
-      box-sizing: border-box;
-      border: 1px solid #cfcfcf;
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    button {
-      padding: 10px 16px;
-      font-size: 15px;
-      cursor: pointer;
-      margin-top: 8px;
-      border: 1px solid #999;
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    button:hover {
-      background: #f7f7f7;
-    }
-
-    .small-btn {
-      padding: 7px 10px;
-      font-size: 13px;
-      margin-top: 0;
-    }
-
-    .danger-btn {
-      background: #fff5f5;
-      border-color: #e0b6b6;
-      color: #8e1b1b;
-    }
-
-    .danger-btn:hover {
-      background: #ffe8e8;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .toolbar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .message {
-      margin-top: 12px;
-      min-height: 24px;
-      white-space: pre-line;
-    }
-
-    .muted {
-      color: #666;
-      font-size: 14px;
-    }
-
-    .ok {
-      color: #1c6b2a;
-      font-weight: bold;
-    }
-
-    .warning {
-      color: #b00020;
-      font-weight: bold;
-    }
-
-    .summary-boxes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    .summary-item {
-      background: #fafafa;
-      border: 1px solid #e3e3e3;
-      border-radius: 10px;
-      padding: 16px;
-    }
-
-    .summary-label {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 6px;
-    }
-
-    .summary-value {
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .add-user-box {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px 18px;
-      align-items: end;
-    }
-
-    .inline-note {
-      font-size: 12px;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    .table-scroll {
-      margin-top: 16px;
-      border: 1px solid #d9d9d9;
-      border-radius: 10px;
-      overflow: auto;
-      max-height: 72vh;
-      background: #fff;
-    }
-
-    table {
-      border-collapse: separate;
-      border-spacing: 0;
-      width: 100%;
-      min-width: 1850px;
-      background: #fff;
-    }
-
-    th, td {
-      border-right: 1px solid #d9d9d9;
-      border-bottom: 1px solid #d9d9d9;
-      padding: 10px 8px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 13px;
-      white-space: nowrap;
-      background: #fff;
-    }
-
-    thead th {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      background: #f1f1f1;
-    }
-
-    th.login-col,
-    td.login-col {
-      position: sticky;
-      left: 0;
-      z-index: 4;
-      background: #fff;
-      text-align: left;
-      min-width: 180px;
-      max-width: 220px;
-    }
-
-    thead th.login-col {
-      z-index: 6;
-      background: #ececec;
-    }
-
-    th.sticky-second,
-    td.sticky-second {
-      position: sticky;
-      left: 180px;
-      z-index: 4;
-      background: #fff;
-      min-width: 120px;
-    }
-
-    thead th.sticky-second {
-      z-index: 6;
-      background: #ececec;
-    }
-
-    .lesson-head {
-      min-width: 150px;
-    }
-
-    .lesson-cell {
-      min-width: 150px;
-      line-height: 1.35;
-    }
-
-    .lesson-count {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .lesson-last {
-      font-size: 12px;
-      color: #666;
-      display: block;
-    }
-
-    .actions-col {
-      min-width: 110px;
-    }
-
-    .subscribers-wrap {
-      margin-top: 16px;
-    }
-
-    @media (max-width: 900px) {
-      .table-scroll {
-        max-height: 65vh;
-      }
-    }
+    :root{--bg:#ffffff;--text:#000000;--line:#000000;--soft:#f5f5f5;--blue:#3aa7d6;--green:#3bb273;--gold:#d8a85e;--red:#d96f5f}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:"Times New Roman",Georgia,serif}
+    .page{max-width:1180px;margin:0 auto;padding:36px 20px 70px}
+    h1{margin:0 0 28px;font-size:2rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase}
+    h2,h3{font-weight:400}
+    .layout{display:grid;grid-template-columns:420px 1fr;gap:28px;margin-bottom:30px}
+    .panel{border:1.5px solid #000;padding:22px;background:#fff;margin-bottom:24px}
+    .panel-title{margin:0 0 18px;font-size:1.05rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+    .field{margin-bottom:14px}
+    .field label{display:block;margin-bottom:7px;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
+    .field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid #000;background:#fff;color:#000;font-size:1rem;font-family:inherit}
+    .field textarea{min-height:110px;resize:vertical;line-height:1.5}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    button{border:1px solid #000;background:#000;color:#fff;padding:10px 14px;cursor:pointer;font-size:.92rem;font-family:inherit;letter-spacing:.06em;text-transform:uppercase}
+    button:hover{background:#fff;color:#000}
+    button.secondary{background:#fff;color:#000}
+    button.secondary:hover{background:#000;color:#fff}
+    button.blue{border-color:var(--blue);background:var(--blue);color:#fff}
+    button.blue:hover{background:#fff;color:var(--blue)}
+    button.green{border-color:var(--green);background:var(--green);color:#fff}
+    button.green:hover{background:#fff;color:var(--green)}
+    button.red{border-color:var(--red);background:var(--red);color:#fff}
+    button.red:hover{background:#fff;color:var(--red)}
+    .items{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+    .item{border:1px solid #000;padding:14px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+    .item strong{display:block;font-size:1rem;margin-bottom:4px}.item span{font-size:.94rem;word-break:break-all}.item-actions{display:flex;flex-wrap:wrap;gap:8px}.item-actions button{padding:8px 10px;font-size:.78rem}
+    .preview{border:1.5px solid #000;background:#fff;margin-bottom:22px}.preview-header{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 20px;border-bottom:2px solid #000}.preview-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#000;flex-shrink:0}.preview-brand img{height:52px;width:auto;display:block}.preview-menu{display:flex;gap:20px;flex-wrap:wrap;align-items:center}.preview-menu a{color:#000;text-decoration:none;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;position:relative;padding-bottom:6px}.preview-menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:#000}.preview-menu a.active::after{width:100%}.preview-body{padding:24px 20px;color:#333;line-height:1.8}
+    .code-label{margin:0 0 10px;font-size:1rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase}textarea.code{width:100%;min-height:320px;border:1px solid #000;padding:14px;resize:vertical;background:#fff;color:#000;font-family:Consolas,Monaco,monospace;font-size:.9rem;line-height:1.6}
+    .note{margin-top:12px;padding:12px 14px;border-left:3px solid #000;background:var(--soft);font-size:.95rem;line-height:1.7}
+    .section-title{margin:42px 0 18px;font-size:1.55rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;border-bottom:1.5px solid #000;padding-bottom:12px}
+    .wide-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+    .status{padding:12px 14px;background:#f5faff;border-left:4px solid var(--blue);font-size:.95rem;line-height:1.6;margin-bottom:16px}
+    .table-wrap{overflow-x:auto;border:1px solid #000;background:#fff}.data-table{width:100%;border-collapse:collapse;min-width:760px}.data-table th,.data-table td{border-bottom:1px solid #000;padding:10px;text-align:left;vertical-align:top;font-size:.92rem}.data-table th{background:#f5f5f5;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}.data-table tr:last-child td{border-bottom:none}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#f5f5f5;border:1px solid #000;font-size:.8rem}.pill.ok{border-color:var(--green);color:var(--green)}.pill.no{border-color:#777;color:#777}.small-actions{display:flex;gap:6px;flex-wrap:wrap}.small-actions button{font-size:.72rem;padding:7px 9px}.reward-item{border:1px solid #000;padding:16px;margin-bottom:12px;background:#fff}.reward-meta{color:#555;line-height:1.6;margin:8px 0 0}.reward-text{background:#fff8e9;border-left:3px solid var(--gold);padding:10px 12px;margin-top:10px;line-height:1.6}.muted{color:#666}.two-fields{display:grid;grid-template-columns:1fr 140px;gap:12px}.topline{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+    @media(max-width:960px){.layout,.wide-grid{grid-template-columns:1fr}}
+    @media(max-width:760px){.preview-header{flex-direction:column;align-items:flex-start;padding-top:14px;padding-bottom:14px}.item{grid-template-columns:1fr}.two-fields{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Panel zarządzania</h1>
+  <div class="page">
+    <h1>Zarządzaj</h1>
 
-    <div id="loginSection" class="card">
-      <h2>Logowanie admina</h2>
+    <div class="layout">
+      <section class="panel">
+        <h2 class="panel-title">Dodaj lub edytuj pozycję menu</h2>
+        <div class="field"><label for="labelInput">Nazwa</label><input id="labelInput" type="text" placeholder="np. REIKI" /></div>
+        <div class="field"><label for="urlInput">Link</label><input id="urlInput" type="text" placeholder="np. reiki.html" /></div>
+        <div class="actions">
+          <button id="saveItemBtn">Dodaj pozycję</button>
+          <button id="cancelEditBtn" class="secondary" style="display:none;">Anuluj edycję</button>
+          <button id="resetBtn" class="secondary">Przywróć startowe</button>
+          <button id="clearBtn" class="secondary">Wyczyść wszystko</button>
+        </div>
+        <div class="items" id="itemsList"></div>
+      </section>
 
-      <input id="email" type="email" placeholder="email admina" />
-      <br>
-
-      <input id="password" type="password" placeholder="hasło" />
-      <br>
-
-      <button onclick="login()">Zaloguj</button>
-
-      <p id="msg" class="message"></p>
+      <section>
+        <div class="preview">
+          <div class="preview-header">
+            <a href="#" class="preview-brand"><img src="reiki.png" alt="Reiki" onerror="this.style.display='none'"><img src="napis.png" alt="Reiki Usui Shiki Ryoho" onerror="this.style.display='none'"></a>
+            <nav class="preview-menu" id="previewMenu"></nav>
+          </div>
+          <div class="preview-body">Podgląd pokazuje, jak menu będzie wyglądało po prawej stronie nagłówka.</div>
+        </div>
+        <div class="panel">
+          <h2 class="code-label">Kod do menu.js</h2>
+          <textarea id="codeOutput" class="code" readonly></textarea>
+          <div class="actions"><button id="copyBtn">Kopiuj kod</button><button id="saveLocalBtn" class="secondary">Zapisz ustawienie lokalnie</button></div>
+          <div class="note">Ta część zachowuje dotychczasowe narzędzie do budowy menu. Poniżej dodałem zarządzanie postępami i nagrodami Szczelinki.</div>
+        </div>
+      </section>
     </div>
 
-    <div id="adminSection" class="hidden">
-      <div class="card">
-        <div class="topbar">
-          <div>
-            <h2 style="margin-bottom: 6px;">Zalogowano poprawnie</h2>
-            <div class="muted">Zarządzanie dostępami do lekcji 3–8, statystyki oraz zapisy na zajęcia.</div>
-          </div>
-          <button onclick="logout()">Wyloguj</button>
+    <h2 class="section-title">Postępy Szczelinki</h2>
+    <div class="wide-grid">
+      <section class="panel">
+        <div class="topline">
+          <h2 class="panel-title">Użytkownicy i serie medytacji</h2>
+          <div class="actions" style="margin-top:0"><button id="refreshProfilesBtn" class="blue">Odśwież</button><button id="markMeCompletedBtn" class="secondary">Oznacz mnie: Lekcja 8 ukończona</button></div>
         </div>
+        <div class="status" id="profilesStatus">Ładowanie danych...</div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>Użytkownik</th><th>Lekcja 8</th><th>Dni z rzędu</th><th>Ostatni dzień</th><th>Łącznie</th><th>Akcje</th></tr></thead><tbody id="profilesTableBody"></tbody></table></div>
+        <div class="note">Jeżeli wkleisz dane Supabase w kodzie, tabela pokaże profile zapisane w bazie. Bez Supabase działa lokalnie dla tej przeglądarki.</div>
+      </section>
 
-        <div class="summary-boxes">
-          <div class="summary-item">
-            <div class="summary-label">Łączna liczba zdarzeń</div>
-            <div class="summary-value" id="summaryEvents">-</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Liczba loginów</div>
-            <div class="summary-value" id="summaryLogins">-</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Podejrzane loginy</div>
-            <div class="summary-value" id="summaryWarnings">-</div>
-          </div>
-          <div class="summary-item">
-            <div class="summary-label">Zapisy na powiadomienia</div>
-            <div class="summary-value" id="summarySubscribers">-</div>
-          </div>
+      <section class="panel">
+        <h2 class="panel-title">Dodaj lub edytuj zadanie i nagrodę</h2>
+        <input id="rewardIdInput" type="hidden" />
+        <div class="two-fields">
+          <div class="field"><label for="rewardTitleInput">Nazwa zadania</label><input id="rewardTitleInput" type="text" placeholder="np. Zadanie 3" /></div>
+          <div class="field"><label for="rewardDaysInput">Dni z rzędu</label><input id="rewardDaysInput" type="number" min="1" step="1" placeholder="14" /></div>
         </div>
-      </div>
-
-      <div class="card">
-        <h2>Dodaj nowy login</h2>
-
-        <div class="add-user-box">
-          <div>
-            <input id="newLogin" type="text" placeholder="Login" />
-          </div>
-          <div>
-            <input id="newPassword" type="text" placeholder="Hasło" />
-          </div>
-          <div>
-            <button onclick="createLogin()">Utwórz login</button>
-          </div>
-        </div>
-
-        <div class="inline-note">
-          Nowy login dostaje od razu rekordy dla lekcji 3–8, ale wszystkie bez dostępu. Dostęp włączasz checkboxami w tabeli.
-        </div>
-
-        <p id="createMsg" class="message"></p>
-      </div>
-
-      <div class="card">
-        <div class="topbar">
-          <div>
-            <h2 style="margin-bottom: 6px;">Loginy i uprawnienia</h2>
-            <div class="muted">Nagłówek tabeli jest przyklejony. Tabelę można przewijać w dół i w bok.</div>
-          </div>
-          <div class="toolbar">
-            <button onclick="refreshAll()">Odśwież wszystko</button>
-          </div>
-        </div>
-
-        <div id="credentialsTableWrap" class="table-scroll">
-          <div style="padding:16px;">Ładowanie...</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="topbar">
-          <div>
-            <h2 style="margin-bottom: 6px;">Zapisy na warsztaty i odosobnienia</h2>
-            <div class="muted">Adresy mailowe zebrane z zakładki „Zajęcia”.</div>
-          </div>
-          <button onclick="loadSubscribers()">Odśwież zapisy</button>
-        </div>
-
-        <div id="subscribersBox" class="subscribers-wrap"></div>
-      </div>
+        <div class="field"><label for="rewardTextInput">Treść nagrody</label><textarea id="rewardTextInput" placeholder="Tekst, który użytkownik zobaczy po wykonaniu zadania"></textarea></div>
+        <div class="actions"><button id="saveRewardBtn" class="green">Zapisz nagrodę</button><button id="cancelRewardEditBtn" class="secondary" style="display:none;">Anuluj edycję</button><button id="seedRewardsBtn" class="secondary">Przywróć 2 startowe zadania</button></div>
+        <div class="status" id="rewardsStatus">Zadania są widoczne w narzędziu na stronie Lekcje.</div>
+        <div id="rewardsList" class="items"></div>
+      </section>
     </div>
+
+    <h2 class="section-title">SQL do Supabase</h2>
+    <section class="panel">
+      <h2 class="panel-title">Tabele potrzebne do działania</h2>
+      <textarea id="sqlOutput" class="code" readonly></textarea>
+      <div class="actions"><button id="copySqlBtn">Kopiuj SQL</button></div>
+      <div class="note">Ten SQL tworzy tabelę profili użytkowników i tabelę z edytowalnymi zadaniami/nagrodami. Jeżeli masz już własne reguły RLS, dostosuj polityki do sposobu logowania.</div>
+    </section>
   </div>
 
-  <script type="module">
-    import { supabase } from './supabase-client.js'
-
-    const loginSection = document.getElementById('loginSection')
-    const adminSection = document.getElementById('adminSection')
-    const msg = document.getElementById('msg')
-    const createMsg = document.getElementById('createMsg')
-    const credentialsTableWrap = document.getElementById('credentialsTableWrap')
-    const subscribersBox = document.getElementById('subscribersBox')
-
-    const TARGET_LESSON_NUMBERS = [3, 4, 5, 6, 7, 8]
-
-    let lessonsMapByNumber = {}
-    let lessonNumberById = {}
-
-    function escapeHtml(value) {
-      return String(value ?? '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;')
-    }
-
-    function formatDateTime(value) {
-      if (!value) return '-'
-      try {
-        return new Date(value).toLocaleString('pl-PL')
-      } catch {
-        return '-'
-      }
-    }
-
-    function extractLessonNumber(row) {
-      if (!row || typeof row !== 'object') return null
-
-      const directCandidates = [
-        row.lesson_no,
-        row.lesson_number,
-        row.number
-      ]
-
-      for (const val of directCandidates) {
-        const num = Number(val)
-        if (TARGET_LESSON_NUMBERS.includes(num)) {
-          return num
-        }
-      }
-
-      const textCandidates = [
-        row.slug,
-        row.code,
-        row.title,
-        row.name,
-        row.label
-      ].filter(Boolean)
-
-      for (const value of textCandidates) {
-        const str = String(value).toLowerCase().trim()
-
-        for (const n of TARGET_LESSON_NUMBERS) {
-          const patterns = [
-            `lekcja ${n}`,
-            `lekcja-${n}`,
-            `lekcja_${n}`,
-            `lekcja${n}`,
-            `lesson ${n}`,
-            `lesson-${n}`,
-            `lesson_${n}`,
-            `lesson${n}`
-          ]
-
-          if (patterns.some(p => str === p || str.includes(p))) {
-            return n
-          }
-        }
-      }
-
-      return null
-    }
-
-    async function loadLessonsMap() {
-      const { data, error } = await supabase
-        .from('lessons')
-        .select('*')
-
-      if (error) {
-        throw new Error('Nie udało się pobrać tabeli lessons: ' + error.message)
-      }
-
-      lessonsMapByNumber = {}
-      lessonNumberById = {}
-
-      for (const row of data || []) {
-        const lessonNumber = extractLessonNumber(row)
-        if (!lessonNumber) continue
-
-        lessonsMapByNumber[lessonNumber] = {
-          id: row.id,
-          number: lessonNumber,
-          raw: row
-        }
-
-        lessonNumberById[row.id] = lessonNumber
-      }
-
-      const missing = TARGET_LESSON_NUMBERS.filter(n => !lessonsMapByNumber[n])
-      if (missing.length) {
-        throw new Error(
-          'Nie udało się rozpoznać lekcji: ' + missing.join(', ') +
-          '. Sprawdź dane w tabeli lessons.'
-        )
-      }
-    }
-
-    async function checkSession() {
-      const { data, error } = await supabase.auth.getSession()
-
-      if (error) {
-        msg.innerText = 'Błąd sesji: ' + error.message
-        loginSection.classList.remove('hidden')
-        adminSection.classList.add('hidden')
-        return
-      }
-
-      if (data.session) {
-        loginSection.classList.add('hidden')
-        adminSection.classList.remove('hidden')
-        await refreshAll()
-      } else {
-        loginSection.classList.remove('hidden')
-        adminSection.classList.add('hidden')
-      }
-    }
-
-    window.login = async function () {
-      const email = document.getElementById('email').value.trim()
-      const password = document.getElementById('password').value
-
-      msg.innerText = ''
-
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      })
-
-      if (error) {
-        msg.innerText = 'Błąd logowania: ' + error.message
-      } else {
-        msg.innerText = 'Zalogowano poprawnie'
-        await checkSession()
-      }
-    }
-
-    window.logout = async function () {
-      const { error } = await supabase.auth.signOut()
-
-      if (error) {
-        alert('Błąd wylogowania: ' + error.message)
-      }
-
-      await checkSession()
-    }
-
-    async function getOrCreateAccountId(login) {
-      const { data: existing, error: existingError } = await supabase
-        .from('access_accounts')
-        .select('id')
-        .eq('display_name', login)
-        .limit(1)
-
-      if (existingError) {
-        throw new Error('Błąd sprawdzania access_accounts: ' + existingError.message)
-      }
-
-      if (existing && existing.length > 0) {
-        return existing[0].id
-      }
-
-      const { data: inserted, error: insertError } = await supabase
-        .from('access_accounts')
-        .insert([{ display_name: login }])
-        .select('id')
-        .limit(1)
-
-      if (insertError) {
-        throw new Error('Błąd tworzenia access_accounts: ' + insertError.message)
-      }
-
-      if (!inserted || inserted.length === 0) {
-        throw new Error('Nie udało się utworzyć access_accounts.')
-      }
-
-      return inserted[0].id
-    }
-
-    window.createLogin = async function () {
-      const login = document.getElementById('newLogin').value.trim()
-      const password = document.getElementById('newPassword').value.trim()
-
-      createMsg.innerText = ''
-
-      if (!login || !password) {
-        createMsg.innerText = 'Podaj login i hasło.'
-        return
-      }
-
-      try {
-        await loadLessonsMap()
-
-        const { data: existingCreds, error: existingCredsError } = await supabase
-          .from('lesson_credentials')
-          .select('id')
-          .eq('login', login)
-          .limit(1)
-
-        if (existingCredsError) {
-          throw new Error('Błąd sprawdzania loginu: ' + existingCredsError.message)
-        }
-
-        if (existingCreds && existingCreds.length > 0) {
-          createMsg.innerText = 'Taki login już istnieje.'
-          return
-        }
-
-        const accountId = await getOrCreateAccountId(login)
-
-        const rowsToInsert = TARGET_LESSON_NUMBERS.map(lessonNumber => ({
-          account_id: accountId,
-          lesson_id: lessonsMapByNumber[lessonNumber].id,
-          login: login,
-          password_plain: password,
-          is_active: false
-        }))
-
-        const { error: insertError } = await supabase
-          .from('lesson_credentials')
-          .insert(rowsToInsert)
-
-        if (insertError) {
-          throw new Error('Błąd tworzenia loginu: ' + insertError.message)
-        }
-
-        document.getElementById('newLogin').value = ''
-        document.getElementById('newPassword').value = ''
-        createMsg.innerText = 'Login utworzony poprawnie.'
-        await loadCredentialsTable()
-      } catch (err) {
-        createMsg.innerText = err.message || 'Wystąpił błąd.'
-      }
-    }
-
-    async function buildUsersData() {
-      const { data: credentials, error: credentialsError } = await supabase
-        .from('lesson_credentials')
-        .select('id, account_id, lesson_id, login, password_plain, is_active')
-        .order('login', { ascending: true })
-
-      if (credentialsError) {
-        throw new Error('Błąd ładowania lesson_credentials: ' + credentialsError.message)
-      }
-
-      const { data: events, error: eventsError } = await supabase
-        .from('lesson_access_events')
-        .select(`
-          viewed_at,
-          user_agent,
-          lesson_id,
-          lesson_credentials (
-            login
-          )
-        `)
-
-      if (eventsError) {
-        throw new Error('Błąd ładowania lesson_access_events: ' + eventsError.message)
-      }
-
-      const users = {}
-
-      for (const cred of credentials || []) {
-        const login = cred.login
-        if (!login) continue
-
-        if (!users[login]) {
-          users[login] = {
-            login,
-            password: cred.password_plain || '',
-            accountId: cred.account_id || null,
-            totalViews: 0,
-            userAgents: new Set(),
-            perLesson: {}
-          }
-
-          for (const lessonNumber of TARGET_LESSON_NUMBERS) {
-            users[login].perLesson[lessonNumber] = {
-              count: 0,
-              lastVisit: null,
-              hasAccess: false,
-              credentialId: null
-            }
-          }
-        }
-
-        const lessonNumber = lessonNumberById[cred.lesson_id]
-        if (!lessonNumber || !users[login].perLesson[lessonNumber]) continue
-
-        users[login].perLesson[lessonNumber].hasAccess = !!cred.is_active
-        users[login].perLesson[lessonNumber].credentialId = cred.id
-      }
-
-      for (const ev of events || []) {
-        const login = ev.lesson_credentials?.login
-        if (!login || !users[login]) continue
-
-        users[login].totalViews += 1
-        if (ev.user_agent) {
-          users[login].userAgents.add(ev.user_agent)
-        }
-
-        const lessonNumber = lessonNumberById[ev.lesson_id]
-        if (!lessonNumber || !users[login].perLesson[lessonNumber]) continue
-
-        users[login].perLesson[lessonNumber].count += 1
-
-        const currentLast = users[login].perLesson[lessonNumber].lastVisit
-        if (!currentLast || new Date(ev.viewed_at) > new Date(currentLast)) {
-          users[login].perLesson[lessonNumber].lastVisit = ev.viewed_at
-        }
-      }
-
-      return users
-    }
-
-    window.toggleLessonAccess = async function (login, lessonNumber, checkboxEl) {
-      const checked = checkboxEl.checked
-      checkboxEl.disabled = true
-
-      try {
-        await loadLessonsMap()
-
-        const lessonId = lessonsMapByNumber[lessonNumber].id
-
-        const { data: row, error: rowError } = await supabase
-          .from('lesson_credentials')
-          .select('id')
-          .eq('login', login)
-          .eq('lesson_id', lessonId)
-          .limit(1)
-
-        if (rowError) {
-          throw new Error('Nie udało się pobrać rekordu uprawnienia: ' + rowError.message)
-        }
-
-        if (!row || row.length === 0) {
-          throw new Error(`Brak rekordu dla loginu "${login}" i lekcji ${lessonNumber}.`)
-        }
-
-        const { error: updateError } = await supabase
-          .from('lesson_credentials')
-          .update({ is_active: checked })
-          .eq('id', row[0].id)
-
-        if (updateError) {
-          throw new Error('Nie udało się zapisać zmian: ' + updateError.message)
-        }
-
-        await loadCredentialsTable()
-      } catch (err) {
-        checkboxEl.checked = !checked
-        alert(err.message || 'Wystąpił błąd podczas zapisu zmian.')
-      } finally {
-        checkboxEl.disabled = false
-      }
-    }
-
-    window.deleteLogin = async function (login) {
-      const confirmed = confirm(`Usunąć login "${login}"?`)
-      if (!confirmed) return
-
-      try {
-        const { data: rows, error: rowsError } = await supabase
-          .from('lesson_credentials')
-          .select('id')
-          .eq('login', login)
-
-        if (rowsError) {
-          throw new Error('Błąd pobierania rekordów loginu: ' + rowsError.message)
-        }
-
-        const ids = (rows || []).map(x => x.id)
-        if (ids.length > 0) {
-          const { error: deleteError } = await supabase
-            .from('lesson_credentials')
-            .delete()
-            .in('id', ids)
-
-          if (deleteError) {
-            throw new Error('Błąd usuwania loginu: ' + deleteError.message)
-          }
-        }
-
-        await loadCredentialsTable()
-      } catch (err) {
-        alert(err.message || 'Nie udało się usunąć loginu.')
-      }
-    }
-
-    window.loadCredentialsTable = async function () {
-      credentialsTableWrap.innerHTML = '<div style="padding:16px;">Ładowanie...</div>'
-
-      try {
-        await loadLessonsMap()
-        const users = await buildUsersData()
-        const userList = Object.values(users).sort((a, b) => a.login.localeCompare(b.login, 'pl'))
-
-        document.getElementById('summaryLogins').textContent = userList.length
-
-        let warningCount = 0
-
-        if (userList.length === 0) {
-          credentialsTableWrap.innerHTML = '<div style="padding:16px;">Brak loginów.</div>'
-          document.getElementById('summaryWarnings').textContent = '0'
-          return
-        }
-
-        let html = `
-          <table>
-            <thead>
-              <tr>
-                <th class="login-col">Login</th>
-                <th class="sticky-second">Hasło</th>
-                ${TARGET_LESSON_NUMBERS.map(no => `<th class="lesson-head">Lekcja ${no}</th>`).join('')}
-                <th>Łącznie wejść</th>
-                <th>Różne przeglądarki</th>
-                <th>Ocena</th>
-                <th class="actions-col">Akcja</th>
-              </tr>
-            </thead>
-            <tbody>
-        `
-
-        for (const user of userList) {
-          const browsersCount = user.userAgents.size
-          const status = browsersCount > 2
-            ? '<span class="warning">Uwaga</span>'
-            : '<span class="ok">OK</span>'
-
-          if (browsersCount > 2) warningCount += 1
-
-          html += `
-            <tr>
-              <td class="login-col"><strong>${escapeHtml(user.login)}</strong></td>
-              <td class="sticky-second">${escapeHtml(user.password || '-')}</td>
-          `
-
-          for (const lessonNumber of TARGET_LESSON_NUMBERS) {
-            const lesson = user.perLesson[lessonNumber]
-            const checked = lesson.hasAccess ? 'checked' : ''
-
-            html += `
-              <td class="lesson-cell">
-                <label style="display:block; margin-bottom:8px;">
-                  <input
-                    type="checkbox"
-                    ${checked}
-                    onchange="toggleLessonAccess('${escapeHtml(user.login)}', ${lessonNumber}, this)"
-                  >
-                  dostęp
-                </label>
-                <span class="lesson-count">Wejść: ${lesson.count}</span>
-                <span class="lesson-last">Ostatnio: ${escapeHtml(formatDateTime(lesson.lastVisit))}</span>
-              </td>
-            `
-          }
-
-          html += `
-              <td>${user.totalViews}</td>
-              <td>${browsersCount}</td>
-              <td>${status}</td>
-              <td>
-                <button class="small-btn danger-btn" onclick="deleteLogin('${escapeHtml(user.login)}')">Usuń</button>
-              </td>
-            </tr>
-          `
-        }
-
-        html += `
-            </tbody>
-          </table>
-        `
-
-        credentialsTableWrap.innerHTML = html
-        document.getElementById('summaryWarnings').textContent = warningCount
-      } catch (err) {
-        credentialsTableWrap.innerHTML = `<div style="padding:16px; color:#b00020;">${escapeHtml(err.message || 'Wystąpił błąd.')}</div>`
-      }
-    }
-
-    async function loadSummary() {
-      const { count, error } = await supabase
-        .from('lesson_access_events')
-        .select('*', { count: 'exact', head: true })
-
-      document.getElementById('summaryEvents').textContent = error ? '-' : (count ?? 0)
-    }
-
-    window.loadSubscribers = async function () {
-      subscribersBox.innerHTML = 'Ładowanie...'
-
-      const { data, error } = await supabase
-        .from('event_subscribers')
-        .select('id, email, is_active, source, created_at, updated_at')
-        .order('created_at', { ascending: false })
-
-      if (error) {
-        subscribersBox.innerHTML = 'Błąd ładowania zapisów: ' + error.message
-        document.getElementById('summarySubscribers').textContent = '-'
-        return
-      }
-
-      if (!data || data.length === 0) {
-        subscribersBox.innerHTML = 'Brak zapisanych adresów.'
-        document.getElementById('summarySubscribers').textContent = 0
-        return
-      }
-
-      document.getElementById('summarySubscribers').textContent = data.filter(row => row.is_active).length
-
-      let html = `
-        <div class="table-scroll" style="max-height:420px;">
-          <table style="min-width:900px;">
-            <thead>
-              <tr>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Źródło</th>
-                <th>Data zapisu</th>
-                <th>Ostatnia zmiana</th>
-                <th>Akcja</th>
-              </tr>
-            </thead>
-            <tbody>
-      `
-
-      data.forEach(row => {
-        const status = row.is_active
-          ? '<span class="ok">Aktywny</span>'
-          : '<span class="warning">Nieaktywny</span>'
-
-        const actionButton = row.is_active
-          ? `<button class="small-btn danger-btn" onclick="deactivateSubscriber('${row.id}')">Dezaktywuj</button>`
-          : `<button class="small-btn" onclick="activateSubscriber('${row.id}')">Aktywuj</button>`
-
-        html += `
-          <tr>
-            <td>${escapeHtml(row.email)}</td>
-            <td>${status}</td>
-            <td>${escapeHtml(row.source || '-')}</td>
-            <td>${escapeHtml(formatDateTime(row.created_at))}</td>
-            <td>${escapeHtml(formatDateTime(row.updated_at))}</td>
-            <td>${actionButton}</td>
-          </tr>
-        `
-      })
-
-      html += `
-            </tbody>
-          </table>
-        </div>
-      `
-      subscribersBox.innerHTML = html
-    }
-
-    window.deactivateSubscriber = async function (id) {
-      const { error } = await supabase
-        .from('event_subscribers')
-        .update({
-          is_active: false,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', id)
-
-      if (error) {
-        alert('Nie udało się dezaktywować adresu: ' + error.message)
-        return
-      }
-
-      await loadSubscribers()
-    }
-
-    window.activateSubscriber = async function (id) {
-      const { error } = await supabase
-        .from('event_subscribers')
-        .update({
-          is_active: true,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', id)
-
-      if (error) {
-        alert('Nie udało się aktywować adresu: ' + error.message)
-        return
-      }
-
-      await loadSubscribers()
-    }
-
-    window.refreshAll = async function () {
-      await loadSummary()
-      await loadCredentialsTable()
-      await loadSubscribers()
-    }
-
-    checkSession()
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function menuBuilder(){
+      const STORAGE_KEY = "reiki_menu_builder_v2";
+      const defaultItems = [{label:"START",url:"index.html"},{label:"REIKI",url:"reiki.html"},{label:"MISTRZ",url:"mistrz.html"},{label:"MATERIAŁY",url:"materialy.html"},{label:"KONTAKT",url:"kontakt.html"}];
+      let items = []; let editIndex = null;
+      const labelInput=document.getElementById("labelInput"),urlInput=document.getElementById("urlInput"),saveItemBtn=document.getElementById("saveItemBtn"),cancelEditBtn=document.getElementById("cancelEditBtn"),resetBtn=document.getElementById("resetBtn"),clearBtn=document.getElementById("clearBtn"),copyBtn=document.getElementById("copyBtn"),saveLocalBtn=document.getElementById("saveLocalBtn"),itemsList=document.getElementById("itemsList"),previewMenu=document.getElementById("previewMenu"),codeOutput=document.getElementById("codeOutput");
+      function saveToLocal(){localStorage.setItem(STORAGE_KEY,JSON.stringify(items))}
+      function loadFromLocal(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)&&parsed.length){items=parsed;return}}}catch(e){}items=[...defaultItems]}
+      function escapeHtml(str){return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
+      function generateMenuCode(){return `document.addEventListener("DOMContentLoaded", function () {
+  const menu = document.getElementById("site-menu");
+  if (!menu) return;
+
+  const items = ${JSON.stringify(items,null,2)};
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+  menu.innerHTML = items.map(item => {
+    const active = currentPage === item.url ? "active" : "";
+    return \`<a href="\${item.url}" class="\${active}">\${item.label}</a>\`;
+  }).join("");
+});`}
+      function renderPreview(){previewMenu.innerHTML=items.map((item,index)=>`<a href="${escapeHtml(item.url)}" class="${index===0?'active':''}">${escapeHtml(item.label)}</a>`).join("")}
+      function renderList(){if(!items.length){itemsList.innerHTML='<div class="note">Brak pozycji w menu.</div>';return}itemsList.innerHTML=items.map((item,index)=>`<div class="item"><div><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.url)}</span></div><div class="item-actions"><button class="secondary" onclick="moveUp(${index})">↑</button><button class="secondary" onclick="moveDown(${index})">↓</button><button class="secondary" onclick="editItem(${index})">Edytuj</button><button onclick="removeItem(${index})">Usuń</button></div></div>`).join("")}
+      function renderCode(){codeOutput.value=generateMenuCode()}
+      function renderAll(){renderList();renderPreview();renderCode();saveToLocal()}
+      function resetForm(){labelInput.value="";urlInput.value="";editIndex=null;saveItemBtn.textContent="Dodaj pozycję";cancelEditBtn.style.display="none"}
+      function validateInputs(){const label=labelInput.value.trim(),url=urlInput.value.trim();if(!label||!url){alert("Uzupełnij nazwę i link.");return null}return{label,url}}
+      saveItemBtn.addEventListener("click",()=>{const data=validateInputs();if(!data)return;if(editIndex===null)items.push(data);else items[editIndex]=data;renderAll();resetForm()});
+      cancelEditBtn.addEventListener("click",resetForm);saveLocalBtn.addEventListener("click",()=>{saveToLocal();alert("Ustawienie menu zapisane lokalnie.")});resetBtn.addEventListener("click",()=>{items=[...defaultItems];renderAll();resetForm()});clearBtn.addEventListener("click",()=>{if(!confirm("Na pewno usunąć wszystkie pozycje menu?"))return;items=[];renderAll();resetForm()});copyBtn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(codeOutput.value);alert("Kod został skopiowany.")}catch(e){alert("Nie udało się skopiować automatycznie. Skopiuj ręcznie z pola.")}});
+      window.editItem=function(index){const item=items[index];labelInput.value=item.label;urlInput.value=item.url;editIndex=index;saveItemBtn.textContent="Zapisz zmiany";cancelEditBtn.style.display="inline-block";window.scrollTo({top:0,behavior:"smooth"})};
+      window.removeItem=function(index){items.splice(index,1);renderAll();if(editIndex===index)resetForm()};window.moveUp=function(index){if(index===0)return;[items[index-1],items[index]]=[items[index],items[index-1]];renderAll()};window.moveDown=function(index){if(index===items.length-1)return;[items[index+1],items[index]]=[items[index],items[index+1]];renderAll()};
+      loadFromLocal();renderAll();resetForm();
+    })();
+
+    (function szczelinkaAdmin(){
+      const SUPABASE_URL = "";       // <- wklej URL projektu Supabase
+      const SUPABASE_ANON_KEY = "";  // <- wklej anon public key
+      const PROFILE_TABLE = "szczelinka_profiles";
+      const REWARDS_TABLE = "szczelinka_rewards";
+      const USER_KEY = "szczelinka_user_id";
+      const PROFILE_STORAGE_KEY = "szczelinka_profile_v1";
+      const LESSON8_COMPLETE_KEY = "lesson8_completed_v1";
+      const REWARDS_STORAGE_KEY = "szczelinka_rewards_v1";
+      const DEFAULT_REWARDS = [
+        {id:"zadanie-1",title:"Zadanie 1",days_required:3,reward_text:"Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.",active:true,sort_order:1},
+        {id:"zadanie-2",title:"Zadanie 2",days_required:7,reward_text:"Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.",active:true,sort_order:2}
+      ];
+      const sql = `create table if not exists public.szczelinka_profiles (
+  user_id text primary key,
+  lesson8_completed boolean not null default false,
+  lesson8_completed_at timestamptz,
+  meditation_streak integer not null default 0,
+  meditation_last_date date,
+  meditation_total_count integer not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.szczelinka_rewards (
+  id text primary key,
+  title text not null,
+  days_required integer not null check (days_required > 0),
+  reward_text text not null default '',
+  active boolean not null default true,
+  sort_order integer not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+insert into public.szczelinka_rewards (id,title,days_required,reward_text,active,sort_order)
+values
+('zadanie-1','Zadanie 1',3,'Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.',true,1),
+('zadanie-2','Zadanie 2',7,'Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.',true,2)
+on conflict (id) do nothing;
+
+alter table public.szczelinka_profiles enable row level security;
+alter table public.szczelinka_rewards enable row level security;
+
+drop policy if exists "szczelinka_profiles_select" on public.szczelinka_profiles;
+drop policy if exists "szczelinka_profiles_insert" on public.szczelinka_profiles;
+drop policy if exists "szczelinka_profiles_update" on public.szczelinka_profiles;
+drop policy if exists "szczelinka_rewards_select" on public.szczelinka_rewards;
+drop policy if exists "szczelinka_rewards_insert" on public.szczelinka_rewards;
+drop policy if exists "szczelinka_rewards_update" on public.szczelinka_rewards;
+drop policy if exists "szczelinka_rewards_delete" on public.szczelinka_rewards;
+
+create policy "szczelinka_profiles_select" on public.szczelinka_profiles for select using (true);
+create policy "szczelinka_profiles_insert" on public.szczelinka_profiles for insert with check (true);
+create policy "szczelinka_profiles_update" on public.szczelinka_profiles for update using (true) with check (true);
+create policy "szczelinka_rewards_select" on public.szczelinka_rewards for select using (true);
+create policy "szczelinka_rewards_insert" on public.szczelinka_rewards for insert with check (true);
+create policy "szczelinka_rewards_update" on public.szczelinka_rewards for update using (true) with check (true);
+create policy "szczelinka_rewards_delete" on public.szczelinka_rewards for delete using (true);`;
+      document.getElementById("sqlOutput").value = sql;
+      document.getElementById("copySqlBtn").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(sql);alert("SQL skopiowany.")}catch(e){alert("Skopiuj ręcznie z pola.")}});
+
+      let supabaseClient=null;if(window.supabase&&SUPABASE_URL&&SUPABASE_ANON_KEY){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY)}
+      function escapeHtml(str){return String(str??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
+      function getUserId(){let id=localStorage.getItem(USER_KEY);if(!id){id="user_"+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem(USER_KEY,id)}return id}
+      const currentUserId=getUserId();
+      let profiles=[];let rewards=[];let editRewardId=null;
+      const profilesStatus=document.getElementById("profilesStatus"),profilesTableBody=document.getElementById("profilesTableBody"),rewardsStatus=document.getElementById("rewardsStatus"),rewardsList=document.getElementById("rewardsList"),rewardIdInput=document.getElementById("rewardIdInput"),rewardTitleInput=document.getElementById("rewardTitleInput"),rewardDaysInput=document.getElementById("rewardDaysInput"),rewardTextInput=document.getElementById("rewardTextInput"),saveRewardBtn=document.getElementById("saveRewardBtn"),cancelRewardEditBtn=document.getElementById("cancelRewardEditBtn");
+      function getLocalProfile(){try{return JSON.parse(localStorage.getItem(PROFILE_STORAGE_KEY)||"{}")}catch(e){return{}}}
+      function setLocalProfile(p){localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(p));if(p.lesson8_completed)localStorage.setItem(LESSON8_COMPLETE_KEY,"yes")}
+      function getLocalRewards(){try{const raw=localStorage.getItem(REWARDS_STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)&&parsed.length)return parsed}}catch(e){}return DEFAULT_REWARDS.map(x=>({...x}))}
+      function setLocalRewards(list){localStorage.setItem(REWARDS_STORAGE_KEY,JSON.stringify(list))}
+      function normalizeProfile(p){return Object.assign({user_id:currentUserId,lesson8_completed:false,lesson8_completed_at:null,meditation_streak:0,meditation_last_date:null,meditation_total_count:0,updated_at:null},p||{})}
+      async function loadProfiles(){profilesStatus.textContent=supabaseClient?"Pobieram profile z Supabase...":"Tryb lokalny: pokazuję profil tej przeglądarki.";if(supabaseClient){try{const {data,error}=await supabaseClient.from(PROFILE_TABLE).select("*").order("updated_at",{ascending:false});if(error)throw error;profiles=Array.isArray(data)?data.map(normalizeProfile):[]}catch(e){profilesStatus.textContent="Nie udało się pobrać profili z Supabase. Pokazuję dane lokalne.";profiles=[normalizeProfile(getLocalProfile())]}}else{profiles=[normalizeProfile(getLocalProfile())]}renderProfiles()}
+      function renderProfiles(){if(!profiles.length){profilesTableBody.innerHTML='<tr><td colspan="6">Brak profili.</td></tr>';return}profilesTableBody.innerHTML=profiles.map((p,index)=>`<tr><td><code>${escapeHtml(p.user_id)}</code>${p.user_id===currentUserId?'<br><span class="muted">ta przeglądarka</span>':''}</td><td>${p.lesson8_completed?'<span class="pill ok">ukończona</span>':'<span class="pill no">brak</span>'}<br><span class="muted">${escapeHtml(p.lesson8_completed_at||'')}</span></td><td><strong>${Number(p.meditation_streak)||0}</strong></td><td>${escapeHtml(p.meditation_last_date||'—')}</td><td>${Number(p.meditation_total_count)||0}</td><td><div class="small-actions"><button class="green" onclick="adminMarkCompleted(${index})">Lekcja 8 OK</button><button class="secondary" onclick="adminSetStreak(${index})">Ustaw dni</button><button class="red" onclick="adminResetStreak(${index})">Reset</button></div></td></tr>`).join("");profilesStatus.textContent=supabaseClient?`Profile z Supabase: ${profiles.length}`:"Tryb lokalny: widoczny jest tylko profil tej przeglądarki."}
+      async function saveProfile(p){p.updated_at=new Date().toISOString();if(p.user_id===currentUserId)setLocalProfile(p);if(supabaseClient){try{await supabaseClient.from(PROFILE_TABLE).upsert(p,{onConflict:"user_id"})}catch(e){alert("Nie udało się zapisać profilu w Supabase.")}}await loadProfiles()}
+      window.adminMarkCompleted=async function(index){const p=normalizeProfile(profiles[index]);p.lesson8_completed=true;p.lesson8_completed_at=p.lesson8_completed_at||new Date().toISOString();await saveProfile(p)};
+      window.adminSetStreak=async function(index){const p=normalizeProfile(profiles[index]);const val=prompt("Ile dni z rzędu ustawić?",String(Number(p.meditation_streak)||0));if(val===null)return;const n=Math.max(0,parseInt(val,10)||0);p.meditation_streak=n;p.meditation_last_date=n>0?(p.meditation_last_date||new Date().toISOString().slice(0,10)):null;await saveProfile(p)};
+      window.adminResetStreak=async function(index){if(!confirm("Zresetować serię medytacji?"))return;const p=normalizeProfile(profiles[index]);p.meditation_streak=0;p.meditation_last_date=null;await saveProfile(p)};
+      document.getElementById("refreshProfilesBtn").addEventListener("click",loadProfiles);
+      document.getElementById("markMeCompletedBtn").addEventListener("click",async()=>{const p=normalizeProfile(getLocalProfile());p.user_id=currentUserId;p.lesson8_completed=true;p.lesson8_completed_at=p.lesson8_completed_at||new Date().toISOString();await saveProfile(p)});
+
+      async function loadRewards(){rewardsStatus.textContent=supabaseClient?"Pobieram zadania z Supabase...":"Tryb lokalny: zadania są zapisane w tej przeglądarce.";rewards=getLocalRewards();if(supabaseClient){try{const {data,error}=await supabaseClient.from(REWARDS_TABLE).select("*").order("sort_order",{ascending:true}).order("days_required",{ascending:true});if(error)throw error;if(Array.isArray(data)&&data.length)rewards=data}catch(e){rewardsStatus.textContent="Nie udało się pobrać z Supabase. Pokazuję lokalne zadania."}}rewards=rewards.sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0)||(Number(a.days_required)||0)-(Number(b.days_required)||0));setLocalRewards(rewards);renderRewards()}
+      function renderRewards(){if(!rewards.length){rewardsList.innerHTML='<div class="note">Brak zadań.</div>';return}rewardsList.innerHTML=rewards.map((r,index)=>`<div class="reward-item"><div class="topline"><div><strong>${escapeHtml(r.title)}</strong><div class="reward-meta">${Number(r.days_required)||0} dni z rzędu · ${r.active===false?'nieaktywne':'aktywne'} · kolejność ${Number(r.sort_order)||index+1}</div></div><div class="small-actions"><button class="secondary" onclick="adminMoveReward(${index},-1)">↑</button><button class="secondary" onclick="adminMoveReward(${index},1)">↓</button><button class="secondary" onclick="adminEditReward(${index})">Edytuj</button><button class="red" onclick="adminDeleteReward(${index})">Usuń</button></div></div><div class="reward-text">${escapeHtml(r.reward_text)}</div></div>`).join("");rewardsStatus.textContent=supabaseClient?`Zadania z Supabase: ${rewards.length}`:"Tryb lokalny: zadania są zapisane w tej przeglądarce."}
+      function resetRewardForm(){editRewardId=null;rewardIdInput.value="";rewardTitleInput.value="";rewardDaysInput.value="";rewardTextInput.value="";saveRewardBtn.textContent="Zapisz nagrodę";cancelRewardEditBtn.style.display="none"}
+      async function persistRewards(){rewards.forEach((r,i)=>{r.sort_order=i+1;r.updated_at=new Date().toISOString()});setLocalRewards(rewards);if(supabaseClient){try{await supabaseClient.from(REWARDS_TABLE).upsert(rewards,{onConflict:"id"})}catch(e){alert("Nie udało się zapisać zadań w Supabase.")}}renderRewards()}
+      saveRewardBtn.addEventListener("click",async()=>{const title=rewardTitleInput.value.trim(),days=parseInt(rewardDaysInput.value,10),text=rewardTextInput.value.trim();if(!title||!days||days<1||!text){alert("Uzupełnij nazwę, liczbę dni i treść nagrody.");return}if(editRewardId){const idx=rewards.findIndex(r=>r.id===editRewardId);if(idx>=0)rewards[idx]=Object.assign({},rewards[idx],{title,days_required:days,reward_text:text,active:true})}else{const id=(crypto&&crypto.randomUUID)?crypto.randomUUID():"reward_"+Date.now();rewards.push({id,title,days_required:days,reward_text:text,active:true,sort_order:rewards.length+1})}await persistRewards();resetRewardForm()});
+      cancelRewardEditBtn.addEventListener("click",resetRewardForm);
+      document.getElementById("seedRewardsBtn").addEventListener("click",async()=>{if(!confirm("Przywrócić dwa startowe zadania? Obecna lista lokalna zostanie zastąpiona."))return;rewards=DEFAULT_REWARDS.map(x=>({...x}));await persistRewards();resetRewardForm()});
+      window.adminEditReward=function(index){const r=rewards[index];editRewardId=r.id;rewardIdInput.value=r.id;rewardTitleInput.value=r.title;rewardDaysInput.value=r.days_required;rewardTextInput.value=r.reward_text;saveRewardBtn.textContent="Zapisz zmiany";cancelRewardEditBtn.style.display="inline-block";rewardTitleInput.scrollIntoView({behavior:"smooth",block:"center"})};
+      window.adminDeleteReward=async function(index){const r=rewards[index];if(!confirm("Usunąć zadanie?"))return;rewards.splice(index,1);setLocalRewards(rewards);if(supabaseClient){try{await supabaseClient.from(REWARDS_TABLE).delete().eq("id",r.id)}catch(e){alert("Nie udało się usunąć z Supabase.")}}await persistRewards()};
+      window.adminMoveReward=async function(index,dir){const ni=index+dir;if(ni<0||ni>=rewards.length)return;[rewards[index],rewards[ni]]=[rewards[ni],rewards[index]];await persistRewards()};
+      loadProfiles();loadRewards();resetRewardForm();
+    })();
   </script>
 </body>
 </html>
