@@ -198,6 +198,185 @@ margin-left:auto;
 margin-right:auto;
 }
 
+
+
+/* === Narzędzie Szczelinki po Lekcji 8 === */
+.graduate-tool{
+  display:none;
+  margin:0 0 92px 0;
+  padding:42px;
+  border-radius:34px;
+  background:linear-gradient(135deg,#f5faff 0%,#ffffff 52%,#f7fbf8 100%);
+  border:1px solid rgba(58,167,214,.22);
+  box-shadow:0 16px 46px rgba(58,167,214,.10);
+  scroll-margin-top:190px;
+}
+.graduate-tool.visible{display:block}
+.graduate-tool-header{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:32px;
+  align-items:end;
+  margin-bottom:30px;
+}
+.graduate-kicker{
+  color:#3aa7d6;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.graduate-tool h1,
+.graduate-tool h2,
+.graduate-tool h3{margin-top:0}
+.graduate-tool h1{
+  color:#111;
+  font-size:38px;
+  line-height:1.14;
+  margin-bottom:16px;
+}
+.graduate-tool-intro{
+  font-size:18px;
+  line-height:1.75;
+  margin:0;
+  color:#333;
+}
+.streak-card{
+  background:#fff;
+  border-radius:26px;
+  padding:24px;
+  border:1px solid rgba(58,167,214,.18);
+  box-shadow:0 10px 28px rgba(0,0,0,.05);
+}
+.streak-number{
+  font-size:58px;
+  line-height:1;
+  font-weight:900;
+  color:#3aa7d6;
+  letter-spacing:-.03em;
+}
+.streak-label{
+  color:#555;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-top:8px;
+}
+.tool-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:26px;
+  align-items:start;
+}
+.sequence-tool-box,
+.progress-tool-box{
+  background:#fff;
+  border-radius:28px;
+  padding:26px;
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+.sequence-tool-box h2,
+.progress-tool-box h2{
+  color:#3aa7d6;
+  font-size:27px;
+  margin-bottom:18px;
+}
+.sequence-tool-row{
+  display:grid;
+  grid-template-columns:auto 1fr auto auto;
+  gap:12px;
+  align-items:center;
+  background:#f5f5f5;
+  border-radius:20px;
+  padding:14px 16px;
+  margin-bottom:12px;
+  border:1px solid rgba(0,0,0,.05);
+}
+.sequence-tool-row.active{border-color:#3aa7d6;background:#fbfeff;box-shadow:0 8px 20px rgba(58,167,214,.10)}
+.sequence-tool-row.done{border-color:#3bb273;background:#f7fcf9}
+.sequence-tool-name{font-size:17px;font-weight:800;line-height:1.35;color:#111}
+.sequence-tool-time{font-size:28px;font-weight:900;color:#3aa7d6;min-width:96px;text-align:right;font-variant-numeric:tabular-nums}
+.tool-mini-btn{
+  border:none;
+  border-radius:13px;
+  padding:10px 13px;
+  background:#eaf6fb;
+  color:#236c88;
+  font-weight:900;
+  font-size:16px;
+  cursor:pointer;
+}
+.tool-mini-btn:hover{background:#dff2f9}
+.tool-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.tool-btn{
+  border:none;
+  border-radius:15px;
+  padding:13px 18px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+}
+.tool-btn:hover{transform:translateY(-1px)}
+.tool-btn.primary{background:#3aa7d6;color:#fff;box-shadow:0 8px 20px rgba(58,167,214,.18)}
+.tool-btn.secondary{background:#efefef;color:#222}
+.tool-btn.green{background:#3bb273;color:#fff;box-shadow:0 8px 20px rgba(59,178,115,.18)}
+.tool-status{
+  margin-top:16px;
+  color:#555;
+  font-size:15px;
+  line-height:1.6;
+  padding:14px 16px;
+  background:#f7fbf8;
+  border-radius:16px;
+}
+.task-card{
+  background:#f5faff;
+  border:1px solid rgba(58,167,214,.16);
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:18px;
+}
+.task-title{font-size:20px;font-weight:900;color:#111;margin-bottom:8px}
+.task-desc{font-size:16px;line-height:1.65;color:#333;margin:0 0 14px}
+.task-bar{height:12px;background:#e7edf0;border-radius:999px;overflow:hidden;margin:14px 0 10px}
+.task-bar-fill{height:100%;width:0;background:#3aa7d6;border-radius:999px;transition:width .3s ease}
+.reward-list{display:grid;gap:12px;margin-top:16px}
+.reward-card{
+  border-radius:18px;
+  padding:16px;
+  border:1px solid rgba(216,168,94,.25);
+  background:linear-gradient(135deg,#fff8e9,#fff);
+}
+.reward-card.locked{background:#f5f5f5;border-color:#e5e5e5;color:#777}
+.reward-card strong{display:block;margin-bottom:6px;color:#6b3f13}
+.reward-card.locked strong{color:#777}
+.reward-surprise{
+  display:none;
+  margin-top:18px;
+  border-radius:22px;
+  padding:20px;
+  background:linear-gradient(135deg,#fff8e9,#f7fbf8);
+  border:1px solid rgba(216,168,94,.35);
+  color:#6b3f13;
+  font-size:17px;
+  line-height:1.65;
+}
+.reward-surprise.visible{display:block}
+@media (max-width:980px){
+  .graduate-tool{padding:30px 22px;margin-bottom:80px}
+  .graduate-tool-header,.tool-grid{grid-template-columns:1fr}
+  .graduate-tool h1{font-size:32px}
+}
+@media (max-width:560px){
+  .sequence-tool-row{grid-template-columns:auto 1fr auto}
+  .sequence-tool-time{grid-column:1 / -1;text-align:center}
+  .tool-btn{width:100%}
+}
+
 @media (max-width:980px){
 .topbar{
 min-height:120px;
@@ -329,6 +508,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main class="content">
 <section class="lekcje">
+
+  <!-- Narzędzie dostępne po ukończeniu Lekcji 8 -->
+  <div id="narzedzie-szczelinki" class="graduate-tool" aria-live="polite">
+    <div class="graduate-tool-header">
+      <div>
+        <div class="graduate-kicker">Dostęp po ukończeniu Lekcji 8</div>
+        <h1>Narzędzie do sekwencji Szczelinki</h1>
+        <p class="graduate-tool-intro">
+          To miejsce służy do regularnej praktyki pełnej sekwencji: liczenie, dziurki, oddychanie do brzucha i pytanie o kolejną myśl. Po wykonaniu medytacji na stronie licznik zapisze kolejny dzień z rzędu i pokaże postęp w zadaniu.
+        </p>
+      </div>
+      <div class="streak-card">
+        <div class="streak-number" id="streakDays">0</div>
+        <div class="streak-label">dni z rzędu z medytacją</div>
+      </div>
+    </div>
+
+    <div class="tool-grid">
+      <section class="sequence-tool-box">
+        <h2>Sekwencja medytacyjna</h2>
+        <div class="sequence-tool-row" id="seqToolRow0">
+          <button class="tool-mini-btn" data-seq-minus="0">−</button>
+          <div class="sequence-tool-name">Liczenie</div>
+          <button class="tool-mini-btn" data-seq-plus="0">+</button>
+          <div class="sequence-tool-time" id="seqToolTime0">02:00</div>
+        </div>
+        <div class="sequence-tool-row" id="seqToolRow1">
+          <button class="tool-mini-btn" data-seq-minus="1">−</button>
+          <div class="sequence-tool-name">Dziurki</div>
+          <button class="tool-mini-btn" data-seq-plus="1">+</button>
+          <div class="sequence-tool-time" id="seqToolTime1">02:00</div>
+        </div>
+        <div class="sequence-tool-row" id="seqToolRow2">
+          <button class="tool-mini-btn" data-seq-minus="2">−</button>
+          <div class="sequence-tool-name">Oddychanie do brzucha</div>
+          <button class="tool-mini-btn" data-seq-plus="2">+</button>
+          <div class="sequence-tool-time" id="seqToolTime2">02:00</div>
+        </div>
+        <div class="sequence-tool-row" id="seqToolRow3">
+          <button class="tool-mini-btn" data-seq-minus="3">−</button>
+          <div class="sequence-tool-name">Pytanie: Jaka będzie moja kolejna myśl?</div>
+          <button class="tool-mini-btn" data-seq-plus="3">+</button>
+          <div class="sequence-tool-time" id="seqToolTime3">19:00</div>
+        </div>
+        <div class="tool-actions">
+          <button class="tool-btn primary" id="seqToolStart">Start</button>
+          <button class="tool-btn secondary" id="seqToolPause">Pauza</button>
+          <button class="tool-btn secondary" id="seqToolReset">Reset</button>
+          <button class="tool-btn green" id="seqToolDone">Zakończ medytację</button>
+        </div>
+        <div class="tool-status" id="seqToolStatus">Domyślna sekwencja to 2;2;2;19 minut. Czas każdej części możesz dowolnie zmienić przyciskami + i −.</div>
+      </section>
+
+      <section class="progress-tool-box">
+        <h2>Licznik postępów</h2>
+        <div class="task-card" id="currentTaskCard"></div>
+        <div class="reward-surprise" id="rewardSurprise"></div>
+        <div class="reward-list" id="rewardList"></div>
+      </section>
+    </div>
+  </div>
+
 
   <div id="lekcja1" class="section-gray">
     <div class="lesson" style="margin-bottom:0">
@@ -484,6 +725,318 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </section>
 </main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  const SUPABASE_URL = "";       // <- wklej ten sam URL Supabase co w lekcjach
+  const SUPABASE_ANON_KEY = "";  // <- wklej ten sam anon public key
+  const PROFILE_TABLE = "szczelinka_profiles";
+  const REWARDS_TABLE = "szczelinka_rewards";
+  const LESSON_PROGRESS_TABLE = "lesson_progress";
+  const USER_KEY = "szczelinka_user_id";
+  const PROFILE_STORAGE_KEY = "szczelinka_profile_v1";
+  const LESSON8_COMPLETE_KEY = "lesson8_completed_v1";
+  const REWARDS_STORAGE_KEY = "szczelinka_rewards_v1";
+  const SEQUENCE_STORAGE_KEY = "szczelinka_sequence_tool_v1";
+  const DEFAULT_DURATIONS = [120,120,120,1140];
+  const DEFAULT_REWARDS = [
+    {id:"zadanie-1",title:"Zadanie 1",days_required:3,reward_text:"Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.",active:true,sort_order:1},
+    {id:"zadanie-2",title:"Zadanie 2",days_required:7,reward_text:"Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.",active:true,sort_order:2}
+  ];
+
+  const tool = document.getElementById("narzedzie-szczelinki");
+  if(!tool) return;
+
+  let supabaseClient = null;
+  if(window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY){
+    supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  }
+
+  function getUserId(){
+    let id = localStorage.getItem(USER_KEY);
+    if(!id){
+      id = "user_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem(USER_KEY,id);
+    }
+    return id;
+  }
+  const userId = getUserId();
+
+  let profile = {user_id:userId,lesson8_completed:false,lesson8_completed_at:null,meditation_streak:0,meditation_last_date:null,meditation_total_count:0};
+  let rewards = DEFAULT_REWARDS.map(x=>({...x}));
+  let sequenceState = {durations:[...DEFAULT_DURATIONS],remaining:[...DEFAULT_DURATIONS],currentIndex:0,running:false,done:false,interval:null};
+
+  function escapeHtml(str){
+    return String(str ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+  }
+  function formatTime(sec){
+    sec = Math.max(0,Number(sec)||0);
+    const m = Math.floor(sec/60), s = sec%60;
+    return String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
+  }
+  function todayLocal(){
+    const d = new Date();
+    const shifted = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+    return shifted.toISOString().slice(0,10);
+  }
+  function diffDays(a,b){
+    if(!a || !b) return null;
+    return Math.round((new Date(b+"T00:00:00") - new Date(a+"T00:00:00"))/86400000);
+  }
+  function normalizeProfile(p){
+    return Object.assign({user_id:userId,lesson8_completed:false,lesson8_completed_at:null,meditation_streak:0,meditation_last_date:null,meditation_total_count:0}, p || {});
+  }
+  function saveLocalProfile(){
+    localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(profile));
+    if(profile.lesson8_completed) localStorage.setItem(LESSON8_COMPLETE_KEY,"yes");
+  }
+  async function saveProfile(){
+    profile.updated_at = new Date().toISOString();
+    saveLocalProfile();
+    if(supabaseClient){
+      try{
+        await supabaseClient.from(PROFILE_TABLE).upsert(profile,{onConflict:"user_id"});
+      }catch(e){console.warn("Nie udało się zapisać profilu w Supabase",e)}
+    }
+  }
+  function completedFromOldLessonStorage(){
+    try{
+      const raw = localStorage.getItem("lesson8ProgressState_v1");
+      if(!raw) return false;
+      const s = JSON.parse(raw);
+      return !!(s && (s.completed === true || Number(s.currentStepIndex) >= 22));
+    }catch(e){return false;}
+  }
+  async function checkSupabaseLessonProgress(){
+    if(!supabaseClient) return false;
+    try{
+      const {data} = await supabaseClient.from(LESSON_PROGRESS_TABLE).select("state").eq("user_id",userId).eq("lesson_id","lesson8").maybeSingle();
+      const s = data && data.state;
+      return !!(s && (s.completed === true || Number(s.currentStepIndex) >= 22));
+    }catch(e){return false;}
+  }
+  async function loadProfile(){
+    try{
+      const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+      if(raw) profile = normalizeProfile(JSON.parse(raw));
+    }catch(e){}
+    if(localStorage.getItem(LESSON8_COMPLETE_KEY)==="yes" || completedFromOldLessonStorage()){
+      profile.lesson8_completed = true;
+      profile.lesson8_completed_at = profile.lesson8_completed_at || new Date().toISOString();
+    }
+    if(supabaseClient){
+      try{
+        const {data} = await supabaseClient.from(PROFILE_TABLE).select("*").eq("user_id",userId).maybeSingle();
+        if(data) profile = normalizeProfile(data);
+      }catch(e){console.warn("Nie udało się pobrać profilu z Supabase",e)}
+      if(!profile.lesson8_completed && await checkSupabaseLessonProgress()){
+        profile.lesson8_completed = true;
+        profile.lesson8_completed_at = profile.lesson8_completed_at || new Date().toISOString();
+        await saveProfile();
+      }
+    }
+    saveLocalProfile();
+  }
+  function saveLocalRewards(){localStorage.setItem(REWARDS_STORAGE_KEY,JSON.stringify(rewards));}
+  async function loadRewards(){
+    try{
+      const raw = localStorage.getItem(REWARDS_STORAGE_KEY);
+      if(raw){
+        const parsed = JSON.parse(raw);
+        if(Array.isArray(parsed) && parsed.length) rewards = parsed;
+      }
+    }catch(e){}
+    if(supabaseClient){
+      try{
+        const {data} = await supabaseClient.from(REWARDS_TABLE).select("*").eq("active",true).order("sort_order",{ascending:true}).order("days_required",{ascending:true});
+        if(Array.isArray(data) && data.length) rewards = data;
+      }catch(e){console.warn("Nie udało się pobrać nagród z Supabase",e)}
+    }
+    rewards = rewards.filter(r=>r.active !== false).sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0) || (Number(a.days_required)||0)-(Number(b.days_required)||0));
+    saveLocalRewards();
+  }
+  function saveSequenceLocal(){
+    const copy = {durations:sequenceState.durations,remaining:sequenceState.remaining,currentIndex:sequenceState.currentIndex,done:sequenceState.done};
+    localStorage.setItem(SEQUENCE_STORAGE_KEY,JSON.stringify(copy));
+  }
+  function loadSequenceLocal(){
+    try{
+      const raw = localStorage.getItem(SEQUENCE_STORAGE_KEY);
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      if(s && Array.isArray(s.durations) && s.durations.length===4){
+        sequenceState.durations = s.durations.map(x=>Math.max(60,Math.min(3600,Number(x)||120)));
+        sequenceState.remaining = Array.isArray(s.remaining) && s.remaining.length===4 ? s.remaining.map((x,i)=>Math.max(0,Math.min(3600,Number(x)||sequenceState.durations[i]))) : [...sequenceState.durations];
+        sequenceState.currentIndex = Math.max(0,Math.min(3,Number(s.currentIndex)||0));
+        sequenceState.done = !!s.done;
+      }
+    }catch(e){}
+  }
+
+  function updateSequenceUI(){
+    sequenceState.remaining.forEach((sec,i)=>{
+      const time = document.getElementById("seqToolTime"+i);
+      const row = document.getElementById("seqToolRow"+i);
+      if(time) time.textContent = formatTime(sec);
+      if(row){
+        row.classList.toggle("active",sequenceState.currentIndex===i && !sequenceState.done);
+        row.classList.toggle("done",sequenceState.done || i < sequenceState.currentIndex);
+      }
+    });
+    saveSequenceLocal();
+  }
+  function resetSequence(full){
+    if(sequenceState.interval) clearInterval(sequenceState.interval);
+    sequenceState.interval = null;
+    sequenceState.running = false;
+    sequenceState.done = false;
+    sequenceState.currentIndex = 0;
+    sequenceState.remaining = [...sequenceState.durations];
+    if(full){sequenceState.durations = [...DEFAULT_DURATIONS]; sequenceState.remaining = [...DEFAULT_DURATIONS];}
+    const status = document.getElementById("seqToolStatus");
+    if(status) status.textContent = "Sekwencja ustawiona. Naciśnij Start, gdy chcesz rozpocząć.";
+    updateSequenceUI();
+  }
+  function gong(){
+    try{ new Audio("tibetan.mp3").play().catch(()=>{}); }catch(e){}
+  }
+  async function recordMeditation(){
+    const today = todayLocal();
+    const last = profile.meditation_last_date;
+    const difference = diffDays(last,today);
+    let counted = false;
+    if(last === today){
+      counted = false;
+    }else if(difference === 1){
+      profile.meditation_streak = (Number(profile.meditation_streak)||0) + 1;
+      counted = true;
+    }else{
+      profile.meditation_streak = 1;
+      counted = true;
+    }
+    if(counted){
+      profile.meditation_last_date = today;
+      profile.meditation_total_count = (Number(profile.meditation_total_count)||0) + 1;
+    }
+    await saveProfile();
+    return counted;
+  }
+  async function completeMeditation(manual){
+    if(sequenceState.interval) clearInterval(sequenceState.interval);
+    sequenceState.interval = null;
+    sequenceState.running = false;
+    sequenceState.done = true;
+    sequenceState.remaining = [0,0,0,0];
+    updateSequenceUI();
+    const before = Number(profile.meditation_streak)||0;
+    const counted = await recordMeditation();
+    const after = Number(profile.meditation_streak)||0;
+    const status = document.getElementById("seqToolStatus");
+    if(status){
+      status.textContent = counted ? "Medytacja zaliczona. Dzisiejszy dzień został dopisany do serii." : "Medytacja wykonana. Dzisiejszy dzień był już wcześniej zaliczony, więc seria nie została naliczona drugi raz.";
+    }
+    const newlyUnlocked = rewards.filter(r => before < Number(r.days_required) && after >= Number(r.days_required));
+    renderProgress(newlyUnlocked[0]);
+  }
+  function bindSequence(){
+    document.querySelectorAll("[data-seq-minus]").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        if(sequenceState.running) return;
+        const i = Number(btn.dataset.seqMinus);
+        sequenceState.durations[i] = Math.max(60,sequenceState.durations[i]-60);
+        sequenceState.remaining[i] = sequenceState.durations[i];
+        sequenceState.done = false;
+        updateSequenceUI();
+      });
+    });
+    document.querySelectorAll("[data-seq-plus]").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        if(sequenceState.running) return;
+        const i = Number(btn.dataset.seqPlus);
+        sequenceState.durations[i] = Math.min(3600,sequenceState.durations[i]+60);
+        sequenceState.remaining[i] = sequenceState.durations[i];
+        sequenceState.done = false;
+        updateSequenceUI();
+      });
+    });
+    document.getElementById("seqToolStart").addEventListener("click",()=>{
+      if(sequenceState.running || sequenceState.done) return;
+      sequenceState.running = true;
+      const status = document.getElementById("seqToolStatus");
+      if(status) status.textContent = "Sekwencja trwa.";
+      sequenceState.interval = setInterval(()=>{
+        const i = sequenceState.currentIndex;
+        sequenceState.remaining[i] = Math.max(0,sequenceState.remaining[i]-1);
+        if(sequenceState.remaining[i] <= 0){
+          gong();
+          sequenceState.currentIndex += 1;
+          if(sequenceState.currentIndex >= sequenceState.remaining.length){
+            completeMeditation(false);
+            return;
+          }
+        }
+        updateSequenceUI();
+      },1000);
+      updateSequenceUI();
+    });
+    document.getElementById("seqToolPause").addEventListener("click",()=>{
+      if(sequenceState.interval) clearInterval(sequenceState.interval);
+      sequenceState.interval = null;
+      sequenceState.running = false;
+      const status = document.getElementById("seqToolStatus");
+      if(status) status.textContent = "Pauza. Możesz kontynuować przyciskiem Start.";
+      updateSequenceUI();
+    });
+    document.getElementById("seqToolReset").addEventListener("click",()=>resetSequence(false));
+    document.getElementById("seqToolDone").addEventListener("click",()=>completeMeditation(true));
+  }
+
+  function renderProgress(newReward){
+    document.getElementById("streakDays").textContent = Number(profile.meditation_streak)||0;
+    const streak = Number(profile.meditation_streak)||0;
+    const next = rewards.find(r => streak < Number(r.days_required));
+    const taskCard = document.getElementById("currentTaskCard");
+    if(next){
+      const target = Number(next.days_required)||0;
+      const left = Math.max(0,target-streak);
+      const percent = target ? Math.min(100,Math.round((streak/target)*100)) : 0;
+      taskCard.innerHTML = `<div class="task-title">${escapeHtml(next.title)}</div><p class="task-desc">Zadanie: medytuj ${target} dni z rzędu. Masz już <b>${streak}</b>. Brakuje Ci <b>${left}</b> ${left===1?'dnia':'dni'}.</p><div class="task-bar"><div class="task-bar-fill" style="width:${percent}%"></div></div><p class="task-desc">Po wykonaniu zadania odblokujesz nagrodę niespodziankę.</p>`;
+    }else{
+      taskCard.innerHTML = `<div class="task-title">Wszystkie obecne zadania wykonane</div><p class="task-desc">Masz ${streak} dni z rzędu. Kolejne zadania możesz dodać w zakładce „zarządzaj”.</p><div class="task-bar"><div class="task-bar-fill" style="width:100%"></div></div>`;
+    }
+    const surprise = document.getElementById("rewardSurprise");
+    if(newReward){
+      surprise.classList.add("visible");
+      surprise.innerHTML = `<strong>Nagroda odblokowana: ${escapeHtml(newReward.title)}</strong><br>${escapeHtml(newReward.reward_text)}`;
+    }else{
+      surprise.classList.remove("visible");
+      surprise.innerHTML = "";
+    }
+    const list = document.getElementById("rewardList");
+    list.innerHTML = rewards.map(r=>{
+      const achieved = streak >= Number(r.days_required);
+      return `<div class="reward-card ${achieved?'':'locked'}"><strong>${achieved?'Odblokowano':'Zablokowane'}: ${escapeHtml(r.title)} · ${Number(r.days_required)||0} dni</strong>${achieved ? escapeHtml(r.reward_text) : 'Nagroda pokaże się po wykonaniu zadania.'}</div>`;
+    }).join("");
+  }
+
+  async function init(){
+    await loadProfile();
+    if(!profile.lesson8_completed){
+      tool.classList.remove("visible");
+      return;
+    }
+    await loadRewards();
+    loadSequenceLocal();
+    tool.classList.add("visible");
+    bindSequence();
+    updateSequenceUI();
+    renderProgress();
+  }
+  init();
+})();
+</script>
 
 </body>
 </html>
