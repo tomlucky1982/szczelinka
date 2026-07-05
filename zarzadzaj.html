@@ -3,244 +3,960 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Zarządzaj | Szczelinka</title>
+  <title>Zarządzaj menu | Reiki</title>
 
   <style>
-    :root{--bg:#ffffff;--text:#000000;--line:#000000;--soft:#f5f5f5;--blue:#3aa7d6;--green:#3bb273;--gold:#d8a85e;--red:#d96f5f}
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:"Times New Roman",Georgia,serif}
-    .page{max-width:1180px;margin:0 auto;padding:36px 20px 70px}
-    h1{margin:0 0 28px;font-size:2rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase}
-    h2,h3{font-weight:400}
-    .layout{display:grid;grid-template-columns:420px 1fr;gap:28px;margin-bottom:30px}
-    .panel{border:1.5px solid #000;padding:22px;background:#fff;margin-bottom:24px}
-    .panel-title{margin:0 0 18px;font-size:1.05rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase}
-    .field{margin-bottom:14px}
-    .field label{display:block;margin-bottom:7px;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
-    .field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid #000;background:#fff;color:#000;font-size:1rem;font-family:inherit}
-    .field textarea{min-height:110px;resize:vertical;line-height:1.5}
-    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-    button{border:1px solid #000;background:#000;color:#fff;padding:10px 14px;cursor:pointer;font-size:.92rem;font-family:inherit;letter-spacing:.06em;text-transform:uppercase}
-    button:hover{background:#fff;color:#000}
-    button.secondary{background:#fff;color:#000}
-    button.secondary:hover{background:#000;color:#fff}
-    button.blue{border-color:var(--blue);background:var(--blue);color:#fff}
-    button.blue:hover{background:#fff;color:var(--blue)}
-    button.green{border-color:var(--green);background:var(--green);color:#fff}
-    button.green:hover{background:#fff;color:var(--green)}
-    button.red{border-color:var(--red);background:var(--red);color:#fff}
-    button.red:hover{background:#fff;color:var(--red)}
-    .items{margin-top:18px;display:flex;flex-direction:column;gap:12px}
-    .item{border:1px solid #000;padding:14px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
-    .item strong{display:block;font-size:1rem;margin-bottom:4px}.item span{font-size:.94rem;word-break:break-all}.item-actions{display:flex;flex-wrap:wrap;gap:8px}.item-actions button{padding:8px 10px;font-size:.78rem}
-    .preview{border:1.5px solid #000;background:#fff;margin-bottom:22px}.preview-header{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 20px;border-bottom:2px solid #000}.preview-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#000;flex-shrink:0}.preview-brand img{height:52px;width:auto;display:block}.preview-menu{display:flex;gap:20px;flex-wrap:wrap;align-items:center}.preview-menu a{color:#000;text-decoration:none;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;position:relative;padding-bottom:6px}.preview-menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:#000}.preview-menu a.active::after{width:100%}.preview-body{padding:24px 20px;color:#333;line-height:1.8}
-    .code-label{margin:0 0 10px;font-size:1rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase}textarea.code{width:100%;min-height:320px;border:1px solid #000;padding:14px;resize:vertical;background:#fff;color:#000;font-family:Consolas,Monaco,monospace;font-size:.9rem;line-height:1.6}
-    .note{margin-top:12px;padding:12px 14px;border-left:3px solid #000;background:var(--soft);font-size:.95rem;line-height:1.7}
-    .section-title{margin:42px 0 18px;font-size:1.55rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;border-bottom:1.5px solid #000;padding-bottom:12px}
-    .wide-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
-    .status{padding:12px 14px;background:#f5faff;border-left:4px solid var(--blue);font-size:.95rem;line-height:1.6;margin-bottom:16px}
-    .table-wrap{overflow-x:auto;border:1px solid #000;background:#fff}.data-table{width:100%;border-collapse:collapse;min-width:760px}.data-table th,.data-table td{border-bottom:1px solid #000;padding:10px;text-align:left;vertical-align:top;font-size:.92rem}.data-table th{background:#f5f5f5;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem}.data-table tr:last-child td{border-bottom:none}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#f5f5f5;border:1px solid #000;font-size:.8rem}.pill.ok{border-color:var(--green);color:var(--green)}.pill.no{border-color:#777;color:#777}.small-actions{display:flex;gap:6px;flex-wrap:wrap}.small-actions button{font-size:.72rem;padding:7px 9px}.reward-item{border:1px solid #000;padding:16px;margin-bottom:12px;background:#fff}.reward-meta{color:#555;line-height:1.6;margin:8px 0 0}.reward-text{background:#fff8e9;border-left:3px solid var(--gold);padding:10px 12px;margin-top:10px;line-height:1.6}.muted{color:#666}.two-fields{display:grid;grid-template-columns:1fr 140px;gap:12px}.topline{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
-    @media(max-width:960px){.layout,.wide-grid{grid-template-columns:1fr}}
-    @media(max-width:760px){.preview-header{flex-direction:column;align-items:flex-start;padding-top:14px;padding-bottom:14px}.item{grid-template-columns:1fr}.two-fields{grid-template-columns:1fr}}
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --line: #000000;
+      --soft: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Times New Roman", Georgia, serif;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 20px 60px;
+    }
+
+    h1 {
+      margin: 0 0 28px;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 28px;
+    }
+
+    .panel {
+      border: 1.5px solid #000;
+      padding: 22px;
+      background: #fff;
+    }
+
+    .panel-title {
+      margin: 0 0 18px;
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid #000;
+      background: #fff;
+      color: #000;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-family: inherit;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    button.secondary {
+      background: #fff;
+      color: #000;
+    }
+
+    button.secondary:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .items {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .item {
+      border: 1px solid #000;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .item strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .item span {
+      font-size: 0.94rem;
+      word-break: break-all;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .item-actions button {
+      padding: 8px 10px;
+      font-size: 0.78rem;
+    }
+
+    .preview {
+      border: 1.5px solid #000;
+      background: #fff;
+      margin-bottom: 22px;
+    }
+
+    .preview-header {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 20px;
+      border-bottom: 2px solid #000;
+    }
+
+    .preview-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .preview-brand img {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+
+    .preview-menu {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .preview-menu a {
+      color: #000;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 6px;
+    }
+
+    .preview-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1.5px;
+      background: #000;
+    }
+
+    .preview-menu a.active::after {
+      width: 100%;
+    }
+
+    .preview-body {
+      padding: 24px 20px;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    .code-label {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 320px;
+      border: 1px solid #000;
+      padding: 14px;
+      resize: vertical;
+      background: #fff;
+      color: #000;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-left: 3px solid #000;
+      background: var(--soft);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .preview-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+
+      .item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== DODANE: SZCZELINKA – POSTĘPY I NAGRODY ===== */
+    .szczelinka-admin {
+      margin-top: 28px;
+    }
+
+    .szczelinka-admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 28px;
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+      border: 1px solid #000;
+      margin-top: 14px;
+    }
+
+    .admin-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      font-size: 0.88rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      border-bottom: 1px solid #000;
+      border-right: 1px solid #000;
+      padding: 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .admin-table th {
+      background: #f5f5f5;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.78rem;
+    }
+
+    .admin-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .admin-table th:last-child,
+    .admin-table td:last-child {
+      border-right: 0;
+    }
+
+    .admin-table input,
+    .admin-table textarea {
+      width: 100%;
+      border: 1px solid #000;
+      padding: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+      min-height: auto;
+      line-height: 1.35;
+    }
+
+    .admin-table textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .admin-small-button {
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      margin: 2px;
+    }
+
+    .status-line {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #f5f5f5;
+      border-left: 3px solid #000;
+      font-family: Arial, sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .reward-form {
+      display: grid;
+      grid-template-columns: 1fr 120px;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .reward-form textarea {
+      grid-column: 1 / -1;
+      min-height: 110px;
+      border: 1px solid #000;
+      padding: 12px;
+      font-family: Arial, sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .reward-form input {
+      border: 1px solid #000;
+      padding: 12px;
+      font-family: Arial, sans-serif;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 960px) {
+      .szczelinka-admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 <body>
   <div class="page">
-    <h1>Zarządzaj</h1>
+    <h1>Zarządzaj menu</h1>
 
     <div class="layout">
       <section class="panel">
-        <h2 class="panel-title">Dodaj lub edytuj pozycję menu</h2>
-        <div class="field"><label for="labelInput">Nazwa</label><input id="labelInput" type="text" placeholder="np. REIKI" /></div>
-        <div class="field"><label for="urlInput">Link</label><input id="urlInput" type="text" placeholder="np. reiki.html" /></div>
+        <h2 class="panel-title">Dodaj lub edytuj pozycję</h2>
+
+        <div class="field">
+          <label for="labelInput">Nazwa</label>
+          <input id="labelInput" type="text" placeholder="np. REIKI" />
+        </div>
+
+        <div class="field">
+          <label for="urlInput">Link</label>
+          <input id="urlInput" type="text" placeholder="np. reiki.html" />
+        </div>
+
         <div class="actions">
           <button id="saveItemBtn">Dodaj pozycję</button>
           <button id="cancelEditBtn" class="secondary" style="display:none;">Anuluj edycję</button>
           <button id="resetBtn" class="secondary">Przywróć startowe</button>
           <button id="clearBtn" class="secondary">Wyczyść wszystko</button>
         </div>
+
         <div class="items" id="itemsList"></div>
       </section>
 
       <section>
         <div class="preview">
           <div class="preview-header">
-            <a href="#" class="preview-brand"><img src="reiki.png" alt="Reiki" onerror="this.style.display='none'"><img src="napis.png" alt="Reiki Usui Shiki Ryoho" onerror="this.style.display='none'"></a>
+            <a href="#" class="preview-brand">
+              <img src="reiki.png" alt="Reiki" onerror="this.style.display='none'">
+              <img src="napis.png" alt="Reiki Usui Shiki Ryoho" onerror="this.style.display='none'">
+            </a>
             <nav class="preview-menu" id="previewMenu"></nav>
           </div>
-          <div class="preview-body">Podgląd pokazuje, jak menu będzie wyglądało po prawej stronie nagłówka.</div>
+          <div class="preview-body">
+            Podgląd pokazuje, jak menu będzie wyglądało po prawej stronie nagłówka.
+          </div>
         </div>
+
         <div class="panel">
           <h2 class="code-label">Kod do menu.js</h2>
-          <textarea id="codeOutput" class="code" readonly></textarea>
-          <div class="actions"><button id="copyBtn">Kopiuj kod</button><button id="saveLocalBtn" class="secondary">Zapisz ustawienie lokalnie</button></div>
-          <div class="note">Ta część zachowuje dotychczasowe narzędzie do budowy menu. Poniżej dodałem zarządzanie postępami i nagrodami Szczelinki.</div>
+          <textarea id="codeOutput" readonly></textarea>
+
+          <div class="actions">
+            <button id="copyBtn">Kopiuj kod</button>
+            <button id="saveLocalBtn" class="secondary">Zapisz ustawienie lokalnie</button>
+          </div>
+
+          <div class="note">
+            Ta strona zapamiętuje menu w tej przeglądarce. Po wejściu ponownie zobaczysz ostatnie ustawienie.
+          </div>
         </div>
       </section>
     </div>
 
-    <h2 class="section-title">Postępy Szczelinki</h2>
-    <div class="wide-grid">
-      <section class="panel">
-        <div class="topline">
-          <h2 class="panel-title">Użytkownicy i serie medytacji</h2>
-          <div class="actions" style="margin-top:0"><button id="refreshProfilesBtn" class="blue">Odśwież</button><button id="markMeCompletedBtn" class="secondary">Oznacz mnie: Lekcja 8 ukończona</button></div>
-        </div>
-        <div class="status" id="profilesStatus">Ładowanie danych...</div>
-        <div class="table-wrap"><table class="data-table"><thead><tr><th>Użytkownik</th><th>Lekcja 8</th><th>Dni z rzędu</th><th>Ostatni dzień</th><th>Łącznie</th><th>Akcje</th></tr></thead><tbody id="profilesTableBody"></tbody></table></div>
-        <div class="note">Jeżeli wkleisz dane Supabase w kodzie, tabela pokaże profile zapisane w bazie. Bez Supabase działa lokalnie dla tej przeglądarki.</div>
-      </section>
+    <!-- DODANE: SZCZELINKA – POSTĘPY I NAGRODY -->
+    <section class="panel szczelinka-admin">
+      <h2 class="panel-title">Szczelinka — postępy i nagrody</h2>
 
-      <section class="panel">
-        <h2 class="panel-title">Dodaj lub edytuj zadanie i nagrodę</h2>
-        <input id="rewardIdInput" type="hidden" />
-        <div class="two-fields">
-          <div class="field"><label for="rewardTitleInput">Nazwa zadania</label><input id="rewardTitleInput" type="text" placeholder="np. Zadanie 3" /></div>
-          <div class="field"><label for="rewardDaysInput">Dni z rzędu</label><input id="rewardDaysInput" type="number" min="1" step="1" placeholder="14" /></div>
-        </div>
-        <div class="field"><label for="rewardTextInput">Treść nagrody</label><textarea id="rewardTextInput" placeholder="Tekst, który użytkownik zobaczy po wykonaniu zadania"></textarea></div>
-        <div class="actions"><button id="saveRewardBtn" class="green">Zapisz nagrodę</button><button id="cancelRewardEditBtn" class="secondary" style="display:none;">Anuluj edycję</button><button id="seedRewardsBtn" class="secondary">Przywróć 2 startowe zadania</button></div>
-        <div class="status" id="rewardsStatus">Zadania są widoczne w narzędziu na stronie Lekcje.</div>
-        <div id="rewardsList" class="items"></div>
-      </section>
-    </div>
+      <div class="actions">
+        <button id="refreshSzczelinkaBtn" type="button">Odśwież dane</button>
+      </div>
 
-    <h2 class="section-title">SQL do Supabase</h2>
-    <section class="panel">
-      <h2 class="panel-title">Tabele potrzebne do działania</h2>
-      <textarea id="sqlOutput" class="code" readonly></textarea>
-      <div class="actions"><button id="copySqlBtn">Kopiuj SQL</button></div>
-      <div class="note">Ten SQL tworzy tabelę profili użytkowników i tabelę z edytowalnymi zadaniami/nagrodami. Jeżeli masz już własne reguły RLS, dostosuj polityki do sposobu logowania.</div>
+      <div class="status-line" id="szczelinkaAdminStatus">Ładowanie danych z Supabase...</div>
+
+      <div class="szczelinka-admin-grid">
+        <section>
+          <h2 class="panel-title">Użytkownicy i postępy</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Użytkownik</th>
+                  <th>Lekcja 8</th>
+                  <th>Dni z rzędu</th>
+                  <th>Ostatnia medytacja</th>
+                  <th>Łącznie</th>
+                </tr>
+              </thead>
+              <tbody id="szczelinkaUsersBody">
+                <tr><td colspan="5">Ładowanie...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="panel-title">Dodaj zadanie / nagrodę</h2>
+          <div class="reward-form">
+            <input id="newRewardTitle" type="text" placeholder="np. Zadanie 3" />
+            <input id="newRewardDays" type="number" min="1" step="1" placeholder="dni" />
+            <textarea id="newRewardText" placeholder="Treść nagrody, którą zobaczy użytkownik po wykonaniu zadania"></textarea>
+          </div>
+          <div class="actions">
+            <button id="addRewardBtn" type="button">Dodaj zadanie</button>
+          </div>
+        </section>
+      </div>
+
+      <section style="margin-top:28px;">
+        <h2 class="panel-title">Tabela zadań i nagród</h2>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Zadanie</th>
+                <th>Dni z rzędu</th>
+                <th>Treść nagrody</th>
+                <th>Aktywne</th>
+                <th>Akcje</th>
+              </tr>
+            </thead>
+            <tbody id="szczelinkaRewardsBody">
+              <tr><td colspan="5">Ładowanie...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </section>
+
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    (function menuBuilder(){
-      const STORAGE_KEY = "reiki_menu_builder_v2";
-      const defaultItems = [{label:"START",url:"index.html"},{label:"REIKI",url:"reiki.html"},{label:"MISTRZ",url:"mistrz.html"},{label:"MATERIAŁY",url:"materialy.html"},{label:"KONTAKT",url:"kontakt.html"}];
-      let items = []; let editIndex = null;
-      const labelInput=document.getElementById("labelInput"),urlInput=document.getElementById("urlInput"),saveItemBtn=document.getElementById("saveItemBtn"),cancelEditBtn=document.getElementById("cancelEditBtn"),resetBtn=document.getElementById("resetBtn"),clearBtn=document.getElementById("clearBtn"),copyBtn=document.getElementById("copyBtn"),saveLocalBtn=document.getElementById("saveLocalBtn"),itemsList=document.getElementById("itemsList"),previewMenu=document.getElementById("previewMenu"),codeOutput=document.getElementById("codeOutput");
-      function saveToLocal(){localStorage.setItem(STORAGE_KEY,JSON.stringify(items))}
-      function loadFromLocal(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)&&parsed.length){items=parsed;return}}}catch(e){}items=[...defaultItems]}
-      function escapeHtml(str){return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
-      function generateMenuCode(){return `document.addEventListener("DOMContentLoaded", function () {
+    const STORAGE_KEY = "reiki_menu_builder_v2";
+
+    const defaultItems = [
+      { label: "START", url: "index.html" },
+      { label: "REIKI", url: "reiki.html" },
+      { label: "MISTRZ", url: "mistrz.html" },
+      { label: "MATERIAŁY", url: "materialy.html" },
+      { label: "KONTAKT", url: "kontakt.html" }
+    ];
+
+    let items = [];
+    let editIndex = null;
+
+    const labelInput = document.getElementById("labelInput");
+    const urlInput = document.getElementById("urlInput");
+    const saveItemBtn = document.getElementById("saveItemBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const saveLocalBtn = document.getElementById("saveLocalBtn");
+    const itemsList = document.getElementById("itemsList");
+    const previewMenu = document.getElementById("previewMenu");
+    const codeOutput = document.getElementById("codeOutput");
+
+    function saveToLocal() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+
+    function loadFromLocal() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length) {
+            items = parsed;
+            return;
+          }
+        }
+      } catch (e) {}
+
+      items = [...defaultItems];
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function generateMenuCode() {
+      return `document.addEventListener("DOMContentLoaded", function () {
   const menu = document.getElementById("site-menu");
   if (!menu) return;
 
-  const items = ${JSON.stringify(items,null,2)};
+  const items = ${JSON.stringify(items, null, 2)};
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
 
   menu.innerHTML = items.map(item => {
     const active = currentPage === item.url ? "active" : "";
     return \`<a href="\${item.url}" class="\${active}">\${item.label}</a>\`;
   }).join("");
-});`}
-      function renderPreview(){previewMenu.innerHTML=items.map((item,index)=>`<a href="${escapeHtml(item.url)}" class="${index===0?'active':''}">${escapeHtml(item.label)}</a>`).join("")}
-      function renderList(){if(!items.length){itemsList.innerHTML='<div class="note">Brak pozycji w menu.</div>';return}itemsList.innerHTML=items.map((item,index)=>`<div class="item"><div><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.url)}</span></div><div class="item-actions"><button class="secondary" onclick="moveUp(${index})">↑</button><button class="secondary" onclick="moveDown(${index})">↓</button><button class="secondary" onclick="editItem(${index})">Edytuj</button><button onclick="removeItem(${index})">Usuń</button></div></div>`).join("")}
-      function renderCode(){codeOutput.value=generateMenuCode()}
-      function renderAll(){renderList();renderPreview();renderCode();saveToLocal()}
-      function resetForm(){labelInput.value="";urlInput.value="";editIndex=null;saveItemBtn.textContent="Dodaj pozycję";cancelEditBtn.style.display="none"}
-      function validateInputs(){const label=labelInput.value.trim(),url=urlInput.value.trim();if(!label||!url){alert("Uzupełnij nazwę i link.");return null}return{label,url}}
-      saveItemBtn.addEventListener("click",()=>{const data=validateInputs();if(!data)return;if(editIndex===null)items.push(data);else items[editIndex]=data;renderAll();resetForm()});
-      cancelEditBtn.addEventListener("click",resetForm);saveLocalBtn.addEventListener("click",()=>{saveToLocal();alert("Ustawienie menu zapisane lokalnie.")});resetBtn.addEventListener("click",()=>{items=[...defaultItems];renderAll();resetForm()});clearBtn.addEventListener("click",()=>{if(!confirm("Na pewno usunąć wszystkie pozycje menu?"))return;items=[];renderAll();resetForm()});copyBtn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(codeOutput.value);alert("Kod został skopiowany.")}catch(e){alert("Nie udało się skopiować automatycznie. Skopiuj ręcznie z pola.")}});
-      window.editItem=function(index){const item=items[index];labelInput.value=item.label;urlInput.value=item.url;editIndex=index;saveItemBtn.textContent="Zapisz zmiany";cancelEditBtn.style.display="inline-block";window.scrollTo({top:0,behavior:"smooth"})};
-      window.removeItem=function(index){items.splice(index,1);renderAll();if(editIndex===index)resetForm()};window.moveUp=function(index){if(index===0)return;[items[index-1],items[index]]=[items[index],items[index-1]];renderAll()};window.moveDown=function(index){if(index===items.length-1)return;[items[index+1],items[index]]=[items[index],items[index+1]];renderAll()};
-      loadFromLocal();renderAll();resetForm();
-    })();
+});`;
+    }
 
-    (function szczelinkaAdmin(){
-      const SUPABASE_URL = "";       // <- wklej URL projektu Supabase
-      const SUPABASE_ANON_KEY = "";  // <- wklej anon public key
-      const PROFILE_TABLE = "szczelinka_profiles";
-      const REWARDS_TABLE = "szczelinka_rewards";
-      const USER_KEY = "szczelinka_user_id";
-      const PROFILE_STORAGE_KEY = "szczelinka_profile_v1";
-      const LESSON8_COMPLETE_KEY = "lesson8_completed_v1";
-      const REWARDS_STORAGE_KEY = "szczelinka_rewards_v1";
-      const DEFAULT_REWARDS = [
-        {id:"zadanie-1",title:"Zadanie 1",days_required:3,reward_text:"Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.",active:true,sort_order:1},
-        {id:"zadanie-2",title:"Zadanie 2",days_required:7,reward_text:"Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.",active:true,sort_order:2}
-      ];
-      const sql = `create table if not exists public.szczelinka_profiles (
-  user_id text primary key,
-  lesson8_completed boolean not null default false,
-  lesson8_completed_at timestamptz,
-  meditation_streak integer not null default 0,
-  meditation_last_date date,
-  meditation_total_count integer not null default 0,
-  updated_at timestamptz not null default now()
-);
+    function renderPreview() {
+      previewMenu.innerHTML = items.map((item, index) => {
+        const active = index === 0 ? "active" : "";
+        return `<a href="${escapeHtml(item.url)}" class="${active}">${escapeHtml(item.label)}</a>`;
+      }).join("");
+    }
 
-create table if not exists public.szczelinka_rewards (
-  id text primary key,
-  title text not null,
-  days_required integer not null check (days_required > 0),
-  reward_text text not null default '',
-  active boolean not null default true,
-  sort_order integer not null default 0,
-  updated_at timestamptz not null default now()
-);
+    function renderList() {
+      if (!items.length) {
+        itemsList.innerHTML = '<div class="note">Brak pozycji w menu.</div>';
+        return;
+      }
 
-insert into public.szczelinka_rewards (id,title,days_required,reward_text,active,sort_order)
-values
-('zadanie-1','Zadanie 1',3,'Gratulacje. Pierwsze 3 dni z rzędu są za Tobą. To znak, że praktyka zaczyna mieć swój rytm.',true,1),
-('zadanie-2','Zadanie 2',7,'Siedem dni z rzędu. To już nie przypadek, tylko początek stabilnej praktyki.',true,2)
-on conflict (id) do nothing;
+      itemsList.innerHTML = items.map((item, index) => `
+        <div class="item">
+          <div>
+            <strong>${escapeHtml(item.label)}</strong>
+            <span>${escapeHtml(item.url)}</span>
+          </div>
+          <div class="item-actions">
+            <button class="secondary" onclick="moveUp(${index})">↑</button>
+            <button class="secondary" onclick="moveDown(${index})">↓</button>
+            <button class="secondary" onclick="editItem(${index})">Edytuj</button>
+            <button onclick="removeItem(${index})">Usuń</button>
+          </div>
+        </div>
+      `).join("");
+    }
 
-alter table public.szczelinka_profiles enable row level security;
-alter table public.szczelinka_rewards enable row level security;
+    function renderCode() {
+      codeOutput.value = generateMenuCode();
+    }
 
-drop policy if exists "szczelinka_profiles_select" on public.szczelinka_profiles;
-drop policy if exists "szczelinka_profiles_insert" on public.szczelinka_profiles;
-drop policy if exists "szczelinka_profiles_update" on public.szczelinka_profiles;
-drop policy if exists "szczelinka_rewards_select" on public.szczelinka_rewards;
-drop policy if exists "szczelinka_rewards_insert" on public.szczelinka_rewards;
-drop policy if exists "szczelinka_rewards_update" on public.szczelinka_rewards;
-drop policy if exists "szczelinka_rewards_delete" on public.szczelinka_rewards;
+    function renderAll() {
+      renderList();
+      renderPreview();
+      renderCode();
+      saveToLocal();
+    }
 
-create policy "szczelinka_profiles_select" on public.szczelinka_profiles for select using (true);
-create policy "szczelinka_profiles_insert" on public.szczelinka_profiles for insert with check (true);
-create policy "szczelinka_profiles_update" on public.szczelinka_profiles for update using (true) with check (true);
-create policy "szczelinka_rewards_select" on public.szczelinka_rewards for select using (true);
-create policy "szczelinka_rewards_insert" on public.szczelinka_rewards for insert with check (true);
-create policy "szczelinka_rewards_update" on public.szczelinka_rewards for update using (true) with check (true);
-create policy "szczelinka_rewards_delete" on public.szczelinka_rewards for delete using (true);`;
-      document.getElementById("sqlOutput").value = sql;
-      document.getElementById("copySqlBtn").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(sql);alert("SQL skopiowany.")}catch(e){alert("Skopiuj ręcznie z pola.")}});
+    function resetForm() {
+      labelInput.value = "";
+      urlInput.value = "";
+      editIndex = null;
+      saveItemBtn.textContent = "Dodaj pozycję";
+      cancelEditBtn.style.display = "none";
+    }
 
-      let supabaseClient=null;if(window.supabase&&SUPABASE_URL&&SUPABASE_ANON_KEY){supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY)}
-      function escapeHtml(str){return String(str??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
-      function getUserId(){let id=localStorage.getItem(USER_KEY);if(!id){id="user_"+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem(USER_KEY,id)}return id}
-      const currentUserId=getUserId();
-      let profiles=[];let rewards=[];let editRewardId=null;
-      const profilesStatus=document.getElementById("profilesStatus"),profilesTableBody=document.getElementById("profilesTableBody"),rewardsStatus=document.getElementById("rewardsStatus"),rewardsList=document.getElementById("rewardsList"),rewardIdInput=document.getElementById("rewardIdInput"),rewardTitleInput=document.getElementById("rewardTitleInput"),rewardDaysInput=document.getElementById("rewardDaysInput"),rewardTextInput=document.getElementById("rewardTextInput"),saveRewardBtn=document.getElementById("saveRewardBtn"),cancelRewardEditBtn=document.getElementById("cancelRewardEditBtn");
-      function getLocalProfile(){try{return JSON.parse(localStorage.getItem(PROFILE_STORAGE_KEY)||"{}")}catch(e){return{}}}
-      function setLocalProfile(p){localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(p));if(p.lesson8_completed)localStorage.setItem(LESSON8_COMPLETE_KEY,"yes")}
-      function getLocalRewards(){try{const raw=localStorage.getItem(REWARDS_STORAGE_KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)&&parsed.length)return parsed}}catch(e){}return DEFAULT_REWARDS.map(x=>({...x}))}
-      function setLocalRewards(list){localStorage.setItem(REWARDS_STORAGE_KEY,JSON.stringify(list))}
-      function normalizeProfile(p){return Object.assign({user_id:currentUserId,lesson8_completed:false,lesson8_completed_at:null,meditation_streak:0,meditation_last_date:null,meditation_total_count:0,updated_at:null},p||{})}
-      async function loadProfiles(){profilesStatus.textContent=supabaseClient?"Pobieram profile z Supabase...":"Tryb lokalny: pokazuję profil tej przeglądarki.";if(supabaseClient){try{const {data,error}=await supabaseClient.from(PROFILE_TABLE).select("*").order("updated_at",{ascending:false});if(error)throw error;profiles=Array.isArray(data)?data.map(normalizeProfile):[]}catch(e){profilesStatus.textContent="Nie udało się pobrać profili z Supabase. Pokazuję dane lokalne.";profiles=[normalizeProfile(getLocalProfile())]}}else{profiles=[normalizeProfile(getLocalProfile())]}renderProfiles()}
-      function renderProfiles(){if(!profiles.length){profilesTableBody.innerHTML='<tr><td colspan="6">Brak profili.</td></tr>';return}profilesTableBody.innerHTML=profiles.map((p,index)=>`<tr><td><code>${escapeHtml(p.user_id)}</code>${p.user_id===currentUserId?'<br><span class="muted">ta przeglądarka</span>':''}</td><td>${p.lesson8_completed?'<span class="pill ok">ukończona</span>':'<span class="pill no">brak</span>'}<br><span class="muted">${escapeHtml(p.lesson8_completed_at||'')}</span></td><td><strong>${Number(p.meditation_streak)||0}</strong></td><td>${escapeHtml(p.meditation_last_date||'—')}</td><td>${Number(p.meditation_total_count)||0}</td><td><div class="small-actions"><button class="green" onclick="adminMarkCompleted(${index})">Lekcja 8 OK</button><button class="secondary" onclick="adminSetStreak(${index})">Ustaw dni</button><button class="red" onclick="adminResetStreak(${index})">Reset</button></div></td></tr>`).join("");profilesStatus.textContent=supabaseClient?`Profile z Supabase: ${profiles.length}`:"Tryb lokalny: widoczny jest tylko profil tej przeglądarki."}
-      async function saveProfile(p){p.updated_at=new Date().toISOString();if(p.user_id===currentUserId)setLocalProfile(p);if(supabaseClient){try{await supabaseClient.from(PROFILE_TABLE).upsert(p,{onConflict:"user_id"})}catch(e){alert("Nie udało się zapisać profilu w Supabase.")}}await loadProfiles()}
-      window.adminMarkCompleted=async function(index){const p=normalizeProfile(profiles[index]);p.lesson8_completed=true;p.lesson8_completed_at=p.lesson8_completed_at||new Date().toISOString();await saveProfile(p)};
-      window.adminSetStreak=async function(index){const p=normalizeProfile(profiles[index]);const val=prompt("Ile dni z rzędu ustawić?",String(Number(p.meditation_streak)||0));if(val===null)return;const n=Math.max(0,parseInt(val,10)||0);p.meditation_streak=n;p.meditation_last_date=n>0?(p.meditation_last_date||new Date().toISOString().slice(0,10)):null;await saveProfile(p)};
-      window.adminResetStreak=async function(index){if(!confirm("Zresetować serię medytacji?"))return;const p=normalizeProfile(profiles[index]);p.meditation_streak=0;p.meditation_last_date=null;await saveProfile(p)};
-      document.getElementById("refreshProfilesBtn").addEventListener("click",loadProfiles);
-      document.getElementById("markMeCompletedBtn").addEventListener("click",async()=>{const p=normalizeProfile(getLocalProfile());p.user_id=currentUserId;p.lesson8_completed=true;p.lesson8_completed_at=p.lesson8_completed_at||new Date().toISOString();await saveProfile(p)});
+    function validateInputs() {
+      const label = labelInput.value.trim();
+      const url = urlInput.value.trim();
 
-      async function loadRewards(){rewardsStatus.textContent=supabaseClient?"Pobieram zadania z Supabase...":"Tryb lokalny: zadania są zapisane w tej przeglądarce.";rewards=getLocalRewards();if(supabaseClient){try{const {data,error}=await supabaseClient.from(REWARDS_TABLE).select("*").order("sort_order",{ascending:true}).order("days_required",{ascending:true});if(error)throw error;if(Array.isArray(data)&&data.length)rewards=data}catch(e){rewardsStatus.textContent="Nie udało się pobrać z Supabase. Pokazuję lokalne zadania."}}rewards=rewards.sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0)||(Number(a.days_required)||0)-(Number(b.days_required)||0));setLocalRewards(rewards);renderRewards()}
-      function renderRewards(){if(!rewards.length){rewardsList.innerHTML='<div class="note">Brak zadań.</div>';return}rewardsList.innerHTML=rewards.map((r,index)=>`<div class="reward-item"><div class="topline"><div><strong>${escapeHtml(r.title)}</strong><div class="reward-meta">${Number(r.days_required)||0} dni z rzędu · ${r.active===false?'nieaktywne':'aktywne'} · kolejność ${Number(r.sort_order)||index+1}</div></div><div class="small-actions"><button class="secondary" onclick="adminMoveReward(${index},-1)">↑</button><button class="secondary" onclick="adminMoveReward(${index},1)">↓</button><button class="secondary" onclick="adminEditReward(${index})">Edytuj</button><button class="red" onclick="adminDeleteReward(${index})">Usuń</button></div></div><div class="reward-text">${escapeHtml(r.reward_text)}</div></div>`).join("");rewardsStatus.textContent=supabaseClient?`Zadania z Supabase: ${rewards.length}`:"Tryb lokalny: zadania są zapisane w tej przeglądarce."}
-      function resetRewardForm(){editRewardId=null;rewardIdInput.value="";rewardTitleInput.value="";rewardDaysInput.value="";rewardTextInput.value="";saveRewardBtn.textContent="Zapisz nagrodę";cancelRewardEditBtn.style.display="none"}
-      async function persistRewards(){rewards.forEach((r,i)=>{r.sort_order=i+1;r.updated_at=new Date().toISOString()});setLocalRewards(rewards);if(supabaseClient){try{await supabaseClient.from(REWARDS_TABLE).upsert(rewards,{onConflict:"id"})}catch(e){alert("Nie udało się zapisać zadań w Supabase.")}}renderRewards()}
-      saveRewardBtn.addEventListener("click",async()=>{const title=rewardTitleInput.value.trim(),days=parseInt(rewardDaysInput.value,10),text=rewardTextInput.value.trim();if(!title||!days||days<1||!text){alert("Uzupełnij nazwę, liczbę dni i treść nagrody.");return}if(editRewardId){const idx=rewards.findIndex(r=>r.id===editRewardId);if(idx>=0)rewards[idx]=Object.assign({},rewards[idx],{title,days_required:days,reward_text:text,active:true})}else{const id=(crypto&&crypto.randomUUID)?crypto.randomUUID():"reward_"+Date.now();rewards.push({id,title,days_required:days,reward_text:text,active:true,sort_order:rewards.length+1})}await persistRewards();resetRewardForm()});
-      cancelRewardEditBtn.addEventListener("click",resetRewardForm);
-      document.getElementById("seedRewardsBtn").addEventListener("click",async()=>{if(!confirm("Przywrócić dwa startowe zadania? Obecna lista lokalna zostanie zastąpiona."))return;rewards=DEFAULT_REWARDS.map(x=>({...x}));await persistRewards();resetRewardForm()});
-      window.adminEditReward=function(index){const r=rewards[index];editRewardId=r.id;rewardIdInput.value=r.id;rewardTitleInput.value=r.title;rewardDaysInput.value=r.days_required;rewardTextInput.value=r.reward_text;saveRewardBtn.textContent="Zapisz zmiany";cancelRewardEditBtn.style.display="inline-block";rewardTitleInput.scrollIntoView({behavior:"smooth",block:"center"})};
-      window.adminDeleteReward=async function(index){const r=rewards[index];if(!confirm("Usunąć zadanie?"))return;rewards.splice(index,1);setLocalRewards(rewards);if(supabaseClient){try{await supabaseClient.from(REWARDS_TABLE).delete().eq("id",r.id)}catch(e){alert("Nie udało się usunąć z Supabase.")}}await persistRewards()};
-      window.adminMoveReward=async function(index,dir){const ni=index+dir;if(ni<0||ni>=rewards.length)return;[rewards[index],rewards[ni]]=[rewards[ni],rewards[index]];await persistRewards()};
-      loadProfiles();loadRewards();resetRewardForm();
-    })();
+      if (!label || !url) {
+        alert("Uzupełnij nazwę i link.");
+        return null;
+      }
+
+      return { label, url };
+    }
+
+    saveItemBtn.addEventListener("click", () => {
+      const data = validateInputs();
+      if (!data) return;
+
+      if (editIndex === null) {
+        items.push(data);
+      } else {
+        items[editIndex] = data;
+      }
+
+      renderAll();
+      resetForm();
+    });
+
+    cancelEditBtn.addEventListener("click", resetForm);
+
+    saveLocalBtn.addEventListener("click", () => {
+      saveToLocal();
+      alert("Ustawienie menu zapisane lokalnie.");
+    });
+
+    resetBtn.addEventListener("click", () => {
+      items = [...defaultItems];
+      renderAll();
+      resetForm();
+    });
+
+    clearBtn.addEventListener("click", () => {
+      if (!confirm("Na pewno usunąć wszystkie pozycje menu?")) return;
+      items = [];
+      renderAll();
+      resetForm();
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(codeOutput.value);
+        alert("Kod został skopiowany.");
+      } catch (e) {
+        alert("Nie udało się skopiować automatycznie. Skopiuj ręcznie z pola.");
+      }
+    });
+
+    window.editItem = function(index) {
+      const item = items[index];
+      labelInput.value = item.label;
+      urlInput.value = item.url;
+      editIndex = index;
+      saveItemBtn.textContent = "Zapisz zmiany";
+      cancelEditBtn.style.display = "inline-block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.removeItem = function(index) {
+      items.splice(index, 1);
+      renderAll();
+      if (editIndex === index) resetForm();
+    };
+
+    window.moveUp = function(index) {
+      if (index === 0) return;
+      [items[index - 1], items[index]] = [items[index], items[index - 1]];
+      renderAll();
+    };
+
+    window.moveDown = function(index) {
+      if (index === items.length - 1) return;
+      [items[index + 1], items[index]] = [items[index], items[index + 1]];
+      renderAll();
+    };
+
+    loadFromLocal();
+    renderAll();
+    resetForm();
   </script>
+
+  <!-- DODANE: SZCZELINKA – OBSŁUGA SUPABASE -->
+  <script type="module">
+    import { supabase } from './supabase-client.js';
+
+    const PROFILE_TABLE = "szczelinka_profiles";
+    const REWARDS_TABLE = "szczelinka_rewards";
+
+    const statusBox = document.getElementById("szczelinkaAdminStatus");
+    const usersBody = document.getElementById("szczelinkaUsersBody");
+    const rewardsBody = document.getElementById("szczelinkaRewardsBody");
+    const refreshBtn = document.getElementById("refreshSzczelinkaBtn");
+    const addRewardBtn = document.getElementById("addRewardBtn");
+    const newRewardTitle = document.getElementById("newRewardTitle");
+    const newRewardDays = document.getElementById("newRewardDays");
+    const newRewardText = document.getElementById("newRewardText");
+
+    let rewards = [];
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function setStatus(text) {
+      statusBox.textContent = text;
+    }
+
+    function shortUserId(id) {
+      if (!id) return "—";
+      if (id.length <= 24) return id;
+      return id.slice(0, 16) + "..." + id.slice(-6);
+    }
+
+    async function loadSzczelinkaUsers() {
+      usersBody.innerHTML = '<tr><td colspan="5">Ładowanie...</td></tr>';
+
+      const { data, error } = await supabase
+        .from(PROFILE_TABLE)
+        .select("*")
+        .order("updated_at", { ascending: false });
+
+      if (error) {
+        usersBody.innerHTML = `<tr><td colspan="5">Błąd: ${escapeHtml(error.message)}</td></tr>`;
+        throw error;
+      }
+
+      if (!data || !data.length) {
+        usersBody.innerHTML = '<tr><td colspan="5">Brak zapisanych profili użytkowników.</td></tr>';
+        return;
+      }
+
+      usersBody.innerHTML = data.map(row => `
+        <tr>
+          <td title="${escapeHtml(row.user_id)}">${escapeHtml(shortUserId(row.user_id))}</td>
+          <td>${row.lesson8_completed ? "TAK" : "NIE"}<br>${row.lesson8_completed_at ? escapeHtml(new Date(row.lesson8_completed_at).toLocaleString("pl-PL")) : ""}</td>
+          <td><b>${Number(row.meditation_streak || 0)}</b></td>
+          <td>${row.meditation_last_date ? escapeHtml(row.meditation_last_date) : "—"}</td>
+          <td>${Number(row.meditation_total_count || 0)}</td>
+        </tr>
+      `).join("");
+    }
+
+    async function loadSzczelinkaRewards() {
+      rewardsBody.innerHTML = '<tr><td colspan="5">Ładowanie...</td></tr>';
+
+      const { data, error } = await supabase
+        .from(REWARDS_TABLE)
+        .select("*")
+        .order("sort_order", { ascending: true })
+        .order("days_required", { ascending: true });
+
+      if (error) {
+        rewardsBody.innerHTML = `<tr><td colspan="5">Błąd: ${escapeHtml(error.message)}</td></tr>`;
+        throw error;
+      }
+
+      rewards = data || [];
+
+      if (!rewards.length) {
+        rewardsBody.innerHTML = '<tr><td colspan="5">Brak zadań. Dodaj pierwsze zadanie.</td></tr>';
+        return;
+      }
+
+      rewardsBody.innerHTML = rewards.map((row, index) => `
+        <tr>
+          <td><input id="reward-title-${index}" type="text" value="${escapeHtml(row.title)}"></td>
+          <td><input id="reward-days-${index}" type="number" min="1" step="1" value="${Number(row.days_required || 1)}"></td>
+          <td><textarea id="reward-text-${index}">${escapeHtml(row.reward_text || "")}</textarea></td>
+          <td style="text-align:center;"><input id="reward-active-${index}" type="checkbox" ${row.active ? "checked" : ""} style="width:auto;"></td>
+          <td>
+            <button class="admin-small-button secondary" type="button" data-save-reward="${index}">Zapisz</button>
+            <button class="admin-small-button secondary" type="button" data-up-reward="${index}">↑</button>
+            <button class="admin-small-button secondary" type="button" data-down-reward="${index}">↓</button>
+            <button class="admin-small-button" type="button" data-delete-reward="${index}">Usuń</button>
+          </td>
+        </tr>
+      `).join("");
+
+      rewardsBody.querySelectorAll("[data-save-reward]").forEach(btn => {
+        btn.addEventListener("click", () => saveReward(Number(btn.dataset.saveReward)));
+      });
+
+      rewardsBody.querySelectorAll("[data-delete-reward]").forEach(btn => {
+        btn.addEventListener("click", () => deleteReward(Number(btn.dataset.deleteReward)));
+      });
+
+      rewardsBody.querySelectorAll("[data-up-reward]").forEach(btn => {
+        btn.addEventListener("click", () => moveReward(Number(btn.dataset.upReward), -1));
+      });
+
+      rewardsBody.querySelectorAll("[data-down-reward]").forEach(btn => {
+        btn.addEventListener("click", () => moveReward(Number(btn.dataset.downReward), 1));
+      });
+    }
+
+    async function saveReward(index) {
+      const row = rewards[index];
+      if (!row) return;
+
+      const updated = {
+        id: row.id,
+        title: document.getElementById(`reward-title-${index}`).value.trim() || "Zadanie",
+        days_required: Number(document.getElementById(`reward-days-${index}`).value || 1),
+        reward_text: document.getElementById(`reward-text-${index}`).value,
+        active: document.getElementById(`reward-active-${index}`).checked,
+        sort_order: Number(row.sort_order || index + 1),
+        updated_at: new Date().toISOString()
+      };
+
+      const { error } = await supabase
+        .from(REWARDS_TABLE)
+        .upsert(updated, { onConflict: "id" });
+
+      if (error) {
+        alert("Nie udało się zapisać zadania: " + error.message);
+        return;
+      }
+
+      setStatus("Zapisano zadanie / nagrodę.");
+      await loadSzczelinkaRewards();
+    }
+
+    async function deleteReward(index) {
+      const row = rewards[index];
+      if (!row) return;
+      if (!confirm("Usunąć to zadanie i nagrodę?")) return;
+
+      const { error } = await supabase
+        .from(REWARDS_TABLE)
+        .delete()
+        .eq("id", row.id);
+
+      if (error) {
+        alert("Nie udało się usunąć zadania: " + error.message);
+        return;
+      }
+
+      setStatus("Usunięto zadanie / nagrodę.");
+      await loadSzczelinkaRewards();
+    }
+
+    async function moveReward(index, direction) {
+      const otherIndex = index + direction;
+      if (otherIndex < 0 || otherIndex >= rewards.length) return;
+
+      const current = rewards[index];
+      const other = rewards[otherIndex];
+      const currentOrder = Number(current.sort_order || index + 1);
+      const otherOrder = Number(other.sort_order || otherIndex + 1);
+
+      const { error } = await supabase
+        .from(REWARDS_TABLE)
+        .upsert([
+          { ...current, sort_order: otherOrder, updated_at: new Date().toISOString() },
+          { ...other, sort_order: currentOrder, updated_at: new Date().toISOString() }
+        ], { onConflict: "id" });
+
+      if (error) {
+        alert("Nie udało się zmienić kolejności: " + error.message);
+        return;
+      }
+
+      await loadSzczelinkaRewards();
+    }
+
+    async function addReward() {
+      const title = newRewardTitle.value.trim();
+      const days = Number(newRewardDays.value || 0);
+      const text = newRewardText.value.trim();
+
+      if (!title || !days || !text) {
+        alert("Uzupełnij nazwę zadania, liczbę dni i treść nagrody.");
+        return;
+      }
+
+      const id = "zadanie-" + Date.now().toString(36);
+      const sortOrder = rewards.length ? Math.max(...rewards.map(r => Number(r.sort_order || 0))) + 1 : 1;
+
+      const { error } = await supabase
+        .from(REWARDS_TABLE)
+        .insert({
+          id,
+          title,
+          days_required: days,
+          reward_text: text,
+          active: true,
+          sort_order: sortOrder,
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) {
+        alert("Nie udało się dodać zadania: " + error.message);
+        return;
+      }
+
+      newRewardTitle.value = "";
+      newRewardDays.value = "";
+      newRewardText.value = "";
+      setStatus("Dodano nowe zadanie / nagrodę.");
+      await loadSzczelinkaRewards();
+    }
+
+    async function refreshSzczelinkaAdmin() {
+      try {
+        setStatus("Ładowanie danych z Supabase...");
+        await loadSzczelinkaUsers();
+        await loadSzczelinkaRewards();
+        setStatus("Dane załadowane.");
+      } catch (e) {
+        setStatus("Błąd połączenia z Supabase: " + (e.message || e));
+      }
+    }
+
+    refreshBtn.addEventListener("click", refreshSzczelinkaAdmin);
+    addRewardBtn.addEventListener("click", addReward);
+
+    refreshSzczelinkaAdmin();
+  </script>
+
 </body>
 </html>
