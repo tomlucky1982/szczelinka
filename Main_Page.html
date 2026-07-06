@@ -893,7 +893,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   function renderProgress(){
     const streak = Number(profile.meditation_streak || 0);
-    streakNumber.textContent = streak;
+    if(streakNumber) streakNumber.textContent = streak;
 
     const nextTask = rewards.find(r => Number(r.days_required) > streak);
     const lastUnlocked = [...rewards].reverse().find(r => Number(r.days_required) <= streak);
@@ -1043,25 +1043,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   async function initSzczelinkaTool(){
-    await loadProfile();
-    await loadRewards();
+    try{
+      await loadProfile();
+      await loadRewards();
 
-    if(!profile.lesson8_completed && localStorage.getItem("lesson8_completed") === "yes"){
-      profile.lesson8_completed = true;
-      profile.lesson8_completed_at = localStorage.getItem("lesson8_completed_at") || new Date().toISOString();
-      await saveProfile();
+      if(!profile.lesson8_completed && localStorage.getItem("lesson8_completed") === "yes"){
+        profile.lesson8_completed = true;
+        profile.lesson8_completed_at = localStorage.getItem("lesson8_completed_at") || new Date().toISOString();
+        await saveProfile();
+      }
+
+      if(!profile.lesson8_completed){
+        tool.classList.add("hidden");
+        return;
+      }
+
+      tool.classList.remove("hidden");
+      if(accessNote) accessNote.textContent = "";
+      renderProgress();
+      bindSequence();
+      updateSequenceUI();
+    }catch(e){
+      console.warn("Błąd ładowania narzędzia Szczelinki", e);
+      profile = profile || fallbackProfile();
+      if(profile.lesson8_completed || localStorage.getItem("lesson8_completed") === "yes"){
+        tool.classList.remove("hidden");
+        if(accessNote) accessNote.textContent = "";
+        renderProgress();
+        bindSequence();
+        updateSequenceUI();
+      }
     }
-
-    if(!profile.lesson8_completed){
-      tool.classList.add("hidden");
-      return;
-    }
-
-    tool.classList.remove("hidden");
-    if(accessNote) accessNote.textContent = "";
-    renderProgress();
-    bindSequence();
-    updateSequenceUI();
   }
 
   initSzczelinkaTool();
