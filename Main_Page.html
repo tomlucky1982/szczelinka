@@ -463,6 +463,125 @@ font-size:28px;
 .szczelinka-seq-row{grid-template-columns:auto 1fr auto}
 .szczelinka-seq-time{grid-column:1 / -1;text-align:center}
 
+
+
+/* ===== DOPRACOWANE WYMIARY NARZĘDZIA ===== */
+.szczelinka-tool{
+  max-width:900px;
+  margin:0 auto 70px;
+  padding:20px 22px;
+}
+.szczelinka-tool .szczelinka-task-box{
+  max-width:820px;
+  margin:0 auto 16px;
+  padding:16px 18px;
+}
+.szczelinka-tool .szczelinka-task-title{
+  font-size:20px;
+  line-height:1.2;
+}
+.szczelinka-tool .szczelinka-task-box p{
+  font-size:15.5px;
+  line-height:1.45;
+}
+.szczelinka-tool .szczelinka-sequence{
+  max-width:820px;
+  margin:0 auto;
+  padding:18px 18px 16px;
+}
+.szczelinka-tool .szczelinka-sequence-title{
+  font-size:21px;
+  line-height:1.25;
+  margin-bottom:14px;
+}
+.szczelinka-tool .szczelinka-seq-row{
+  grid-template-columns:40px minmax(0,1fr) 40px 92px;
+  gap:12px;
+  min-height:64px;
+  padding:10px 12px;
+  margin-bottom:10px;
+  border-radius:17px;
+}
+.szczelinka-tool .szczelinka-seq-name{
+  font-size:17px;
+  line-height:1.25;
+  font-weight:900;
+}
+.szczelinka-tool .szczelinka-seq-time{
+  grid-column:auto;
+  text-align:right;
+  font-size:25px;
+  line-height:1;
+  min-width:86px;
+}
+.szczelinka-tool .szczelinka-mini-btn{
+  width:36px;
+  height:36px;
+  padding:0;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  line-height:1;
+  background:#eefaff;
+  color:#2f9cca;
+  border:1px solid rgba(58,167,214,.18);
+}
+.szczelinka-tool .szczelinka-action-row{
+  margin-top:12px;
+  gap:8px;
+}
+.szczelinka-tool .szczelinka-action-btn{
+  padding:10px 15px;
+  font-size:14px;
+  border-radius:12px;
+}
+.szczelinka-tool .szczelinka-status{
+  margin-top:8px;
+  font-size:13.5px;
+}
+@media (max-width:720px){
+  .szczelinka-tool{
+    max-width:none;
+    padding:16px 12px;
+  }
+  .szczelinka-tool .szczelinka-task-box,
+  .szczelinka-tool .szczelinka-sequence{
+    max-width:none;
+  }
+  .szczelinka-tool .szczelinka-seq-row{
+    grid-template-columns:38px minmax(0,1fr) 38px 78px;
+    gap:9px;
+  }
+  .szczelinka-tool .szczelinka-seq-name{
+    font-size:16px;
+  }
+  .szczelinka-tool .szczelinka-seq-time{
+    font-size:23px;
+    min-width:74px;
+  }
+}
+@media (max-width:460px){
+  .szczelinka-tool .szczelinka-seq-row{
+    grid-template-columns:34px minmax(0,1fr) 34px 68px;
+    gap:7px;
+    padding:9px 10px;
+  }
+  .szczelinka-tool .szczelinka-mini-btn{
+    width:32px;
+    height:32px;
+    font-size:20px;
+  }
+  .szczelinka-tool .szczelinka-seq-name{
+    font-size:15px;
+  }
+  .szczelinka-tool .szczelinka-seq-time{
+    font-size:21px;
+    min-width:64px;
+  }
+}
+
 @media (max-width:560px){
 .logo{
 height:78px;
@@ -780,6 +899,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const rewardText = document.getElementById("szczelinka-reward-text");
   const statusBox = document.getElementById("szczelinka-sequence-status");
 
+  function cleanLogin(value){
+    const v = String(value || "").trim();
+    if(!v) return null;
+    if(v.length > 160) return null;
+    return v;
+  }
+
   function getUserId(){
     let id = localStorage.getItem(USER_KEY);
     if(!id){
@@ -789,7 +915,92 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return id;
   }
 
-  const userId = getUserId();
+  async function resolveCurrentLogin(){
+    const directKeys = [
+      "szczelinka_current_login",
+      "currentLessonLogin",
+      "lesson_current_login",
+      "lessonLogin",
+      "lesson_login",
+      "current_login",
+      "login"
+    ];
+
+    for(const key of directKeys){
+      const found = cleanLogin(localStorage.getItem(key));
+      if(found && !found.startsWith("user_")) return found;
+    }
+
+    for(let i = 0; i < localStorage.length; i++){
+      const key = localStorage.key(i);
+      const raw = localStorage.getItem(key);
+      try{
+        const parsed = JSON.parse(raw);
+        if(parsed && typeof parsed === "object"){
+          const candidates = [
+            parsed.login,
+            parsed.currentLogin,
+            parsed.lessonLogin,
+            parsed.display_name,
+            parsed.displayName,
+            parsed.user_login,
+            parsed.username
+          ];
+          for(const candidate of candidates){
+            const found = cleanLogin(candidate);
+            if(found && !found.startsWith("user_")) return found;
+          }
+        }
+      }catch(e){}
+    }
+
+    try{
+      const { data: lessons } = await supabase.from("lessons").select("*");
+      const lesson8 = (lessons || []).find(row => {
+        const vals = [
+          row.lesson_no, row.lesson_number, row.number,
+          row.slug, row.code, row.title, row.name, row.label
+        ].filter(Boolean).map(x => String(x).toLowerCase());
+
+        return vals.some(v =>
+          v === "8" ||
+          v.includes("lekcja 8") ||
+          v.includes("lekcja8") ||
+          v.includes("lekcja-8") ||
+          v.includes("lekcja_8") ||
+          v.includes("lesson 8") ||
+          v.includes("lesson8") ||
+          v.includes("lesson-8") ||
+          v.includes("lesson_8")
+        );
+      });
+
+      if(!lesson8 || !lesson8.id) return null;
+
+      const { data: event } = await supabase
+        .from("lesson_access_events")
+        .select(`
+          viewed_at,
+          lesson_credentials (
+            login
+          )
+        `)
+        .eq("lesson_id", lesson8.id)
+        .eq("user_agent", navigator.userAgent)
+        .order("viewed_at", { ascending:false })
+        .limit(1)
+        .maybeSingle();
+
+      const login = cleanLogin(event?.lesson_credentials?.login);
+      return login && !login.startsWith("user_") ? login : null;
+    }catch(e){
+      console.warn("Nie udało się rozpoznać loginu użytkownika.", e);
+      return null;
+    }
+  }
+
+  let userId = getUserId();
+  let technicalUserId = userId;
   let profile = null;
   let rewards = [...defaultRewards];
   let sequence = {
@@ -829,11 +1040,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       .replace(/'/g,"&#039;");
   }
 
+  function readLocalProfile(){
+    const keys = [LOCAL_PROFILE_KEY, "szczelinka_profile_v1"];
+    for(const key of keys){
+      try{
+        const raw = localStorage.getItem(key);
+        if(raw){
+          const parsed = JSON.parse(raw);
+          if(parsed && typeof parsed === "object") return parsed;
+        }
+      }catch(e){}
+    }
+    return null;
+  }
+
   function fallbackProfile(){
-    try{
-      const raw = localStorage.getItem(LOCAL_PROFILE_KEY);
-      if(raw) return JSON.parse(raw);
-    }catch(e){}
+    const local = readLocalProfile();
+    if(local){
+      return {
+        ...local,
+        user_id:userId,
+        lesson8_completed: !!local.lesson8_completed || localStorage.getItem("lesson8_completed") === "yes",
+        lesson8_completed_at: local.lesson8_completed_at || localStorage.getItem("lesson8_completed_at") || null,
+        meditation_streak:Number(local.meditation_streak || 0),
+        meditation_last_date:local.meditation_last_date || null,
+        meditation_total_count:Number(local.meditation_total_count || 0)
+      };
+    }
+
     return {
       user_id:userId,
       lesson8_completed: localStorage.getItem("lesson8_completed") === "yes",
@@ -844,23 +1078,81 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     };
   }
 
+  function mergeProfiles(primary, secondary){
+    if(!secondary) return primary;
+
+    const merged = { ...primary };
+    merged.lesson8_completed = !!primary.lesson8_completed || !!secondary.lesson8_completed;
+    merged.lesson8_completed_at = primary.lesson8_completed_at || secondary.lesson8_completed_at || null;
+
+    const primaryStreak = Number(primary.meditation_streak || 0);
+    const secondaryStreak = Number(secondary.meditation_streak || 0);
+    const primaryLast = primary.meditation_last_date || null;
+    const secondaryLast = secondary.meditation_last_date || null;
+
+    if(secondaryLast && (!primaryLast || new Date(secondaryLast) > new Date(primaryLast))){
+      merged.meditation_last_date = secondaryLast;
+      merged.meditation_streak = secondaryStreak;
+    }else if(primaryLast && secondaryLast && primaryLast === secondaryLast){
+      merged.meditation_streak = Math.max(primaryStreak, secondaryStreak);
+    }else{
+      merged.meditation_streak = Math.max(primaryStreak, secondaryStreak);
+      merged.meditation_last_date = primaryLast || secondaryLast;
+    }
+
+    merged.meditation_total_count = Math.max(
+      Number(primary.meditation_total_count || 0),
+      Number(secondary.meditation_total_count || 0)
+    );
+
+    merged.user_id = userId;
+    return merged;
+  }
+
   async function loadProfile(){
+    const resolvedLogin = await resolveCurrentLogin();
+    if(resolvedLogin){
+      technicalUserId = userId;
+      userId = resolvedLogin;
+      localStorage.setItem(USER_KEY, userId);
+      localStorage.setItem("szczelinka_current_login", userId);
+    }
+
     try{
-      const { data, error } = await supabase
+      const { data: loginProfile, error } = await supabase
         .from(PROFILE_TABLE)
         .select("*")
         .eq("user_id", userId)
         .maybeSingle();
       if(error) throw error;
-      profile = data || fallbackProfile();
+
+      let technicalProfile = null;
+      if(technicalUserId && technicalUserId !== userId){
+        const { data: techData } = await supabase
+          .from(PROFILE_TABLE)
+          .select("*")
+          .eq("user_id", technicalUserId)
+          .maybeSingle();
+        technicalProfile = techData || null;
+      }
+
+      profile = mergeProfiles(loginProfile || fallbackProfile(), technicalProfile);
+      profile.user_id = userId;
+
+      if(technicalProfile || !loginProfile){
+        await saveProfile();
+      }
     }catch(e){
       profile = fallbackProfile();
+      profile.user_id = userId;
     }
   }
 
   async function saveProfile(){
+    profile.user_id = userId;
     profile.updated_at = new Date().toISOString();
     localStorage.setItem(LOCAL_PROFILE_KEY, JSON.stringify(profile));
+    localStorage.setItem("szczelinka_profile_v1", JSON.stringify(profile));
     if(profile.lesson8_completed){
       localStorage.setItem("lesson8_completed", "yes");
       if(profile.lesson8_completed_at) localStorage.setItem("lesson8_completed_at", profile.lesson8_completed_at);
