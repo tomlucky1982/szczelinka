@@ -1012,17 +1012,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function loadTaskState(){
     try{
       const raw=localStorage.getItem(stateKey());
-      if(raw){ const parsed=JSON.parse(raw); if(parsed?.tasks) taskState=parsed; }
+      if(raw){
+        const parsed=JSON.parse(raw);
+        if(parsed?.tasks) taskState=parsed;
+      }
     }catch(e){}
+
     rewards.forEach(r=>{
-      if(!taskState.tasks[r.id]) taskState.tasks[r.id]={status:"locked",streak:0,last_date:null,total_count:0,completed_at:null};
+      if(!taskState.tasks[r.id]){
+        taskState.tasks[r.id]={status:"locked",streak:0,last_date:null,total_count:0,completed_at:null};
+      }
     });
+
+    /*
+      Migracja użytkowników ze starej wersji narzędzia.
+      Dawniej postęp był zapisywany bezpośrednio w profilu jako meditation_streak.
+      Jeżeli dany login osiągnął już wymagany próg, odpowiednie zadanie od razu
+      uznajemy za ukończone i nie proponujemy wykonywania go ponownie.
+    */
+    const legacyStreak=Math.max(0,Number(profile?.meditation_streak)||0);
+    if(!taskState.legacy_profile_migrated){
+      rewards.forEach(r=>{
+        const required=Math.max(1,Number(r.days_required)||1);
+        const s=taskState.tasks[r.id];
+        if(legacyStreak>=required && s.status!=="completed"){
+          s.status="completed";
+          s.streak=required;
+          s.total_count=Math.max(Number(s.total_count)||0,required);
+          s.last_date=s.last_date||profile?.meditation_last_date||null;
+          s.completed_at=s.completed_at||profile?.updated_at||profile?.meditation_last_date||new Date().toISOString();
+          if(taskState.active_task_id===r.id) taskState.active_task_id=null;
+        }
+      });
+      taskState.legacy_profile_migrated=true;
+      taskState.legacy_profile_streak=legacyStreak;
+    }
+
     const firstIncomplete=rewards.find(r=>taskState.tasks[r.id]?.status!=="completed");
-    if(taskState.active_task_id && taskState.tasks[taskState.active_task_id]?.status!=="active") taskState.active_task_id=null;
-    rewards.forEach((r,index)=>{
+    if(taskState.active_task_id && taskState.tasks[taskState.active_task_id]?.status!=="active"){
+      taskState.active_task_id=null;
+    }
+
+    rewards.forEach(r=>{
       const s=taskState.tasks[r.id];
-      if(s.status!=="completed" && r.id!==taskState.active_task_id) s.status=(firstIncomplete?.id===r.id ? "available" : "locked");
+      if(s.status!=="completed" && r.id!==taskState.active_task_id){
+        s.status=(firstIncomplete?.id===r.id ? "available" : "locked");
+      }
     });
+
     saveTaskState();
   }
 
